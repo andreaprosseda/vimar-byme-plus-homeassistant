@@ -1,0 +1,1907 @@
+<?xml version="1.0" encoding="utf-8"?>
+<byme_configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="knxintegration_export.xsd" hash="5cf126dc561b8bdd19c5c3a15029afe0" lang="it" timestamp="1695329258">
+<environments>
+<environment id="0" label="Cruizer"/>
+<environment id="1" label="Living" parentId="0"/>
+<environment id="3" label="Camera" parentId="0"/>
+<environment id="4" label="Cameretta" parentId="0"/>
+<environment id="5" label="Studio" parentId="0"/>
+<environment id="7" label="Bagni" parentId="0"/>
+<environment id="8" label="Ingresso" parentId="0"/>
+<environment id="9" label="Esterno" parentId="0"/>
+</environments>
+<applications>
+<application id="1" label="System Day/Night" environment_id="0" category_id="12" category="integrazione" channel_id="3" channel="Temporizzatore Giorno-Notte di Sistema">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0046" flags="T">
+<dpt id="1.024" name="DPT_DayNight"/>
+<dptx id="488" name="DPTx_SysDayNight"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="2" label="Gestione Energia" environment_id="1" category_id="5" category="energia" channel_id="3" channel="Controllo Carichi, trifase, senza produzione">
+<groups>
+<group id="1" label="Gruppo Gestore">
+<group_addresses>
+<group_address address="0x0C02" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="83" name="DPTx_GlobalAlarm"/>
+</group_address>
+<group_address address="0x0C01" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="84" name="DPTx_CfgGlobalAlarm"/>
+</group_address>
+<group_address address="0x0C03" flags="RT">
+<dpt id="12.001" vimar_id="60000.60089" name="DPT_Vimar_AlarmStatusG"/>
+<dptx id="85" name="DPTx_GlobalAlarmStatus"/>
+</group_address>
+<group_address address="0x0C04" flags="RT">
+<dpt id="12.001" vimar_id="60000.60104" name="DPT_Vimar_CmdStatus"/>
+<dptx id="86" name="DPTx_CmdStatus"/>
+</group_address>
+<group_address address="0x0041" flags="WT">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="2" label="Gruppo Linea 1">
+<group_addresses>
+<group_address address="0x0C06" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="87" name="DPTx_LineCfgAlarm"/>
+</group_address>
+<group_address address="0x0C07" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="88" name="DPTx_LineAlarm"/>
+</group_address>
+<group_address address="0x0C08" flags="RT">
+<dpt id="7.001" vimar_id="60000.60087" name="DPT_Vimar_AlarmStatusL"/>
+<dptx id="89" name="DPTx_LineAlarmStatus"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="3" label="Gruppo Linea 2">
+<group_addresses>
+<group_address address="0x0C09" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="87" name="DPTx_LineCfgAlarm"/>
+</group_address>
+<group_address address="0x0C0A" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="88" name="DPTx_LineAlarm"/>
+</group_address>
+<group_address address="0x0C0B" flags="RT">
+<dpt id="7.001" vimar_id="60000.60087" name="DPT_Vimar_AlarmStatusL"/>
+<dptx id="89" name="DPTx_LineAlarmStatus"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="4" label="Gruppo Linea 3">
+<group_addresses>
+<group_address address="0x0C0C" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="87" name="DPTx_LineCfgAlarm"/>
+</group_address>
+<group_address address="0x0C0D" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="88" name="DPTx_LineAlarm"/>
+</group_address>
+<group_address address="0x0C0E" flags="RT">
+<dpt id="7.001" vimar_id="60000.60087" name="DPT_Vimar_AlarmStatusL"/>
+<dptx id="89" name="DPTx_LineAlarmStatus"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="5" label="Gruppo Misuratore 1">
+<group_addresses>
+<group_address address="0x0C0F" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C10" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C11" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C12" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C13" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C15" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C16" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="6" label="Gruppo Misuratore 2">
+<group_addresses>
+<group_address address="0x0C17" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C18" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C19" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C1A" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C1B" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C1D" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C1E" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="7" label="Gruppo Misuratore 3">
+<group_addresses>
+<group_address address="0x0C1F" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C20" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C21" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C22" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C23" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C25" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C26" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="3" label="Forno" environment_id="0" category_id="5" category="energia" channel_id="13" channel="Carico">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C27" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="21" name="DPTx_LoadManagerForcedOn"/>
+</group_address>
+<group_address address="0x0C28" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="22" name="DPTx_LoadManagerForcedOff2"/>
+</group_address>
+<group_address address="0x0C2B" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="24" name="DPTx_LoadManagerOnOff"/>
+</group_address>
+<group_address address="0x0C2C" flags="RT">
+<dpt id="5.010" vimar_id="60000.60079" name="DPT_Vimar_InfoStatus"/>
+<dptx id="91" name="DPTx_StatusInfo"/>
+</group_address>
+<group_address address="0x0C2D" flags="T">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="92" name="DPTx_ForcedOnInfo"/>
+</group_address>
+<group_address address="0x0C2E" flags="T">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="93" name="DPTx_ForcedOffInfo"/>
+</group_address>
+<group_address address="0x0C2F" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="110" name="DPTx_DispersionAlarmReset"/>
+</group_address>
+<group_address address="0x0C30" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="111" name="DPTx_FailureAlarm"/>
+</group_address>
+<group_address address="0x0C31" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="112" name="DPTx_DispersionAlarm"/>
+</group_address>
+<group_address address="0x0C29" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="282" name="DPTx_LoadManagerTimedForcedOn"/>
+</group_address>
+<group_address address="0x0C2A" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="283" name="DPTx_LoadManagerTimedForcedOff"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="4" label="Lavastoviglie" environment_id="0" category_id="5" category="energia" channel_id="13" channel="Carico">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C32" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="21" name="DPTx_LoadManagerForcedOn"/>
+</group_address>
+<group_address address="0x0C33" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="22" name="DPTx_LoadManagerForcedOff2"/>
+</group_address>
+<group_address address="0x0C36" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="24" name="DPTx_LoadManagerOnOff"/>
+</group_address>
+<group_address address="0x0C37" flags="RT">
+<dpt id="5.010" vimar_id="60000.60079" name="DPT_Vimar_InfoStatus"/>
+<dptx id="91" name="DPTx_StatusInfo"/>
+</group_address>
+<group_address address="0x0C38" flags="T">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="92" name="DPTx_ForcedOnInfo"/>
+</group_address>
+<group_address address="0x0C39" flags="T">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="93" name="DPTx_ForcedOffInfo"/>
+</group_address>
+<group_address address="0x0C3A" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="110" name="DPTx_DispersionAlarmReset"/>
+</group_address>
+<group_address address="0x0C3B" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="111" name="DPTx_FailureAlarm"/>
+</group_address>
+<group_address address="0x0C3C" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="112" name="DPTx_DispersionAlarm"/>
+</group_address>
+<group_address address="0x0C34" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="282" name="DPTx_LoadManagerTimedForcedOn"/>
+</group_address>
+<group_address address="0x0C35" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="283" name="DPTx_LoadManagerTimedForcedOff"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="5" label="Lavanderia" environment_id="0" category_id="5" category="energia" channel_id="13" channel="Carico">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C3D" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="21" name="DPTx_LoadManagerForcedOn"/>
+</group_address>
+<group_address address="0x0C3E" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="22" name="DPTx_LoadManagerForcedOff2"/>
+</group_address>
+<group_address address="0x0C41" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="24" name="DPTx_LoadManagerOnOff"/>
+</group_address>
+<group_address address="0x0C42" flags="RT">
+<dpt id="5.010" vimar_id="60000.60079" name="DPT_Vimar_InfoStatus"/>
+<dptx id="91" name="DPTx_StatusInfo"/>
+</group_address>
+<group_address address="0x0C43" flags="T">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="92" name="DPTx_ForcedOnInfo"/>
+</group_address>
+<group_address address="0x0C44" flags="T">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="93" name="DPTx_ForcedOffInfo"/>
+</group_address>
+<group_address address="0x0C45" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="110" name="DPTx_DispersionAlarmReset"/>
+</group_address>
+<group_address address="0x0C46" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="111" name="DPTx_FailureAlarm"/>
+</group_address>
+<group_address address="0x0C47" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="112" name="DPTx_DispersionAlarm"/>
+</group_address>
+<group_address address="0x0C3F" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="282" name="DPTx_LoadManagerTimedForcedOn"/>
+</group_address>
+<group_address address="0x0C40" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="283" name="DPTx_LoadManagerTimedForcedOff"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="6" label="Prese" environment_id="0" category_id="5" category="energia" channel_id="13" channel="Carico">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C48" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="21" name="DPTx_LoadManagerForcedOn"/>
+</group_address>
+<group_address address="0x0C49" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="22" name="DPTx_LoadManagerForcedOff2"/>
+</group_address>
+<group_address address="0x0C4C" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="24" name="DPTx_LoadManagerOnOff"/>
+</group_address>
+<group_address address="0x0C4D" flags="RT">
+<dpt id="5.010" vimar_id="60000.60079" name="DPT_Vimar_InfoStatus"/>
+<dptx id="91" name="DPTx_StatusInfo"/>
+</group_address>
+<group_address address="0x0C4E" flags="T">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="92" name="DPTx_ForcedOnInfo"/>
+</group_address>
+<group_address address="0x0C4F" flags="T">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="93" name="DPTx_ForcedOffInfo"/>
+</group_address>
+<group_address address="0x0C50" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="110" name="DPTx_DispersionAlarmReset"/>
+</group_address>
+<group_address address="0x0C51" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="111" name="DPTx_FailureAlarm"/>
+</group_address>
+<group_address address="0x0C52" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="112" name="DPTx_DispersionAlarm"/>
+</group_address>
+<group_address address="0x0C4A" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="282" name="DPTx_LoadManagerTimedForcedOn"/>
+</group_address>
+<group_address address="0x0C4B" flags="WT">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="283" name="DPTx_LoadManagerTimedForcedOff"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="7" label="Forno" environment_id="1" category_id="5" category="energia" channel_id="15" channel="Misuratore di energia">
+<groups>
+<group id="1" label="Gruppo Misuratore 1">
+<group_addresses>
+<group_address address="0x0C53" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C54" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C55" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C56" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C57" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C59" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C5A" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+<group_address address="0x0041" flags="WT">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="8" label="Lavastoviglie" environment_id="1" category_id="5" category="energia" channel_id="15" channel="Misuratore di energia">
+<groups>
+<group id="1" label="Gruppo Misuratore 1">
+<group_addresses>
+<group_address address="0x0C5B" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C5C" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C5D" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C5E" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C5F" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C61" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C62" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+<group_address address="0x0041" flags="WT">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="9" label="Lavanderia" environment_id="8" category_id="5" category="energia" channel_id="15" channel="Misuratore di energia">
+<groups>
+<group id="1" label="Gruppo Misuratore 1">
+<group_addresses>
+<group_address address="0x0C63" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C64" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C65" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C66" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C67" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C69" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C6A" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+<group_address address="0x0041" flags="WT">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="10" label="Prese" environment_id="1" category_id="5" category="energia" channel_id="15" channel="Misuratore di energia">
+<groups>
+<group id="1" label="Gruppo Misuratore 1">
+<group_addresses>
+<group_address address="0x0C6B" flags="W">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="94" name="DPTx_PartialResetEnergy"/>
+</group_address>
+<group_address address="0x0C6C" flags="W">
+<dpt id="1.015" name="DPT_Reset"/>
+<dptx id="95" name="DPTx_HistoryReset"/>
+</group_address>
+<group_address address="0x0C6D" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="96" name="DPTx_ActivePower"/>
+</group_address>
+<group_address address="0x0C6E" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="97" name="DPTx_PartialEnergy"/>
+</group_address>
+<group_address address="0x0C6F" flags="RT">
+<dpt id="13.010" name="DPT_ActiveEnergy"/>
+<dptx id="98" name="DPTx_AbsoluteEnergy"/>
+</group_address>
+<group_address address="0x0C71" flags="RT">
+<dpt id="14.056" name="DPT_Value_Power"/>
+<dptx id="100" name="DPTx_ReactivePower"/>
+</group_address>
+<group_address address="0x0C72" flags="W">
+<dpt id="1.010" name="DPT_Start"/>
+<dptx id="101" name="DPTx_TimedDynamicMode"/>
+</group_address>
+<group_address address="0x0041" flags="WT">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="11" label="Oscurante Salone" environment_id="1" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C73" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0C74" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0C75" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0C78" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0C76" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0C77" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="12" label="Faretti Ingresso" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C7A" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C79" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="13" label="Binari Divano" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C7C" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C7B" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="14" label="Led Veletta" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C7E" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C7D" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="15" label="Faretti Cubo" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C80" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C7F" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="16" label="Pendenti Cucina" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C82" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C81" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="17" label="Luce Penisola" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C84" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C83" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="18" label="Luce Vetrine" environment_id="1" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C85" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0C86" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="19" label="Oscurante Cucina" environment_id="1" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0C87" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0C88" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0C89" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0C8C" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0C8A" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0C8B" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="21" label="Faretti Camera" environment_id="3" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CB2" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0CB1" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="22" label="Pendente Camera" environment_id="3" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CB4" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0CB3" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="23" label="Led Letto" environment_id="3" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CB6" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0CB5" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="24" label="Luce Comodino" environment_id="3" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CB8" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0CB7" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="25" label="Oscurante Camera" environment_id="3" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CB9" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0CBA" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0CBB" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0CBE" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0CBC" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0CBD" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="26" label="Oscurante Bagno Camera" environment_id="7" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CBF" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0CC0" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0CC1" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0CC4" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0CC2" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0CC3" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="27" label="Oscurante Studio" environment_id="5" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CC5" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0CC6" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0CC7" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0CCA" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0CC8" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0CC9" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="28" label="Oscurante Cameretta" environment_id="4" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CCB" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0CCC" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0CCD" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0CD0" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0CCE" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0CCF" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="29" label="Oscurante Bagno Ospiti" environment_id="7" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CD1" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0CD2" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0CD3" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0CD6" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0CD4" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0CD5" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="33" label="Oscurante Pranzo" environment_id="1" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D44" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D45" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D46" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D49" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D47" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D48" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="38" label="Tenda Cucina" environment_id="1" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0CB0" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D1E" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D1F" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D4B" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D43" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D4A" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="39" label="Tenda Pranzo" environment_id="1" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D4C" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D4D" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D4E" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D51" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D4F" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D50" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="40" label="Tenda Salone" environment_id="1" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D52" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D53" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D54" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D57" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D55" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D56" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="41" label="Tenda Studio" environment_id="5" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D58" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D59" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D5A" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D5D" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D5B" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D5C" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="42" label="Tenda Bagno Ospiti" environment_id="7" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D5E" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D5F" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D60" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D63" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D61" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D62" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="43" label="Tenda Camera" environment_id="3" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D64" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D65" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D66" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D69" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D67" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D68" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="44" label="Tenda Cameretta" environment_id="4" category_id="2" category="tende e tapparelle" channel_id="1" channel="Tapparella senza lamelle">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D6A" flags="RWT">
+<dpt id="1.007" name="DPT_Step"/>
+<dptx id="5" name="DPTx_StopStepUpDown"/>
+</group_address>
+<group_address address="0x0D6B" flags="WT">
+<dpt id="1.008" name="DPT_UpDown"/>
+<dptx id="7" name="DPTx_UpDown"/>
+</group_address>
+<group_address address="0x0D6C" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="267" name="DPTx_Lock"/>
+</group_address>
+<group_address address="0x0D6F" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="268" name="DPTx_LockInfo"/>
+</group_address>
+<group_address address="0x0D6D" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="269" name="DPTx_ShutterPosition"/>
+</group_address>
+<group_address address="0x0D6E" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="270" name="DPTx_ShutterPositionInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="57" label="On=Estate/Off=Inverno" environment_id="8" category_id="10" category="varie" channel_id="0" channel="Switch">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D88" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="58" label="Clima Studio" environment_id="5" category_id="4" category="clima" channel_id="2" channel="Riscaldamento e Condizionamento">
+<groups>
+<group id="1" label="Gruppo Termostato">
+<group_addresses>
+<group_address address="0x0D06" flags="W">
+<dpt id="1.009" vimar_id="60000.60066" name="DPT_Vimar_ClimaForcedOff"/>
+<dptx id="20" name="DPTx_ClimaForcedOff"/>
+</group_address>
+<group_address address="0x0041" flags="W">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+<group_address address="0x0D01" flags="W">
+<dpt id="9.007" name="DPT_Value_Humidity"/>
+<dptx id="149" name="DPTx_HumidityValue"/>
+</group_address>
+<group_address address="0x0D04" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="205" name="DPTx_FanSpeed"/>
+</group_address>
+<group_address address="0x0D05" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="206" name="DPTx_FanSpeedInfo"/>
+</group_address>
+<group_address address="0x0CFA" flags="W">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="210" name="DPTx_ChangeOverMode"/>
+</group_address>
+<group_address address="0x0CFB" flags="RT">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="211" name="DPTx_ChangeOverModeInfo"/>
+</group_address>
+<group_address address="0x0CFC" flags="W">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="212" name="DPTx_HvacMode"/>
+</group_address>
+<group_address address="0x0CFD" flags="RT">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="213" name="DPTx_HvacModeInfo"/>
+</group_address>
+<group_address address="0x0CFE" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="214" name="DPTx_TemperatureSetpoint1"/>
+</group_address>
+<group_address address="0x0D00" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="215" name="DPTx_TemperatureSetpointInfo1"/>
+</group_address>
+<group_address address="0x0D02" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="216" name="DPTx_FanManualEnable"/>
+</group_address>
+<group_address address="0x0D03" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="217" name="DPTx_FanManualEnableInfo"/>
+</group_address>
+<group_address address="0x0D07" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="219" name="DPTx_AmbientTemperature"/>
+</group_address>
+<group_address address="0x0D08" flags="RT">
+<dpt id="5.010" vimar_id="60000.60090" name="DPT_Vimar_StatoUsciteT"/>
+<dptx id="220" name="DPTx_OutStatus"/>
+</group_address>
+<group_address address="0x0D09" flags="W">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="221" name="DPTx_ManualModeTiming"/>
+</group_address>
+<group_address address="0x0D0A" flags="RT">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="222" name="DPTx_ManualModeTimingInfo"/>
+</group_address>
+<group_address address="0x0D0B" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="223" name="DPTx_SubFloorAlarm"/>
+</group_address>
+<group_address address="0x0D0C" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="228" name="DPTx_ManualHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D0D" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="229" name="DPTx_ManualHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D10" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="230" name="DPTx_ReductionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D11" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="231" name="DPTx_ReductionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D14" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="232" name="DPTx_AbsenceHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D15" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="233" name="DPTx_AbsenceHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D18" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="234" name="DPTx_ProtectionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D19" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="235" name="DPTx_ProtectionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D1A" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="236" name="DPTx_ProtectionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D1B" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="237" name="DPTx_ProtectionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D0E" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="238" name="DPTx_ManualCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D0F" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="239" name="DPTx_ManualCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D12" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="240" name="DPTx_ReductionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D13" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="241" name="DPTx_ReductionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D16" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="242" name="DPTx_AbsenceCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D17" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="243" name="DPTx_AbsenceCoolingSetpointInfo"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="2" label="Gruppo Uscita 1">
+<group_addresses>
+<group_address address="0x0D1C" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0D1D" flags="WT">
+<dpt id="5.010" vimar_id="60000.60083" name="DPT_Vimar_Fancoil_2T"/>
+<dptx id="248" name="DPTx_Fancoil2Pipes"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="59" label="Clima Camera" environment_id="3" category_id="4" category="clima" channel_id="2" channel="Riscaldamento e Condizionamento">
+<groups>
+<group id="1" label="Gruppo Termostato">
+<group_addresses>
+<group_address address="0x0D2B" flags="W">
+<dpt id="1.009" vimar_id="60000.60066" name="DPT_Vimar_ClimaForcedOff"/>
+<dptx id="20" name="DPTx_ClimaForcedOff"/>
+</group_address>
+<group_address address="0x0041" flags="W">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+<group_address address="0x0D26" flags="W">
+<dpt id="9.007" name="DPT_Value_Humidity"/>
+<dptx id="149" name="DPTx_HumidityValue"/>
+</group_address>
+<group_address address="0x0D29" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="205" name="DPTx_FanSpeed"/>
+</group_address>
+<group_address address="0x0D2A" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="206" name="DPTx_FanSpeedInfo"/>
+</group_address>
+<group_address address="0x0D20" flags="W">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="210" name="DPTx_ChangeOverMode"/>
+</group_address>
+<group_address address="0x0D21" flags="RT">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="211" name="DPTx_ChangeOverModeInfo"/>
+</group_address>
+<group_address address="0x0D22" flags="W">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="212" name="DPTx_HvacMode"/>
+</group_address>
+<group_address address="0x0D23" flags="RT">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="213" name="DPTx_HvacModeInfo"/>
+</group_address>
+<group_address address="0x0D24" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="214" name="DPTx_TemperatureSetpoint1"/>
+</group_address>
+<group_address address="0x0D25" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="215" name="DPTx_TemperatureSetpointInfo1"/>
+</group_address>
+<group_address address="0x0D27" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="216" name="DPTx_FanManualEnable"/>
+</group_address>
+<group_address address="0x0D28" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="217" name="DPTx_FanManualEnableInfo"/>
+</group_address>
+<group_address address="0x0D2C" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="219" name="DPTx_AmbientTemperature"/>
+</group_address>
+<group_address address="0x0D2D" flags="RT">
+<dpt id="5.010" vimar_id="60000.60090" name="DPT_Vimar_StatoUsciteT"/>
+<dptx id="220" name="DPTx_OutStatus"/>
+</group_address>
+<group_address address="0x0D2E" flags="W">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="221" name="DPTx_ManualModeTiming"/>
+</group_address>
+<group_address address="0x0D2F" flags="RT">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="222" name="DPTx_ManualModeTimingInfo"/>
+</group_address>
+<group_address address="0x0D30" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="223" name="DPTx_SubFloorAlarm"/>
+</group_address>
+<group_address address="0x0D31" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="228" name="DPTx_ManualHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D32" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="229" name="DPTx_ManualHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D35" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="230" name="DPTx_ReductionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D36" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="231" name="DPTx_ReductionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D39" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="232" name="DPTx_AbsenceHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D3A" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="233" name="DPTx_AbsenceHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D3D" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="234" name="DPTx_ProtectionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0D3E" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="235" name="DPTx_ProtectionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D3F" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="236" name="DPTx_ProtectionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D40" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="237" name="DPTx_ProtectionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D33" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="238" name="DPTx_ManualCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D34" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="239" name="DPTx_ManualCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D37" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="240" name="DPTx_ReductionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D38" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="241" name="DPTx_ReductionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0D3B" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="242" name="DPTx_AbsenceCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0D3C" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="243" name="DPTx_AbsenceCoolingSetpointInfo"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="2" label="Gruppo Uscita 1">
+<group_addresses>
+<group_address address="0x0D41" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0D42" flags="WT">
+<dpt id="5.010" vimar_id="60000.60083" name="DPT_Vimar_Fancoil_2T"/>
+<dptx id="248" name="DPTx_Fancoil2Pipes"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="60" label="Clima Living" environment_id="1" category_id="4" category="clima" channel_id="2" channel="Riscaldamento e Condizionamento">
+<groups>
+<group id="1" label="Gruppo Termostato">
+<group_addresses>
+<group_address address="0x0C98" flags="W">
+<dpt id="1.009" vimar_id="60000.60066" name="DPT_Vimar_ClimaForcedOff"/>
+<dptx id="20" name="DPTx_ClimaForcedOff"/>
+</group_address>
+<group_address address="0x0041" flags="W">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+<group_address address="0x0C93" flags="W">
+<dpt id="9.007" name="DPT_Value_Humidity"/>
+<dptx id="149" name="DPTx_HumidityValue"/>
+</group_address>
+<group_address address="0x0C96" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="205" name="DPTx_FanSpeed"/>
+</group_address>
+<group_address address="0x0C97" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="206" name="DPTx_FanSpeedInfo"/>
+</group_address>
+<group_address address="0x0C8D" flags="W">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="210" name="DPTx_ChangeOverMode"/>
+</group_address>
+<group_address address="0x0C8E" flags="RT">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="211" name="DPTx_ChangeOverModeInfo"/>
+</group_address>
+<group_address address="0x0C8F" flags="W">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="212" name="DPTx_HvacMode"/>
+</group_address>
+<group_address address="0x0C90" flags="RT">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="213" name="DPTx_HvacModeInfo"/>
+</group_address>
+<group_address address="0x0C91" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="214" name="DPTx_TemperatureSetpoint1"/>
+</group_address>
+<group_address address="0x0C92" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="215" name="DPTx_TemperatureSetpointInfo1"/>
+</group_address>
+<group_address address="0x0C94" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="216" name="DPTx_FanManualEnable"/>
+</group_address>
+<group_address address="0x0C95" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="217" name="DPTx_FanManualEnableInfo"/>
+</group_address>
+<group_address address="0x0C99" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="219" name="DPTx_AmbientTemperature"/>
+</group_address>
+<group_address address="0x0C9A" flags="RT">
+<dpt id="5.010" vimar_id="60000.60090" name="DPT_Vimar_StatoUsciteT"/>
+<dptx id="220" name="DPTx_OutStatus"/>
+</group_address>
+<group_address address="0x0C9B" flags="W">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="221" name="DPTx_ManualModeTiming"/>
+</group_address>
+<group_address address="0x0C9C" flags="RT">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="222" name="DPTx_ManualModeTimingInfo"/>
+</group_address>
+<group_address address="0x0C9D" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="223" name="DPTx_SubFloorAlarm"/>
+</group_address>
+<group_address address="0x0C9E" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="228" name="DPTx_ManualHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0C9F" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="229" name="DPTx_ManualHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CA2" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="230" name="DPTx_ReductionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CA3" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="231" name="DPTx_ReductionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CA6" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="232" name="DPTx_AbsenceHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CA7" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="233" name="DPTx_AbsenceHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CAA" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="234" name="DPTx_ProtectionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CAB" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="235" name="DPTx_ProtectionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CAC" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="236" name="DPTx_ProtectionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CAD" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="237" name="DPTx_ProtectionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CA0" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="238" name="DPTx_ManualCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CA1" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="239" name="DPTx_ManualCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CA4" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="240" name="DPTx_ReductionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CA5" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="241" name="DPTx_ReductionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CA8" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="242" name="DPTx_AbsenceCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CA9" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="243" name="DPTx_AbsenceCoolingSetpointInfo"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="2" label="Gruppo Uscita 1">
+<group_addresses>
+<group_address address="0x0CAE" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0CAF" flags="WT">
+<dpt id="5.010" vimar_id="60000.60083" name="DPT_Vimar_Fancoil_2T"/>
+<dptx id="248" name="DPTx_Fancoil2Pipes"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="61" label="Clima Cameretta" environment_id="4" category_id="4" category="clima" channel_id="2" channel="Riscaldamento e Condizionamento">
+<groups>
+<group id="1" label="Gruppo Termostato">
+<group_addresses>
+<group_address address="0x0CE2" flags="W">
+<dpt id="1.009" vimar_id="60000.60066" name="DPT_Vimar_ClimaForcedOff"/>
+<dptx id="20" name="DPTx_ClimaForcedOff"/>
+</group_address>
+<group_address address="0x0041" flags="W">
+<dpt id="19.001" name="DPT_DateTime"/>
+<dptx id="135" name="DPTx_SysClockDateTime"/>
+</group_address>
+<group_address address="0x0CDD" flags="W">
+<dpt id="9.007" name="DPT_Value_Humidity"/>
+<dptx id="149" name="DPTx_HumidityValue"/>
+</group_address>
+<group_address address="0x0CE0" flags="W">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="205" name="DPTx_FanSpeed"/>
+</group_address>
+<group_address address="0x0CE1" flags="RT">
+<dpt id="5.001" name="DPT_Scaling"/>
+<dptx id="206" name="DPTx_FanSpeedInfo"/>
+</group_address>
+<group_address address="0x0CD7" flags="W">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="210" name="DPTx_ChangeOverMode"/>
+</group_address>
+<group_address address="0x0CD8" flags="RT">
+<dpt id="20.107" name="DPT_ChangeoverMode"/>
+<dptx id="211" name="DPTx_ChangeOverModeInfo"/>
+</group_address>
+<group_address address="0x0CD9" flags="W">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="212" name="DPTx_HvacMode"/>
+</group_address>
+<group_address address="0x0CDA" flags="RT">
+<dpt id="20.102" vimar_id="60000.60076" name="DPT_Vimar_HVACMode"/>
+<dptx id="213" name="DPTx_HvacModeInfo"/>
+</group_address>
+<group_address address="0x0CDB" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="214" name="DPTx_TemperatureSetpoint1"/>
+</group_address>
+<group_address address="0x0CDC" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="215" name="DPTx_TemperatureSetpointInfo1"/>
+</group_address>
+<group_address address="0x0CDE" flags="W">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="216" name="DPTx_FanManualEnable"/>
+</group_address>
+<group_address address="0x0CDF" flags="RT">
+<dpt id="1.003" name="DPT_Enable"/>
+<dptx id="217" name="DPTx_FanManualEnableInfo"/>
+</group_address>
+<group_address address="0x0CE3" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="219" name="DPTx_AmbientTemperature"/>
+</group_address>
+<group_address address="0x0CE4" flags="RT">
+<dpt id="5.010" vimar_id="60000.60090" name="DPT_Vimar_StatoUsciteT"/>
+<dptx id="220" name="DPTx_OutStatus"/>
+</group_address>
+<group_address address="0x0CE5" flags="W">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="221" name="DPTx_ManualModeTiming"/>
+</group_address>
+<group_address address="0x0CE6" flags="RT">
+<dpt id="7.006" name="DPT_TimePeriodMin"/>
+<dptx id="222" name="DPTx_ManualModeTimingInfo"/>
+</group_address>
+<group_address address="0x0CE7" flags="RT">
+<dpt id="1.005" name="DPT_Alarm"/>
+<dptx id="223" name="DPTx_SubFloorAlarm"/>
+</group_address>
+<group_address address="0x0CE8" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="228" name="DPTx_ManualHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CE9" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="229" name="DPTx_ManualHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CEC" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="230" name="DPTx_ReductionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CED" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="231" name="DPTx_ReductionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CF0" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="232" name="DPTx_AbsenceHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CF1" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="233" name="DPTx_AbsenceHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CF4" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="234" name="DPTx_ProtectionHeatingSetpoint"/>
+</group_address>
+<group_address address="0x0CF5" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="235" name="DPTx_ProtectionHeatingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CF6" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="236" name="DPTx_ProtectionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CF7" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="237" name="DPTx_ProtectionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CEA" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="238" name="DPTx_ManualCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CEB" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="239" name="DPTx_ManualCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CEE" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="240" name="DPTx_ReductionCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CEF" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="241" name="DPTx_ReductionCoolingSetpointInfo"/>
+</group_address>
+<group_address address="0x0CF2" flags="W">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="242" name="DPTx_AbsenceCoolingSetpoint"/>
+</group_address>
+<group_address address="0x0CF3" flags="RT">
+<dpt id="9.001" name="DPT_Value_Temp"/>
+<dptx id="243" name="DPTx_AbsenceCoolingSetpointInfo"/>
+</group_address>
+</group_addresses>
+</group>
+<group id="2" label="Gruppo Uscita 1">
+<group_addresses>
+<group_address address="0x0CF8" flags="WT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0CF9" flags="WT">
+<dpt id="5.010" vimar_id="60000.60083" name="DPT_Vimar_Fancoil_2T"/>
+<dptx id="248" name="DPTx_Fancoil2Pipes"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="63" label="Portone" environment_id="8" category_id="9" category="accessi e presenze" channel_id="2" channel="PortaFinestra">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D72" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0D73" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="64" label="Illuminazione Entrata" environment_id="9" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D70" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0D71" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+<application id="65" label="Illuminazione Moricone" environment_id="9" category_id="1" category="luci" channel_id="0" channel="Luce ON - OFF">
+<groups>
+<group id="1" label="Gruppo">
+<group_addresses>
+<group_address address="0x0D74" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="1" name="DPTx_OnOff"/>
+</group_address>
+<group_address address="0x0D75" flags="RWT">
+<dpt id="1.001" name="DPT_Switch"/>
+<dptx id="75" name="DPTx_OnOffInfo"/>
+</group_address>
+</group_addresses>
+</group>
+</groups>
+</application>
+</applications>
+</byme_configuration>

@@ -1,0 +1,15 @@
+/target/
+.settings/*
+.project
+.classpath
+*.iml
+.checkstyle
+.apt_generated/
+.apt_generated_test/
+bin/
+/**/WEB-INF/classes
+.factorypath
+.metadata
+tmp/
+.idea
+.DS_Store
