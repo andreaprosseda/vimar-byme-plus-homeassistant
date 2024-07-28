@@ -13,3 +13,7 @@ bin/
 tmp/
 .idea
 .DS_Store
+__pycache__/
+*.py[cod]
+
+vimar_config.py
