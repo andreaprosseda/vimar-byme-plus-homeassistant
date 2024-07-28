@@ -1,0 +1,26 @@
+from enum import Enum
+
+
+class DptValue(Enum):
+    # "On/Off relè"
+    ON_OFF = "DPTx_OnOff"
+    # "Stato corrente On/Off"
+    ON_OFF_STATE = "DPTx_OnOffInfo"
+    # "STOP  = con tapparella in movimento"
+    STOP = "DPTx_StopStepUpDown"
+    # "Tutto su / Tutto giù"
+    MOVE_LONG = "DPTx_UpDown"
+    # "Aoertura/Chiusura % tapparelle"
+    POSITION = "DPTx_ShutterPosition"
+    # "Stato corrente di apertura delle tapparella"
+    POSITION_STATE = "DPTx_ShutterPositionInfo"
+    # "Temperatura corrente della stanza"
+    TEMPERATURE = "DPTx_AmbientTemperature"
+    # "Set della temperatura da raggiungere"
+    TARGET_TEMPERATURE = "DPTx_TemperatureSetpoint1"
+    # "Verifica della temperatura da raggiungere"
+    TARGET_TEMPERATURE_STATE = "DPTx_TemperatureSetpointInfo1"
+    # "Set HVAC Mode"
+    CONTROLLER_MODE = "DPTx_HvacMode"
+    # "Verifica del HVAC Mode"
+    CONTROLLER_MODE_STATE = "DPTx_HvacModeInfo"
