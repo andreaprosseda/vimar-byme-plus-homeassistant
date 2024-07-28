@@ -15,7 +15,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DATA_COORDINATOR, DOMAIN
 from .coordinator import VimarDataUpdateCoordinator
-from .vimar.vimar_application import VimarApplication
+from .vimar.vimar_application import VimarApplication, VimarType
 from .vimar.vimar_dpt_values import DptValue
 from .vimar.vimar_entity import VimarEntity
 
@@ -30,7 +30,7 @@ async def async_setup_entry(
     """Set up component based on a config entry."""
     hass_entry = hass.data[DOMAIN][entry.entry_id]
     coordinator: VimarDataUpdateCoordinator = hass_entry[DATA_COORDINATOR]
-    apps = coordinator.config.get_lights()
+    apps = coordinator.config.get_entities(VimarType.LIGHT)
     entities = [VimarLight(coordinator, app) for app in apps]
     _LOGGER.debug("Lights found: %s", len(entities))
     async_add_entities(entities, True)
@@ -46,7 +46,7 @@ class VimarLight(VimarEntity, LightEntity):
     ) -> None:
         """Initialize the light."""
         VimarEntity.__init__(self, coordinator, app)
-        self._device = self._register_knx_light(coordinator.knx)
+        self._device = self._register_knx_device(coordinator.knx)
 
     @property
     def is_on(self) -> bool:
@@ -101,7 +101,7 @@ class VimarLight(VimarEntity, LightEntity):
         """Turn the light off."""
         await self._device.set_off()
 
-    def _register_knx_light(self, knx: XKNX) -> Light:
+    def _register_knx_device(self, knx: XKNX) -> Light:
         light = Light(
             knx,
             name=self.app.label,

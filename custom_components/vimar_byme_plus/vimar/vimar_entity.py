@@ -11,7 +11,7 @@ from ..utils.ip_to_knx import get_knx_group_address
 from .model.application import Application
 from .model.environment import Environment
 from .model.group_address import GroupAddress
-from .vimar_application import VimarApplication
+from .vimar_application import VimarApplication, VimarType
 from .vimar_dpt_values import DptValue
 
 _LOGGER = logging.getLogger(__name__)
@@ -20,6 +20,7 @@ _LOGGER = logging.getLogger(__name__)
 class VimarEntity(CoordinatorEntity):
     """Vimar abstract base entity."""
 
+    type: VimarType
     app: Application
     env: Environment
 
@@ -28,6 +29,7 @@ class VimarEntity(CoordinatorEntity):
     ) -> None:
         """Initialize VimarEntity."""
         super().__init__(coordinator)
+        self.type = app.type
         self.app = app.application
         self.env = app.environment
 
@@ -47,8 +49,10 @@ class VimarEntity(CoordinatorEntity):
     # @property
     # def icon(self):
 
-    # @property
-    # def device_class(self):
+    @property
+    def device_class(self):
+        """Return type of the device."""
+        return self.type.value.get("device_class")
 
     @property
     def unique_id(self):

@@ -1,7 +1,9 @@
-from .model.byme_configuration import ByMeConfiguration
+"""VIMAR supporting class for  ."""
+
 from .model.application import Application
+from .model.byme_configuration import ByMeConfiguration
 from .model.environment import Environment
-from .vimar_application import VimarApplication
+from .vimar_application import VimarApplication, VimarType
 
 
 class VimarData:
@@ -15,24 +17,10 @@ class VimarData:
         """Return string representation of this class."""
         return f"Vimar Data {self.config.applications}"
 
-    def get_lights(self) -> list[VimarApplication]:
-        """Return lights from configuration."""
+    def get_entities(self, type: VimarType) -> list[VimarApplication]:
+        """Return entities of provided type from configuration."""
         apps = self.config.applications
-        result = list(filter(lambda app: app.category_id == "1", apps))
-        return self._get_vimar_applications(result)
-
-    def get_covers(self) -> list[VimarApplication]:
-        """Return covers from configuration."""
-        apps = self.config.applications
-        covers = list(filter(lambda app: app.category_id == "2", apps))
-        doors = list(filter(lambda app: app.category_id == "9", apps))
-        result = covers + doors
-        return self._get_vimar_applications(result)
-
-    def get_climates(self) -> list[VimarApplication]:
-        """Return climates from configuration."""
-        apps = self.config.applications
-        result = list(filter(lambda app: app.category_id == "4", apps))
+        result = list(filter(lambda app: self._is(app, type), apps))
         return self._get_vimar_applications(result)
 
     def _get_vimar_applications(
@@ -40,8 +28,9 @@ class VimarData:
     ) -> list[VimarApplication]:
         vimar_apps = []
         for app in apps:
+            vimar_type: VimarType = VimarType.from_id(app.category_id)
             env = self._get_environment(app)
-            vimar_apps.append(VimarApplication(app, env))
+            vimar_apps.append(VimarApplication(vimar_type, app, env))
         return vimar_apps
 
     def _get_vimar_application(self, app: Application) -> VimarApplication:
@@ -52,3 +41,6 @@ class VimarData:
         """Return environment for an application from configuration."""
         envs = self.config.environments
         return list(filter(lambda env: env.id == app.environment_id, envs))[0]
+
+    def _is(self, app: Application, vimar_type: VimarType) -> bool:
+        return app.category_id == vimar_type.value.get("id")
