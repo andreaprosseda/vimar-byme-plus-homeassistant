@@ -2,7 +2,7 @@
 
 from typing import Final
 
-DOMAIN = "vimar"
+DOMAIN = "vimar_byme_plus"
 DEFAULT_UPDATE_INTERVAL = 6
 CONFIG = "vimar_config"
 
