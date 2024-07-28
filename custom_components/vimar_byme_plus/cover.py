@@ -149,7 +149,7 @@ class VimarCover(VimarEntity, CoverEntity):
             group_address_stop=self._get_address(DptValue.STOP),
             travel_time_down=30,
             travel_time_up=30,
-            invert_position=False,
+            invert_updown=False,
         )
 
     def _get_door(self, knx: XKNX) -> Cover:
@@ -159,5 +159,5 @@ class VimarCover(VimarEntity, CoverEntity):
             group_address_long=self._get_address(DptValue.ON_OFF),
             travel_time_down=1,
             travel_time_up=0,
-            invert_position=True,
+            invert_updown=True,
         )
