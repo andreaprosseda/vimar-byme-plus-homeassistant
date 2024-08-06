@@ -1,8 +1,8 @@
 """VIMAR supporting class for  ."""
 
-from .model.application import Application
-from .model.byme_configuration import ByMeConfiguration
-from .model.environment import Environment
+from .byme_configuration.application import Application
+from .byme_configuration.byme_configuration import ByMeConfiguration
+from .byme_configuration.environment import Environment
 from .vimar_application import VimarApplication, VimarType
 
 

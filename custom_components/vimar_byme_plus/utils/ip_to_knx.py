@@ -43,7 +43,7 @@ def get_knx_group_address(hex: str) -> str | None:
         # 0/0/0 is reserved
         return "1/0/0"
 
-    _LOGGER.debug("Hex: %s - Knx: %s", hex_value, address)
+    # _LOGGER.debug("Hex: %s - Knx: %s", hex_value, address)
     return address
 
 

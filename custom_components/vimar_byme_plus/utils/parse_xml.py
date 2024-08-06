@@ -4,7 +4,7 @@ from xml.etree.ElementTree import Element
 
 from defusedxml.ElementTree import fromstring, parse
 
-from ..vimar.model.byme_configuration import ByMeConfiguration
+from ..vimar.model.byme_configuration.byme_configuration import ByMeConfiguration
 
 
 def parse_config_from_path(xml_file_path: str) -> ByMeConfiguration:

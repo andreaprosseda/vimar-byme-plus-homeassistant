@@ -19,8 +19,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DATA_COORDINATOR, DOMAIN
 from .coordinator import VimarDataUpdateCoordinator
-from .vimar.vimar_application import VimarApplication, VimarType
-from .vimar.vimar_dpt_values import DptValue
+from .vimar.model.vimar_application import VimarApplication, VimarType
+from .vimar.enum.vimar_dpt_values import DptValue
 from .vimar.vimar_entity import VimarEntity
 
 _LOGGER = logging.getLogger(__name__)

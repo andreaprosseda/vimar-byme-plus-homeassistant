@@ -12,7 +12,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .const import DEFAULT_UPDATE_INTERVAL, DOMAIN
 from .vimar.vimar_client import VimarClient
-from .vimar.vimar_data import VimarData
+from .vimar.model.vimar_data import VimarData
 
 _LOGGER = logging.getLogger(__name__)
 

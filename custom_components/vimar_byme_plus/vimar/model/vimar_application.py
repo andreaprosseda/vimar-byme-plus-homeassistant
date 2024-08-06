@@ -2,8 +2,8 @@
 
 from enum import Enum
 
-from .model.application import Application
-from .model.environment import Environment
+from .byme_configuration.application import Application
+from .byme_configuration.environment import Environment
 
 
 class VimarType(Enum):

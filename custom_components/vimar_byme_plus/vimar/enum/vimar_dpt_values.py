@@ -24,3 +24,7 @@ class DptValue(Enum):
     CONTROLLER_MODE = "DPTx_HvacMode"
     # "Verifica del HVAC Mode"
     CONTROLLER_MODE_STATE = "DPTx_HvacModeInfo"
+    # ""
+    HEAT_COOL_MODE = "DPTx_ChangeOverMode"
+    # ""
+    HEAT_COOL_MODE_STATE = "DPTx_ChangeOverModeInfo"
