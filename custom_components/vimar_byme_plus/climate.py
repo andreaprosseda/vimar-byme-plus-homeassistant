@@ -6,17 +6,6 @@ import logging
 from typing import Any
 
 from xknx import XKNX
-from xknx.devices import Climate, ClimateMode
-from xknx.dpt.dpt_hvac_mode import HVACControllerMode, HVACOperationMode
-from xknx.remote_value.remote_value_raw import RemoteValueRaw
-from xknx.telegram import GroupAddress, Telegram, TelegramDirection, apci
-from xknx.telegram.address import GroupAddress
-from xknx.tools import (
-    group_value_read,
-    group_value_response,
-    group_value_write,
-    read_group_value,
-)
 
 from homeassistant.components.climate import (
     PRESET_AWAY,
@@ -36,27 +25,31 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import DATA_COORDINATOR, DOMAIN
 from .coordinator import VimarDataUpdateCoordinator
-from .vimar.climate.remote_value_vimar_change_over_mode import (
-    RemoteValueVimarChangeOverMode,
+from .vimar.climate.custom_climate import CustomClimate
+from .vimar.climate.custom_climate_mode import CustomClimateMode
+from .vimar.climate.custom_hvac_mode import (
+    HVACControllerMode as CustomHVACControllerMode,
+    HVACOperationMode as CustomHVACOperationMode,
 )
 from .vimar.model.byme_configuration.application import Application
 from .vimar.model.vimar_addresses import VimarAddresses
 from .vimar.model.vimar_application import VimarApplication, VimarType
 from .vimar.vimar_entity import VimarEntity
 
-HVAC_MODES = [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL]
-
-HVAC_MODE_VALUES = {
-    HVACControllerMode.HEAT: HVACMode.COOL,
-    HVACControllerMode.MORNING_WARMUP: HVACMode.HEAT,
-}
+HVAC_MODES = [HVACMode.HEAT, HVACMode.COOL]
 
 HVAC_OPERATION_MODE_VALUES = {
-    HVACOperationMode.AUTO: PRESET_NONE,
-    HVACOperationMode.COMFORT: PRESET_COMFORT,
-    HVACOperationMode.STANDBY: PRESET_AWAY,
-    HVACOperationMode.NIGHT: PRESET_SLEEP,
-    HVACOperationMode.FROST_PROTECTION: PRESET_ECO,
+    CustomHVACOperationMode.AUTO: PRESET_NONE,
+    CustomHVACOperationMode.COMFORT: PRESET_COMFORT,
+    CustomHVACOperationMode.STANDBY: PRESET_AWAY,
+    CustomHVACOperationMode.NIGHT: PRESET_SLEEP,
+    CustomHVACOperationMode.FROST_PROTECTION: PRESET_ECO,
+    CustomHVACOperationMode.OFF: PRESET_NONE,
+}
+
+HVAC_MODE_VALUES = {
+    CustomHVACControllerMode.COOL: HVACMode.COOL,
+    CustomHVACControllerMode.HEAT: HVACMode.HEAT,
 }
 
 HVAC_ACTIONS = {
@@ -89,12 +82,13 @@ class VimarClimate(VimarEntity, ClimateEntity):
     _attr_temperature_unit = UnitOfTemperature.CELSIUS
     # _attr_fan_modes = [FAN_AUTO, FAN_ON, FAN_LOW, FAN_MEDIUM, FAN_HIGH]
 
-    _device: Climate
+    _device: CustomClimate
 
-    _default_operation_mode = HVACOperationMode.AUTO
-    _default_contoller_mode = HVACControllerMode.HEAT
+    _default_operation_mode = CustomHVACOperationMode.AUTO
+    _default_controller_mode = CustomHVACControllerMode.HEAT
     _default_mode = HVACMode.HEAT
     _last_hvac_mode: HVACMode
+    _enable_turn_on_off_backwards_compatibility = False
 
     def __init__(
         self, coordinator: VimarDataUpdateCoordinator, app: VimarApplication
@@ -162,10 +156,15 @@ class VimarClimate(VimarEntity, ClimateEntity):
 
     async def async_set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set controller mode."""
-        controller_mode = self._get_controller_mode(hvac_mode)
-        _LOGGER.debug("[%s] Setting %s from %s", self.name, controller_mode, hvac_mode)
-        await self._device.mode.set_controller_mode(controller_mode)
-        self.async_write_ha_state()
+        if hvac_mode == HVACMode.OFF:
+            await self.async_turn_off()
+        else:
+            controller_mode = self._get_controller_mode(hvac_mode)
+            _LOGGER.debug(
+                "[%s] Setting %s from %s", self.name, controller_mode, hvac_mode
+            )
+            await self._device.mode.set_controller_mode(controller_mode)
+            self.async_write_ha_state()
 
     @property
     def hvac_action(self) -> HVACAction | None:
@@ -173,7 +172,6 @@ class VimarClimate(VimarEntity, ClimateEntity):
         mode = self._device.mode
         _LOGGER.info("[%s] OperationMode %s", self.name, mode.operation_mode.value)
         _LOGGER.info("[%s] ControllerMode %s", self.name, mode.controller_mode.value)
-
         # NEED TO MANAGE IDLE
         hvac_mode = self.hvac_mode
         action = HVAC_ACTIONS.get(hvac_mode, HVACAction.IDLE)
@@ -219,6 +217,13 @@ class VimarClimate(VimarEntity, ClimateEntity):
             await self._device.set_target_temperature(temperature)
             self.async_write_ha_state()
 
+    async def async_toggle(self) -> None:
+        """Toggle the entity."""
+        if self.hvac_mode == HVACMode.OFF:
+            await self.async_turn_on()
+        else:
+            await self.async_turn_off()
+
     async def async_turn_on(self) -> None:
         """Turn the entity on."""
         mode = self._last_hvac_mode
@@ -229,18 +234,20 @@ class VimarClimate(VimarEntity, ClimateEntity):
 
     async def async_turn_off(self) -> None:
         """Turn the entity off."""
-        controller_mode = HVACControllerMode.OFF
-        _LOGGER.info("Setting Controller Mode %s", controller_mode)
-        # await self._device.mode.set_controller_mode(HVACControllerMode.OFF)
-        # self.async_write_ha_state()
+        _LOGGER.info("Setting Controller Mode %s", "OFF")
+        await self._device.mode.set_operation_mode(CustomHVACOperationMode.OFF)
+        self.async_write_ha_state()
 
-    def _get_operation_mode(self, preset_mode: str) -> HVACOperationMode:
+    def _get_operation_mode(self, preset_mode: str) -> CustomHVACOperationMode:
         for operation_mode, preset_mode_name in HVAC_OPERATION_MODE_VALUES.items():
             if preset_mode_name == preset_mode:
                 return operation_mode
         return self._default_operation_mode
 
-    def _get_controller_mode(self, hvac_mode: HVACMode) -> HVACControllerMode:
+    def _get_controller_mode(self, hvac_mode: HVACMode) -> CustomHVACControllerMode:
+        _LOGGER.info("Get Controller from: %s", hvac_mode)
+        if hvac_mode == HVACMode.OFF:
+            hvac_mode = self._last_hvac_mode
         for controller_mode, related_hvac_mode in HVAC_MODE_VALUES.items():
             if related_hvac_mode == hvac_mode:
                 return controller_mode
@@ -251,7 +258,7 @@ class VimarClimate(VimarEntity, ClimateEntity):
         await super().async_added_to_hass()
         self._device.mode.register_device_updated_cb(self.after_update_callback)
 
-    def _register_knx_device(self, knx: XKNX, app: VimarApplication) -> Climate:
+    def _register_knx_device(self, knx: XKNX, app: VimarApplication) -> CustomClimate:
         addresses = self._get_addresses(app.application)
         climate = self._get_climate(knx, app.application, addresses)
         knx.devices.add(climate)
@@ -259,19 +266,13 @@ class VimarClimate(VimarEntity, ClimateEntity):
 
     def _get_climate(
         self, knx: XKNX, app: Application, addresses: VimarAddresses
-    ) -> Climate:
-        return Climate(
+    ) -> CustomClimate:
+        return CustomClimate(
             xknx=knx,
             name=app.label,
             group_address_temperature=addresses.ambient_temperature,
             group_address_target_temperature=addresses.temperature_setpoint,
             group_address_target_temperature_state=addresses.temperature_setpoint_info,
-            group_address_setpoint_shift=None,
-            group_address_setpoint_shift_state=None,
-            group_address_on_off=None,
-            group_address_on_off_state=None,
-            group_address_active_state=None,
-            # group_address_command_value_state=self._get_address("DPTx_FanSpeedInfo"),
             min_temp=16,
             max_temp=40,
             mode=self._get_climate_mode(knx, app, addresses),
@@ -279,14 +280,12 @@ class VimarClimate(VimarEntity, ClimateEntity):
 
     def _get_climate_mode(
         self, knx: XKNX, app: Application, addresses: VimarAddresses
-    ) -> ClimateMode:
-        return ClimateMode(
+    ) -> CustomClimateMode:
+        return CustomClimateMode(
             xknx=knx,
             name=app.label + "_mode",
             group_address_operation_mode=addresses.hvac_mode,
             group_address_operation_mode_state=addresses.hvac_mode_info,
-            # group_address_controller_status=None,
-            # group_address_controller_status_state=None,
             group_address_controller_mode=addresses.change_over_mode,
             group_address_controller_mode_state=addresses.change_over_mode_info,
             operation_modes=HVAC_OPERATION_MODE_VALUES.keys(),
