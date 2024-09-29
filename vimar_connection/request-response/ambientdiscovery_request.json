@@ -1,0 +1,10 @@
+{
+    "type": "request",
+    "function": "ambientdiscovery",
+    "source": "D6:32:EE:6F:BF:81",
+    "target": "3A2643FBB24000",
+    "token": "MgnTuT$@jKs!",
+    "msgid": "1",
+    "args": [],
+    "params": []
+}

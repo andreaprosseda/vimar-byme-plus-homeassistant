@@ -1,0 +1,20 @@
+{
+    "type": "request",
+    "function": "session",
+    "source": "D6:32:EE:6F:BF:81",
+    "target": "3A2643FBB24000",
+    "token": "fw5ppJpIRQGL",
+    "msgid": "0",
+    "args": [
+        {
+            "credential": null,
+            "clientinfo": null,
+            "communication": {
+                "ipaddress": "192.168.1.132",
+                "communicationmode": 4,
+                "ipport": 0
+            }
+        }
+    ],
+    "params": []
+}

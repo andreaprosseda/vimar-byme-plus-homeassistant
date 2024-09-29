@@ -1,0 +1,80 @@
+{
+    "error": 0,
+    "type": "response",
+    "function": "ambientdiscovery",
+    "source": "3A2643FBB24000",
+    "target": "D6:32:EE:6F:BF:81",
+    "msgid": "1",
+    "result": [
+        {
+            "dictKey": "16777304",
+            "hash": "57a709f5e484934709c1c50c29ed2fb8",
+            "idambient": 10,
+            "idparent": 0,
+            "name": "Bagno Ospiti"
+        },
+        {
+            "dictKey": "16777293",
+            "hash": "b5dc30b197573d215f5886954933e94c",
+            "idambient": 9,
+            "idparent": 0,
+            "name": "Esterno"
+        },
+        {
+            "dictKey": "16777285",
+            "hash": "1dbfd9ba03b4de016f1235e7334e10c3",
+            "idambient": 8,
+            "idparent": 0,
+            "name": "Ingresso"
+        },
+        {
+            "dictKey": "16777284",
+            "hash": "765fa2ced4fde3653cb4d92911bb19f8",
+            "idambient": 7,
+            "idparent": 0,
+            "name": "Bagno Piccolo"
+        },
+        {
+            "dictKey": "16777282",
+            "hash": "9f7e0dfd23128fc5a95de2f7fd7a6965",
+            "idambient": 5,
+            "idparent": 0,
+            "name": "Studio"
+        },
+        {
+            "dictKey": "16777305",
+            "hash": "1580e47d21fca0f4d2b5f40b50c8df64",
+            "idambient": 11,
+            "idparent": 0,
+            "name": "Corridoio"
+        },
+        {
+            "dictKey": "16777216",
+            "hash": "20b107e3f30e8abdf5a91d4f47767e5c",
+            "idambient": 0,
+            "idparent": 0,
+            "name": "Cruizer"
+        },
+        {
+            "dictKey": "16777217",
+            "hash": "712bc1801708cdcd9954f7523ee862b4",
+            "idambient": 1,
+            "idparent": 0,
+            "name": "Living"
+        },
+        {
+            "dictKey": "16777280",
+            "hash": "93abf123ae8e4054e401fccf836f7a30",
+            "idambient": 3,
+            "idparent": 0,
+            "name": "Camera"
+        },
+        {
+            "dictKey": "16777281",
+            "hash": "cf4f9a925206d47845dcbd49bdc99ddb",
+            "idambient": 4,
+            "idparent": 0,
+            "name": "Cameretta"
+        }
+    ]
+}

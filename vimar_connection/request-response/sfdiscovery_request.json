@@ -1,0 +1,33 @@
+{
+    "type": "request",
+    "function": "sfdiscovery",
+    "source": "D6:32:EE:6F:BF:81",
+    "target": "3A2643FBB24000",
+    "token": "etkmWs4sD&Ft",
+    "msgid": "2",
+    "args": [
+        {
+            "credential": null,
+            "clientinfo": null,
+            "communication": null,
+            "user": null,
+            "sfcategory": "Plant"
+        }
+    ],
+    "params": [
+        {
+            "idambient": [
+                10,
+                9,
+                8,
+                7,
+                5,
+                11,
+                0,
+                1,
+                3,
+                4
+            ]
+        }
+    ]
+}
