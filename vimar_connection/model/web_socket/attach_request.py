@@ -30,7 +30,7 @@ class AttachRequest(BaseRequest):
         password = credentials.password if credentials.password else credentials.setup_code
         useruid = credentials.useruid if credentials.useruid else ''
         return Credential(
-            username = 'xm7r1',
+            username = credentials.username,
             useruid = useruid,
             password = sign_vimar_code(password)
         )

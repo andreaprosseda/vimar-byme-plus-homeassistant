@@ -1,31 +1,36 @@
 from ..model.user.user_credentials import UserCredentials
-from ..utils.file import save_file, file_exists
-from ..utils.json import read_json
+from ..database.database import Database
+from ..database.repository.user_repo import UserRepo
 
 class CredentialManager:
     
-    FILE_NAME = 'credentials.json'
+    username = 'xm7r1'
     
-    _user_credentials: UserCredentials
+    _user_repo: UserRepo
     
     def __init__(self):
-        self.retrieve_user_credentials()
+        self._user_repo = Database.instance.user_repo
     
     def save_user_credentials(self, response: dict):
-        useruid = response['result'][0]['useruid']
-        password = response['result'][0]['password']
-        credentials = UserCredentials(useruid = useruid, password = password)
-        save_file(credentials.to_json(), self.FILE_NAME)
+        credentials = self.get_credentials_from_response(response)
+        self._user_repo.update(credentials)
     
     def get_user_credentials(self) -> UserCredentials:
-        if not self._user_credentials:
-            self.retrieve_user_credentials()
-        return self._user_credentials
-        
-    def retrieve_user_credentials(self):
-        if file_exists(self.FILE_NAME):
-            credentials = read_json(self.FILE_NAME)
-            self._user_credentials = UserCredentials(**credentials)
+        credentials = self._user_repo.get_current_user()
+        if credentials:
+            return credentials
         else:
             code = input('Enter setup code obtained from Vimar PRO:\n')
-            self._user_credentials = UserCredentials(setup_code=code)
+            credentials = UserCredentials(username = self.username, setup_code = code)
+            self._user_repo.insert(credentials)
+        
+    def get_credentials_from_response(self, response: dict) -> UserCredentials:
+        useruid = response['result'][0]['useruid']
+        password = response['result'][0]['password']
+        token = response['result'][0]['token']
+        return UserCredentials(
+            username = self.username,
+            useruid = useruid, 
+            password = password, 
+            token = token
+        )

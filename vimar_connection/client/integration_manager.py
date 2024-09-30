@@ -42,9 +42,9 @@ class IntegrationManager:
                 return self.get_detach_request()
         
     def error_message_received(self, response: dict) -> BaseRequest:
-        #if response:
-        return self.get_detach_request()
-        #return None
+        if response:
+            return self.get_detach_request()
+        return None
         
     def get_phase(self, response: dict) -> IntegrationPhase:
         function = response['function']

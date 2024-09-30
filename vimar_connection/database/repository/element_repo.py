@@ -1,7 +1,7 @@
 from .base_repo import BaseRepo
 from sqlite3 import Connection
 
-class AmbientRepo(BaseRepo):
+class ElementRepo(BaseRepo):
     
     def __init__(self, connection: Connection):
         super().__init__(connection)
@@ -9,13 +9,13 @@ class AmbientRepo(BaseRepo):
         
     def create_table(self):
         query = """
-            CREATE TABLE IF NOT EXISTS ambients (
+            CREATE TABLE IF NOT EXISTS sf_elements (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                dictKey TEXT NOT NULL,
-                hash TEXT NOT NULL,
-                idambient INTEGER NOT NULL,
-                idparent INTEGER,
-                name TEXT NOT NULL
+                component_id INTEGER NOT NULL,
+                enable BOOLEAN NOT NULL,
+                sfetype TEXT NOT NULL,
+                value TEXT,
+                FOREIGN KEY (component_id) REFERENCES components (id)
             );
-            """
+        """
         self.execute(query)
