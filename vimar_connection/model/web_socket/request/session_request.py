@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from ..base_request import BaseRequest
-from ..supporting_models.argument import Argument
 from ..supporting_models.communication import Communication, CommunicationMode
+from ....utils.ip_address import get_ip_address
 
 @dataclass
 class SessionRequest(BaseRequest):
@@ -16,12 +16,17 @@ class SessionRequest(BaseRequest):
 
     def get_args(self) -> list:
         communication = self.get_communication()
-        argument = Argument(communication)
+        argument = self.get_argument(communication)
         return [argument]
     
+    def get_argument(self, communication: Communication) -> dict:
+        return {
+            'communication': communication
+        }
+        
     def get_communication(self) -> Communication:
         return Communication(
-            address='192.168.1.132',
+            address=get_ip_address(),
             port=0,
             mode=CommunicationMode.WEB_SOCKET
         )

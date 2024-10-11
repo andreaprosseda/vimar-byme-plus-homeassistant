@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from ..base_request import BaseRequest
-from ..supporting_models.argument import Argument
 
 @dataclass
 class DetachRequest(BaseRequest):
@@ -17,7 +16,7 @@ class DetachRequest(BaseRequest):
         argument = self.get_argument()
         return [argument]
     
-    def get_argument(self) -> Argument:
-        return Argument(
-            user = 'logout'
-        )
+    def get_argument(self) -> dict:
+        return {
+            'user' : 'logout'
+        }

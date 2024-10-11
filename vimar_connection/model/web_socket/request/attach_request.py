@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from ..base_request import BaseRequest
-from ..supporting_models.argument import Argument
 from ..supporting_models.communication import Communication
 from ..supporting_models.credential import Credential
 from ..supporting_models.client_info import ClientInfo
@@ -47,8 +46,8 @@ class AttachRequest(BaseRequest):
         return Communication(address = get_ip_address())
     
     def get_argument(self, credential: Credential, client_info: ClientInfo, communication: Communication):
-        return Argument(
-            credential = credential,
-            clientinfo = client_info,
-            communication = communication
-        )
+        return {
+            'credential' : credential,
+            'clientinfo' : client_info,
+            'communication' : communication
+        }

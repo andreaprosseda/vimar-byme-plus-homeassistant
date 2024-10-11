@@ -19,6 +19,13 @@ class UserElement:
             self.sfetype,
             self.value
         )
+        
+    def to_tuple_for_update(self) -> tuple:
+        return (
+            self.value,
+            self.idcomponent,
+            self.sfetype
+        )
     
     @staticmethod    
     def list_from_dict(id_component: int, elems: dict) -> list['UserElement']:
@@ -31,8 +38,8 @@ class UserElement:
     @staticmethod
     def _obj_from_dict(id_component: str, elem: dict) -> 'UserElement':
         return UserElement(
-            enable = elem['enable'],
+            enable = elem.get('enable'),
             idcomponent = id_component,
-            sfetype = elem['sfetype'],
-            value = elem['value']
+            sfetype = elem.get('sfetype'),
+            value = elem.get('value')
         )

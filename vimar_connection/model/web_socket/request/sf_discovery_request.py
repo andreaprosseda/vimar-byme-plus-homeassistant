@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from ..base_request import BaseRequest
-from ..supporting_models.argument import Argument
 from ..supporting_models.parameter import Parameter
 
 @dataclass
@@ -16,9 +15,14 @@ class SfDiscoveryRequest(BaseRequest):
         self.params = self.get_params(ambient_ids)
 
     def get_args(self) -> list:
-        argument = Argument(sfcategory = 'Plant')
+        argument = self.get_argument()
         return [argument]
     
+    def get_argument(self) -> dict:
+        return {
+            'sfcategory' : 'Plant'
+        }
+        
     def get_params(self, ambient_ids: list[int]) -> list:
         parameter = Parameter(ambient_ids = ambient_ids)
         return [parameter]
