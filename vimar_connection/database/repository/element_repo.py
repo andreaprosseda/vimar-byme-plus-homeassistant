@@ -27,11 +27,12 @@ class ElementRepo(BaseRepo):
         self.execute(query)
     
     def insert_all(self, components: list[UserComponent]):
-        elements = []
-        all_elements = [component._elements for component in components]
-        for elems in all_elements:
-            elements.extend(elems)
+        elements = self._get_all_elements(components)
         self._insert_all(elements)
+        
+    def update_all(self, components: list[UserComponent]):
+        elements = self._get_all_elements(components)
+        self._update_all(elements)
         
     def _insert_all(self, elements: list[UserElement]):
         elements_data = [element.to_tuple() for element in elements]
@@ -42,7 +43,19 @@ class ElementRepo(BaseRepo):
                 (?, ?, ?, ?);
         """
         self.execute(query, elements_data)        
-        
-        
-        
-        
+    
+    def _update_all(self, elements: list[UserElement]):
+        elements_data = [element.to_tuple_for_update() for element in elements]
+        query = """
+            UPDATE elements
+            SET value = ?
+            WHERE idcomponent = ? AND sfetype = ?;
+        """
+        self.execute(query, elements_data)
+    
+    def _get_all_elements(self, components: list[UserComponent]) -> list[UserElement]:
+        elements = []
+        all_elements = [component._elements for component in components]
+        for elems in all_elements:
+            elements.extend(elems)
+        return elements
