@@ -1,6 +1,5 @@
 from .ws_base_vimar import WebSocketBaseVimar
 from websocket._app import WebSocketApp
-from ...model.web_socket.attach_request import AttachRequest
 from ...model.web_socket.web_socket_config import WebSocketConfig
 
 class WSAttachPhase(WebSocketBaseVimar):
@@ -12,28 +11,24 @@ class WSAttachPhase(WebSocketBaseVimar):
         self._config = config
     
     def on_open(self, ws: WebSocketApp):
-        self.on_message(ws, message={'function' : 'session'})
+        callback = self._config.on_open_callback
+        if callback:
+            callback(self.send)
+        
+        self.on_message(ws, message={'function' : 'session', 'msgid' : 0})
         # request = self.get_attach_request()
-        # self.send(ws, request)
+        # self.send(request)
 
     def on_message(self, ws: WebSocketApp, message: dict):
         callback = self._config.on_message_callback
         if callback:
             request = callback(message)
             if request:
-                self.send(ws, request)
+                self.send(request)
 
     def on_error(self, ws: WebSocketApp, message: dict):
         callback = self._config.on_error_message_callback
         if callback:
             request = callback(message)
             if request:
-                self.send(ws, request)
-    
-    # def get_attach_request(self) -> AttachRequest:
-    #     return AttachRequest(
-    #         target=self._config.gateway_info.deviceuid,
-    #         token=self.
-    #         protocol_version=self._config.gateway_info.protocolversion,
-    #         user_credentials=self._config.user_credentials
-    #     )
+                self.send(request)

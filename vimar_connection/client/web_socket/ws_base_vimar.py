@@ -7,8 +7,8 @@ from ...model.enum.error_response_enum import ErrorResponse
 class WebSocketBaseVimar:
     
     last_response: str = None
-
     _url: str
+    _ws: WebSocketApp
     
     def __init__(self, address: str, port: str):
         self._url = f"wss://{address}:{port}"
@@ -16,8 +16,8 @@ class WebSocketBaseVimar:
     def connect(self):
         print(f"Connecting to {self._url}...")
         ssl_opt = self.get_ssl_options()
-        ws = self.get_web_socket_app(self._url)
-        ws.run_forever(sslopt=ssl_opt)
+        self._ws = self.get_web_socket_app(self._url)
+        self._ws.run_forever(sslopt=ssl_opt)
             
     def get_web_socket_app(self, url) -> WebSocketApp:
         return WebSocketApp(
@@ -61,7 +61,7 @@ class WebSocketBaseVimar:
         self.on_open(ws)
         
     def is_error(self, response: dict) -> bool:
-        error_code = response['error']
+        error_code = response.get('error', None)
         name = ErrorResponse.get_name_by_code(error_code)
         if name:
             print("\n" + name + "\n")
@@ -80,7 +80,7 @@ class WebSocketBaseVimar:
     def on_open(self, ws: WebSocketApp):
         raise NotImplementedError()
     
-    def send(self, ws: WebSocketApp, request: BaseRequest):
+    def send(self, request: BaseRequest):
         json_string = request.to_json()
         print(f"Sending message:\n{json_string}")
-        ws.send(json_string)
+        self._ws.send(json_string)

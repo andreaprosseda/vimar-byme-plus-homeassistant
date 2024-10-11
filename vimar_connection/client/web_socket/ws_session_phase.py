@@ -1,6 +1,6 @@
 from .ws_base_vimar import WebSocketBaseVimar
 from websocket._app import WebSocketApp
-from ...model.web_socket.session_request import SessionRequest
+from ...model.web_socket.request.session_request import SessionRequest
 from ...model.web_socket.web_socket_config import WebSocketConfig
 from ...utils.session_token import get_session_token
 
@@ -14,7 +14,7 @@ class WSSessionPhase(WebSocketBaseVimar):
     
     def on_open(self, ws: WebSocketApp):
         request = self.get_session_request()
-        self.send(ws, request)
+        self.send(request)
 
     def on_message(self, ws: WebSocketApp, message: dict):
         ws.close()
