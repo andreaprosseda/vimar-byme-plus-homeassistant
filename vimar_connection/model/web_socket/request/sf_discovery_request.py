@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from .base_request import BaseRequest
-from .supporting_models.argument import Argument
-from .supporting_models.parameter import Parameter
+from ..base_request import BaseRequest
+from ..supporting_models.argument import Argument
+from ..supporting_models.parameter import Parameter
 
 @dataclass
 class SfDiscoveryRequest(BaseRequest):

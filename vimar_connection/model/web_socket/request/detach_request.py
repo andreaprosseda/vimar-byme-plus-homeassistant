@@ -1,16 +1,16 @@
-from .base_request import BaseRequest
-from .supporting_models.argument import Argument
 from dataclasses import dataclass
+from ..base_request import BaseRequest
+from ..supporting_models.argument import Argument
 
 @dataclass
 class DetachRequest(BaseRequest):
 
-    def __init__(self, target: str, token: str):
+    def __init__(self, target: str, token: str, msgid: str):
         super().__init__()
         self.function = 'detach'
         self.target = target
         self.token = token
-        self.msgid = '1'
+        self.msgid = str(msgid)
         self.args = self.get_args()
 
     def get_args(self) -> list:

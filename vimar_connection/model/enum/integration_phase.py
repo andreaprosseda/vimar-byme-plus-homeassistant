@@ -7,6 +7,9 @@ class IntegrationPhase(Enum):
     AMBIENT_DISCOVERY = 'ambientdiscovery'
     SF_DISCOVERY = 'sfdiscovery'
     REGISTER = 'register'
+    CHANGE_STATUS = 'changestatus'
+    EXPIRE = 'expire'
+    KEEP_ALIVE = 'keepalive'
     DETACH = 'detach'
     
     @staticmethod

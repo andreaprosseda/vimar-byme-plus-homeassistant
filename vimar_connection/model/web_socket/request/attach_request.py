@@ -1,12 +1,12 @@
-from .base_request import BaseRequest
-from ..user.user_credentials import UserCredentials
-from .supporting_models.argument import Argument
-from .supporting_models.communication import Communication
-from .supporting_models.credential import Credential
-from .supporting_models.client_info import ClientInfo
 from dataclasses import dataclass
-from ...utils.ip_address import get_ip_address
-from ...utils.setup_code import sign_vimar_code
+from ..base_request import BaseRequest
+from ..supporting_models.argument import Argument
+from ..supporting_models.communication import Communication
+from ..supporting_models.credential import Credential
+from ..supporting_models.client_info import ClientInfo
+from ...repository.user_credentials import UserCredentials
+from ....utils.ip_address import get_ip_address
+from ....utils.setup_code import sign_vimar_code
 
 @dataclass
 class AttachRequest(BaseRequest):

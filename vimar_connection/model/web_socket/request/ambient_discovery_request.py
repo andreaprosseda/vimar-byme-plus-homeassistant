@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from .base_request import BaseRequest
+from ..base_request import BaseRequest
 
 @dataclass
 class AmbientDiscoveryRequest(BaseRequest):

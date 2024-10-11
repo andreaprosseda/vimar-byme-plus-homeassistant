@@ -1,7 +1,7 @@
-from .base_request import BaseRequest
-from .supporting_models.argument import Argument
-from .supporting_models.communication import Communication, CommunicationMode
 from dataclasses import dataclass
+from ..base_request import BaseRequest
+from ..supporting_models.argument import Argument
+from ..supporting_models.communication import Communication, CommunicationMode
 
 @dataclass
 class SessionRequest(BaseRequest):

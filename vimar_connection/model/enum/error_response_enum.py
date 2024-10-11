@@ -32,8 +32,8 @@ class ErrorResponse(Enum):
     IP_CONNECTOR_ERR_INVALID_CONTEXT = 35
     
     @staticmethod
-    def get_name_by_code(code: int) -> str:
-        if code == 0:
+    def get_name_by_code(code: int | None) -> str:
+        if not code or code == 0:
             return None
         
         for elem in ErrorResponse:
