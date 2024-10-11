@@ -19,6 +19,11 @@ class WSAttachPhase(WebSocketBaseVimar):
         # request = self.get_attach_request()
         # self.send(request)
 
+    def on_close(self, ws: WebSocketApp):
+        callback = self._config.on_close_callback
+        if callback:
+            callback(self.last_response)
+    
     def on_message(self, ws: WebSocketApp, message: dict):
         callback = self._config.on_message_callback
         if callback:

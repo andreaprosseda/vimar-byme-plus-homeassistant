@@ -48,7 +48,7 @@ class ElementRepo(BaseRepo):
         elements_data = [element.to_tuple_for_update() for element in elements]
         query = """
             UPDATE elements
-            SET value = ?
+            SET enable = ?, value = ?
             WHERE idcomponent = ? AND sfetype = ?;
         """
         self.execute(query, elements_data)

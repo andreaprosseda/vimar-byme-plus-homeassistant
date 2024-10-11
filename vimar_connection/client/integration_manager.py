@@ -104,7 +104,10 @@ class IntegrationManager:
         
     def handle_expire_request(self, request: dict) -> BaseRequest:
         print('Expire Request received, trying to reconnect...')
-        
+        self._keep_alive_handler.stop()        
+        return self.idle()
+        # if (value in seconds try to execute new sssion)
+        # wait and then reconnect
         
     def get_attach_request(self) -> AttachRequest:
         return AttachRequest(
@@ -173,3 +176,4 @@ class IntegrationManager:
     def idle(self):
         print("Entering idle state: no action required for this phase...")
         return None
+    

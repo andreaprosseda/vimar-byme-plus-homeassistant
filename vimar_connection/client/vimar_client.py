@@ -1,3 +1,4 @@
+import threading
 from typing import Optional
 from .integration_manager import IntegrationManager
 from .web_socket.ws_session_phase import WSSessionPhase
@@ -34,8 +35,16 @@ class VimarClient:
         client = WSAttachPhase(config)
         client.connect()
     
+    def on_attach_close_callback(self, response: dict):
+        seconds_to_wait = self.get_seconds_to_wait(response)
+        timer = threading.Timer(seconds_to_wait, self.connect)
+        timer.start()
+
     def get_port_to_attach(self, response: dict) -> int:
         return response['result'][0]['communication']['ipport']
+    
+    def get_seconds_to_wait(self, request: dict) -> int:
+        return int(request['args'][0]['value'])
     
     def get_config(self) -> WebSocketConfig:
         config = WebSocketConfig()
@@ -56,6 +65,7 @@ class VimarClient:
         config.on_open_callback = self._integration_manager.connection_opened
         config.on_message_callback = self._integration_manager.message_received
         config.on_error_message_callback = self._integration_manager.error_message_received
+        config.on_close_callback = self.on_attach_close_callback
         return config
     
     def get_user_credentials(self) -> UserCredentials:

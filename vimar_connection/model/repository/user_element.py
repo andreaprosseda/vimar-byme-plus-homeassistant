@@ -22,6 +22,7 @@ class UserElement:
         
     def to_tuple_for_update(self) -> tuple:
         return (
+            self.enable,
             self.value,
             self.idcomponent,
             self.sfetype

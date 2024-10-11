@@ -9,6 +9,6 @@ class WebSocketConfig:
     gateway_info: GatewayInfo
     user_credentials: UserCredentials
     on_open_callback: Optional[Callable[[BaseRequest], None]] = None
-    on_close_callback: Optional[Callable[[str], None]] = None
+    on_close_callback: Optional[Callable[[], None]] = None
     on_message_callback: Optional[Callable[[str], BaseRequest]] = None
     on_error_message_callback: Optional[Callable[[str], BaseRequest]] = None
