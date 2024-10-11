@@ -1,0 +1,9 @@
+{
+    "type": "response",
+    "function": "register",
+    "source": "3A2643FBB24000",
+    "target": "D6:32:EE:6F:BF:82",
+    "msgid": "3",
+    "error": 0,
+    "result": []
+}

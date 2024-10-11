@@ -1,0 +1,18 @@
+{
+    "args": [
+        {
+            "reason": 1,
+            "value": 0
+        }
+    ],
+    "function": "expire",
+    "msgid": "13427",
+    "params": [
+        {
+            "requiredresp": false
+        }
+    ],
+    "source": "3A2643FBB24000",
+    "target": "D6:32:EE:6F:BF:82",
+    "type": "request"
+}

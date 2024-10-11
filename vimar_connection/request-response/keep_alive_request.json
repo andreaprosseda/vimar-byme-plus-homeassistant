@@ -1,0 +1,10 @@
+{
+    "type": "request",
+    "function": "keepalive",
+    "source": "D6:32:EE:6F:BF:82",
+    "target": "3A2643FBB24000",
+    "token": "FP@#I@QKVmbD",
+    "msgid": "4",
+    "args": [],
+    "params": []
+}
