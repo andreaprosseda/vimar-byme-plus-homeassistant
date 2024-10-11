@@ -25,16 +25,17 @@ class Database:
         return cls.instance
 
     def _initialize(self, db_file: str):
-        self.create_connection(db_file)
-        self.ambient_repo = AmbientRepo(self._connection)
-        self.component_repo = ComponentRepo(self._connection)
-        self.element_repo = ElementRepo(self._connection)
-        self.user_repo = UserRepo(self._connection)
+        conn = self.create_connection(db_file)
+        self.element_repo = ElementRepo(conn)
+        self.ambient_repo = AmbientRepo(conn)
+        self.user_repo = UserRepo(conn)
+        self.component_repo = ComponentRepo(conn, self.element_repo)
         
-    def create_connection(self, db_file: str):
+    def create_connection(self, db_file: str) -> Connection:
         try:
             file_path = get_file_path(db_file)
             self._connection = sqlite3.connect(file_path)
             print("Connection to SQLite DB successful")
+            return self._connection
         except Error as e:
             print(f"The error '{e}' occurred")

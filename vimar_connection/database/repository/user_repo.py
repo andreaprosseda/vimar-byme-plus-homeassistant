@@ -1,4 +1,4 @@
-from ...model.user.user_credentials import UserCredentials
+from ...model.repository.user_credentials import UserCredentials
 from .base_repo import BaseRepo
 from sqlite3 import Connection
 
@@ -29,8 +29,7 @@ class UserRepo(BaseRepo):
             FROM users
             LIMIT 1
         """
-        cursor = self._connection.cursor()
-        cursor.execute(query)
+        cursor = self.cursor().execute(query)
         record = cursor.fetchone()
         if not record:
             return None
@@ -44,7 +43,6 @@ class UserRepo(BaseRepo):
         )
     
     def insert(self, credentials: UserCredentials):
-        self.delete_all()
         query = """
             INSERT INTO users
                 (setup_code, username)
