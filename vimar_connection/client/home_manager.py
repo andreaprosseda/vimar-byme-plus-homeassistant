@@ -1,25 +1,31 @@
-from ..model.user.user_environment import UserEnvironment
+from ..model.repository.user_ambient import UserAmbient
+from ..model.repository.user_component import UserComponent
+from ..database.database import Database
+from ..database.repository.ambient_repo import AmbientRepo
+from ..database.repository.component_repo import ComponentRepo
 
 class HomeManager:
     
-    FILE_NAME = 'environments.json'
-    
-    _environments: list[UserEnvironment]
+    _ambient_repo: AmbientRepo
+    _component_repo: ComponentRepo
     
     def __init__(self):
-        self._environments = []
+        self._ambient_repo = Database.instance.ambient_repo
+        self._component_repo = Database.instance.component_repo
     
-    def save_environments(self, response: dict):
-        result = response['result']
-        self._environments = []
-        for environment in result:
-            self._environments.append(UserEnvironment(**environment))
+    def save_ambients(self, response: dict):
+        ambients = UserAmbient.list_from_dict(response)
+        self._ambient_repo.replace_all(ambients)
     
-    def get_environments(self) -> list[UserEnvironment]:
-        return self._environments
-        
-    def get_ambient_ids(self) -> list[int]:
-        ids = []
-        for environment in self.get_environments():
-            ids.append(environment.idambient)
-        return ids
+    def save_components(self, response: dict):
+        components = UserComponent.list_from_dict(response)
+        self._component_repo.replace_all(components)
+    
+    def get_all_ambient_ids(self) -> list[int]:
+        return self._ambient_repo.get_ids()
+    
+    def get_all_components(self) -> list[UserComponent]:
+        return self._component_repo.get_all()
+    
+    def save_component_changes(self, request: dict):
+        pass

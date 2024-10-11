@@ -1,4 +1,4 @@
-from ..model.user.user_credentials import UserCredentials
+from ..model.repository.user_credentials import UserCredentials
 from ..database.database import Database
 from ..database.repository.user_repo import UserRepo
 
@@ -17,11 +17,13 @@ class CredentialManager:
     
     def get_user_credentials(self) -> UserCredentials:
         credentials = self._user_repo.get_current_user()
+        print(f"Retrieving credentials: {credentials}")
         if credentials:
             return credentials
         else:
             code = input('Enter setup code obtained from Vimar PRO:\n')
             credentials = UserCredentials(username = self.username, setup_code = code)
+            self._user_repo.delete_all()
             self._user_repo.insert(credentials)
         
     def get_credentials_from_response(self, response: dict) -> UserCredentials:
