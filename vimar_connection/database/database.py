@@ -34,7 +34,7 @@ class Database:
     def create_connection(self, db_file: str) -> Connection:
         try:
             file_path = get_file_path(db_file)
-            self._connection = sqlite3.connect(file_path)
+            self._connection = sqlite3.connect(file_path, check_same_thread=False)
             print("Connection to SQLite DB successful")
             return self._connection
         except Error as e:
