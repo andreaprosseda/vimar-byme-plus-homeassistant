@@ -3,12 +3,12 @@ from ...model.repository.user_component import UserComponent
 from ...model.repository.user_element import UserElement
 from sqlite3 import Connection
 
+
 class ElementRepo(BaseRepo):
-    
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()
-        
+
     def create_table(self):
         query = """
             CREATE TABLE IF NOT EXISTS elements (
@@ -21,19 +21,19 @@ class ElementRepo(BaseRepo):
             );
         """
         self.execute(query)
-        
+
     def delete_all(self):
         query = "DELETE FROM elements;"
         self.execute(query)
-    
+
     def insert_all(self, components: list[UserComponent]):
         elements = self._get_all_elements(components)
         self._insert_all(elements)
-        
+
     def update_all(self, components: list[UserComponent]):
         elements = self._get_all_elements(components)
         self._update_all(elements)
-        
+
     def _insert_all(self, elements: list[UserElement]):
         elements_data = [element.to_tuple() for element in elements]
         query = """
@@ -42,8 +42,8 @@ class ElementRepo(BaseRepo):
             VALUES
                 (?, ?, ?, ?);
         """
-        self.execute(query, elements_data)        
-    
+        self.execute(query, elements_data)
+
     def _update_all(self, elements: list[UserElement]):
         elements_data = [element.to_tuple_for_update() for element in elements]
         query = """
@@ -52,7 +52,7 @@ class ElementRepo(BaseRepo):
             WHERE idcomponent = ? AND sfetype = ?;
         """
         self.execute(query, elements_data)
-    
+
     def _get_all_elements(self, components: list[UserComponent]) -> list[UserElement]:
         elements = []
         all_elements = [component._elements for component in components]

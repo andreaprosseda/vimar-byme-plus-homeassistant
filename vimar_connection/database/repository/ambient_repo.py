@@ -2,12 +2,12 @@ from .base_repo import BaseRepo
 from sqlite3 import Connection
 from ...model.repository.user_ambient import UserAmbient
 
+
 class AmbientRepo(BaseRepo):
-    
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()
-        
+
     def create_table(self):
         query = """
             CREATE TABLE IF NOT EXISTS ambients (
@@ -30,11 +30,11 @@ class AmbientRepo(BaseRepo):
     def replace_all(self, ambients: list[UserAmbient]):
         self.delete_all()
         self.insert_all(ambients)
-        
+
     def delete_all(self):
         query = "DELETE FROM ambients;"
         self.execute(query)
-    
+
     def insert_all(self, ambients: list[UserAmbient]):
         ambients_data = [ambient.to_tuple() for ambient in ambients]
         query = """
@@ -43,5 +43,9 @@ class AmbientRepo(BaseRepo):
             VALUES
                 (?, ?, ?, ?, ?);
         """
-        self.execute(query, ambients_data)        
-        
+        self.execute(query, ambients_data)
+
+    def get_name_by_id(self, idambient: int) -> str:
+        query = "SELECT name FROM ambients WHERE idambient = ?;"
+        cursor = self.cursor().execute(query, idambient)
+        return cursor.fetchone()
