@@ -1,7 +1,10 @@
 {
-    "error": 0,
     "function": "sfdiscovery",
+    "type": "response",
+    "source": "3A2643FBB24000",
+    "target": "D6:32:EE:6F:BF:81",
     "msgid": "2",
+    "error": 0,
     "result": [
         {
             "idambient": 10,
@@ -1595,8 +1598,5 @@
                 }
             ]
         }
-    ],
-    "source": "3A2643FBB24000",
-    "target": "D6:32:EE:6F:BF:81",
-    "type": "response"
+    ]
 }

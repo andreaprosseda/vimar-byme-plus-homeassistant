@@ -7,12 +7,13 @@ from ....utils.ip_address import get_ip_address
 class SessionRequest(BaseRequest):
 
     def __init__(self, target: str, token: str):
-        super().__init__()
-        self.function = 'session'
-        self.target = target
-        self.token = token
-        self.msgid = '0'
-        self.args = self.get_args()
+        super().__init__(
+            function = 'session',
+            target = target,
+            token = token,
+            msgid = '0',
+            args = self.get_args()
+        )
 
     def get_args(self) -> list:
         communication = self.get_communication()

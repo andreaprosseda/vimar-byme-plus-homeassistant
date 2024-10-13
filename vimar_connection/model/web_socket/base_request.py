@@ -1,23 +1,30 @@
-from dataclasses import dataclass, asdict, field
-from ...utils.json import json_dumps
+from dataclasses import dataclass, field
+from .base_request_response import BaseRequestResponse
 from ...utils.mac_address import get_mac_address
 
 @dataclass
-class BaseRequest:
-    type: str
-    function: str
-    source: str
-    target: str
-    token: str
-    msgid: str
+class BaseRequest(BaseRequestResponse):
     args: list = field(default_factory=list)
     params: list = field(default_factory=list)
-
-    def __init__(self):
-        self.type = 'request'
-        self.source = get_mac_address()
-        self.args = []
-        self.params = []
-        
-    def to_json(self):
-        return json_dumps(asdict(self))
+    
+    def __init__(
+        self, 
+        type: str = 'request', 
+        function: str = None,
+        source: str = get_mac_address(), 
+        target: str = None,
+        token: str = None,
+        msgid: str = None,
+        args: list = [],
+        params: list = []
+    ):
+        super().__init__(
+            type = type,
+            function = function,
+            source = source,
+            target = target,
+            token = token,
+            msgid = msgid,
+        )
+        self.args = args
+        self.params = params

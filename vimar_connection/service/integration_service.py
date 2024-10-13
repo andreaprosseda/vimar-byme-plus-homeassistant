@@ -1,0 +1,122 @@
+import threading
+from typing import Callable, Optional
+from .message_handler.message_handler import MessageHandler
+from ..client.ws_attach_phase import WSAttachPhase
+from ..client.ws_session_phase import WSSessionPhase
+from ..database.database import Database
+from ..model.enum.error_response_enum import ErrorResponse
+from ..model.gateway.gateway_info import GatewayInfo
+from ..model.web_socket.base_request_response import BaseRequestResponse
+from ..model.web_socket.base_request import BaseRequest
+from ..model.web_socket.base_response import BaseResponse
+from ..model.web_socket.web_socket_config import WebSocketConfig
+from ..scheduler.keep_alive_handler import KeepAliveHandler
+from ..config.const import DATABASE_NAME
+from ..utils.file import remove_file
+
+class IntegrationService:
+    
+    gateway_address: str
+    session_port: int
+    attach_port: Optional[int] = None
+    
+    _gateway_info: GatewayInfo
+    _message_handler: MessageHandler
+    _keep_alive_handler: KeepAliveHandler
+    _send_method: Callable[[BaseRequestResponse], None]
+    
+    _user_repo = Database.instance().user_repo
+    
+    def __init__(self, gateway_info: GatewayInfo):
+        self.gateway_address = gateway_info.address
+        self.session_port = gateway_info.port
+        self._gateway_info = gateway_info
+        self._message_handler = MessageHandler(gateway_info)
+        self._keep_alive_handler = KeepAliveHandler()
+    
+    def connect(self):
+        self.start_session_phase()
+    
+    def start_session_phase(self):
+        config = self.get_config_for_session_phase()
+        client = WSSessionPhase(config)
+        client.connect()
+        
+    def start_attach_phase(self):
+        config = self.get_config_for_attach_phase()
+        client = WSAttachPhase(config)
+        client.connect()    
+    
+    def get_config_for_session_phase(self) -> WebSocketConfig:
+        config = self.get_config()
+        config.on_close_callback = self.on_session_close_callback
+        return config
+    
+    def get_config_for_attach_phase(self) -> WebSocketConfig:
+        config = self.get_config()
+        config.user_credentials = self._user_repo.get_current_user()
+        config.on_open_callback = self.on_attach_connection_opened
+        config.on_message_callback = self.on_attach_message_received
+        config.on_error_message_callback = self.on_attach_error_message_received
+        config.on_close_callback = self.on_attach_close_callback
+        return config
+    
+    def on_session_close_callback(self, response: BaseResponse):
+        self.attach_port = self.get_port_to_attach(response)
+        self.start_attach_phase()
+
+    def on_attach_connection_opened(self, send_method: Callable[[BaseRequestResponse], None]):
+        self._send_method = send_method
+        self._keep_alive_handler.set_handler(self.send_keep_alive)
+    
+    def on_attach_message_received(self, message: BaseRequestResponse) -> BaseRequestResponse:
+        response = self._message_handler.message_received(message)
+        self.handle_keep_alive(response)
+        return response
+        
+    def on_attach_error_message_received(self, message: BaseRequestResponse) -> BaseRequestResponse:
+        response = self._message_handler.error_message_received(message)
+        self.handle_keep_alive(response)
+        
+    def on_attach_close_callback(self, message: BaseRequestResponse):
+        if isinstance(message, BaseRequest):
+            self.attach_port = None
+            seconds_to_wait = self.get_seconds_to_wait(message)
+            timer = threading.Timer(seconds_to_wait, self.connect)
+            timer.start()
+        if isinstance(message, BaseResponse):
+            if message.error == ErrorResponse.IP_CONNECTOR_ERR_INVALID_PWD.value:
+                print(f"Removing database {DATABASE_NAME} ...")
+                remove_file(DATABASE_NAME)
+                self.disconnect()
+        
+    def handle_keep_alive(self, message: BaseRequestResponse):
+        if message:
+            self._keep_alive_handler.reset()
+    
+    def send_keep_alive(self):
+        keep_alive_request = BaseRequest(function = 'keepalive')
+        response = self.on_attach_message_received(keep_alive_request)
+        self._send_method(response)
+    
+    def get_config(self) -> WebSocketConfig:
+        config = WebSocketConfig()
+        config.gateway_info = self._gateway_info
+        config.user_credentials = self._user_repo.get_current_user()
+        config.address = self.gateway_address
+        config.port = self.attach_port if self.attach_port else self.session_port
+        return config
+        
+    def get_port_to_attach(self, response: BaseResponse) -> int:
+        if response:
+            return response.result[0]['communication']['ipport']
+        self.disconnect()
+    
+    def get_seconds_to_wait(self, request: BaseRequest) -> int:
+        if request:
+            return int(request.args[0]['value'])
+        self.disconnect()
+    
+    def disconnect(self):
+        print("Terminating the execution...")
+        exit()

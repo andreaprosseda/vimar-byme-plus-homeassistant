@@ -14,6 +14,8 @@ class IntegrationPhase(Enum):
     
     @staticmethod
     def get(function: str) -> Optional['IntegrationPhase']:
+        if not function: 
+            return None
         for elem in IntegrationPhase:
             if elem.value == function:
                 return elem

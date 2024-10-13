@@ -1,16 +1,16 @@
 from zeroconf import Zeroconf, ServiceBrowser, ServiceListener, ServiceInfo
-from .model.gateway_info import GatewayInfo
+from ..model.gateway.gateway_info import GatewayInfo
+from ..config.const import GATEWAY_SERVICE_TYPE
 
-class GatewayFounder(ServiceListener):
+class GatewayFounderService(ServiceListener):
     
-    SERVICE_TYPE = "_vimar-devctrl._tcp.local."
     gateway_info: GatewayInfo = None
     
     def search(self) -> GatewayInfo:
-        print(f"Searching for {self.SERVICE_TYPE} services...\n")
+        print(f"Searching for {GATEWAY_SERVICE_TYPE} services...\n")
         zeroconf = Zeroconf()
         try:
-            ServiceBrowser(zeroconf, self.SERVICE_TYPE, self)
+            ServiceBrowser(zeroconf, GATEWAY_SERVICE_TYPE, self)
             while(not self.gateway_info):
                 pass # waiting for gateway to be found
         except KeyboardInterrupt:

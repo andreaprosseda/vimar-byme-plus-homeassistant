@@ -1,6 +1,9 @@
 from .user_element import UserElement
 from typing import Optional
 from dataclasses import dataclass, asdict, field
+from ..web_socket.base_response import BaseResponse
+from ..web_socket.base_request import BaseRequest
+
 from ...utils.json import json_dumps
 
 @dataclass
@@ -28,17 +31,17 @@ class UserComponent:
         )
         
     @staticmethod
-    def list_from_response(response: dict) -> list['UserComponent']:
+    def list_from_response(response: BaseResponse) -> list['UserComponent']:
         components = []
-        for result in response.get('result', []):
+        for result in response.result:
             ambient_components = UserComponent.list_from_result(result)
             components.extend(ambient_components)
         return components
             
     @staticmethod
-    def list_from_request(response: dict) -> list['UserComponent']:
+    def list_from_request(request: BaseRequest) -> list['UserComponent']:
         components = []
-        for arg in response.get('args', []):
+        for arg in request.args:
             component = UserComponent._obj_from_sf(None, arg)
             components.append(component)
         return components

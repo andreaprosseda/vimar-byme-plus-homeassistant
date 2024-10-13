@@ -1,6 +1,7 @@
 from typing import Optional
 from dataclasses import dataclass, asdict
 from ...utils.json import json_dumps
+from ..web_socket.base_response import BaseResponse
 
 @dataclass
 class UserAmbient:
@@ -23,8 +24,8 @@ class UserAmbient:
         )
         
     @staticmethod
-    def list_from_dict(response: dict) -> list['UserAmbient']:
+    def list_from_dict(response: BaseResponse) -> list['UserAmbient']:
         ambients = []
-        for result in response['result']:
+        for result in response.result:
             ambients.append(UserAmbient(**result))
         return ambients
