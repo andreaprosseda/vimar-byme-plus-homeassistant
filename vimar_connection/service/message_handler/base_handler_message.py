@@ -4,6 +4,7 @@ from ...model.repository.user_ambient import UserAmbient
 from ...model.repository.user_component import UserComponent
 from ...model.repository.user_credentials import UserCredentials
 from ...model.enum.component_type import ComponentType
+from ...utils.logger import log_info
 
 class BaseMessageHandler(HandlerInterface):
     
@@ -18,14 +19,17 @@ class BaseMessageHandler(HandlerInterface):
     
     def save_ambients(self, response: dict):
         ambients = UserAmbient.list_from_dict(response)
+        log_info(__name__, f"Ambients retrieved: {len(ambients)}")
         self._ambient_repo.replace_all(ambients)
 
     def save_components(self, response: dict):
         components = UserComponent.list_from_response(response)
+        log_info(__name__, f"Components retrieved: {len(components)}")
         self._component_repo.replace_all(components)
 
     def save_component_changes(self, request: dict):
         components = UserComponent.list_from_request(request)
+        log_info(__name__, f"Changes retrieved: {len(components)}")
         self._element_repo.update_all(components)
         
     def get_user_credentials(self) -> UserCredentials:

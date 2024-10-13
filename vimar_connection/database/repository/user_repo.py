@@ -9,7 +9,6 @@ class UserRepo(BaseRepo):
         self.create_table()
         
     def create_table(self):
-        print("Creating table")
         query = """
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

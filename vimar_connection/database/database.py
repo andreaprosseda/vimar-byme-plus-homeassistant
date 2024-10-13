@@ -7,6 +7,7 @@ from .repository.element_repo import ElementRepo
 from .repository.user_repo import UserRepo
 from ..config.const import DATABASE_NAME
 from ..utils.file import get_file_path
+from ..utils.logger import log_info
 
 class Database:
 
@@ -39,7 +40,7 @@ class Database:
         try:
             file_path = get_file_path(DATABASE_NAME)
             self._connection = sqlite3.connect(file_path, check_same_thread=False)
-            print("Connection to SQLite DB successful")
+            log_info(__name__, "Connection to SQLite DB successful")
             return self._connection
         except Error as e:
-            print(f"The error '{e}' occurred")
+            log_info(__name__, f"The error '{e}' occurred")

@@ -1,6 +1,7 @@
 import subprocess
 import base64
 from .file import get_file_path
+# from ..utils.logger import log_info
 # from cryptography.hazmat.backends import default_backend
 # from cryptography.hazmat.primitives import hashes
 # from cryptography.hazmat.primitives.asymmetric.utils import Prehashed
@@ -24,14 +25,14 @@ def sign_code_openssl(code: str, private_key_path: str) -> str:
 
     signature = result.stdout
     signature_b64 = base64.b64encode(signature).decode('utf-8')
-    # print(f"Base64 Encoded Signature:\n{signature_b64}")
+    # log_info(__name__, f"Base64 Encoded Signature:\n{signature_b64}")
     return signature_b64
 
 # def sign_code(code: str, private_key_path: str) -> str:
 #     private_key = get_private_key(private_key_path)
-#     print(private_key)
+#     log_info(__name__, private_key)
 #     signature = sign(code, private_key)
-#     print(signature)
+#     log_info(__name__, signature)
 #     signature_b64 = base64.b64encode(signature).decode('utf-8')
 #     return signature_b64
 # 

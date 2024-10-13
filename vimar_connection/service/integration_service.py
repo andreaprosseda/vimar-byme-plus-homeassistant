@@ -13,6 +13,7 @@ from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..scheduler.keep_alive_handler import KeepAliveHandler
 from ..config.const import DATABASE_NAME
 from ..utils.file import remove_file
+from ..utils.logger import log_info
 
 class IntegrationService:
     
@@ -38,11 +39,13 @@ class IntegrationService:
         self.start_session_phase()
     
     def start_session_phase(self):
+        log_info(__name__, "Starting Session Phase...")
         config = self.get_config_for_session_phase()
         client = WSSessionPhase(config)
         client.connect()
         
     def start_attach_phase(self):
+        log_info(__name__, "Starting Attach Phase...")
         config = self.get_config_for_attach_phase()
         client = WSAttachPhase(config)
         client.connect()    
@@ -62,6 +65,7 @@ class IntegrationService:
         return config
     
     def on_session_close_callback(self, response: BaseResponse):
+        log_info(__name__, "Session Phase Done!")
         self.attach_port = self.get_port_to_attach(response)
         self.start_attach_phase()
 
@@ -82,11 +86,11 @@ class IntegrationService:
         if isinstance(message, BaseRequest):
             self.attach_port = None
             seconds_to_wait = self.get_seconds_to_wait(message)
+            log_info(__name__, f"Waiting {str(seconds_to_wait)} seconds before reconnecting...")
             timer = threading.Timer(seconds_to_wait, self.connect)
             timer.start()
         if isinstance(message, BaseResponse):
-            if message.error == ErrorResponse.IP_CONNECTOR_ERR_INVALID_PWD.value:
-                print(f"Removing database {DATABASE_NAME} ...")
+                log_info(__name__, f"Removing database {DATABASE_NAME} ...")
                 remove_file(DATABASE_NAME)
                 self.disconnect()
         
@@ -118,5 +122,5 @@ class IntegrationService:
         self.disconnect()
     
     def disconnect(self):
-        print("Terminating the execution...")
+        log_info(__name__, "Terminating the execution...")
         exit()

@@ -7,6 +7,3 @@ def get_mac_address():
     
     # Format the MAC address as XX:XX:XX:XX:XX:XX
     return ':'.join(mac[i:i + 2] for i in range(0, len(mac), 2))
-
-# mac_address = get_mac_address()
-# print("MAC Address:", mac_address)

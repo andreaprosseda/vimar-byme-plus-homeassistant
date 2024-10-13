@@ -1,4 +1,5 @@
 from sqlite3 import Error, Connection, Cursor
+from ...utils.logger import log_info, log_debug
 
 class BaseRepo:
     
@@ -13,7 +14,7 @@ class BaseRepo:
     def execute(self, query, params: tuple = ()):
         cursor = self.cursor()
         try:
-            print(f"Executing query: {query} with params: {params}")
+            log_debug(__name__, f"Executing query: {query} with params: {params}")
             if params and isinstance(params, (tuple)):
                 cursor.execute(query, params)
             elif params and isinstance(params, list):
@@ -21,8 +22,8 @@ class BaseRepo:
             else:
                 cursor.execute(query)
             self._connection.commit()
-            print("Query executed successfully")
+            log_debug(__name__, "Query executed successfully")
         except Error as e:
-            print(f"The error '{e}' occurred")
+            log_info(__name__, f"The error '{e}' occurred")
     
     

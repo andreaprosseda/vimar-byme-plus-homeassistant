@@ -2,11 +2,12 @@ from ....model.web_socket.base_request_response import BaseRequestResponse
 from ..base_handler_message import BaseMessageHandler
 from ....model.web_socket.request.ambient_discovery_request import AmbientDiscoveryRequest
 from ....model.web_socket.supporting_models.message_supporting_values import MessageSupportingValues
+from ....utils.logger import log_info
 
 class AttachMessageHandler(BaseMessageHandler):
     
     def handle_message(self, message: BaseRequestResponse, config: MessageSupportingValues) -> BaseRequestResponse:
-        print('Attach Phase completed, sending Ambient Discovery Request...')
+        log_info(__name__, 'Attach Phase completed, sending Ambient Discovery Request...')
         self.save_user_credentials(message)
         return self.get_ambient_discovery_request(config)
     
