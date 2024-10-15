@@ -23,7 +23,7 @@ class WSSessionPhase(WebSocketBaseVimar):
     def on_close(self, ws: WebSocketApp):
         callback = self._config.on_close_callback
         if callback:
-            callback(self.last_response)
+            callback(self.last_server_message)
 
     def get_session_request(self) -> SessionRequest:
         return SessionRequest(

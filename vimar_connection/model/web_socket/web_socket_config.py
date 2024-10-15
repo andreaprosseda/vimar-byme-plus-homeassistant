@@ -11,4 +11,4 @@ class WebSocketConfig:
     on_open_callback: Optional[Callable[[BaseRequestResponse], None]] = None
     on_close_callback: Optional[Callable[[BaseRequestResponse], None]] = None
     on_message_callback: Optional[Callable[[BaseRequestResponse], BaseRequestResponse]] = None
-    on_error_message_callback: Optional[Callable[[BaseRequestResponse], BaseRequestResponse]] = None
+    on_error_message_callback: Optional[Callable[[BaseRequestResponse, BaseRequestResponse, Exception], BaseRequestResponse]] = None

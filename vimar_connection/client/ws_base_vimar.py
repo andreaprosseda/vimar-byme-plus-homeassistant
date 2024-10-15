@@ -10,7 +10,8 @@ from ..utils.logger import log_info, log_debug
 
 class WebSocketBaseVimar:
     
-    last_response: BaseRequestResponse = None
+    last_client_message: BaseRequestResponse = None
+    last_server_message: BaseRequestResponse = None
     _url: str
     _ws: WebSocketApp
     
@@ -42,16 +43,17 @@ class WebSocketBaseVimar:
     def _on_message(self, ws: WebSocketApp, message: str):
         log_debug(__name__, f"Received message:\n{message}")
         message_object = self.get_object(message)
-        self.last_response = message_object
+        self.last_server_message = message_object
         if self.is_error(message_object):
-            self.on_error(ws, message_object)
+            self.on_error(ws, None)
         else:
             self.on_message(ws, message_object)
 
     def _on_error(self, ws: WebSocketApp, error: Exception):
-        log_info(__name__, f"Error occurred: {type(error).__name__}: {str(error)}")
+        error_type = type(error).__name__
+        log_info(__name__, f"Error occurred: {error_type}: {str(error)}")
         log_debug(__name__, f"Stack trace:\n{traceback.format_exc()}")
-        self.on_error(ws, None)
+        self.on_error(ws, error)
 
     def _on_close(self, ws: WebSocketApp, close_status_code: int, close_msg: str):
         log_info(__name__, "Connection closed")
@@ -77,7 +79,7 @@ class WebSocketBaseVimar:
     def on_message(self, ws: WebSocketApp, message: BaseRequestResponse):
         raise NotImplementedError()
             
-    def on_error(self, ws: WebSocketApp, message: BaseRequestResponse):
+    def on_error(self, ws: WebSocketApp, exception: Exception):
         pass
     
     def on_close(self, ws: WebSocketApp):
@@ -87,6 +89,7 @@ class WebSocketBaseVimar:
         raise NotImplementedError()
     
     def send(self, request: BaseRequestResponse):
+        self.last_client_message = request
         json_string = request.to_json()
         log_debug(__name__, f"Sending message:\n{json_string}")
         self._ws.send(json_string)

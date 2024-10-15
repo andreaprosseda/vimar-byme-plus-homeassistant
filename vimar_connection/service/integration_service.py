@@ -1,20 +1,19 @@
-from ..utils.thread import Timer
+import time
 from typing import Callable, Optional
+from websocket._exceptions import WebSocketConnectionClosedException
 from .message_handler.message_handler import MessageHandler
+from .error_handler.error_handler import ErrorHandler
 from ..client.ws_attach_phase import WSAttachPhase
 from ..client.ws_session_phase import WSSessionPhase
 from ..database.database import Database
-from ..model.enum.error_response_enum import ErrorResponse
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_response import BaseResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..scheduler.keep_alive_handler import KeepAliveHandler
-from ..config.const import DATABASE_NAME
-from ..utils.file import remove_file
 from ..utils.logger import log_info
-import time
+from ..utils.thread import Timer
 
 class IntegrationService:
     
@@ -24,6 +23,7 @@ class IntegrationService:
     
     _gateway_info: GatewayInfo
     _message_handler: MessageHandler
+    _error_handler: ErrorHandler
     _keep_alive_handler: KeepAliveHandler
     _send_method: Callable[[BaseRequestResponse], None]
     
@@ -35,14 +35,16 @@ class IntegrationService:
         self.session_port = gateway_info.port
         self._gateway_info = gateway_info
         self._message_handler = MessageHandler(gateway_info)
+        self._error_handler = ErrorHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
         self._waiting_timer = None
     
     def connect(self):
-        # if self._waiting_timer:
-        #     self._waiting_timer.cancel()
-        #     self._waiting_timer = None
         self.start_session_phase()
+    
+    def send(self):
+        DoActionRequest
+        self._send_method()
     
     def start_session_phase(self):
         log_info(__name__, "Starting Session Phase...")
@@ -84,9 +86,13 @@ class IntegrationService:
         self.handle_keep_alive(response)
         return response
         
-    def on_attach_error_message_received(self, message: BaseRequestResponse) -> BaseRequestResponse:
-        response = self._message_handler.error_message_received(message)
-        self.handle_keep_alive(response)
+    def on_attach_error_message_received(self, last_client_message: BaseRequestResponse, last_server_message: BaseRequestResponse, exception: Exception) -> BaseRequestResponse:
+        try:
+            response = self._error_handler.error_message_received(last_client_message, last_server_message, exception)
+            self.handle_keep_alive(response)
+            return response
+        except ConnectionAbortedError:
+            self.disconnect()
         
     def on_attach_close_callback(self, message: BaseRequestResponse):
         if isinstance(message, BaseRequest):
@@ -94,16 +100,8 @@ class IntegrationService:
             self._keep_alive_handler.stop()
             seconds_to_wait = self.get_seconds_to_wait(message)
             log_info(__name__, f"Waiting {str(seconds_to_wait)} seconds before reconnecting...")
-            # self._waiting_timer = Timer(seconds_to_wait, self.connect, name="WaitingThread")
-            # self._waiting_timer.start()
             time.sleep(seconds_to_wait)
             self.connect()
-        if isinstance(message, BaseResponse):
-            errors = [ErrorResponse.IP_CONNECTOR_ERR_INVALID_PWD.value, ErrorResponse.IP_CONNECTOR_ERR_PERMISSION_DENIED.value]
-            if message.error in errors:
-                log_info(__name__, f"Removing database {DATABASE_NAME} ...")
-                remove_file(DATABASE_NAME)
-                self.disconnect()
         
     def handle_keep_alive(self, message: BaseRequestResponse):
         if message:
@@ -112,7 +110,10 @@ class IntegrationService:
     def send_keep_alive(self):
         keep_alive_request = BaseRequest(function = 'keepalive')
         response = self.on_attach_message_received(keep_alive_request)
-        self._send_method(response)
+        try:
+            self._send_method(response)
+        except WebSocketConnectionClosedException:
+            self.disconnect()
     
     def get_config(self) -> WebSocketConfig:
         config = WebSocketConfig()
@@ -128,8 +129,8 @@ class IntegrationService:
         self.disconnect()
     
     def get_seconds_to_wait(self, request: BaseRequest) -> int:
-        if request:
-            return int(request.args[0]['value'])
+        if request and request.args:
+            return int(request.args[0].get('value', 0))
         self.disconnect()
     
     def disconnect(self):

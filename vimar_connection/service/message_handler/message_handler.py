@@ -37,9 +37,6 @@ class MessageHandler:
         handler = MessageHandler.get_handler(phase)
         return handler.handle_message(message, config)
     
-    def error_message_received(self, message: BaseRequestResponse) -> BaseRequest:
-        return None
-    
     def get_phase(self, message: BaseRequestResponse) -> IntegrationPhase:
         return IntegrationPhase.get(message.function)
 

@@ -23,7 +23,7 @@ class WSAttachPhase(WebSocketBaseVimar):
     def on_close(self, ws: WebSocketApp):
         callback = self._config.on_close_callback
         if callback:
-            callback(self.last_response)
+            callback(self.last_server_message)
     
     def on_message(self, ws: WebSocketApp, message: BaseRequestResponse):
         callback = self._config.on_message_callback
@@ -34,14 +34,14 @@ class WSAttachPhase(WebSocketBaseVimar):
             if request:
                 self.send(request)
 
-    def on_error(self, ws: WebSocketApp, message: BaseRequestResponse):
-        ws.close()
+    def on_error(self, ws: WebSocketApp, exception: Exception):
         callback = self._config.on_error_message_callback
         if callback:
-            # request = 
-            callback(message)
-            # if request:
-            #     self.send(request)
+            request = callback(self.last_client_message, self.last_server_message, exception)
+            if request:
+                self.send(request)
+            else:
+                ws.close()
                 
     def get_mock_session_response(self) -> BaseResponse:
         return BaseResponse(
