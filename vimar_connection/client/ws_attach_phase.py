@@ -29,15 +29,19 @@ class WSAttachPhase(WebSocketBaseVimar):
         callback = self._config.on_message_callback
         if callback:
             request = callback(message)
+            if message.function == 'expire':
+                ws.close()
             if request:
                 self.send(request)
 
     def on_error(self, ws: WebSocketApp, message: BaseRequestResponse):
+        ws.close()
         callback = self._config.on_error_message_callback
         if callback:
-            request = callback(message)
-            if request:
-                self.send(request)
+            # request = 
+            callback(message)
+            # if request:
+            #     self.send(request)
                 
     def get_mock_session_response(self) -> BaseResponse:
         return BaseResponse(

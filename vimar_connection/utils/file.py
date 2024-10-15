@@ -16,8 +16,9 @@ def save_file(content: str, file_name: str) -> None:
         file.write(content)
 
 def remove_file(file_name: str) -> None:
-    file_path = get_file_path(file_name)
-    os.remove(file_path)
+    if file_exists(file_name):
+        file_path = get_file_path(file_name)
+        os.remove(file_path)
         
 def get_file_path(file_name: str) -> str:
     return get_data_path() + file_name
