@@ -9,15 +9,17 @@ class GatewayFounderService(ServiceListener):
     
     def search(self) -> GatewayInfo:
         log_info(__name__, f"Searching for {GATEWAY_SERVICE_TYPE} services...\n")
+        service_browser: ServiceBrowser = None
         zeroconf = Zeroconf()
         try:
-            ServiceBrowser(zeroconf, GATEWAY_SERVICE_TYPE, self)
+            service_browser = ServiceBrowser(zeroconf, GATEWAY_SERVICE_TYPE, self)
             while(not self.gateway_info):
                 pass # waiting for gateway to be found
         except KeyboardInterrupt:
             log_info(__name__, "Search interrupted.")
         finally:
             zeroconf.close()
+            service_browser.cancel()
         return self.gateway_info
         
     def add_service(self, zc: "Zeroconf", type_: str, name: str) -> None:

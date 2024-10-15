@@ -1,4 +1,4 @@
-import threading
+from ..utils.thread import Timer
 from typing import Callable, Optional
 from .message_handler.message_handler import MessageHandler
 from ..client.ws_attach_phase import WSAttachPhase
@@ -14,6 +14,7 @@ from ..scheduler.keep_alive_handler import KeepAliveHandler
 from ..config.const import DATABASE_NAME
 from ..utils.file import remove_file
 from ..utils.logger import log_info
+import time
 
 class IntegrationService:
     
@@ -26,6 +27,7 @@ class IntegrationService:
     _keep_alive_handler: KeepAliveHandler
     _send_method: Callable[[BaseRequestResponse], None]
     
+    _waiting_timer: Timer = None
     _user_repo = Database.instance().user_repo
     
     def __init__(self, gateway_info: GatewayInfo):
@@ -34,8 +36,12 @@ class IntegrationService:
         self._gateway_info = gateway_info
         self._message_handler = MessageHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
+        self._waiting_timer = None
     
     def connect(self):
+        # if self._waiting_timer:
+        #     self._waiting_timer.cancel()
+        #     self._waiting_timer = None
         self.start_session_phase()
     
     def start_session_phase(self):
@@ -85,11 +91,16 @@ class IntegrationService:
     def on_attach_close_callback(self, message: BaseRequestResponse):
         if isinstance(message, BaseRequest):
             self.attach_port = None
+            self._keep_alive_handler.stop()
             seconds_to_wait = self.get_seconds_to_wait(message)
             log_info(__name__, f"Waiting {str(seconds_to_wait)} seconds before reconnecting...")
-            timer = threading.Timer(seconds_to_wait, self.connect)
-            timer.start()
+            # self._waiting_timer = Timer(seconds_to_wait, self.connect, name="WaitingThread")
+            # self._waiting_timer.start()
+            time.sleep(seconds_to_wait)
+            self.connect()
         if isinstance(message, BaseResponse):
+            errors = [ErrorResponse.IP_CONNECTOR_ERR_INVALID_PWD.value, ErrorResponse.IP_CONNECTOR_ERR_PERMISSION_DENIED.value]
+            if message.error in errors:
                 log_info(__name__, f"Removing database {DATABASE_NAME} ...")
                 remove_file(DATABASE_NAME)
                 self.disconnect()
@@ -123,4 +134,5 @@ class IntegrationService:
     
     def disconnect(self):
         log_info(__name__, "Terminating the execution...")
+        self._keep_alive_handler.stop()
         exit()

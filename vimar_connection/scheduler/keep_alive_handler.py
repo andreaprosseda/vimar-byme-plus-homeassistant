@@ -1,5 +1,6 @@
 import threading
 from typing import Callable
+from ..utils.thread import Timer
 
 class KeepAliveHandler:
 
@@ -14,11 +15,13 @@ class KeepAliveHandler:
 
     def set_handler(self, callback: Callable[[], None]):
         self._callback = callback
-        self._start_timer()
 
     def _start_timer(self):
-        self._timer = threading.Timer(self.TIMEOUT, self._execute)
-        self._timer.start()
+        if not self._timer or not self._timer.is_alive():
+            self._timer = Timer(self.TIMEOUT, self._execute, name="KeepAliveHandler")
+            self._timer.start()
+            # self._timer = threading.Timer(self.TIMEOUT, self._execute)
+            # self._timer.start()
 
     def _execute(self):
         if self._callback:
@@ -26,10 +29,10 @@ class KeepAliveHandler:
         self._start_timer()
     
     def reset(self):
-        if self._timer:
-            self._timer.cancel()
+        self.stop()
         self._start_timer()
 
     def stop(self):
         if self._timer:
             self._timer.cancel()
+            self._timer = None
