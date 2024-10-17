@@ -16,4 +16,4 @@ tmp/
 __pycache__/
 *.py[cod]
 
-vimar_config.xml
+data
