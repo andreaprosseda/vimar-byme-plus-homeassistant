@@ -1,70 +1,76 @@
 """Config flow for VIMAR By-me Plus HUB."""
 
 from collections.abc import Mapping
-import logging
 from typing import Any
 
 import voluptuous as vol
 
-from homeassistant import config_entries
-from homeassistant.config_entries import ConfigFlowResult
+from homeassistant.components import onboarding, zeroconf
+from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 
-from .const import DOMAIN
-from .coordinator import VimarDataUpdateCoordinator, VimarLoginException
+from .const import DOMAIN, CODE
+from .vimar.utils.logger import log_debug, log_error, log_info
+from .vimar.model.exception.setup_code_not_valid_exception import (
+    SetupCodeNotValidException,
+)
+from .coordinator import VimarDataUpdateCoordinator
 
-_LOGGER = logging.getLogger(__name__)
-
-USER_DATA_SCHEMA = vol.Schema(
+DATA_SCHEMA = vol.Schema(
     {
-        vol.Required("username"): str,
-        vol.Required("password"): str,
+        vol.Required(CODE): str,
     }
 )
 
 
-class VimarConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class VimarConfigFlow(ConfigFlow, domain=DOMAIN):
     """VIMAR Config Flow."""
 
     VERSION = 1
-
-    async def async_step_import(
-        self, user_input: dict[str, Any] | None = None
-    ) -> ConfigFlowResult:
-        """Handle a flow initiated by configuration file."""
-        _LOGGER.debug("async_step_import started")
-        return await self.async_step_user(user_input)
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
         """Handle a flow initiated by the user."""
-        _LOGGER.debug("async_step_user started")
+        log_debug(__name__, "Method 'async_step_user' started")
 
         if self._async_current_entries():
             return self.async_abort(reason="single_instance_allowed")
 
         if user_input is None:
-            return self._show_user_login_form()
+            log_debug(__name__, "Field 'user_input' is None, showing form...")
+            return self._show_form()
 
+        log_debug(__name__, "Using 'user_input' for initialization phase...")
+        return await self._initialize(user_input)
+
+    async def _initialize(self, user_input: dict[str, Any]) -> ConfigFlowResult:
+        log_debug(__name__, "Method '_initialize' started")
         try:
-            coordinator = VimarDataUpdateCoordinator(self.hass, user_input)
-            response = await coordinator.retrieve_data()
-            return await self._finalize(coordinator, response)
-        except VimarLoginException:
-            errors = {"base": "Error during login"}
-            return self._show_user_login_form(errors)
+            coordinator = VimarDataUpdateCoordinator(self.hass)
+            await coordinator.initialize(user_input)
+            await coordinator.start()
+            return await self._finalize(coordinator, user_input)
+        except SetupCodeNotValidException:
+            errors = {
+                "base": "Setup Code not valid (code is 4-digit!). Get it from Vimar Pro Menu -> Gateway -> 'i' -> Device Maintenance -> Third Parties Client",
+            }
+            return self._show_form(errors)
 
-    async def _finalize(self, coordinator, data: Mapping[str, Any]):
-        username = coordinator.client.username
-        await self.async_set_unique_id(username)
+    async def _finalize(
+        self, coordinator: VimarDataUpdateCoordinator, user_input: dict[str, Any]
+    ) -> ConfigFlowResult:
+        log_debug(__name__, "Method '_finalize' started")
+        name = coordinator.get_gateway_info().plantname
+        await self.async_set_unique_id(name)
         self._abort_if_unique_id_configured()
-        return self.async_create_entry(title=username, data=data)
+        return self.async_create_entry(title=name, data=user_input)
 
-    def _show_user_login_form(self, errors=None) -> str:
+    def _show_form(self, errors=None) -> ConfigFlowResult:
+        log_debug(__name__, "Method '_show_form' started")
         if errors:
-            _LOGGER.error("Error during authentication {errors}")
+            log_error(__name__, f"Error during flow: {errors}")
 
-        _LOGGER.debug("Showing User login form")
+        log_debug(__name__, "Showing User login form")
         return self.async_show_form(
-            step_id="user", data_schema=USER_DATA_SCHEMA, errors=errors
+            step_id="user", data_schema=DATA_SCHEMA, errors=errors
         )

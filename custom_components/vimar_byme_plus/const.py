@@ -3,7 +3,9 @@
 from typing import Final
 
 DOMAIN = "vimar_byme_plus"
-DEFAULT_UPDATE_INTERVAL = 60
+CODE = "Setup Code"
+
+DEFAULT_UPDATE_INTERVAL = 0.5
 CONFIG = "vimar_config"
 
 DATA_COORDINATOR: Final = "coordinator"
