@@ -1,1 +1,0 @@
-"""VIMAR Integration specific components."""
