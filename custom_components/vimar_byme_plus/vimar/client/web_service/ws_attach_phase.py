@@ -1,8 +1,8 @@
 from .ws_base_vimar import WebSocketBaseVimar
 from websocket._app import WebSocketApp
-from ..model.web_socket.web_socket_config import WebSocketConfig
-from ..model.web_socket.base_request_response import BaseRequestResponse
-from ..model.web_socket.base_response import BaseResponse
+from ...model.web_socket.web_socket_config import WebSocketConfig
+from ...model.web_socket.base_request_response import BaseRequestResponse
+from ...model.web_socket.base_response import BaseResponse
 
 class WSAttachPhase(WebSocketBaseVimar):
     

@@ -1,9 +1,9 @@
 from .ws_base_vimar import WebSocketBaseVimar
 from websocket._app import WebSocketApp
-from ..model.web_socket.base_request_response import BaseRequestResponse
-from ..model.web_socket.request.session_request import SessionRequest
-from ..model.web_socket.web_socket_config import WebSocketConfig
-from ..utils.session_token import get_session_token
+from ...model.web_socket.base_request_response import BaseRequestResponse
+from ...model.web_socket.request.session_request import SessionRequest
+from ...model.web_socket.web_socket_config import WebSocketConfig
+from ...utils.session_token import get_session_token
 
 class WSSessionPhase(WebSocketBaseVimar):
     

@@ -2,11 +2,11 @@ import traceback
 import json
 import ssl
 from websocket import WebSocketApp
-from ..model.web_socket.base_request_response import BaseRequestResponse
-from ..model.web_socket.base_request import BaseRequest
-from ..model.web_socket.base_response import BaseResponse
-from ..model.enum.error_response_enum import ErrorResponse
-from ..utils.logger import log_info, log_debug
+from ...model.web_socket.base_request_response import BaseRequestResponse
+from ...model.web_socket.base_request import BaseRequest
+from ...model.web_socket.base_response import BaseResponse
+from ...model.enum.error_response_enum import ErrorResponse
+from ...utils.logger import log_info, log_debug
 
 
 class WebSocketBaseVimar:
