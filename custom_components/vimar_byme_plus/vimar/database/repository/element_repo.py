@@ -68,7 +68,7 @@ class ElementRepo(BaseRepo):
 
     def _get_all_elements(self, components: list[UserComponent]) -> list[UserElement]:
         elements = []
-        all_elements = [component._elements for component in components]
+        all_elements = [component.elements for component in components]
         for elems in all_elements:
             elements.extend(elems)
         return elements

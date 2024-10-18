@@ -1,9 +1,10 @@
 from .user_element import UserElement
+from .user_ambient import UserAmbient
 from typing import Optional
 from dataclasses import dataclass, asdict, field
 from ..web_socket.base_response import BaseResponse
 from ..web_socket.base_request import BaseRequest
-
+from ..enum.sfetype_enum import SfeType
 from ...utils.json import json_dumps
 
 @dataclass
@@ -14,9 +15,9 @@ class UserComponent:
     name: Optional[str]
     sftype: Optional[str]
     sstype: Optional[str]
+    ambient: Optional[UserAmbient] = None
+    elements: list[UserElement] = field(default_factory=list)
     
-    _elements: list[UserElement] = field(default_factory=list)
-
     def to_json(self):
         return json_dumps(asdict(self))
     
@@ -29,7 +30,13 @@ class UserComponent:
             self.sftype,
             self.sstype
         )
-        
+    
+    def get_value(self, sfetype: SfeType) -> str:
+        for element in self.elements:
+            if element.sfetype == sfetype.value:
+                return element.value
+        return None
+    
     @staticmethod
     def list_from_response(response: BaseResponse) -> list['UserComponent']:
         components = []
@@ -71,5 +78,6 @@ class UserComponent:
             name = sf.get('name'),
             sftype = sf.get('sftype'),
             sstype = sf.get('sstype'),
-            _elements = UserElement.list_from_dict(id_component, elements)
+            ambient = None,
+            elements = UserElement.list_from_dict(id_component, elements)
         )

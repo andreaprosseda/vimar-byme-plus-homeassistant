@@ -4,7 +4,7 @@ from .element_repo import ElementRepo
 from sqlite3 import Connection
 from ...model.repository.user_component import UserComponent
 from ...model.repository.user_element import UserElement
-
+from ...model.repository.user_ambient import UserAmbient
 
 class ComponentRepo(BaseRepo):
     element_repo: ElementRepo
@@ -59,13 +59,15 @@ class ComponentRepo(BaseRepo):
         query = """
             SELECT
                 c.dictKey, c.idambient, c.idsf, c.name, c.sftype, c.sstype,
-                e.id, e.enable, e.sfetype, e.value
+                e.id, e.enable, e.sfetype, e.value,
+                a.dictKey, a.hash, a.idambient, a.idparent, a.name
             FROM
                 components c
             JOIN
-                elements e
-            ON
-                c.idsf = e.idcomponent;
+                elements e ON c.idsf = e.idcomponent
+            JOIN
+                ambients a ON c.idambient = a.idambient;
+
         """
         cursor = self.cursor().execute(query)
         rows = cursor.fetchall()
@@ -85,10 +87,11 @@ class ComponentRepo(BaseRepo):
     def _get_all(self, rows: list[Any]) -> list[UserComponent]:
         result: dict[int, UserComponent] = {}
         for row in rows:
-            component, element = self._get_values_with_elements(row)
+            component, element, ambient = self._get_all_values(row)
             if component.idsf not in result:
                 result[component.idsf] = component
-            result[component.idsf]._elements.append(element)
+            result[component.idsf].ambient = ambient
+            result[component.idsf].elements.append(element)
         return list(result.values())
 
     def _get_values(self, row: list[Any]) -> UserComponent:
@@ -102,21 +105,27 @@ class ComponentRepo(BaseRepo):
         ) = row
         return UserComponent(dictKey, idambient, idsf, name, sftype, sstype)
 
-    def _get_values_with_elements(
+    def _get_all_values(
         self, row: list[Any]
-    ) -> tuple[UserComponent, UserElement]:
+    ) -> tuple[UserComponent, UserElement, UserAmbient]:
         (
-            dictKey,
-            idambient,
-            idsf,
-            name,
-            sftype,
-            sstype,
-            element_id,
-            enable,
-            sfetype,
-            value,
+            c_dictKey,
+            c_idambient,
+            c_idsf,
+            c_name,
+            c_sftype,
+            c_sstype,
+            e_element_id,
+            e_enable,
+            e_sfetype,
+            e_value,
+            a_dictKey,
+            a_hash,
+            a_idambient,
+            a_idparent,
+            a_name
         ) = row
-        element = UserElement(element_id, enable, sfetype, value)
-        component = UserComponent(dictKey, idambient, idsf, name, sftype, sstype)
-        return component, element
+        ambient = UserAmbient(a_dictKey, a_hash, a_idambient, a_idparent, a_name)
+        element = UserElement(e_enable, e_element_id, e_sfetype, e_value)
+        component = UserComponent(c_dictKey, c_idambient, c_idsf, c_name, c_sftype, c_sstype)
+        return component, element, ambient
