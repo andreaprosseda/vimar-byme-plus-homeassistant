@@ -1,19 +1,15 @@
 """Config flow for VIMAR By-me Plus HUB."""
 
-from collections.abc import Mapping
 from typing import Any
 
 import voluptuous as vol
 
-from homeassistant.components import onboarding, zeroconf
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 
-from .const import DOMAIN, CODE
-from .vimar.utils.logger import log_debug, log_error, log_info
-from .vimar.model.exception.setup_code_not_valid_exception import (
-    SetupCodeNotValidException,
-)
+from .const import CODE, DOMAIN
 from .coordinator import VimarDataUpdateCoordinator
+from .vimar.model.exception.code_not_valid_exception import CodeNotValidException
+from .vimar.utils.logger import log_debug, log_error
 
 DATA_SCHEMA = vol.Schema(
     {
@@ -50,7 +46,7 @@ class VimarConfigFlow(ConfigFlow, domain=DOMAIN):
             await coordinator.initialize(user_input)
             await coordinator.start()
             return await self._finalize(coordinator, user_input)
-        except SetupCodeNotValidException:
+        except CodeNotValidException:
             errors = {
                 "base": "Setup Code not valid (code is 4-digit!). Get it from Vimar Pro Menu -> Gateway -> 'i' -> Device Maintenance -> Third Parties Client",
             }
@@ -60,7 +56,7 @@ class VimarConfigFlow(ConfigFlow, domain=DOMAIN):
         self, coordinator: VimarDataUpdateCoordinator, user_input: dict[str, Any]
     ) -> ConfigFlowResult:
         log_debug(__name__, "Method '_finalize' started")
-        name = coordinator.get_gateway_info().plantname
+        name = coordinator.gateway_info.plantname
         await self.async_set_unique_id(name)
         self._abort_if_unique_id_configured()
         return self.async_create_entry(title=name, data=user_input)
