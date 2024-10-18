@@ -26,4 +26,4 @@ class RegisterRequest(BaseRequest):
         }
     
     def get_sfe_types(self, component: UserComponent) -> list[str]:
-        return [element.sfetype for element in component._elements]
+        return [element.sfetype for element in component.elements]

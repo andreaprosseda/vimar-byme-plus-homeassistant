@@ -5,10 +5,10 @@ from .repository.ambient_repo import AmbientRepo
 from .repository.component_repo import ComponentRepo
 from .repository.element_repo import ElementRepo
 from .repository.user_repo import UserRepo
-from ..config.const import DATABASE_NAME
 from ..utils.file import get_file_path
 from ..utils.logger import log_info
 
+DATABASE_NAME = 'home.db'
 
 class Database:
     ambient_repo: AmbientRepo

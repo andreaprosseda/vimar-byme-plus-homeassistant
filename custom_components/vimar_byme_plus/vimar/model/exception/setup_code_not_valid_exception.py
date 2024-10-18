@@ -1,2 +1,0 @@
-class SetupCodeNotValidException(Exception):
-    pass

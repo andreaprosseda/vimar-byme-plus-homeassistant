@@ -4,8 +4,8 @@ from typing import Callable, Optional
 from websocket import WebSocketConnectionClosedException
 from .message_handler.message_handler import MessageHandler
 from .error_handler.error_handler import ErrorHandler
-from ..client.ws_attach_phase import WSAttachPhase
-from ..client.ws_session_phase import WSSessionPhase
+from ..client.web_service.ws_attach_phase import WSAttachPhase
+from ..client.web_service.ws_session_phase import WSSessionPhase
 from ..database.database import Database
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.web_socket.base_request_response import BaseRequestResponse

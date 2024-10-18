@@ -1,0 +1,2 @@
+class CodeNotValidException(Exception):
+    pass
