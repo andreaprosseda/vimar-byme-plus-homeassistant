@@ -29,5 +29,16 @@ def get_file_path(file_name: str) -> str:
     return get_data_path() + file_name
 
 
+def get_db_name() -> str:
+    path = get_data_path()
+    for file_name in os.listdir(path):
+        if file_name.endswith(".db"):
+            return file_name
+    return None
+
+
 def get_data_path() -> str:
+    if 'standalone' in __name__:
+        return "standalone/data/"
     return DATA_PATH
+

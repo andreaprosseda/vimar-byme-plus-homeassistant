@@ -3,8 +3,7 @@ from ...model.gateway.gateway_info import GatewayInfo
 from ...model.web_socket.base_request_response import BaseRequestResponse
 from ...utils.logger import log_info
 from ...model.enum.error_response_enum import ErrorResponse
-from ...config.const import DATABASE_NAME
-from ...utils.file import remove_file
+from ...utils.file import remove_file, get_db_name
 
 class ErrorHandler:
     
@@ -34,8 +33,9 @@ class ErrorHandler:
         return last_client_message
     
     def handle_permanent_error(self):
-        log_info(__name__, f"Removing database {DATABASE_NAME} ...")
-        remove_file(DATABASE_NAME)
+        db_name = get_db_name()
+        log_info(__name__, f"Removing database {db_name} ...")
+        remove_file(db_name)
         raise ConnectionAbortedError()
         
     def is_ssl_error(self, exception: Exception) -> bool:
