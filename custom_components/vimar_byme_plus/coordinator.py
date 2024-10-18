@@ -43,8 +43,5 @@ class VimarDataUpdateCoordinator(DataUpdateCoordinator[VimarData]):
 
     async def _async_update_data(self) -> VimarData:
         """Get the latest data."""
-        return await self.hass.async_add_executor_job(self._sync_update)
-
-    def _sync_update(self) -> VimarData:
-        """Get the latest data from DB."""
         return self.client.retrieve_data()
+        # return await self.hass.async_add_executor_job(self._sync_update)

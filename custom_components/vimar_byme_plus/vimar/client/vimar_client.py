@@ -9,6 +9,7 @@ from ..model.gateway.vimar_data import VimarData
 from ..service.integration_service import IntegrationService
 from ..utils.logger import log_info
 from ..utils.thread import Thread
+from ..utils.thread_monitor import thread_exists
 
 
 class VimarClient:
@@ -17,6 +18,7 @@ class VimarClient:
     _integration_service: IntegrationService
     _component_repo = Database.instance().component_repo
     _user_repo = Database.instance().user_repo
+    _thread_name = "VimarServiceThread"
 
     def __init__(self, gateway_info: GatewayInfo) -> None:
         """Initialize the coordinator."""
@@ -29,6 +31,8 @@ class VimarClient:
         if not self.has_credentials():
             log_info(__name__, "Credentials not found, skipping connection...")
             return
+        if not self.already_connected():
+            log_info(__name__, "Already connected with Gateway, skipping connection...")
         log_info(__name__, "Connecting to Gateway, please wait...")
         self.connect()
 
@@ -40,7 +44,7 @@ class VimarClient:
         """Start Vimar connection process."""
         thread = Thread(
             target=self._integration_service.connect,
-            name="VimarServiceThread",
+            name=self._thread_name,
             daemon=True,
         )
         thread.start()
@@ -59,6 +63,9 @@ class VimarClient:
     def has_credentials(self) -> bool:
         credentials = self._user_repo.get_current_user()
         return credentials is not None
+
+    def already_connected(self) -> bool:
+        return thread_exists(self._thread_name)
 
     def set_setup_code(self, setup_code: str):
         self.validate_code(setup_code)

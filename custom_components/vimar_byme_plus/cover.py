@@ -24,7 +24,7 @@ async def async_setup_entry(
     coordinator: VimarDataUpdateCoordinator = entry.runtime_data
     components = coordinator.data.get_covers()
     entities = [Cover(coordinator, component) for component in components]
-    log_debug(__name__, f"Cover found: {len(entities)}")
+    log_debug(__name__, f"Covers found: {len(entities)}")
     async_add_entities(entities, True)
 
 

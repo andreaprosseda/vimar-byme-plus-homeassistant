@@ -1,6 +1,9 @@
 {
   "config": {
     "step": {
+      "user": {
+        "description": "Please enter your Setup Code [4 digit]"
+      },
       "confirm": {
         "description": "[%key:common::config_flow::description::confirm_setup%]"
       }

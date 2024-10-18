@@ -44,7 +44,7 @@ class VimarConfigFlow(ConfigFlow, domain=DOMAIN):
         try:
             coordinator = VimarDataUpdateCoordinator(self.hass)
             await coordinator.initialize(user_input)
-            await coordinator.start()
+            # await coordinator.start()
             return await self._finalize(coordinator, user_input)
         except CodeNotValidException:
             errors = {

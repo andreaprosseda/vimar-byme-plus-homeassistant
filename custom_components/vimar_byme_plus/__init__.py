@@ -10,9 +10,9 @@ from .coordinator import VimarDataUpdateCoordinator
 from .vimar.utils.logger import log_debug
 
 PLATFORMS: list[Platform] = [
+    Platform.CLIMATE,
+    Platform.COVER,
     Platform.LIGHT,
-    # Platform.CLIMATE,
-    Platform.COVER
 ]
 
 

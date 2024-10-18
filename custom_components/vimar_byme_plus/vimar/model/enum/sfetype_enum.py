@@ -33,3 +33,7 @@ class SfeType(Enum):
     STATE_OUT_STATUS = 'SFE_State_OutStatus'
     STATE_SHUTTER = 'SFE_State_Shutter'
     STATE_TIMED_MANUAL = 'SFE_State_TimedManual'
+    
+    
+    
+    STATE_HUMIDITY = 'SFE_State_Humidity'

@@ -8,6 +8,9 @@
         "step": {
             "confirm": {
                 "description": "Do you want to start setup?"
+            },
+            "user": {
+                "description": "Please enter your Setup Code [4 digit]"
             }
         }
     }

@@ -10,8 +10,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .coordinator import VimarDataUpdateCoordinator
 from .base_entity import BaseEntity
+from .coordinator import VimarDataUpdateCoordinator
 from .vimar.model.component.vimar_light import VimarLight
 from .vimar.utils.logger import log_debug
 
@@ -27,13 +27,15 @@ async def async_setup_entry(
     coordinator: VimarDataUpdateCoordinator = entry.runtime_data
     components = coordinator.data.get_lights()
     entities = [Light(coordinator, component) for component in components]
+    log_debug(__name__, f"Lights found: {len(entities)}")
     async_add_entities(entities, True)
+
 
 class Light(BaseEntity, LightEntity):
     """Provides a Vimar light."""
-    
+
     _component: VimarLight
-    
+
     def __init__(
         self, coordinator: VimarDataUpdateCoordinator, component: VimarLight
     ) -> None:
@@ -128,7 +130,7 @@ class Light(BaseEntity, LightEntity):
         HomeAssitant Description: Flag supported color modes.
         """
         return self._component.supported_color_modes
-    
+
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""
         # await self._component.turn_on()
