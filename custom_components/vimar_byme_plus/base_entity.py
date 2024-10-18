@@ -1,12 +1,15 @@
 """Insteon base entity."""
 
+from homeassistant.core import callback
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN, MANIFACTURER
 from .coordinator import VimarDataUpdateCoordinator
+from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.component_type import ComponentType
+
 
 class BaseEntity(CoordinatorEntity):
     """Vimar abstract base entity."""
@@ -32,8 +35,8 @@ class BaseEntity(CoordinatorEntity):
         """Return the name of the device."""
         return self._component.name
 
-    @property
-    def icon(self):
+    # @property
+    # def icon(self):
 
     @property
     def device_class(self):
@@ -61,6 +64,13 @@ class BaseEntity(CoordinatorEntity):
             model=self._component.device_name,
             suggested_area=self._component.area,
         )
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle device update."""
+        data: VimarData = self.coordinator.data
+        self._component = data.get_by_id(self._component.id)
+        self.async_write_ha_state()
 
     # async def async_update(self) -> None:
     #     """Request a state update from KNX bus."""
