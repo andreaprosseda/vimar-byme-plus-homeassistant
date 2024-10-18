@@ -12,7 +12,7 @@ from .vimar.utils.logger import log_debug
 PLATFORMS: list[Platform] = [
     Platform.LIGHT,
     # Platform.CLIMATE,
-    # Platform.COVER,
+    Platform.COVER
 ]
 
 
