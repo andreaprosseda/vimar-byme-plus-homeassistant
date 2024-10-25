@@ -1,6 +1,7 @@
 import os
 from ..config.const import DATA_PATH
 
+
 def file_exists(file_name: str) -> bool:
     file_path = get_file_path(file_name)
     return os.path.isfile(file_path)
@@ -20,6 +21,8 @@ def save_file(content: str, file_name: str) -> None:
 
 
 def remove_file(file_name: str) -> None:
+    if not file_name:
+        return
     if file_exists(file_name):
         file_path = get_file_path(file_name)
         os.remove(file_path)
@@ -38,7 +41,6 @@ def get_db_name() -> str:
 
 
 def get_data_path() -> str:
-    if 'standalone' in __name__:
+    if "standalone" in __name__:
         return "standalone/data/"
     return DATA_PATH
-
