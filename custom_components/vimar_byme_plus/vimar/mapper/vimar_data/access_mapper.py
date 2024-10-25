@@ -20,8 +20,8 @@ class AccessMapper:
             area=component.ambient.name,
             current_cover_position=AccessMapper.current_position(component),
             is_closed=AccessMapper.is_closed(component),
-            is_closing=None,
-            is_opening=None,
+            is_closing=False,
+            is_opening=False,
         )
 
     @staticmethod

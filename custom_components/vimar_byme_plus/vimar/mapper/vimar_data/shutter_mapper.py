@@ -31,19 +31,19 @@ class ShutterMapper:
     @staticmethod
     def is_closed(component: UserComponent) -> bool | None:
         position = ShutterMapper._get_position(component)
-        return position == 100 if position else None
+        return position == 100
 
     @staticmethod
     def is_closing(component: UserComponent) -> bool:
         is_changing = ShutterMapper._is_changing(component)
-        value = component.get_value(SfeType.STATE_SHUTTER)
-        return is_changing and ShutterMapper._get_position(value) > 50
+        position = ShutterMapper._get_position(component)
+        return is_changing and position > 50
 
     @staticmethod
     def is_opening(component: UserComponent) -> bool:
         is_changing = ShutterMapper._is_changing(component)
-        value = component.get_value(SfeType.STATE_SHUTTER)
-        return is_changing and ShutterMapper._get_position(value) <= 50
+        position = ShutterMapper._get_position(component)
+        return is_changing and position <= 50
 
     @staticmethod
     def _get_position(component: UserComponent) -> int | None:
