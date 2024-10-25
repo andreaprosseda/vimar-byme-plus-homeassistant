@@ -9,11 +9,7 @@ SFTYPE = SfType.ACCESS.value
 class AccessMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarCover]:
-        data = []
-        for component in components:
-            if component.sftype == SFTYPE:
-                data.append(AccessMapper.from_obj(component))
-        return data
+        return [AccessMapper.from_obj(c) for c in components if c.sftype == SFTYPE]
 
     @staticmethod
     def from_obj(component: UserComponent) -> VimarCover:
