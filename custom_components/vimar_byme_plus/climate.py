@@ -16,18 +16,19 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .base_entity import BaseEntity
-from .coordinator import VimarDataUpdateCoordinator
+from . import CoordinatorConfigEntry
+from .coordinator import Coordinator
 from .vimar.model.component.vimar_climate import VimarClimate
 from .vimar.utils.logger import log_debug
 
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: ConfigEntry,
+    entry: CoordinatorConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up component based on a config entry."""
-    coordinator: VimarDataUpdateCoordinator = entry.runtime_data
+    coordinator = entry.runtime_data
     components = coordinator.data.get_climates()
     entities = [Climate(coordinator, component) for component in components]
     log_debug(__name__, f"Covers found: {len(entities)}")
@@ -38,11 +39,10 @@ class Climate(BaseEntity, ClimateEntity):
     """Provides a Vimar Cover."""
 
     _component: VimarClimate
+    _enable_turn_on_off_backwards_compatibility = False
 
-    def __init__(
-        self, coordinator: VimarDataUpdateCoordinator, component: VimarClimate
-    ) -> None:
-        """Initialize the light."""
+    def __init__(self, coordinator: Coordinator, component: VimarClimate) -> None:
+        """Initialize the clima."""
         self._component = component
         BaseEntity.__init__(self, coordinator, component)
 
@@ -76,7 +76,10 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: The current operation (e.g. heat, cool, idle). Used to determine state.
         """
-        return self._component.hvac_mode
+        mode = self._component.hvac_mode
+        if not mode:
+            return None
+        return HVACMode(mode.ha_value)
 
     @property
     def hvac_modes(self) -> list[HVACMode]:
@@ -84,7 +87,10 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: List of available operation modes. See below.
         """
-        return self._component.hvac_modes
+        modes = self._component.hvac_modes
+        if not modes:
+            return []
+        return [HVACMode(mode.ha_value) for mode in modes]
 
     @property
     def hvac_action(self) -> HVACAction | None:
@@ -92,7 +98,10 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: The current HVAC action (heating, cooling)
         """
-        return self._component.hvac_action
+        action = self._component.hvac_action
+        if not action:
+            return None
+        return HVACAction(action.ha_value)
 
     @property
     def current_temperature(self) -> float | None:
@@ -146,7 +155,7 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: The current active preset.
         """
-        return self._component.preset_mode
+        return self._component.preset_mode.ha_value
 
     @property
     def preset_modes(self) -> list[str] | None:
@@ -156,7 +165,7 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: The available presets.
         """
-        return self._component.preset_modes
+        return [mode.ha_value for mode in self._component.preset_modes]
 
     @property
     def fan_mode(self) -> str | None:
@@ -204,7 +213,13 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: Supported features are defined by using values in the ClimateEntityFeature enum and are combined using the bitwise or (|) operator.
         """
-        return self._component.supported_features
+        return (
+            ClimateEntityFeature.TARGET_TEMPERATURE
+            | ClimateEntityFeature.TURN_ON
+            | ClimateEntityFeature.TURN_OFF
+            | ClimateEntityFeature.FAN_MODE
+            | ClimateEntityFeature.PRESET_MODE
+        )
 
     @property
     def min_temp(self) -> float:
