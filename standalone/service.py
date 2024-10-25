@@ -1,7 +1,7 @@
 from .vimar.service.gateway_founder_service import GatewayFounderService
 from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.client.vimar_client import VimarClient
-from .vimar.model.exception.code_not_valid_exception import CodeNotValidException
+from .vimar.model.exceptions import CodeNotValidException
 from .vimar.model.gateway.vimar_data import VimarData
 
 class StandAloneService:
@@ -17,19 +17,23 @@ class StandAloneService:
         gateway_info = founder.search()
         return gateway_info
     
-    def start(self):
-        self._client.start()
+    def test_connection(self):
+        self._client.test_connection()
+        
+    def connect(self):
+        self._client.connect()
     
     def retrieve_data(self) -> VimarData:
         return self._client.retrieve_data()
 
-    def request_status_code_if_needed(self):
+    def request_setup_code_if_needed(self) -> bool:
         if self._client.has_credentials():
-            return
+            return False
         
         while True:
             try:
-                status_code = input("Enter Status Code [4-digit]: ")
-                return self._client.set_setup_code(status_code)
+                status_code = input("Enter Setup Code [4-digit]: ")
+                self._client.set_setup_code(status_code)
+                return True
             except CodeNotValidException:
-                print("Status Code not valid, please try again")
+                print("Setup Code not valid, please try again")

@@ -7,8 +7,10 @@ if __name__ == "__main__":
     start_monitoring()
 
     service = StandAloneService()
-    service.request_status_code_if_needed()
-    service.start()
+    requested = service.request_setup_code_if_needed()
+    if requested:
+        service.test_connection()
+    service.connect()
     
     while True:
         value = input("Press Enter to continue")
