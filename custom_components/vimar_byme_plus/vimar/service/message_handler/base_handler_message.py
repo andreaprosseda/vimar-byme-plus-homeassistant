@@ -13,6 +13,11 @@ class BaseMessageHandler(HandlerInterface):
     _component_repo = Database.instance().component_repo
     _element_repo = Database.instance().element_repo
 
+    def save_user_credentials_for_association_phase(self, response: dict):
+        stored = self.get_user_credentials()
+        if not stored.useruid or not stored.password:
+            self.save_user_credentials(response)
+        
     def save_user_credentials(self, response: dict):
         credentials = UserCredentials.obj_from_dict(response)
         self._user_repo.update(credentials)

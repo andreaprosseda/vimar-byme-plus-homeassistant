@@ -8,7 +8,7 @@ class AttachMessageHandler(BaseMessageHandler):
     
     def handle_message(self, message: BaseRequestResponse, config: MessageSupportingValues) -> BaseRequestResponse:
         log_info(__name__, 'Attach Phase completed, sending Ambient Discovery Request...')
-        self.save_user_credentials(message)
+        self.save_user_credentials_for_association_phase(message)
         return self.get_ambient_discovery_request(config)
     
     def get_ambient_discovery_request(self, config: MessageSupportingValues) -> AmbientDiscoveryRequest:
