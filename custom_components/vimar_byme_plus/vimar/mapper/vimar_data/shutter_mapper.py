@@ -9,11 +9,7 @@ SFTYPE = SfType.SHUTTER.value
 class ShutterMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarCover]:
-        data = []
-        for component in components:
-            if component.sftype == SFTYPE:
-                data.append(ShutterMapper.from_obj(component))
-        return data
+        return [ShutterMapper.from_obj(c) for c in components if c.sftype == SFTYPE]
 
     @staticmethod
     def from_obj(component: UserComponent) -> VimarCover:
@@ -41,13 +37,13 @@ class ShutterMapper:
     def is_closing(component: UserComponent) -> bool:
         is_changing = ShutterMapper._is_changing(component)
         value = component.get_value(SfeType.STATE_SHUTTER)
-        return is_changing and value > 50
+        return is_changing and ShutterMapper._get_position(value) > 50
 
     @staticmethod
     def is_opening(component: UserComponent) -> bool:
         is_changing = ShutterMapper._is_changing(component)
         value = component.get_value(SfeType.STATE_SHUTTER)
-        return is_changing and value <= 50
+        return is_changing and ShutterMapper._get_position(value) <= 50
 
     @staticmethod
     def _get_position(component: UserComponent) -> int | None:
