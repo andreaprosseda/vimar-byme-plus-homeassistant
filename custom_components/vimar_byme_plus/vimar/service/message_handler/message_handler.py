@@ -12,6 +12,7 @@ from .handler.attach_message_handler import AttachMessageHandler
 from .handler.change_status_message_handler import ChangeStatusMessageHandler
 from .handler.detach_message_handler import DetachMessageHandler
 from .handler.expire_message_handler import ExpireMessageHandler
+from .handler.init_message_handler import InitMessageHandler
 from .handler.keep_alive_message_handler import KeepAliveMessageHandler
 from .handler.register_message_handler import RegisterMessageHandler
 from .handler.session_message_handler import SessionMessageHandler
@@ -25,33 +26,54 @@ class MessageHandler:
     _last_msgid: int
     _token: str
 
-    def __init__(self, gateway_info: GatewayInfo):
+    def __init__(self, gateway_info: GatewayInfo) -> None:
         self._gateway_info = gateway_info
         self._last_msgid = -1
         self._token = get_session_token()
 
-    def message_received(self, message: BaseRequestResponse) -> BaseRequest:
-        phase = self.get_phase(message)
-        self.save_msgid_if_needed(message)
-        self.save_token_if_needed(phase, message)
-        config = self.get_supporting_config()
-        handler = MessageHandler.get_handler(phase)
+    def start_session_phase(self) -> BaseRequest:
+        phase = IntegrationPhase.INIT
+        return self.message_from_phase(phase)
+
+    def start_attach_phase(self) -> BaseRequest:
+        phase = IntegrationPhase.SESSION
+        return self.message_from_phase(phase)
+
+    def start_detach(self) -> BaseRequest:
+        phase = IntegrationPhase.DETACH
+        return self.message_from_phase(phase)
+
+    def message_from_phase(self, phase: IntegrationPhase) -> BaseRequestResponse:
+        config = self._get_supporting_config()
+        handler = MessageHandler._get_handler(phase)
+        return handler.handle_message(None, config)
+
+    def message_received(self, message: BaseRequestResponse) -> BaseRequestResponse:
+        phase = self._get_phase(message)
+        self._save_msgid_if_needed(message)
+        self._save_token_if_needed(phase, message)
+        config = self._get_supporting_config()
+        handler = MessageHandler._get_handler(phase)
         return handler.handle_message(message, config)
 
-    def get_phase(self, message: BaseRequestResponse) -> IntegrationPhase:
+    def clean(self):
+        self._last_msgid = -1
+        self._token = get_session_token()
+
+    def _get_phase(self, message: BaseRequestResponse) -> IntegrationPhase:
         return IntegrationPhase.get(message.function)
 
-    def save_msgid_if_needed(self, message: BaseRequestResponse):
+    def _save_msgid_if_needed(self, message: BaseRequestResponse):
         if message.msgid:
             self._last_msgid = int(message.msgid)
 
-    def save_token_if_needed(
+    def _save_token_if_needed(
         self, phase: IntegrationPhase, message: BaseRequestResponse
     ):
         if phase == IntegrationPhase.ATTACH and isinstance(message, BaseResponse):
             self._token = message.result[0]["token"]
 
-    def get_supporting_config(self) -> MessageSupportingValues:
+    def _get_supporting_config(self) -> MessageSupportingValues:
         return MessageSupportingValues(
             target=self._gateway_info.deviceuid,
             token=self._token,
@@ -60,8 +82,10 @@ class MessageHandler:
         )
 
     @staticmethod
-    def get_handler(phase: IntegrationPhase) -> HandlerInterface:
+    def _get_handler(phase: IntegrationPhase) -> HandlerInterface:
         match phase:
+            case IntegrationPhase.INIT:
+                return InitMessageHandler()
             case IntegrationPhase.SESSION:
                 return SessionMessageHandler()
             case IntegrationPhase.ATTACH:
