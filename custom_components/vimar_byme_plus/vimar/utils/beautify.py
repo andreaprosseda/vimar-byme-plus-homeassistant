@@ -1,9 +1,22 @@
+from prettytable import PrettyTable
 from ..model.gateway.vimar_data import VimarData
-from ..model.component.vimar_light import VimarLight
+from ..model.component.vimar_component import VimarComponent
 
-def beautify(data: VimarData) -> str:
-    return beautify_lights(data.get_lights())
+def beautify(data: VimarData):
+    print("\nLights:")
+    print_table(data._lights)
+    print("\nDoors:")
+    print_table(data._access)
+    print("\nCovers:")
+    print_table(data._shutters)
+    print("\nClimate:")
+    print_table(data._climates)
     
-def beautify_lights(lights: list[VimarLight]) -> str:
-    values = sorted(lights, key= lambda obj: (obj.area, obj.name))
-    return "\n".join([str(value) for value in values])
+def print_table(components: list[VimarComponent]):
+    if not components:
+        return
+    header = components[0].get_table_header()
+    table = PrettyTable(header)
+    for component in components:
+        table.add_row(component.to_table())
+    print(table)

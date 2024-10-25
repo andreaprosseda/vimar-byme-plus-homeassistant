@@ -16,11 +16,18 @@ class VimarLight(VimarComponent):
     supported_color_modes: set[str] | None
     
     def __repr__(self) -> str:
-        return f"[Light] [{self.area}] {self.name} - {'On' if self.is_on else 'Off'}"
-
+        return f"[Light] [{self.area}] {self.name} - {'ON' if self.is_on else 'OFF'}"
+    
     def get_request_turn_on(self) -> None:
         pass
 
     def get_request_turn_off(self) -> None:
         """Turn the light off."""
         pass
+    
+    @staticmethod
+    def get_table_header() -> list:
+        return ['Area', 'Name', 'isOn']
+    
+    def to_table(self) -> list:
+        return [self.area, self.name, self.is_on]

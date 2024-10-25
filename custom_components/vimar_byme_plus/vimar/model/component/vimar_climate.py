@@ -104,3 +104,10 @@ class VimarClimate(VimarComponent):
     max_temp: float
     min_humidity: float
     max_humidity: float
+
+    @staticmethod
+    def get_table_header() -> list:
+        return ['Area', 'Name', 'Temp', 'Target', 'HVACMode', 'HVACAction', 'Preset', 'Fan']
+    
+    def to_table(self) -> list:
+        return [self.area, self.name, self.current_temperature, self.target_temperature, self.hvac_mode, self.hvac_action, self.preset_mode, self.fan_mode]
