@@ -13,7 +13,6 @@ from homeassistant.config_entries import ConfigFlowResult, SOURCE_REAUTH
 from homeassistant.core import HomeAssistant
 
 from .const import CODE, DOMAIN
-from .coordinator_ import VimarDataUpdateCoordinator
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 from .vimar.utils.logger import log_debug, log_error

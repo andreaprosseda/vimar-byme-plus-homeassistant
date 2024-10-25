@@ -5,7 +5,6 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN, MANIFACTURER
-from .coordinator_ import VimarDataUpdateCoordinator
 from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.component_type import ComponentType
