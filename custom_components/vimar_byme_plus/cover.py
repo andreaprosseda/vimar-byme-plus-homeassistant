@@ -9,7 +9,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .coordinator import VimarDataUpdateCoordinator
+from .coordinator import Coordinator
+from . import CoordinatorConfigEntry
 from .vimar.model.component.vimar_cover import VimarCover
 from .vimar.utils.logger import log_debug
 from .base_entity import BaseEntity
@@ -17,11 +18,11 @@ from .base_entity import BaseEntity
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: ConfigEntry,
+    entry: CoordinatorConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up component based on a config entry."""
-    coordinator: VimarDataUpdateCoordinator = entry.runtime_data
+    coordinator = entry.runtime_data
     components = coordinator.data.get_covers()
     entities = [Cover(coordinator, component) for component in components]
     log_debug(__name__, f"Covers found: {len(entities)}")
@@ -33,10 +34,8 @@ class Cover(BaseEntity, CoverEntity):
 
     _component: VimarCover
 
-    def __init__(
-        self, coordinator: VimarDataUpdateCoordinator, component: VimarCover
-    ) -> None:
-        """Initialize the light."""
+    def __init__(self, coordinator: Coordinator, component: VimarCover) -> None:
+        """Initialize the cover."""
         self._component = component
         BaseEntity.__init__(self, coordinator, component)
 

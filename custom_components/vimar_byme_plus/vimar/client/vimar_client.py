@@ -3,13 +3,12 @@
 from ..config.const import USERNAME
 from ..database.database import Database
 from ..mapper.vimar_data.vimar_data_mapper import VimarDataMapper
-from ..model.exception.code_not_valid_exception import CodeNotValidException
+from ..model.exceptions import CodeNotValidException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.gateway.vimar_data import VimarData
+from ..model.repository.user_credentials import UserCredentials
 from ..service.integration_service import IntegrationService
 from ..utils.logger import log_info
-from ..utils.thread import Thread
-from ..utils.thread_monitor import thread_exists
 
 
 class VimarClient:
@@ -18,36 +17,37 @@ class VimarClient:
     _integration_service: IntegrationService
     _component_repo = Database.instance().component_repo
     _user_repo = Database.instance().user_repo
-    _thread_name = "VimarServiceThread"
 
     def __init__(self, gateway_info: GatewayInfo) -> None:
         """Initialize the coordinator."""
         self._integration_service = IntegrationService(gateway_info)
 
-    def start(self):
+    def test_connection(self):
+        """Test the Vimar WebSocket connection."""
+        if self._can_connect():
+            self._integration_service.test_connection()
+
+    def connect(self):
+        """Handle the Vimar WebSocket connection."""
+        if self._can_connect():
+            self._integration_service.connect()
+
+    def _can_connect(self) -> bool:
         if not self.has_gateway_info():
             log_info(__name__, "GatewayInfo not found, skipping connection...")
-            return
+            return False
         if not self.has_credentials():
             log_info(__name__, "Credentials not found, skipping connection...")
-            return
-        if not self.already_connected():
-            log_info(__name__, "Already connected with Gateway, skipping connection...")
+            return False
+        # if not self.already_connected():
+        #     log_info(__name__, "Already connected with Gateway, skipping connection...")
+        #     return False
         log_info(__name__, "Connecting to Gateway, please wait...")
-        self.connect()
+        return True
 
     async def stop(self):
         """Stop coordinator processes."""
-        #
-
-    def connect(self):
-        """Start Vimar connection process."""
-        thread = Thread(
-            target=self._integration_service.connect,
-            name=self._thread_name,
-            daemon=True,
-        )
-        thread.start()
+        # self._integration_service
 
     def retrieve_data(self) -> VimarData:
         """Get the latest data from DB."""
@@ -65,11 +65,18 @@ class VimarClient:
         return credentials is not None
 
     def already_connected(self) -> bool:
-        return thread_exists(self._thread_name)
+        return self._integration_service.web_socket is not None
 
     def set_setup_code(self, setup_code: str):
         self.validate_code(setup_code)
-        self._user_repo.insert_setup_code(USERNAME, setup_code)
+        current_user = self._user_repo.get_current_user()
+        if not self.same_code(setup_code, current_user):
+            self._user_repo.insert_setup_code(USERNAME, setup_code)
+
+    def same_code(self, setup_code: str, current_user: UserCredentials) -> bool:
+        if not current_user:
+            return False
+        return current_user.setup_code == setup_code
 
     def validate_code(self, code: str):
         """Validate the setup code syntax."""

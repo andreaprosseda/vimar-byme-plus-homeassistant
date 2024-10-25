@@ -1,4 +1,4 @@
-"""Provides the Vimar DataUpdateCoordinator."""
+"""Provides the Vimar Coordinator."""
 
 from datetime import timedelta
 import logging
@@ -10,11 +10,12 @@ from .const import CODE, DEFAULT_UPDATE_INTERVAL, DOMAIN
 from .vimar.client.vimar_client import VimarClient
 from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.model.gateway.vimar_data import VimarData
+from .vimar.utils.logger import log_debug
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class VimarDataUpdateCoordinator(DataUpdateCoordinator[VimarData]):
+class Coordinator(DataUpdateCoordinator[VimarData]):
     """Vimar coordinator."""
 
     gateway_info: GatewayInfo
@@ -28,14 +29,18 @@ class VimarDataUpdateCoordinator(DataUpdateCoordinator[VimarData]):
         interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=interval)
 
-    async def initialize(self, user_input: dict[str, str]):
+    def initialize(self, user_input: dict[str, str]):
         """Initialize coordinator processes."""
         code = user_input[CODE]
         self.client.set_setup_code(code)
 
-    async def start(self):
+    def test_connection(self):
+        """Test coordinator processes."""
+        self.client.test_connection()
+
+    def start(self):
         """Start coordinator processes."""
-        self.client.start()
+        self.client.connect()
 
     async def stop(self):
         """Stop coordinator processes."""

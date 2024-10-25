@@ -11,7 +11,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .base_entity import BaseEntity
-from .coordinator import VimarDataUpdateCoordinator
+from . import CoordinatorConfigEntry
+from .coordinator import Coordinator
 from .vimar.model.component.vimar_light import VimarLight
 from .vimar.utils.logger import log_debug
 
@@ -20,11 +21,11 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: ConfigEntry,
+    entry: CoordinatorConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up component based on a config entry."""
-    coordinator: VimarDataUpdateCoordinator = entry.runtime_data
+    coordinator = entry.runtime_data
     components = coordinator.data.get_lights()
     entities = [Light(coordinator, component) for component in components]
     log_debug(__name__, f"Lights found: {len(entities)}")
@@ -36,9 +37,7 @@ class Light(BaseEntity, LightEntity):
 
     _component: VimarLight
 
-    def __init__(
-        self, coordinator: VimarDataUpdateCoordinator, component: VimarLight
-    ) -> None:
+    def __init__(self, coordinator: Coordinator, component: VimarLight) -> None:
         """Initialize the light."""
         self._component = component
         BaseEntity.__init__(self, coordinator, component)
