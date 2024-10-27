@@ -15,7 +15,7 @@ from .vimar.utils.logger import log_debug
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 from .vimar.utils.logger import log_info
 
-PLATFORMS = [Platform.CLIMATE, Platform.COVER, Platform.LIGHT]
+PLATFORMS = [Platform.CLIMATE, Platform.COVER, Platform.LIGHT, Platform.MEDIA_PLAYER]
 
 type CoordinatorConfigEntry = ConfigEntry[Coordinator]
 
