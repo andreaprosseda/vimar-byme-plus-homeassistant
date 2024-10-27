@@ -23,7 +23,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
 
     def __init__(self, hass: HomeAssistant) -> None:
         """Initialize the coordinator."""
-        self.gateway_info = GatewayInfo()
+        self.gateway_info = GatewayInfo.from_mocked_values()
         self.client = VimarClient(self.gateway_info)
 
         interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)

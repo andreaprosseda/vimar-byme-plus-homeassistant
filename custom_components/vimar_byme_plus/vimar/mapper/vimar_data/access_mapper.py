@@ -12,10 +12,11 @@ class AccessMapper:
         return [AccessMapper.from_obj(c) for c in components if c.sftype == SFTYPE]
 
     @staticmethod
-    def from_obj(component: UserComponent) -> VimarCover:
+    def from_obj(component: UserComponent, *args) -> VimarCover:
         return VimarCover(
             id=component.idsf,
             name=component.name,
+            device_group=component.sftype,
             device_name=component.sftype,
             area=component.ambient.name,
             current_cover_position=AccessMapper.current_position(component),

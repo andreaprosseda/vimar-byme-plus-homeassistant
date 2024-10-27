@@ -128,7 +128,8 @@ class Light(BaseEntity, LightEntity):
 
         HomeAssitant Description: Flag supported color modes.
         """
-        return self._component.supported_color_modes
+        modes = self._component.supported_color_modes
+        return set([mode.value for mode in modes])
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""

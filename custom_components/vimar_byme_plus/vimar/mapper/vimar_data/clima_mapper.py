@@ -19,10 +19,11 @@ class ClimaMapper:
         return [ClimaMapper.from_obj(c) for c in components if c.sftype == SFTYPE]
 
     @staticmethod
-    def from_obj(component: UserComponent) -> VimarClimate:
+    def from_obj(component: UserComponent, *args) -> VimarClimate:
         return VimarClimate(
             id=component.idsf,
             name=component.name,
+            device_group=component.sftype,
             device_name=component.sftype,
             area=component.ambient.name,
             current_temperature=ClimaMapper.current_temperature(component),

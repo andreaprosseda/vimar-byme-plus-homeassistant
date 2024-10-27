@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class VimarComponent:
     id: str
     name: str
+    device_group: str
     device_name: str
     area: str
     

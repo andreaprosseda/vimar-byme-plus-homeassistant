@@ -8,7 +8,6 @@ class GatewayFounderService(ServiceListener):
     gateway_info: GatewayInfo = None
 
     def search(self) -> GatewayInfo:
-        return GatewayInfo()
         log_info(__name__, f"Searching for {GATEWAY_SERVICE_TYPE} services...\n")
         service_browser: ServiceBrowser = None
         zeroconf = Zeroconf()
@@ -28,7 +27,7 @@ class GatewayFounderService(ServiceListener):
         log_info(__name__, f"Service Found: {info.server}")
 
         if self.is_vimar_gateway(info):
-            self.gateway_info = GatewayInfo(info)
+            self.gateway_info = GatewayInfo.from_service_info(info)
             log_info(__name__, f"Gateway Found!\n{self.gateway_info}")
         else:
             log_info(__name__, "Not Vimar Gateway, still searching...\n")

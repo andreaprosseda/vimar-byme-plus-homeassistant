@@ -41,7 +41,7 @@ class BaseEntity(CoordinatorEntity):
     @property
     def device_class(self):
         """Return type of the device."""
-        name = self._component.device_name
+        name = self._component.device_group
         return ComponentType.from_type(name).device_class()
 
     @property

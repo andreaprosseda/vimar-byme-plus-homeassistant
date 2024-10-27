@@ -28,7 +28,12 @@ def remove_file(file_name: str) -> None:
         os.remove(file_path)
 
 
+def create_data_if_not_exists() -> str:
+    os.makedirs(_get_data_path(), exist_ok=True)
+
+
 def get_file_path(file_name: str) -> str:
+    create_data_if_not_exists()
     return get_data_path() + file_name
 
 
@@ -41,6 +46,10 @@ def get_db_name() -> str:
 
 
 def get_data_path() -> str:
+    return _get_data_path() + "/"
+
+
+def _get_data_path() -> str:
     if "standalone" in __name__:
-        return "standalone/data/"
+        return "standalone/data"
     return DATA_PATH

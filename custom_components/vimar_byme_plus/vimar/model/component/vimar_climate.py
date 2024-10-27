@@ -107,7 +107,7 @@ class VimarClimate(VimarComponent):
 
     @staticmethod
     def get_table_header() -> list:
-        return ['Area', 'Name', 'Temp', 'Target', 'HVACMode', 'HVACAction', 'Preset', 'Fan']
+        return ['Area', 'Name', 'Type', 'Temp', 'Target', 'HVACMode', 'HVACAction', 'Preset', 'Fan']
     
     def to_table(self) -> list:
-        return [self.area, self.name, self.current_temperature, self.target_temperature, self.hvac_mode, self.hvac_action, self.preset_mode, self.fan_mode]
+        return [self.area, self.name, self.device_name, self.current_temperature, self.target_temperature, self.hvac_mode, self.hvac_action, self.preset_mode, self.fan_mode]

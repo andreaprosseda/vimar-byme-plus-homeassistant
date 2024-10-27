@@ -1,5 +1,19 @@
+from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
+
+class ColorMode(Enum):
+    UNKNOWN = "unknown"
+    ONOFF = "onoff"
+    BRIGHTNESS = "brightness"
+    COLOR_TEMP = "color_temp"
+    HS = "hs"
+    XY = "xy"
+    RGB = "rgb"
+    RGBW = "rgbw"
+    RGBWW = "rgbww"
+    WHITE = "white"
+
 
 @dataclass
 class VimarLight(VimarComponent):
@@ -15,9 +29,6 @@ class VimarLight(VimarComponent):
     effect: str | None
     supported_color_modes: set[str] | None
     
-    def __repr__(self) -> str:
-        return f"[Light] [{self.area}] {self.name} - {'ON' if self.is_on else 'OFF'}"
-    
     def get_request_turn_on(self) -> None:
         pass
 
@@ -27,7 +38,7 @@ class VimarLight(VimarComponent):
     
     @staticmethod
     def get_table_header() -> list:
-        return ['Area', 'Name', 'isOn']
+        return ['Area', 'Name', 'Type', 'isOn', 'Brightness']
     
     def to_table(self) -> list:
-        return [self.area, self.name, self.is_on]
+        return [self.area, self.name, self.device_name, self.is_on, self.brightness]

@@ -7,6 +7,7 @@ class ComponentType(Enum):
     CLIMA = {"sftype": "SF_Clima", "device_class": "climate"}
     COVER = {"sftype": "SF_Shutter", "device_class": "cover"}
     DOOR = {"sftype": "SF_Access", "device_class": "door"}
+    AUDIO = {"sftype": "SF_Audio", "device_class": "media_player"}
 
     @staticmethod
     def from_type(value: str):
