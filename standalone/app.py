@@ -8,8 +8,8 @@ if __name__ == "__main__":
     service = StandAloneService()
     requested = service.request_setup_code_if_needed()
     if requested:
-        service.test_connection()
-    service.connect()
+        service.association_phase()
+    service.operational_phase()
     
     while True:
         value = input("Press Enter to continue")

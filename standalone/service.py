@@ -17,11 +17,11 @@ class StandAloneService:
         gateway_info = founder.search()
         return gateway_info
     
-    def test_connection(self):
-        self._client.test_connection()
+    def association_phase(self):
+        self._client.association_phase()
         
-    def connect(self):
-        self._client.connect()
+    def operational_phase(self):
+        self._client.operational_phase()
     
     def retrieve_data(self) -> VimarData:
         return self._client.retrieve_data()
