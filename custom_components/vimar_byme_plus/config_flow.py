@@ -13,7 +13,7 @@ from homeassistant.config_entries import ConfigFlowResult, SOURCE_REAUTH
 from homeassistant.core import HomeAssistant
 from homeassistant.components import zeroconf
 
-from .const import GATEWAY_NAME, ADDRESS, GATEWAY_ID, CODE, HOST, PORT, PROTOCOL, DOMAIN
+from .const import GATEWAY_NAME, ADDRESS, GATEWAY_ID, GATEWAY_MODEL, CODE, HOST, PORT, PROTOCOL, DOMAIN
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 from .vimar.utils.logger import log_debug, log_error
@@ -60,18 +60,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         user_input = self._get_discovery_info_as_user_input(discovery_info)
         await self.async_set_unique_id(user_input[GATEWAY_ID])
         self._abort_if_unique_id_configured()
-        if 'AG+' not in user_input[GATEWAY_ID]:
+        if user_input[GATEWAY_MODEL] != 'AG+':
             return self.async_abort(reason="invalid_device")
         
         step_id = "discovery_confirm"
         schema = ZEROCONF_DATA_SCHEMA
         self.discovery_info = discovery_info
         
-        placeholders = {
-            "name": user_input[GATEWAY_NAME],
-            "model": user_input[GATEWAY_ID],
-            "ip_address": user_input[ADDRESS]
-        }
+        placeholders = {"name": user_input[GATEWAY_NAME]}
         self.context["title_placeholders"] = placeholders
 
         return self.async_show_form(step_id=step_id, data_schema=schema)
@@ -116,21 +112,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _finalize(self, user_input: dict[str, str]):
         """Finalize the config flow."""
-        info = self._get_gateway_info(user_input)
-        coordinator = Coordinator(self.hass, info)
-        coordinator.initialize(user_input)
+        coordinator = Coordinator(self.hass, user_input)
         await self.hass.async_add_executor_job(coordinator.associate)
     
-    def _get_gateway_info(self, user_input: dict[str, str]) -> GatewayInfo:
-        return GatewayInfo(
-            host=user_input[HOST],
-            address=user_input[ADDRESS],
-            port=user_input[PORT],
-            deviceuid=user_input[GATEWAY_ID],
-            plantname=user_input[GATEWAY_NAME],
-            protocolversion=user_input[PROTOCOL]
-        )
-        
     def _enhance_user_input(self, user_input: dict[str, str]) -> dict[str, str]:
         if self.discovery_info:
             new_info = self._get_discovery_info_as_user_input(self.discovery_info)
@@ -143,10 +127,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     def _get_discovery_info_as_user_input(self, discovery_info: zeroconf.ZeroconfServiceInfo) -> dict[str, str]:
         props = discovery_info.properties
         return {
-            HOST            : discovery_info.hostname,
+            HOST            : discovery_info.hostname.replace(".local.", ""),
             ADDRESS         : str(discovery_info.ip_address),
             PORT            : discovery_info.port,
-            GATEWAY_ID      : props.get("model") + " " + props.get("deviceuid"),
+            GATEWAY_ID      : props.get("deviceuid"),
+            GATEWAY_MODEL   : props.get("model"),
             GATEWAY_NAME    : props.get("plantname"),
             PROTOCOL        : props.get("protocolversion")
         }
@@ -154,10 +139,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         
     def _get_default_value_as_user_input(self, user_input: dict[str, str]) -> dict[str, str]:
         return {
-            HOST            : f"AG-{user_input[GATEWAY_ID]}.local.",
+            HOST            : f"AG-{user_input[GATEWAY_ID]}",
             ADDRESS         : user_input[ADDRESS],
             PORT            : "20615",
             GATEWAY_ID      : user_input[GATEWAY_ID],
+            GATEWAY_MODEL   : "AG+",
             GATEWAY_NAME    : user_input[GATEWAY_NAME],
             PROTOCOL        : "2.7"
         }

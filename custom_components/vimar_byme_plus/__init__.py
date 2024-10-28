@@ -21,10 +21,8 @@ type CoordinatorConfigEntry = ConfigEntry[Coordinator]
 
 async def async_setup_entry(hass: HomeAssistant, entry: CoordinatorConfigEntry) -> bool:
     """Set up Hello World from a config entry."""
-    info = GatewayInfo.from_user_input(entry.data)
-    coordinator = Coordinator(hass, info)
+    coordinator = Coordinator(hass, entry.data)
     await coordinator.async_config_entry_first_refresh()
-    coordinator.initialize(entry.data)
     await start(coordinator)
     entry.runtime_data = coordinator
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

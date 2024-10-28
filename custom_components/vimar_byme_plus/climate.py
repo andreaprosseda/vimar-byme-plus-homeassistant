@@ -31,7 +31,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
     components = coordinator.data.get_climates()
     entities = [Climate(coordinator, component) for component in components]
-    log_debug(__name__, f"Covers found: {len(entities)}")
+    log_debug(__name__, f"Climates found: {len(entities)}")
     async_add_entities(entities, True)
 
 
