@@ -16,6 +16,4 @@ tmp/
 __pycache__/
 *.py[cod]
 
-aprosseda.key.pem
-home.db
-app.log
+data
