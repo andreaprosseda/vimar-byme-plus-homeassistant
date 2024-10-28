@@ -40,7 +40,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
 
     async def stop(self):
         """Stop coordinator processes."""
-        # await self.knx.stop()
+        self.client.stop()
 
     async def _async_update_data(self) -> VimarData:
         """Get the latest data."""

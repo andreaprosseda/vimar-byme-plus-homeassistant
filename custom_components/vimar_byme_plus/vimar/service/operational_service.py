@@ -138,7 +138,7 @@ class OperationalService:
         try:
             self._send_method(response)
         except WebSocketConnectionClosedException:
-            self._disconnect()
+            self.disconnect()
 
     def _get_config_for_attach_phase(self) -> WebSocketConfig:
         config = self._get_config()
@@ -159,9 +159,9 @@ class OperationalService:
     def _get_seconds_to_wait(self, request: BaseRequest) -> int:
         if request and request.args:
             return int(request.args[0].get("value", 0))
-        self._disconnect()
+        self.disconnect()
 
-    def _disconnect(self):
+    def disconnect(self):
         log_info(__name__, "Terminating the execution...")
         self._keep_alive_handler.stop()
-        # os._exit(-1)
+        self._error_handler.remove_database()

@@ -45,9 +45,9 @@ class VimarClient:
         log_info(__name__, "Connecting to Gateway, please wait...")
         return True
 
-    async def stop(self):
+    def stop(self):
         """Stop coordinator processes."""
-        # self._integration_service
+        self._operational_service.disconnect()
 
     def retrieve_data(self) -> VimarData:
         """Get the latest data from DB."""

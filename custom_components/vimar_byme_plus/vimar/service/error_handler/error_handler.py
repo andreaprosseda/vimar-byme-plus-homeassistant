@@ -41,11 +41,14 @@ class ErrorHandler:
         return last_client_message
 
     def handle_permanent_error(self):
+        self.remove_database()
+        raise PermissionDeniedException
+
+    def remove_database(self):
         db_name = get_db_name()
         log_info(__name__, f"Removing database {db_name} ...")
         remove_file(db_name)
-        raise PermissionDeniedException
-
+        
     def is_ssl_error(self, exception: Exception) -> bool:
         error_type = type(exception).__name__
         if error_type == "SSLError":
