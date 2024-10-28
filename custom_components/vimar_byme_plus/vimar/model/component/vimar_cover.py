@@ -1,8 +1,7 @@
-from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
 
-class CoverEntityFeature(Enum):
+class CoverEntityFeature:
     OPEN = 1
     CLOSE = 2
     SET_POSITION = 4

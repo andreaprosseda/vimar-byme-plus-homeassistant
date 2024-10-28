@@ -37,6 +37,6 @@ class AccessMapper:
         return value == "Off" if value else None
 
     @staticmethod
-    def get_supported_features(self, component: UserComponent) -> CoverEntityFeature:
+    def get_supported_features(component: UserComponent) -> CoverEntityFeature:
         """Flag media player features that are supported."""
         return (CoverEntityFeature.OPEN)
