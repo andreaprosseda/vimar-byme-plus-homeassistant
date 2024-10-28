@@ -48,6 +48,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         schema = USER_DATA_SCHEMA
         if user_input is not None:
             user_input = self._enhance_user_input(user_input)
+            await self.async_set_unique_id(user_input[GATEWAY_ID])
+            self._abort_if_unique_id_configured()
             return await self._initialize(step_id, user_input, schema)
         return self.async_show_form(step_id=step_id, data_schema=schema)
 
@@ -55,9 +57,23 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self, discovery_info: zeroconf.ZeroconfServiceInfo
     ) -> ConfigFlowResult:
         """Handle zeroconf discovery."""
+        user_input = self._get_discovery_info_as_user_input(discovery_info)
+        await self.async_set_unique_id(user_input[GATEWAY_ID])
+        self._abort_if_unique_id_configured()
+        if 'AG+' not in user_input[GATEWAY_ID]:
+            return self.async_abort(reason="invalid_device")
+        
         step_id = "discovery_confirm"
         schema = ZEROCONF_DATA_SCHEMA
         self.discovery_info = discovery_info
+        
+        placeholders = {
+            "name": user_input[GATEWAY_NAME],
+            "model": user_input[GATEWAY_ID],
+            "ip_address": user_input[ADDRESS]
+        }
+        self.context["title_placeholders"] = placeholders
+
         return self.async_show_form(step_id=step_id, data_schema=schema)
 
     async def async_step_discovery_confirm(
@@ -66,10 +82,10 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Confirm discovery."""
         step_id = "discovery_confirm"
         schema = ZEROCONF_DATA_SCHEMA
-        if CODE in user_input:
+        if user_input and CODE in user_input:
             user_input = self._enhance_user_input(user_input)
-            return await self._initialize(step_id, user_input, schema)
-        return await self.async_show_form(step_id, schema)
+            return await self._initialize(step_id, schema, user_input)
+        return self.async_show_form(step_id=step_id, data_schema=schema)
 
     async def _initialize(
         self,
@@ -81,10 +97,10 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
         if user_input is not None:
             try:
-                name = await self._finalize(user_input)
-                await self.async_set_unique_id(name)
-                self._abort_if_unique_id_configured()
-                return self.async_create_entry(title=name, data=user_input)
+                log_debug(__name__, user_input)
+                title = user_input[GATEWAY_NAME]
+                await self._finalize(user_input)
+                return self.async_create_entry(title=title, data=user_input)
             except VimarErrorResponseException as err:
                 errors["base"] = f"Error returned from Gateway: {err.message}"
             except CodeNotValidException:
@@ -98,13 +114,12 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id=step_id, data_schema=data_schema, errors=errors
         )
 
-    async def _finalize(self, user_input: dict[str, str]) -> dict[str, Any]:
+    async def _finalize(self, user_input: dict[str, str]):
         """Finalize the config flow."""
         info = self._get_gateway_info(user_input)
         coordinator = Coordinator(self.hass, info)
         coordinator.initialize(user_input)
         await self.hass.async_add_executor_job(coordinator.associate)
-        return coordinator.gateway_info.plantname
     
     def _get_gateway_info(self, user_input: dict[str, str]) -> GatewayInfo:
         return GatewayInfo(
@@ -118,26 +133,26 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         
     def _enhance_user_input(self, user_input: dict[str, str]) -> dict[str, str]:
         if self.discovery_info:
-            new_info = self._enhance_with_discovery_info()
+            new_info = self._get_discovery_info_as_user_input(self.discovery_info)
         else:
-            new_info = self._enhance_with_default_value(user_input)
+            new_info = self._get_default_value_as_user_input(user_input)
         user_input.update(new_info)
         return user_input
 
     
-    def _enhance_with_discovery_info(self) -> dict[str, str]:
-        props = self.discovery_info.properties
+    def _get_discovery_info_as_user_input(self, discovery_info: zeroconf.ZeroconfServiceInfo) -> dict[str, str]:
+        props = discovery_info.properties
         return {
-            HOST            : self.discovery_info.host,
-            ADDRESS         : self.discovery_info.ip_address,
-            PORT            : self.discovery_info.port,
-            GATEWAY_ID      : props.get("deviceuid"),
+            HOST            : discovery_info.hostname,
+            ADDRESS         : str(discovery_info.ip_address),
+            PORT            : discovery_info.port,
+            GATEWAY_ID      : props.get("model") + " " + props.get("deviceuid"),
             GATEWAY_NAME    : props.get("plantname"),
             PROTOCOL        : props.get("protocolversion")
         }
 
         
-    def _enhance_with_default_value(self, user_input: dict[str, str]) -> dict[str, str]:
+    def _get_default_value_as_user_input(self, user_input: dict[str, str]) -> dict[str, str]:
         return {
             HOST            : f"AG-{user_input[GATEWAY_ID]}.local.",
             ADDRESS         : user_input[ADDRESS],
