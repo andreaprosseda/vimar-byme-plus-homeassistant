@@ -13,6 +13,7 @@ from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.base_response import BaseResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
+from ..model.exceptions import VimarErrorResponseException
 from ..scheduler.keep_alive_handler import KeepAliveHandler
 from ..utils.logger import log_info
 from ..utils.thread import Timer
@@ -22,7 +23,7 @@ from ..utils.thread import Thread
 from ..utils.thread_monitor import thread_exists
 
 
-class IntegrationService:
+class OperationalService:
     gateway_address: str
     session_port: int
     attach_port: int | None = None
@@ -49,23 +50,23 @@ class IntegrationService:
         self._keep_alive_handler = KeepAliveHandler()
         self._waiting_timer = None
 
-    def test_connection(self):
-        """Handle the connection Vimar WebSocket connection."""
-        try:
-            self.clean()
-            self.sync_session_phase()
-            self.sync_attach_phase()
-        except Exception as err:
-            raise ConnectionAbortedError(err) from err
-
     def connect(self):
+        """Create a new thread for Operational Phase interaction."""
+        thread = Thread(
+            target=self._connect,
+            name=self._thread_name,
+            daemon=True,
+        )
+        thread.start()
+        
+    def _connect(self):
         """Handle the connection Vimar WebSocket connection."""
         try:
             self.clean()
             self.sync_session_phase()
             self.async_attach_phase()
         except Exception as err:
-            raise ConnectionAbortedError(err) from err
+            raise VimarErrorResponseException(err) from err
 
     def send(self):
         self._web_socket.send(None)
@@ -80,25 +81,8 @@ class IntegrationService:
         self.attach_port = client.connect()
         log_info(__name__, "Session Phase Done!")
 
-    def sync_attach_phase(self):
-        """Handle AttachPhase interaction."""
-        log_info(__name__, "Starting Attach Phase...")
-        config = self._get_config()
-        handler = self._message_handler
-        client = SyncAttachPhase(config, handler)
-        log_info(__name__, "Attach Phase Done!")
-        client.connect()
 
     def async_attach_phase(self):
-        """Create a new thread for AttachPhase interaction."""
-        thread = Thread(
-            target=self._async_attach_phase,
-            name=self._thread_name,
-            daemon=True,
-        )
-        thread.start()
-
-    def _async_attach_phase(self):
         """Handle AttachPhase interaction."""
         log_info(__name__, "Starting Attach Phase...")
         config = self._get_config_for_attach_phase()
@@ -139,10 +123,8 @@ class IntegrationService:
             self.attach_port = None
             self._keep_alive_handler.stop()
             seconds_to_wait = self._get_seconds_to_wait(message)
-            log_info(
-                __name__,
-                f"Waiting {str(seconds_to_wait)} seconds before reconnecting...",
-            )
+            message = f"Waiting {str(seconds_to_wait)} seconds before reconnecting..."
+            log_info(__name__, message,)
             time.sleep(seconds_to_wait)
             self.connect()
 
@@ -170,7 +152,6 @@ class IntegrationService:
     def _get_config(self) -> WebSocketConfig:
         config = WebSocketConfig()
         config.gateway_info = self.gateway_info
-        config.user_credentials = self._user_repo.get_current_user()
         config.address = self.gateway_address
         config.port = self.attach_port if self.attach_port else self.session_port
         return config

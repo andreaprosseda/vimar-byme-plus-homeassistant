@@ -13,10 +13,9 @@ class UserRepo(BaseRepo):
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
-                setup_code TEXT NOT NULL,
+                setup_code TEXT,
                 useruid TEXT,
-                password TEXT,
-                token TEXT
+                password TEXT
             );
         """
         self.execute(query)
@@ -24,7 +23,7 @@ class UserRepo(BaseRepo):
     def get_current_user(self) -> UserCredentials:
         query = """
             SELECT
-                username, setup_code, useruid, password, token
+                username, setup_code, useruid, password
             FROM users
             LIMIT 1
         """
@@ -32,13 +31,12 @@ class UserRepo(BaseRepo):
         record = cursor.fetchone()
         if not record:
             return None
-        username, setup_code, useruid, password, token = record
+        username, setup_code, useruid, password = record
         return UserCredentials(
             username=username,
             useruid=useruid,
             password=password,
-            setup_code=setup_code,
-            token=token,
+            setup_code=setup_code
         )
 
     def insert(self, credentials: UserCredentials):
@@ -62,7 +60,7 @@ class UserRepo(BaseRepo):
     def update(self, credentials: UserCredentials):
         query = """
             UPDATE users
-            SET useruid = ?, password = ?, token = ?
+            SET useruid = ?, password = ?, setup_code = ?
             WHERE username = ?;
         """
         self.execute(
@@ -70,7 +68,7 @@ class UserRepo(BaseRepo):
             (
                 credentials.useruid,
                 credentials.password,
-                credentials.token,
+                None,
                 credentials.username,
             ),
         )
