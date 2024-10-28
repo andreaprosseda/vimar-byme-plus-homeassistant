@@ -17,7 +17,7 @@ class SsAudioRadioFmMapper:
             id=component.idsf,
             name=component.name,
             device_group=component.sftype,
-            device_name=component.sftype,
+            device_name=component.sstype,
             area=component.ambient.name,
             is_on = True,
             media_content_type = self.get_media_content_type(component),

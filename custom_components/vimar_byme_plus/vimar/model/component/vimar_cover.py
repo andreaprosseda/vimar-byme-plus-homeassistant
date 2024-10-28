@@ -1,5 +1,16 @@
+from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
+
+class CoverEntityFeature(Enum):
+    OPEN = 1
+    CLOSE = 2
+    SET_POSITION = 4
+    STOP = 8
+    OPEN_TILT = 16
+    CLOSE_TILT = 32
+    STOP_TILT = 64
+    SET_TILT_POSITION = 128
 
 @dataclass
 class VimarCover(VimarComponent):
@@ -7,6 +18,7 @@ class VimarCover(VimarComponent):
     is_closed: bool | None
     is_closing: bool | None
     is_opening: bool | None
+    supported_features: CoverEntityFeature
     
     def get_request_open_cover(self) -> None:
         """Open the cover."""
