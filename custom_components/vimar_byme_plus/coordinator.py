@@ -10,6 +10,7 @@ from .const import CODE, DEFAULT_UPDATE_INTERVAL, DOMAIN
 from .vimar.client.vimar_client import VimarClient
 from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.model.gateway.vimar_data import VimarData
+from .vimar.service.gateway_founder_service import GatewayFounderService
 from .vimar.utils.logger import log_debug
 
 _LOGGER = logging.getLogger(__name__)
@@ -21,9 +22,9 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     gateway_info: GatewayInfo
     client: VimarClient
 
-    def __init__(self, hass: HomeAssistant) -> None:
+    def __init__(self, hass: HomeAssistant, info: GatewayInfo = None) -> None:
         """Initialize the coordinator."""
-        self.gateway_info = GatewayInfo.from_mocked_values()
+        self.gateway_info = info if info else GatewayInfo.from_mocked_values()
         self.client = VimarClient(self.gateway_info)
 
         interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)
