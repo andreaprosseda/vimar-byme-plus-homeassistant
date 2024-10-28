@@ -45,7 +45,8 @@ class Cover(BaseEntity, CoverEntity):
 
         HomeAssistantDescription: The current position of cover where 0 means closed and 100 is fully open.
         """
-        return self._component.current_cover_position
+        position = self._component.current_cover_position
+        return 100 - position if position else None
 
     @property
     def is_opening(self) -> bool | None:

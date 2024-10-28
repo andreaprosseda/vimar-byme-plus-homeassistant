@@ -68,9 +68,7 @@ class VimarClient:
         if not setup_code:
             return
         self.validate_code(setup_code)
-        current_user = self._user_repo.get_current_user()
-        if not current_user or not current_user.password:
-            self._user_repo.insert_setup_code(USERNAME, setup_code)
+        self._user_repo.insert_setup_code(USERNAME, setup_code)
 
     def same_code(self, setup_code: str, current_user: UserCredentials) -> bool:
         if not current_user:
