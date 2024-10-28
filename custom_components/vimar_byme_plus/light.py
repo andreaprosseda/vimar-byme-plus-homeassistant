@@ -64,7 +64,7 @@ class Light(BaseEntity, LightEntity):
 
         HomeAssitant Description: The color mode of the light. The returned color mode must be present in the supported_color_modes property unless the light is rendering an effect.
         """
-        return self._component.color_mode
+        return self._component.color_mode.value
 
     @property
     def hs_color(self) -> tuple[float, float] | None:
@@ -129,7 +129,7 @@ class Light(BaseEntity, LightEntity):
         HomeAssitant Description: Flag supported color modes.
         """
         modes = self._component.supported_color_modes
-        return set([mode.value for mode in modes])
+        return {mode.value for mode in modes}
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""

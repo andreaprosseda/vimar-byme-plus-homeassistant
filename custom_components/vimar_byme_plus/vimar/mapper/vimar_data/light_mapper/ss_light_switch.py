@@ -18,7 +18,7 @@ class SsLightSwitchMapper:
             area=component.ambient.name,
             is_on=self.get_is_on(component),
             brightness=None,
-            color_mode=None,
+            color_mode=self.get_color_mode(component),
             hs_color=None,
             xy_color=None,
             rgb_color=None,
@@ -32,6 +32,9 @@ class SsLightSwitchMapper:
     def get_is_on(self, component: UserComponent) -> bool:
         value = component.get_value(SfeType.STATE_ON_OFF)
         return value == "On" if value else False
-
+    
+    def get_color_mode(self, component: UserComponent) -> ColorMode:
+        return ColorMode.ONOFF
+    
     def get_supported_color_modes(self, component: UserComponent) -> set[ColorMode]:
-        return { ColorMode.ONOFF }
+        return { self.get_color_mode(component) }

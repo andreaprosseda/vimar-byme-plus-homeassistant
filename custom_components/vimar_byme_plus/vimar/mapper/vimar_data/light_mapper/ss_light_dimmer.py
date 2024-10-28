@@ -18,7 +18,7 @@ class SsLightDimmerMapper:
             area=component.ambient.name,
             is_on=self.get_is_on(component),
             brightness=self.get_brightness(component),
-            color_mode=None,
+            color_mode=self.get_color_mode(component),
             hs_color=None,
             xy_color=None,
             rgb_color=None,
@@ -39,5 +39,8 @@ class SsLightDimmerMapper:
             return int(value)
         return None # Change up/Change down
 
+    def get_color_mode(self, component: UserComponent) -> ColorMode:
+        return ColorMode.BRIGHTNESS
+    
     def get_supported_color_modes(self, component: UserComponent) -> set[ColorMode]:
-        return { ColorMode.BRIGHTNESS }
+        return { self.get_color_mode(component) }

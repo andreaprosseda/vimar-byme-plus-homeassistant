@@ -106,9 +106,7 @@ class ClimaMapper:
         hvac_action = HVACAction.get_hvac_action(value)
         hvac_mode = component.get_value(SfeType.STATE_HVAC_MODE)
         if hvac_mode != "Off" and hvac_action == HVACAction.OFF:
-            log_info(__name__, "Climate IDLE")
             return HVACAction.IDLE
-        log_info(__name__, f"Climate {hvac_action}")
         return hvac_action
 
     @staticmethod

@@ -19,7 +19,7 @@ class ColorMode(Enum):
 class VimarLight(VimarComponent):
     is_on: bool
     brightness: int | None
-    color_mode: str | None
+    color_mode: ColorMode | None
     hs_color: tuple[float, float] | None
     xy_color: tuple[float, float] | None
     rgb_color: tuple[int, int, int] | None
@@ -27,7 +27,7 @@ class VimarLight(VimarComponent):
     rgbww_color: tuple[int, int, int, int, int] | None
     effect_list: list[str] | None
     effect: str | None
-    supported_color_modes: set[str] | None
+    supported_color_modes: set[ColorMode] | None
     
     def get_request_turn_on(self) -> None:
         pass
