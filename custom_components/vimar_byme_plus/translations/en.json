@@ -10,7 +10,7 @@
                 "description": "Do you want to start setup?"
             },
             "user": {
-                "description": "Please enter your Setup Code [4 digit]"
+                "description": "Use the auto-discovery or check documentation"
             }
         }
     }

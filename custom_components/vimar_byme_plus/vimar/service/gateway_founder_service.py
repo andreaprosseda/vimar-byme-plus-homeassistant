@@ -46,7 +46,7 @@ class GatewayFounderService(ServiceListener):
         properties = info.properties.items()
         props = {key.decode(): value.decode() for key, value in properties}
         return GatewayInfo.from_info(
-            server=info.server,
+            host=info.server,
             address=address,
             port=info.port,
             props=props

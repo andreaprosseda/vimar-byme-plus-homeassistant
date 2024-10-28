@@ -4,16 +4,15 @@ from __future__ import annotations
 
 import logging
 
-from homeassistant.config_entries import SOURCE_REAUTH, ConfigEntry
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 
-from .const import CODE
 from .coordinator import Coordinator
-from .vimar.utils.logger import log_debug
+from .vimar.utils.logger import log_debug, log_info
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
-from .vimar.utils.logger import log_info
+from .vimar.model.gateway.gateway_info import GatewayInfo
 
 PLATFORMS = [Platform.CLIMATE, Platform.COVER, Platform.LIGHT, Platform.MEDIA_PLAYER]
 
@@ -22,7 +21,8 @@ type CoordinatorConfigEntry = ConfigEntry[Coordinator]
 
 async def async_setup_entry(hass: HomeAssistant, entry: CoordinatorConfigEntry) -> bool:
     """Set up Hello World from a config entry."""
-    coordinator = Coordinator(hass)
+    info = GatewayInfo.from_user_input(entry.data)
+    coordinator = Coordinator(hass, info)
     await coordinator.async_config_entry_first_refresh()
     coordinator.initialize(entry.data)
     await start(coordinator)

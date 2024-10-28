@@ -4,6 +4,13 @@ from typing import Final
 
 MANIFACTURER = "Vimar"
 DOMAIN = "vimar_byme_plus"
+
+GATEWAY_NAME = "Gateway Name"
+ADDRESS = "Gateway IP Address"
+PORT = "Gateway Port"
+GATEWAY_ID = "Gateway Device ID"
+HOST = "Hostname"
+PROTOCOL = "Protocol Version"
 CODE = "Setup Code"
 
 DEFAULT_UPDATE_INTERVAL = 0.5

@@ -22,9 +22,9 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     gateway_info: GatewayInfo
     client: VimarClient
 
-    def __init__(self, hass: HomeAssistant, info: GatewayInfo = None) -> None:
+    def __init__(self, hass: HomeAssistant, info: GatewayInfo) -> None:
         """Initialize the coordinator."""
-        self.gateway_info = info if info else GatewayInfo.from_mocked_values()
+        self.gateway_info = info
         self.client = VimarClient(self.gateway_info)
 
         interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)
@@ -35,13 +35,13 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         code = user_input[CODE]
         self.client.set_setup_code(code)
 
-    def test_connection(self):
+    def associate(self):
         """Test coordinator processes."""
-        self.client.test_connection()
+        self.client.association_phase()
 
     def start(self):
         """Start coordinator processes."""
-        self.client.connect()
+        self.client.operational_phase()
 
     async def stop(self):
         """Stop coordinator processes."""
