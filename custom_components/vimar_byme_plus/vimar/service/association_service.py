@@ -7,7 +7,9 @@ from ..model.gateway.gateway_info import GatewayInfo
 from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..model.exceptions import VimarErrorResponseException
 from ..model.repository.user_credentials import UserCredentials
+from ..model.web_socket.base_response import BaseResponse
 from ..utils.logger import log_info
+
 
 class AssociationService:
     gateway_address: str
@@ -26,7 +28,7 @@ class AssociationService:
         self.session_port = gateway_info.port
         self.gateway_info = gateway_info
         self._message_handler = MessageHandler(gateway_info)
-        
+
     def associate(self):
         """Handle the connection Vimar WebSocket connection."""
         try:
@@ -35,7 +37,8 @@ class AssociationService:
             self.sync_session_phase()
             log_info(__name__, "Association | Session Phase Done!")
             log_info(__name__, "Starting Association | Attach Phase...")
-            self.sync_attach_phase()
+            attach_response = self.sync_attach_phase()
+            self.save_attach_credentials(attach_response)
             log_info(__name__, "Association | Attach Phase Done!")
         except Exception as err:
             raise VimarErrorResponseException(err) from err
@@ -52,7 +55,7 @@ class AssociationService:
             log_info(__name__, "Operational | Attach Phase Done!")
         except Exception as err:
             raise VimarErrorResponseException(err) from err
-        
+
     def clean(self):
         self.attach_port = None
         self._message_handler.clean()
@@ -65,29 +68,36 @@ class AssociationService:
         client = SyncSessionPhase(config, handler)
         self.attach_port = client.connect()
 
-    def sync_attach_phase(self):
+    def sync_attach_phase(self) -> BaseResponse:
         """Handle AttachPhase interaction."""
         port = self.attach_port
         handler = self._message_handler
         credentials = self.get_signed_credentials()
         config = self._get_config(port, credentials)
         client = SyncAttachPhase(config, handler)
-        client.connect()
+        return client.connect()
 
-    def _get_config(self, port: int, user_credentials: UserCredentials = None) -> WebSocketConfig:
+    def _get_config(
+        self, port: int, user_credentials: UserCredentials = None
+    ) -> WebSocketConfig:
         config = WebSocketConfig()
         config.gateway_info = self.gateway_info
         config.user_credentials = user_credentials
         config.address = self.gateway_address
         config.port = port
         return config
-    
+
     def get_signed_credentials(self) -> UserCredentials:
         client = self._authenticator_client
         credentials = self._user_repo.get_current_user()
-        if credentials.setup_code:
-            signed_credentials = client.get_association_credentials(credentials)
-        else:
-            signed_credentials = client.get_operational_credentials(credentials)
+        if credentials.password:
+            return credentials
+        signed_credentials = client.get_association_credentials(credentials)
         self._user_repo.update(signed_credentials)
         return signed_credentials
+
+    def save_attach_credentials(self, response: BaseResponse):
+        client = self._authenticator_client
+        credentials = UserCredentials.obj_from_dict(response)
+        signed_credentials = client.get_operational_credentials(credentials)
+        self._user_repo.update(signed_credentials)

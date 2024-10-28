@@ -28,6 +28,7 @@ class SyncAttachPhase(SyncBaseSocket):
         self.send_and_wait_for_response(detach_req)
 
         self.close()
+        return attach_res
 
     def send_and_wait_for_response(self, request: BaseRequest) -> BaseResponse:
         """Send a request and wait for response."""
