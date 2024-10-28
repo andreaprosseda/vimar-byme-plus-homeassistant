@@ -65,6 +65,8 @@ class VimarClient:
         return credentials and credentials.password is not None
 
     def set_setup_code(self, setup_code: str):
+        if not setup_code:
+            return
         self.validate_code(setup_code)
         current_user = self._user_repo.get_current_user()
         if not current_user or not current_user.password:

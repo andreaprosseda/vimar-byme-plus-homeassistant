@@ -90,7 +90,7 @@ class AssociationService:
     def get_signed_credentials(self) -> UserCredentials:
         client = self._authenticator_client
         credentials = self._user_repo.get_current_user()
-        if credentials.password:
+        if credentials and credentials.password:
             return credentials
         signed_credentials = client.get_association_credentials(credentials)
         self._user_repo.update(signed_credentials)

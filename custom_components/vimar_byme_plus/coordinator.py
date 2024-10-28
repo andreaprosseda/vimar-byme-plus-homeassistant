@@ -6,7 +6,17 @@ import logging
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import GATEWAY_NAME, ADDRESS, PORT, GATEWAY_ID, HOST, PROTOCOL, CODE, DEFAULT_UPDATE_INTERVAL, DOMAIN
+from .const import (
+    GATEWAY_NAME,
+    ADDRESS,
+    PORT,
+    GATEWAY_ID,
+    HOST,
+    PROTOCOL,
+    CODE,
+    DEFAULT_UPDATE_INTERVAL,
+    DOMAIN,
+)
 from .vimar.client.vimar_client import VimarClient
 from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.model.gateway.vimar_data import VimarData
@@ -25,7 +35,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         """Initialize the coordinator."""
         self.gateway_info = self._get_gateway_info(user_input)
         self.client = VimarClient(self.gateway_info)
-        self.client.set_setup_code(user_input[CODE])
+        self.client.set_setup_code(user_input.get(CODE))
 
         interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=interval)
@@ -38,7 +48,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         """Start coordinator processes."""
         self.client.operational_phase()
 
-    async def stop(self):
+    def stop(self):
         """Stop coordinator processes."""
         self.client.stop()
 
@@ -54,6 +64,5 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
             port=user_input[PORT],
             deviceuid=user_input[GATEWAY_ID],
             plantname=user_input[GATEWAY_NAME],
-            protocolversion=user_input[PROTOCOL]
+            protocolversion=user_input[PROTOCOL],
         )
-        

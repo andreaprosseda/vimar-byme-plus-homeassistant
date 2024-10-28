@@ -30,6 +30,7 @@ class OperationalService:
 
     gateway_info: GatewayInfo
     _thread_name = "VimarServiceThread"
+    _thread: Thread
 
     _message_handler: MessageHandler
     _error_handler: ErrorHandler
@@ -52,13 +53,13 @@ class OperationalService:
 
     def connect(self):
         """Create a new thread for Operational Phase interaction."""
-        thread = Thread(
+        self._thread = Thread(
             target=self._connect,
             name=self._thread_name,
             daemon=True,
         )
-        thread.start()
-        
+        self._thread.start()
+
     def _connect(self):
         """Handle the connection Vimar WebSocket connection."""
         try:
@@ -81,13 +82,12 @@ class OperationalService:
         self.attach_port = client.connect()
         log_info(__name__, "Session Phase Done!")
 
-
     def async_attach_phase(self):
         """Handle AttachPhase interaction."""
         log_info(__name__, "Starting Attach Phase...")
         config = self._get_config_for_attach_phase()
-        client = WSAttachPhase(config)
-        self._web_socket = client.connect()
+        self._web_socket = WSAttachPhase(config)
+        self._web_socket.connect()
 
     def clean(self):
         self.attach_port = None
@@ -124,7 +124,10 @@ class OperationalService:
             self._keep_alive_handler.stop()
             seconds_to_wait = self._get_seconds_to_wait(message)
             message = f"Waiting {str(seconds_to_wait)} seconds before reconnecting..."
-            log_info(__name__, message,)
+            log_info(
+                __name__,
+                message,
+            )
             time.sleep(seconds_to_wait)
             self.connect()
 
@@ -163,5 +166,7 @@ class OperationalService:
 
     def disconnect(self):
         log_info(__name__, "Terminating the execution...")
+        self._web_socket._ws.close()
         self._keep_alive_handler.stop()
-        self._error_handler.remove_database()
+        self._web_socket = None
+        self._thread.join()
