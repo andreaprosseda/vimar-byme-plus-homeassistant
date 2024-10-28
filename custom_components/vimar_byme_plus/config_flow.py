@@ -50,7 +50,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             user_input = self._enhance_user_input(user_input)
             await self.async_set_unique_id(user_input[GATEWAY_ID])
             self._abort_if_unique_id_configured()
-            return await self._initialize(step_id, user_input, schema)
+            return await self._initialize(step_id, schema, user_input)
         return self.async_show_form(step_id=step_id, data_schema=schema)
 
     async def async_step_zeroconf(
