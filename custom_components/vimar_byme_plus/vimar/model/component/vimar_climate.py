@@ -15,11 +15,11 @@ class PresetMode(Enum):
         self.ha_value = ha_value
 
     @staticmethod
-    def get_preset_mode(vimar_value: str | None) -> Optional["PresetMode"]:
+    def get_preset_mode_value(vimar_value: str | None) -> str:
         for elem in PresetMode:
             if elem.vimar_value == vimar_value:
-                return elem
-        return PresetMode.OFF
+                return elem.ha_value
+        return PresetMode.OFF.ha_value
 
 
 class HVACMode(Enum):
@@ -81,6 +81,24 @@ class ChangeOverMode(Enum):
         return None
 
 
+class FanModeV3(Enum):
+    FAN_OFF = "Off", "off"
+    FAN_LOW = "V1", "low"
+    FAN_MEDIUM = "V2", "medium"
+    FAN_HIGH = "V3", "high"
+
+    def __init__(self, vimar_value, ha_value):
+        self.vimar_value = vimar_value
+        self.ha_value = ha_value
+
+    @staticmethod
+    def get_fan_mode_value(vimar_value: str | None) -> str | None:
+        for elem in FanModeV3:
+            if elem.vimar_value == vimar_value:
+                return elem.ha_value
+        return None
+
+
 @dataclass
 class VimarClimate(VimarComponent):
     current_humidity: float | None
@@ -93,8 +111,8 @@ class VimarClimate(VimarComponent):
     target_temperature_step: float | None
     target_temperature_high: float | None
     target_temperature_low: float | None
-    preset_mode: PresetMode | None
-    preset_modes: list[PresetMode] | None
+    preset_mode: str | None
+    preset_modes: list[str] | None
     fan_mode: str | None
     fan_modes: list[str] | None
     swing_mode: str | None
@@ -107,7 +125,27 @@ class VimarClimate(VimarComponent):
 
     @staticmethod
     def get_table_header() -> list:
-        return ['Area', 'Name', 'Type', 'Temp', 'Target', 'HVACMode', 'HVACAction', 'Preset', 'Fan']
-    
+        return [
+            "Area",
+            "Name",
+            "Type",
+            "Temp",
+            "Target",
+            "HVACMode",
+            "HVACAction",
+            "Preset",
+            "Fan",
+        ]
+
     def to_table(self) -> list:
-        return [self.area, self.name, self.device_name, self.current_temperature, self.target_temperature, self.hvac_mode, self.hvac_action, self.preset_mode, self.fan_mode]
+        return [
+            self.area,
+            self.name,
+            self.device_name,
+            self.current_temperature,
+            self.target_temperature,
+            self.hvac_mode,
+            self.hvac_action,
+            self.preset_mode,
+            self.fan_mode,
+        ]

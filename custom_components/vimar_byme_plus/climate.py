@@ -155,7 +155,7 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: The current active preset.
         """
-        return self._component.preset_mode.ha_value
+        return self._component.preset_mode
 
     @property
     def preset_modes(self) -> list[str] | None:
@@ -165,7 +165,7 @@ class Climate(BaseEntity, ClimateEntity):
 
         HomeAssistant Description: The available presets.
         """
-        return [mode.ha_value for mode in self._component.preset_modes]
+        return self._component.preset_modes
 
     @property
     def fan_mode(self) -> str | None:

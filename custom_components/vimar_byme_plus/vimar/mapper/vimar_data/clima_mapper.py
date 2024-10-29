@@ -5,6 +5,7 @@ from ...model.component.vimar_climate import (
     HVACAction,
     PresetMode,
     ChangeOverMode,
+    FanModeV3,
 )
 from ...model.enum.sftype_enum import SfType
 from ...model.enum.sfetype_enum import SfeType
@@ -110,35 +111,27 @@ class ClimaMapper:
         return hvac_action
 
     @staticmethod
-    def preset_mode(component: UserComponent) -> PresetMode | None:
+    def preset_mode(component: UserComponent) -> str | None:
         # return None
         value = component.get_value(SfeType.STATE_HVAC_MODE)
-        return PresetMode.get_preset_mode(value)
+        return PresetMode.get_preset_mode_value(value)
 
     @staticmethod
-    def preset_modes(component: UserComponent) -> list[PresetMode] | None:
+    def preset_modes(component: UserComponent) -> list[str] | None:
         # return None
-        return list(PresetMode)
+        return {mode.ha_value for mode in PresetMode}
 
     @staticmethod
     def fan_mode(component: UserComponent) -> str | None:
         fan_mode = component.get_value(SfeType.STATE_FAN_MODE)
-        if not fan_mode:
-            return None
         if fan_mode == "Automatic":
             return "auto"
         fan_speed = component.get_value(SfeType.STATE_FAN_SPEED_3V)
-        if fan_speed == "V1":
-            return "low"
-        if fan_speed == "V2":
-            return "medium"
-        if fan_speed == "V3":
-            return "high"
-        return None
+        return FanModeV3.get_fan_mode_value(fan_speed)
 
     @staticmethod
     def fan_modes(component: UserComponent) -> list[str] | None:
-        return ["low", "medium", "high", "auto"]
+        return ["off", "low", "medium", "high", "auto"]
 
     @staticmethod
     def swing_mode(component: UserComponent) -> str | None:
@@ -161,7 +154,6 @@ class ClimaMapper:
     def target_humidity(component: UserComponent) -> float | None:
         value = component.get_value(SfeType.STATE_HUMIDITY_SETPOINT)
         return float(value) if value else None
-        return None
 
     @staticmethod
     def min_humidity(component: UserComponent) -> float:
@@ -170,3 +162,14 @@ class ClimaMapper:
     @staticmethod
     def max_humidity(component: UserComponent) -> float:
         return 99.0
+
+
+SFE_State_OnBehaviour
+- Auto
+- Manual
+- Reduction
+
+SFE_State_OffBehaviour
+- Absence
+- Protction
+- Off
