@@ -164,12 +164,12 @@ class ClimaMapper:
         return 99.0
 
 
-SFE_State_OnBehaviour
-- Auto
-- Manual
-- Reduction
+# SFE_State_OnBehaviour
+# - Auto
+# - Manual
+# - Reduction
 
-SFE_State_OffBehaviour
-- Absence
-- Protction
-- Off
+# SFE_State_OffBehaviour
+# - Absence
+# - Protction
+# - Off
