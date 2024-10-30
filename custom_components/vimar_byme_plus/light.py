@@ -56,7 +56,8 @@ class Light(BaseEntity, LightEntity):
 
         HomeAssitant Description: The brightness of this light between 1..255.
         """
-        return self._component.brightness
+        brightness = self._component.brightness
+        return brightness * 255 / 100 if brightness else None
 
     @property
     def color_mode(self) -> ColorMode | str | None:
