@@ -31,7 +31,9 @@ class SsAudioZoneMapper:
             volume_step=self.get_volume_step(component),
             is_volume_muted=self.get_is_volume_muted(component),
             media_content_type=self.get_media_content_type(component),
-            source=self.get_source(component, sources),
+            media_title=self.get_media_title(component, sources),
+            source_id=self.get_source_id(component),
+            current_source=self.get_current_source(component, sources),
             source_list=self.get_source_list(component, sources),
             supported_features=self.get_supported_features(component),
         )
@@ -42,14 +44,14 @@ class SsAudioZoneMapper:
 
     def get_state(self, component: UserComponent) -> MediaPlayerState | None:
         """State of the player."""
-        play_pause = component.get_value(SfeType.STATE_PLAY_PAUSE)
+        sleep = component.get_value(SfeType.STATE_SLEEP)
         is_on = self.get_is_on(component)
         if not is_on:
             return MediaPlayerState.OFF
-        if play_pause == "Play":
+        if sleep == "Awake":
             return MediaPlayerState.PLAYING
-        if play_pause == "Pause":
-            return MediaPlayerState.PAUSED
+        if sleep == "Sleep":
+            return MediaPlayerState.IDLE
         return MediaPlayerState.ON
 
     def get_volume_level(self, component: UserComponent) -> float | None:
@@ -70,9 +72,11 @@ class SsAudioZoneMapper:
         """Content type of current playing media."""
         return MediaType.MUSIC
 
-    def get_media_title(self, component: UserComponent) -> str | None:
+    def get_media_title(
+        self, component: UserComponent, sources: list[VimarMediaPlayer]
+    ) -> str | None:
         """Title of current playing media."""
-        return "prova"
+        return self.get_current_source(component, sources)
 
     def get_media_artist(self, component: UserComponent) -> str | None:
         """Artist of current playing media, music track only."""
@@ -90,15 +94,21 @@ class SsAudioZoneMapper:
         """Track number of current playing media, music track only."""
         return component.get_value(SfeType.STATE_CURRENT_TRACK)
 
-    def get_source(
+    def get_source_id(self, component: UserComponent) -> str | None:
+        """Name of the current input source."""
+        return None
+
+    def get_current_source(
         self, component: UserComponent, sources: list[VimarMediaPlayer]
-    ) -> list[str] | None:
+    ) -> str | None:
+        """Name of the current input source."""
         value = component.get_value(SfeType.STATE_CURRENT_SOURCE)
         return self._get_source_name(value, sources)
 
     def get_source_list(
         self, component: UserComponent, sources: list[VimarMediaPlayer]
     ) -> list[str] | None:
+        """Name of all input sources."""
         return [source.name for source in sources]
 
     def get_supported_features(
@@ -119,5 +129,6 @@ class SsAudioZoneMapper:
         if not value:
             return None
         for source in sources:
-            if source.source == value:
+            if source.source_id == value:
                 return source.name
+        return None

@@ -166,7 +166,8 @@ class OperationalService:
 
     def disconnect(self):
         log_info(__name__, "Terminating the execution...")
-        self._web_socket._ws.close()
+        if self._web_socket:
+            self._web_socket._ws.close()
         self._keep_alive_handler.stop()
         self._web_socket = None
         self._thread.join()

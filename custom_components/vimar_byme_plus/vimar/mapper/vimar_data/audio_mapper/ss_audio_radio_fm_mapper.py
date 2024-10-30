@@ -4,6 +4,7 @@ from ....model.component.vimar_media_player import (
     VimarMediaPlayer,
     MediaType,
     MediaPlayerEntityFeature,
+    MediaPlayerState,
 )
 from ....model.enum.sfetype_enum import SfeType
 from ....model.enum.sstype_enum import SsType
@@ -24,11 +25,18 @@ class SsAudioRadioFmMapper:
             device_name=component.sstype,
             area=component.ambient.name,
             is_on=True,
+            state=self.get_state(component),
             media_content_type=self.get_media_content_type(component),
             media_title=self.get_media_title(component),
-            source=self.get_source(component),
+            source_id=self.get_source_id(component),
+            current_source=self.get_current_source(component),
+            source_list=self.get_source_list(component),
             supported_features=self.get_supported_features(component),
         )
+
+    def get_state(self, component: UserComponent) -> MediaPlayerState | None:
+        """State of the player."""
+        return MediaPlayerState.PLAYING
 
     def get_media_content_type(
         self, component: UserComponent
@@ -40,9 +48,17 @@ class SsAudioRadioFmMapper:
         """Title of current playing media."""
         return self._get_radio_title(component)
 
-    def get_source(self, component: UserComponent) -> str | None:
-        value = component.get_value(SfeType.STATE_SOURCE_ID)
-        return value
+    def get_source_id(self, component: UserComponent) -> str | None:
+        """Name of the current input source."""
+        return component.get_value(SfeType.STATE_SOURCE_ID)
+
+    def get_current_source(self, component: UserComponent) -> str | None:
+        """Name of the current input source."""
+        return self._get_frequency_name(component)
+
+    def get_source_list(self, component: UserComponent) -> list[str] | None:
+        """List of available input sources."""
+        return self._get_frequency_names(component)
 
     def get_supported_features(
         self, component: UserComponent
@@ -51,22 +67,21 @@ class SsAudioRadioFmMapper:
         return [
             MediaPlayerEntityFeature.PREVIOUS_TRACK,
             MediaPlayerEntityFeature.NEXT_TRACK,
-            MediaPlayerEntityFeature.MEDIA_ANNOUNCE,
             MediaPlayerEntityFeature.SELECT_SOURCE,
         ]
 
     def _get_radio_title(self, component: UserComponent) -> str:
         result = self._get_frequency_description(component)
         rds = component.get_value(SfeType.STATE_RDS)
-        return result + " " + rds
+        return result + rds
 
     def _get_frequency_description(self, component: UserComponent) -> str:
         frequency = component.get_value(SfeType.STATE_FM_FREQUENCY)
         freq_name = self._get_frequency_name(component)
         if freq_name and frequency:
-            return f"[{freq_name} | FM {frequency}]"
+            return f"[{freq_name} | FM {frequency}] "
         if frequency:
-            return f"[FM {frequency}]"
+            return f"[FM {frequency}] "
         return ""
 
     def _get_frequency_name(self, component: UserComponent) -> str | None:
@@ -85,11 +100,19 @@ class SsAudioRadioFmMapper:
     def _get_frequency_name_by_id(
         self, frequency_id: int, component: UserComponent
     ) -> str | None:
-        if frequency_id <= 0 or frequency_id > 8:
-            return None
         try:
             frequencies = component.get_value(SfeType.STATE_MEM_FREQUENCY_NAMES)
             frequencies_json = json.loads(frequencies)
             return frequencies_json[f"freq{frequency_id}_name"]
+        except Exception:
+            return "Manual"
+
+    def _get_frequency_names(self, component: UserComponent) -> list[str] | None:
+        try:
+            frequencies = component.get_value(SfeType.STATE_MEM_FREQUENCY_NAMES)
+            frequencies_json = json.loads(frequencies)
+            names = [frequencies_json[f"freq{i+1}_name"] for i in range(8)]
+            names.append("Manual")
+            return names
         except Exception:
             return None

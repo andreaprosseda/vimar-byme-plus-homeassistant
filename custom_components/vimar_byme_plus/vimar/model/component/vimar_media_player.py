@@ -57,7 +57,8 @@ class VimarMediaPlayer(VimarComponent):
     media_album_name: str | None
     media_album_artist: str | None
     media_track: int | None
-    source: str | None
+    source_id: str | None
+    current_source: str | None
     source_list: list[str] | None
     supported_features: list[MediaPlayerEntityFeature]
 
@@ -79,7 +80,8 @@ class VimarMediaPlayer(VimarComponent):
         media_album_name: str | None = None,
         media_album_artist: str | None = None,
         media_track: int | None = None,
-        source: str | None = None,
+        source_id: str | None = None,
+        current_source: str | None = None,
         source_list: list[str] | None = None,
         supported_features: MediaPlayerEntityFeature = None,
     ) -> None:
@@ -95,7 +97,8 @@ class VimarMediaPlayer(VimarComponent):
         self.media_album_name = media_album_name
         self.media_album_artist = media_album_artist
         self.media_track = media_track
-        self.source = source
+        self.source_id = source_id
+        self.current_source = current_source
         self.source_list = source_list
         self.supported_features = supported_features
 
@@ -109,6 +112,6 @@ class VimarMediaPlayer(VimarComponent):
             self.name,
             self.device_name,
             self.is_on,
-            self.source,
+            self.current_source,
             int(self.volume_level * 100) if self.volume_level else None,
         ]

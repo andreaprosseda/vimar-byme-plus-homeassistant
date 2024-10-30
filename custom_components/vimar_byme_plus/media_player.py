@@ -48,7 +48,8 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
     @property
     def state(self) -> MediaPlayerState | None:
         """State of the player."""
-        return self._component.state
+        value = self._component.state.value
+        return MediaPlayerState(value) if value else None
 
     @property
     def volume_level(self) -> float | None:
@@ -98,7 +99,7 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
     @property
     def source(self) -> str | None:
         """Name of the current input source."""
-        return self._component.source
+        return self._component.current_source
 
     @property
     def source_list(self) -> list[str] | None:
