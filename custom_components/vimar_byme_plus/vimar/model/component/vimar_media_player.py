@@ -3,10 +3,12 @@ from datetime import datetime
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
 
+
 class MediaType(Enum):
     CHANNEL = "channel"
     MUSIC = "music"
-    
+
+
 class MediaPlayerState(Enum):
     OFF = "off"
     ON = "on"
@@ -15,8 +17,9 @@ class MediaPlayerState(Enum):
     PAUSED = "paused"
     STANDBY = "standby"
     BUFFERING = "buffering"
-    
-class MediaPlayerEntityFeature:
+
+
+class MediaPlayerEntityFeature(Enum):
     PAUSE = 1
     SEEK = 2
     VOLUME_SET = 4
@@ -40,6 +43,7 @@ class MediaPlayerEntityFeature:
     MEDIA_ANNOUNCE = 1048576
     MEDIA_ENQUEUE = 2097152
 
+
 @dataclass
 class VimarMediaPlayer(VimarComponent):
     is_on: bool | None
@@ -55,10 +59,10 @@ class VimarMediaPlayer(VimarComponent):
     media_track: int | None
     source: str | None
     source_list: list[str] | None
-    supported_features: MediaPlayerEntityFeature
-    
+    supported_features: list[MediaPlayerEntityFeature]
+
     def __init__(
-        self, 
+        self,
         id: str,
         name: str,
         device_group: str,
@@ -77,7 +81,7 @@ class VimarMediaPlayer(VimarComponent):
         media_track: int | None = None,
         source: str | None = None,
         source_list: list[str] | None = None,
-        supported_features: MediaPlayerEntityFeature = None
+        supported_features: MediaPlayerEntityFeature = None,
     ) -> None:
         super().__init__(id, name, device_group, device_name, area)
         self.is_on = is_on
@@ -94,11 +98,17 @@ class VimarMediaPlayer(VimarComponent):
         self.source = source
         self.source_list = source_list
         self.supported_features = supported_features
-    
-        
+
     @staticmethod
     def get_table_header() -> list:
-        return ['Area', 'Name', 'Type', 'isOn', 'Source', 'Volume']
-    
+        return ["Area", "Name", "Type", "isOn", "Source", "Volume"]
+
     def to_table(self) -> list:
-        return [self.area, self.name, self.device_name, self.is_on, self.source, int(self.volume_level*100) if self.volume_level else None]
+        return [
+            self.area,
+            self.name,
+            self.device_name,
+            self.is_on,
+            self.source,
+            int(self.volume_level * 100) if self.volume_level else None,
+        ]

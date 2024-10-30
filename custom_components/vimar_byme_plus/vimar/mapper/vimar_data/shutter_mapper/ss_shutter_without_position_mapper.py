@@ -10,7 +10,7 @@ class SsShutterWithoutPositionMapper(BaseMapper):
     SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_WITHOUT_POSITION.value
 
-    def from_obj(self, component: UserComponent, *args)-> VimarCover:
+    def from_obj(self, component: UserComponent, *args) -> VimarCover:
         return VimarCover(
             id=component.idsf,
             name=component.name,
@@ -21,7 +21,7 @@ class SsShutterWithoutPositionMapper(BaseMapper):
             is_closed=self.is_closed(component),
             is_closing=self.is_closing(component),
             is_opening=self.is_opening(component),
-            supported_features = self.get_supported_features(component),
+            supported_features=self.get_supported_features(component),
         )
 
     def current_position(self, component: UserComponent) -> int | None:
@@ -37,16 +37,19 @@ class SsShutterWithoutPositionMapper(BaseMapper):
     def is_opening(self, component: UserComponent) -> bool:
         is_changing = self._is_changing(component)
         return is_changing
-    
-    def get_supported_features(self, component: UserComponent) -> CoverEntityFeature:
+
+    def get_supported_features(
+        self, component: UserComponent
+    ) -> list[CoverEntityFeature]:
         """Flag media player features that are supported."""
-        return (CoverEntityFeature.CLOSE
-            | CoverEntityFeature.OPEN
-            | CoverEntityFeature.STOP
-        )
-        
+        return [
+            CoverEntityFeature.CLOSE,
+            CoverEntityFeature.OPEN,
+            CoverEntityFeature.STOP,
+        ]
+
     def _is_changing(self, component: UserComponent) -> bool | None:
         value = component.get_value(SfeType.STATE_SHUTTER_WITHOUT_POSITION)
         if value:
-            return value == 'Moving'
+            return value == "Moving"
         return None

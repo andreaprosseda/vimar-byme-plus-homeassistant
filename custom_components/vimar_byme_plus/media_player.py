@@ -1,7 +1,7 @@
 """Platform for media player integration."""
 
 from __future__ import annotations
-
+from functools import reduce
 from typing import Any
 
 from homeassistant.components.media_player import (
@@ -108,7 +108,8 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
     @property
     def supported_features(self) -> MediaPlayerEntityFeature:
         """Flag media player features that are supported."""
-        return self._component.supported_features
+        features = [f.value for f in self._component.supported_features]
+        return reduce(lambda x, y: x | y, features, MediaPlayerEntityFeature(0))
 
     def turn_on(self) -> None:
         """Turn the media player on."""

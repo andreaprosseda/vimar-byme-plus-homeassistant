@@ -1,7 +1,7 @@
 """Platform for cover integration."""
 
 from __future__ import annotations
-
+from functools import reduce
 from typing import Any
 
 from homeassistant.components.cover import CoverEntity, CoverEntityFeature
@@ -71,12 +71,13 @@ class Cover(BaseEntity, CoverEntity):
         HomeAssistantDescription: If the cover is closed or not. Used to determine state.
         """
         return self._component.is_closed
-    
+
     @property
     def supported_features(self) -> CoverEntityFeature:
         """Flag supported features."""
-        return self._component.supported_features
-    
+        features = [f.value for f in self._component.supported_features]
+        return reduce(lambda x, y: x | y, features, CoverEntityFeature(0))
+
     def open_cover(self, **kwargs: Any) -> None:
         """Open the cover."""
 

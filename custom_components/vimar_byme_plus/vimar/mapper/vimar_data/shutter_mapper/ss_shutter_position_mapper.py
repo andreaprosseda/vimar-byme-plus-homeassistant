@@ -9,8 +9,8 @@ from ..base_mapper import BaseMapper
 class SsShutterPositionMapper(BaseMapper):
     SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_POSITION.value
-    
-    def from_obj(self, component: UserComponent, *args)-> VimarCover:
+
+    def from_obj(self, component: UserComponent, *args) -> VimarCover:
         return VimarCover(
             id=component.idsf,
             name=component.name,
@@ -40,15 +40,18 @@ class SsShutterPositionMapper(BaseMapper):
         is_changing = self._is_changing(component)
         position = self._get_position(component)
         return is_changing and position <= 50
-    
-    def get_supported_features(self, component: UserComponent) -> CoverEntityFeature:
+
+    def get_supported_features(
+        self, component: UserComponent
+    ) -> list[CoverEntityFeature]:
         """Flag media player features that are supported."""
-        return (CoverEntityFeature.CLOSE
-            | CoverEntityFeature.OPEN
-            | CoverEntityFeature.SET_POSITION
-            | CoverEntityFeature.STOP
-        )
-        
+        return [
+            CoverEntityFeature.CLOSE,
+            CoverEntityFeature.OPEN,
+            CoverEntityFeature.SET_POSITION,
+            CoverEntityFeature.STOP,
+        ]
+
     def _get_position(self, component: UserComponent) -> int | None:
         value = component.get_value(SfeType.STATE_SHUTTER)
         try:
