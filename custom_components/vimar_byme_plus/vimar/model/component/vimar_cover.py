@@ -1,6 +1,9 @@
 from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
+from .vimar_action import VimarAction
+from ..enum.sfetype_enum import SfeType
+from ..enum.sstype_enum import SsType
 
 
 class CoverEntityFeature(Enum):
@@ -14,6 +17,13 @@ class CoverEntityFeature(Enum):
     SET_TILT_POSITION = 128
 
 
+CMD_ON_OFF = SfeType.CMD_ON_OFF
+CMD_SHUTTER = SfeType.CMD_SHUTTER
+CMD_SHUTTER_WITHOUT_POSITION = SfeType.CMD_SHUTTER_WITHOUT_POSITION
+# CMD_SLAT = SfeType.CMD_SLAT
+# CMD_SLAT_WITHOUT_POSITION = SfeType.CMD_SLAT_WITHOUT_POSITION
+
+
 @dataclass
 class VimarCover(VimarComponent):
     current_cover_position: int | None
@@ -22,21 +32,40 @@ class VimarCover(VimarComponent):
     is_opening: bool | None
     supported_features: list[CoverEntityFeature]
 
-    def get_request_open_cover(self) -> None:
+    def get_open_cover_actions(self) -> list[VimarAction]:
         """Open the cover."""
-        raise NotImplementedError
+        print(self.device_group)
+        if self.device_group == "SF_Access":
+            return [self._get_action(CMD_ON_OFF, "On")]
+        if self.device_name == SsType.SHUTTER_POSITION.value:
+            return [self._get_action(CMD_SHUTTER, "0")]
+        if self.device_name == SsType.SHUTTER_WITHOUT_POSITION.value:
+            return [self._get_action(CMD_SHUTTER_WITHOUT_POSITION, "Up")]
+        return []
 
-    def get_request_close_cover(self) -> None:
+    def get_close_cover_actions(self) -> list[VimarAction]:
         """Close cover."""
-        pass
+        if self.device_group == "SF_Access":
+            return [self._get_action(CMD_ON_OFF, "Off")]
+        if self.device_name == SsType.SHUTTER_POSITION.value:
+            return [self._get_action(CMD_SHUTTER, "100")]
+        if self.device_name == SsType.SHUTTER_WITHOUT_POSITION.value:
+            return [self._get_action(CMD_SHUTTER_WITHOUT_POSITION, "Down")]
+        return []
 
-    def get_request_set_cover_position(self) -> None:
+    def get_set_cover_position_actions(self, position: str) -> list[VimarAction]:
         """Move the cover to a specific position."""
-        pass
+        if self.device_name == SsType.SHUTTER_POSITION.value:
+            return [self._get_action(CMD_SHUTTER, position)]
+        return []
 
-    def get_request_stop_cover(self) -> None:
+    def get_stop_cover_actions(self) -> list[VimarAction]:
         """Stop the cover."""
-        pass
+        if self.device_name == SsType.SHUTTER_POSITION.value:
+            return [self._get_action(CMD_SHUTTER, "Stop")]
+        if self.device_name == SsType.SHUTTER_WITHOUT_POSITION.value:
+            return [self._get_action(CMD_SHUTTER_WITHOUT_POSITION, "Stop")]
+        return []
 
     @staticmethod
     def get_table_header() -> list:

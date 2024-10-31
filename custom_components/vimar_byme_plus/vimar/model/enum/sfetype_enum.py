@@ -12,6 +12,7 @@ class SfeType(Enum):
     CMD_ON_OFF = "SFE_Cmd_OnOff"
     CMD_BRIGHTNESS = "SFE_Cmd_Brightness"
     CMD_SHUTTER = "SFE_Cmd_Shutter"
+    CMD_SHUTTER_WITHOUT_POSITION = "SFE_Cmd_ShutterWithoutPosition"
     CMD_TIMED_DYNAMIC_MODE = "SFE_Cmd_TimedDynamicMode"
     CMD_TIMED_MANUAL = "SFE_Cmd_TimedManual"
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"

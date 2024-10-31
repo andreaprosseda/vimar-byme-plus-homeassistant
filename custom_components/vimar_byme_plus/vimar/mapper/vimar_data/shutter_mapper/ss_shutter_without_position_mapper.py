@@ -31,12 +31,14 @@ class SsShutterWithoutPositionMapper(BaseMapper):
         return None
 
     def is_closing(self, component: UserComponent) -> bool:
-        is_changing = self._is_changing(component)
-        return is_changing
+        return None
+        # is_changing = self._is_changing(component)
+        # return is_changing
 
     def is_opening(self, component: UserComponent) -> bool:
-        is_changing = self._is_changing(component)
-        return is_changing
+        return None
+        # is_changing = self._is_changing(component)
+        # return is_changing
 
     def get_supported_features(
         self, component: UserComponent

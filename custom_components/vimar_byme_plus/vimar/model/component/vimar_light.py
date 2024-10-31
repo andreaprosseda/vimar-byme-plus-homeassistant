@@ -47,9 +47,6 @@ class VimarLight(VimarComponent):
         """Turn the light off."""
         return [self._get_action(CMD_ON_OFF, "Off")]
 
-    def _get_action(self, sfetype: SfeType, value: str) -> VimarAction:
-        return VimarAction(idsf=self.id, sfetype=sfetype, value=value)
-
     @staticmethod
     def get_table_header() -> list:
         return ["Area", "Name", "Type", "isOn", "Brightness"]

@@ -14,7 +14,7 @@ HOST = "Hostname"
 PROTOCOL = "Protocol Version"
 CODE = "Setup Code"
 
-DEFAULT_UPDATE_INTERVAL = 0.5
+DEFAULT_UPDATE_INTERVAL = 0.3
 
 DATA_COORDINATOR: Final = "coordinator"
 DATA_UNDO_UPDATE_LISTENER: Final = "undo_update_listener"

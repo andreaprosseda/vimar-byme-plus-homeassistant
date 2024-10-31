@@ -4,7 +4,11 @@ from __future__ import annotations
 from functools import reduce
 from typing import Any
 
-from homeassistant.components.cover import CoverEntity, CoverEntityFeature
+from homeassistant.components.cover import (
+    CoverEntity,
+    CoverEntityFeature,
+    ATTR_POSITION,
+)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -46,7 +50,7 @@ class Cover(BaseEntity, CoverEntity):
         HomeAssistantDescription: The current position of cover where 0 means closed and 100 is fully open.
         """
         position = self._component.current_cover_position
-        return 100 - position if position else None
+        return 100 - position if (position is not None) else None
 
     @property
     def is_opening(self) -> bool | None:
@@ -80,12 +84,21 @@ class Cover(BaseEntity, CoverEntity):
 
     def open_cover(self, **kwargs: Any) -> None:
         """Open the cover."""
+        actions = self._component.get_open_cover_actions()
+        self.send(actions)
 
     def close_cover(self, **kwargs: Any) -> None:
         """Close cover."""
+        actions = self._component.get_close_cover_actions()
+        self.send(actions)
 
     def set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
+        position = str(100 - int(kwargs[ATTR_POSITION]))
+        actions = self._component.get_set_cover_position_actions(position)
+        self.send(actions)
 
     def stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
+        actions = self._component.get_stop_cover_actions()
+        self.send(actions)

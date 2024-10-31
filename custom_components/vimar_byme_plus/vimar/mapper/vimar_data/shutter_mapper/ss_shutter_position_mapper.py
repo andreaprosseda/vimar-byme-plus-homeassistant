@@ -1,3 +1,4 @@
+import traceback
 from ....model.repository.user_component import UserComponent
 from ....model.component.vimar_cover import VimarCover, CoverEntityFeature
 from ....model.enum.sftype_enum import SfType
@@ -54,11 +55,11 @@ class SsShutterPositionMapper(BaseMapper):
 
     def _get_position(self, component: UserComponent) -> int | None:
         value = component.get_value(SfeType.STATE_SHUTTER)
-        try:
-            clean_value = value.replace("Change to ", "")
-            return int(clean_value)
-        except Exception:
+        if not value:
             return None
+        if not value.isdigit():
+            value = value.replace("Change to ", "")
+        return int(value)
 
     def _is_changing(self, component: UserComponent) -> bool | None:
         value = component.get_value(SfeType.STATE_SHUTTER)
