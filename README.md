@@ -76,6 +76,7 @@ Further information here: [Vimar Official Website][vimar-integration-url]
   - Shutter
 * Vimar Pro app access (credentials)
 
+
 ## Installation
 The installation phase is divided in three steps:
 * [Step 1/3] Home Assistant - Install Component
@@ -94,7 +95,8 @@ The installation phase is divided in three steps:
 
 #### Method 2: Manual
 > 1. Download the latest release from `GitHub`
-> 2. Copy `vimar_by_me_plus` (custom_components/vimar_byme_plus) to `custom_components` folder in your Home Assistant config folder
+> 2. Copy `vimar_by_me_plus` (custom_components/vimar_byme_plus) 
+> 3. Paste it in `custom_components` folder in your Home Assistant config folder
 > 3. Restart Home Assistant
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
