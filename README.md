@@ -76,8 +76,8 @@ Further information here: [Vimar Official Website][vimar-integration-url]
   - Shutter
 * Vimar Pro app access (credentials)
 
-
 ## Installation
+
 The installation phase is divided in three steps:
 * [Step 1/3] Home Assistant - Install Component
 * [Step 2/3] Vimar Pro - Initial Setup
@@ -129,7 +129,7 @@ steps:
 
 <div align="center">
   <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant">
-    <img src="images/vimar_pro_first_setup.gif" alt="Gif" width="auto" height="250">
+    <img src="images/vimar_pro_first_setup.gif" alt="Gif" width="200">
   </a>
 </div>
 
