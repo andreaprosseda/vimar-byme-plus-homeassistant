@@ -2,12 +2,12 @@ import threading
 from typing import Callable
 from ..utils.thread import Timer
 
-class KeepAliveHandler:
 
-    TIMEOUT = 9 # max 120s
-    
+class KeepAliveHandler:
+    TIMEOUT = 90  # max 120s
+
     _timer: threading.Timer
-    
+
     def __init__(self, callback: Callable[[], None] = None):
         self._timer = None
         self._callback = callback
@@ -24,7 +24,7 @@ class KeepAliveHandler:
         if self._callback:
             self._callback()
         self._start_timer()
-    
+
     def reset(self):
         self.stop()
         self._start_timer()

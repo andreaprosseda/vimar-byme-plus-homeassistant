@@ -20,6 +20,7 @@ from .const import (
 from .vimar.client.vimar_client import VimarClient
 from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.model.gateway.vimar_data import VimarData
+from .vimar.model.component.vimar_action import VimarAction
 from .vimar.utils.logger import log_debug
 
 _LOGGER = logging.getLogger(__name__)
@@ -51,6 +52,10 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     def stop(self):
         """Stop coordinator processes."""
         self.client.stop()
+
+    def send(self, actions: list[VimarAction]):
+        """Send a request coming from HomeAssistant to Gateway."""
+        self.client.send(actions)
 
     async def _async_update_data(self) -> VimarData:
         """Get the latest data."""

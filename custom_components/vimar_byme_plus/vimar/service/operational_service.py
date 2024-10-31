@@ -4,6 +4,7 @@ from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
 from ..database.database import Database
 from ..model.gateway.gateway_info import GatewayInfo
+from ..model.component.vimar_action import VimarAction
 from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
@@ -45,7 +46,13 @@ class OperationalService:
         except Exception as err:
             raise VimarErrorResponseException(err) from err
 
-    def send(self, message: BaseRequestResponse):
+    def send_actions(self, actions: list[VimarAction]):
+        """Send a request coming from HomeAssistant to Gateway."""
+        message = self._message_handler.start_do_action(actions)
+        self.send_message(message)
+
+    def send_message(self, message: BaseRequest):
+        """Send a request coming from HomeAssistant to Gateway."""
         if not self._web_socket:
             raise WebSocketConnectionClosedException
         self._web_socket.send(message)
@@ -77,7 +84,7 @@ class OperationalService:
         self, message: BaseRequestResponse
     ) -> BaseRequestResponse:
         response = self._message_handler.message_received(message)
-        
+
         self.handle_keep_alive(response)
         return response
 
@@ -110,7 +117,7 @@ class OperationalService:
     def send_keep_alive(self):
         try:
             message = self._message_handler.start_keep_alive()
-            self.send(message)
+            self.send_message(message)
             self._keep_alive_handler.reset()
         except WebSocketConnectionClosedException:
             self.disconnect()

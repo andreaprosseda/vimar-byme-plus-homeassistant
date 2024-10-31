@@ -5,10 +5,11 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN, MANIFACTURER
-from .vimar.model.gateway.vimar_data import VimarData
+from .coordinator import Coordinator
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.component_type import ComponentType
-from .coordinator import Coordinator
+from .vimar.model.gateway.vimar_data import VimarData
+from .vimar.model.component.vimar_action import VimarAction
 
 
 class BaseEntity(CoordinatorEntity):
@@ -72,17 +73,7 @@ class BaseEntity(CoordinatorEntity):
         self._component = data.get_by_id(self._component.id)
         self.async_write_ha_state()
 
-    # async def async_update(self) -> None:
-    #     """Request a state update from KNX bus."""
-    #     await self._device.sync()
-
-    # async def after_update_callback(self, device: Device) -> None:
-    #     """Call after device was updated."""
-    #     self.async_write_ha_state()
-
-    # async def async_added_to_hass(self) -> None:
-    #     """Store register state change callback."""
-    #     await super().async_added_to_hass()
-    #     self._device.register_device_updated_cb(self.after_update_callback)
-    #     # will remove all callbacks and xknx tasks
-    #     self.async_on_remove(self._device.shutdown)
+    def send(self, actions: list[VimarAction]) -> None:
+        """Send a request coming from HomeAssistant to Gateway."""
+        coordinator: Coordinator = self.coordinator
+        coordinator.send(actions)

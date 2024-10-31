@@ -1,27 +1,24 @@
 from dataclasses import dataclass
 from ..base_request import BaseRequest
-from ...repository.user_element import UserElement
+from ...component.vimar_action import VimarAction
+
 
 @dataclass
 class DoActionRequest(BaseRequest):
-
-    def __init__(self, target: str, token: str, msgid: str, elements: list[UserElement]):
+    def __init__(self, target: str, token: str, msgid: str, actions: list[VimarAction]):
         super().__init__()
-        self.function = 'doaction'
+        self.function = "doaction"
         self.target = target
         self.token = token
         self.msgid = str(msgid)
-        self.args = self.get_args(elements)
+        self.args = self.get_args(actions)
 
-    def get_args(self, elements: list[UserElement]) -> list:
-        arguments = []
-        for element in elements:
-            arguments.append(self.get_argument(element))
-        return arguments
-    
-    def get_argument(self, element: UserElement) -> dict:
+    def get_args(self, actions: list[VimarAction]) -> list:
+        return [self.get_argument(action) for action in actions]
+
+    def get_argument(self, action: VimarAction) -> dict:
         return {
-            'idsf' : element.idcomponent,
-            'sfetype' : element.sfetype,
-            'value' : element.value
+            "idsf": action.idsf,
+            "sfetype": action.sfetype.value,
+            "value": action.value,
         }

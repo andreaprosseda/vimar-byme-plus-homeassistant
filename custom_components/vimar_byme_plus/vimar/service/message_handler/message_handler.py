@@ -1,3 +1,4 @@
+from ...model.component.vimar_action import VimarAction
 from ...model.enum.integration_phase import IntegrationPhase
 from ...model.gateway.gateway_info import GatewayInfo
 from ...model.web_socket.base_request import BaseRequest
@@ -11,6 +12,7 @@ from .handler.ambient_discovery_message_handler import AmbientDiscoveryMessageHa
 from .handler.attach_message_handler import AttachMessageHandler
 from .handler.change_status_message_handler import ChangeStatusMessageHandler
 from .handler.detach_message_handler import DetachMessageHandler
+from .handler.do_action_message_handler import DoActionMessageHandler
 from .handler.expire_message_handler import ExpireMessageHandler
 from .handler.init_message_handler import InitMessageHandler
 from .handler.keep_alive_message_handler import KeepAliveMessageHandler
@@ -47,8 +49,12 @@ class MessageHandler:
         phase = IntegrationPhase.KEEP_ALIVE
         return self.message_from_phase(phase)
 
-    def message_from_phase(self, phase: IntegrationPhase) -> BaseRequestResponse:
-        config = self._get_supporting_config()
+    def start_do_action(self, actions: list[VimarAction]) -> BaseRequest:
+        phase = IntegrationPhase.DO_ACTION
+        return self.message_from_phase(phase, actions)
+
+    def message_from_phase(self, phase: IntegrationPhase, *args) -> BaseRequestResponse:
+        config = self._get_supporting_config(*args)
         handler = MessageHandler._get_handler(phase)
         return handler.handle_message(None, config)
 
@@ -77,12 +83,13 @@ class MessageHandler:
         if phase == IntegrationPhase.ATTACH and isinstance(message, BaseResponse):
             self._token = message.result[0]["token"]
 
-    def _get_supporting_config(self) -> MessageSupportingValues:
+    def _get_supporting_config(self, *args) -> MessageSupportingValues:
         return MessageSupportingValues(
             target=self._gateway_info.deviceuid,
             token=self._token,
             msgid=self._last_msgid + 1,
             protocol_version=self._gateway_info.protocolversion,
+            actions=args[0] if args else [],
         )
 
     @staticmethod
@@ -98,6 +105,8 @@ class MessageHandler:
                 return AmbientDiscoveryMessageHandler()
             case IntegrationPhase.SF_DISCOVERY:
                 return SfDiscoveryMessageHandler()
+            case IntegrationPhase.DO_ACTION:
+                return DoActionMessageHandler()
             case IntegrationPhase.CHANGE_STATUS:
                 return ChangeStatusMessageHandler()
             case IntegrationPhase.EXPIRE:

@@ -3,6 +3,7 @@
 from ..config.const import USERNAME
 from ..database.database import Database
 from ..mapper.vimar_data.vimar_data_mapper import VimarDataMapper
+from ..model.component.vimar_action import VimarAction
 from ..model.exceptions import CodeNotValidException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.gateway.vimar_data import VimarData
@@ -11,7 +12,7 @@ from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService
 from ..utils.logger import log_info
 from ..utils.thread import Thread
-from ..utils.thread_monitor import thread_exists
+
 
 class VimarClient:
     """Class to manage fetching VIMAR data."""
@@ -21,7 +22,7 @@ class VimarClient:
     _component_repo = Database.instance().component_repo
     _user_repo = Database.instance().user_repo
     _thread_name = "VimarServiceThread"
-    
+
     def __init__(self, gateway_info: GatewayInfo) -> None:
         """Initialize the coordinator."""
         self._association_service = AssociationService(gateway_info)
@@ -36,7 +37,7 @@ class VimarClient:
         """Start the operational phase for Vimar connection."""
         if self._can_connect():
             self.connect()
-            
+
     def connect(self):
         """Create a new thread for Operational Phase interaction."""
         thread = Thread(
@@ -46,15 +47,9 @@ class VimarClient:
         )
         thread.start()
 
-    def _can_connect(self) -> bool:
-        if not self.has_gateway_info():
-            log_info(__name__, "GatewayInfo not found, skipping connection...")
-            return False
-        if not self.has_credentials():
-            log_info(__name__, "Credentials not found, skipping connection...")
-            return False
-        log_info(__name__, "Connecting to Gateway, please wait...")
-        return True
+    def send(self, actions: list[VimarAction]):
+        """Send a request coming from HomeAssistant to Gateway."""
+        self._operational_service.send_actions(actions)
 
     def stop(self):
         """Stop coordinator processes."""
@@ -90,3 +85,13 @@ class VimarClient:
         """Validate the setup code syntax."""
         if not code.isdigit() or len(code) != 4:
             raise CodeNotValidException
+
+    def _can_connect(self) -> bool:
+        if not self.has_gateway_info():
+            log_info(__name__, "GatewayInfo not found, skipping connection...")
+            return False
+        if not self.has_credentials():
+            log_info(__name__, "Credentials not found, skipping connection...")
+            return False
+        log_info(__name__, "Connecting to Gateway, please wait...")
+        return True
