@@ -1,19 +1,13 @@
 {
   "domain": "vimar_byme_plus",
   "name": "VIMAR By-me Plus HUB",
-  "codeowners": [
-    "@andreaprosseda"
-  ],
+  "codeowners": ["@andreaprosseda"],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/andreaprosseda/vimar-byme-plus-homeassistant",
-  "issue_tracker": "https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues",
   "iot_class": "local_polling",
-  "requirements": [
-    "websocket-client"
-  ],
-  "version": "1.0.0",
-  "zeroconf": [
-    "_vimar-devctrl._tcp.local."
-  ]
+  "issue_tracker": "https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues",
+  "requirements": ["websocket-client"],
+  "version": "0.1.0",
+  "zeroconf": ["_vimar-devctrl._tcp.local."]
 }
