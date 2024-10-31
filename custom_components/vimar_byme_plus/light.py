@@ -3,15 +3,21 @@
 from __future__ import annotations
 
 import logging
+from math import ceil
 from typing import Any
 
-from homeassistant.components.light import ColorMode, LightEntity
-from homeassistant.config_entries import ConfigEntry
+from homeassistant.components.light import ColorMode, LightEntity, ATTR_BRIGHTNESS
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.util.color import value_to_brightness
+from homeassistant.util.percentage import (
+    percentage_to_ranged_value,
+    ranged_value_to_percentage,
+)
 
-from .base_entity import BaseEntity
+
 from . import CoordinatorConfigEntry
+from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_light import VimarLight
 from .vimar.utils.logger import log_debug
@@ -35,6 +41,7 @@ async def async_setup_entry(
 class Light(BaseEntity, LightEntity):
     """Provides a Vimar light."""
 
+    BRIGHTNESS_SCALE = (1, 100)
     _component: VimarLight
 
     def __init__(self, coordinator: Coordinator, component: VimarLight) -> None:
@@ -56,8 +63,7 @@ class Light(BaseEntity, LightEntity):
 
         HomeAssitant Description: The brightness of this light between 1..255.
         """
-        brightness = self._component.brightness
-        return brightness * 255 / 100 if brightness else None
+        return self._get_scaled_brightness()
 
     @property
     def color_mode(self) -> ColorMode | str | None:
@@ -134,8 +140,25 @@ class Light(BaseEntity, LightEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""
-        # await self._component.turn_on()
+        brightness = self._get_brightness_1_100(**kwargs)
+        actions = self._component.get_turn_on_actions(brightness)
+        self.send(actions)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the light off."""
-        # await self._component.turn_off()
+        actions = self._component.get_turn_off_actions()
+        self.send(actions)
+
+    def _get_brightness_1_100(self, **kwargs: Any) -> int | None:
+        scale = self.BRIGHTNESS_SCALE
+        brightness = kwargs.get(ATTR_BRIGHTNESS, None)
+        if not brightness:
+            return None
+        return ranged_value_to_percentage(scale, brightness)
+
+    def _get_brightness_1_255(self) -> int | None:
+        scale = self.BRIGHTNESS_SCALE
+        brightness = self._component.brightness
+        if not brightness:
+            return None
+        return value_to_brightness(scale, brightness)
