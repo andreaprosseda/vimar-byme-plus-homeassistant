@@ -13,9 +13,8 @@ class WSAttachPhase(WebSocketBaseVimar):
         self._config = config
 
     def on_open(self, ws: WebSocketApp):
-        callback = self._config.on_open_callback
-        if callback:
-            callback(self.send)
+        if self._config.on_open_callback:
+            self._config.on_open_callback()
 
         session_response = self.get_mock_session_response()
         self.on_message(ws, message=session_response)

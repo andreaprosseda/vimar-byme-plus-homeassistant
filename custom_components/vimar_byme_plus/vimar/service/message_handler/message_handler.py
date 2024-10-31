@@ -43,6 +43,10 @@ class MessageHandler:
         phase = IntegrationPhase.DETACH
         return self.message_from_phase(phase)
 
+    def start_keep_alive(self) -> BaseRequest:
+        phase = IntegrationPhase.KEEP_ALIVE
+        return self.message_from_phase(phase)
+
     def message_from_phase(self, phase: IntegrationPhase) -> BaseRequestResponse:
         config = self._get_supporting_config()
         handler = MessageHandler._get_handler(phase)

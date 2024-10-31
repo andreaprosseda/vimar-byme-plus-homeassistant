@@ -4,14 +4,13 @@ from ..utils.thread import Timer
 
 class KeepAliveHandler:
 
-    TIMEOUT = 90 # max 120s
+    TIMEOUT = 9 # max 120s
     
     _timer: threading.Timer
-    _callback: Callable[[], None]
     
-    def __init__(self):
+    def __init__(self, callback: Callable[[], None] = None):
         self._timer = None
-        self._callback = None
+        self._callback = callback
 
     def set_handler(self, callback: Callable[[], None]):
         self._callback = callback
@@ -20,8 +19,6 @@ class KeepAliveHandler:
         if not self._timer or not self._timer.is_alive():
             self._timer = Timer(self.TIMEOUT, self._execute, name="KeepAliveHandler")
             self._timer.start()
-            # self._timer = threading.Timer(self.TIMEOUT, self._execute)
-            # self._timer.start()
 
     def _execute(self):
         if self._callback:

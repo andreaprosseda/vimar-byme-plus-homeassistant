@@ -1,26 +1,17 @@
-import os
 import time
-from typing import Callable, Optional
-
-from websocket import WebSocketApp, WebSocketConnectionClosedException
-
-from ..client.web_service.sync_attach_phase import SyncAttachPhase
+from websocket import WebSocketConnectionClosedException
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
 from ..database.database import Database
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
-from ..model.web_socket.base_response import BaseResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..model.exceptions import VimarErrorResponseException
 from ..scheduler.keep_alive_handler import KeepAliveHandler
 from ..utils.logger import log_info
-from ..utils.thread import Timer
 from .error_handler.error_handler import ErrorHandler
 from .message_handler.message_handler import MessageHandler
-from ..utils.thread import Thread
-from ..utils.thread_monitor import thread_exists
 
 
 class OperationalService:
@@ -29,16 +20,11 @@ class OperationalService:
     attach_port: int | None = None
 
     gateway_info: GatewayInfo
-    _thread_name = "VimarServiceThread"
-    _thread: Thread
 
     _message_handler: MessageHandler
     _error_handler: ErrorHandler
     _keep_alive_handler: KeepAliveHandler
     _web_socket: WSAttachPhase = None
-    _send_method: Callable[[BaseRequestResponse], None]
-
-    _waiting_timer: Timer = None
     _user_repo = Database.instance().user_repo
 
     def __init__(self, gateway_info: GatewayInfo) -> None:
@@ -49,18 +35,8 @@ class OperationalService:
         self._message_handler = MessageHandler(gateway_info)
         self._error_handler = ErrorHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
-        self._waiting_timer = None
 
     def connect(self):
-        """Create a new thread for Operational Phase interaction."""
-        self._thread = Thread(
-            target=self._connect,
-            name=self._thread_name,
-            daemon=True,
-        )
-        self._thread.start()
-
-    def _connect(self):
         """Handle the connection Vimar WebSocket connection."""
         try:
             self.clean()
@@ -69,9 +45,10 @@ class OperationalService:
         except Exception as err:
             raise VimarErrorResponseException(err) from err
 
-    def send(self):
-        self._web_socket.send(None)
-        # self._send_method()
+    def send(self, message: BaseRequestResponse):
+        if not self._web_socket:
+            raise WebSocketConnectionClosedException
+        self._web_socket.send(message)
 
     def sync_session_phase(self):
         """Handle SessionPhase interaction."""
@@ -93,16 +70,14 @@ class OperationalService:
         self.attach_port = None
         self._message_handler.clean()
 
-    def on_attach_connection_opened(
-        self, send_method: Callable[[BaseRequestResponse], None]
-    ):
-        self._send_method = send_method
+    def on_attach_connection_opened(self):
         self._keep_alive_handler.set_handler(self.send_keep_alive)
 
     def on_attach_message_received(
         self, message: BaseRequestResponse
     ) -> BaseRequestResponse:
         response = self._message_handler.message_received(message)
+        
         self.handle_keep_alive(response)
         return response
 
@@ -119,15 +94,12 @@ class OperationalService:
         return response
 
     def on_attach_close_callback(self, message: BaseRequestResponse):
+        self._keep_alive_handler.stop()
+        self.attach_port = None
         if isinstance(message, BaseRequest):
-            self.attach_port = None
-            self._keep_alive_handler.stop()
             seconds_to_wait = self._get_seconds_to_wait(message)
             message = f"Waiting {str(seconds_to_wait)} seconds before reconnecting..."
-            log_info(
-                __name__,
-                message,
-            )
+            log_info(__name__, message)
             time.sleep(seconds_to_wait)
             self.connect()
 
@@ -136,10 +108,10 @@ class OperationalService:
             self._keep_alive_handler.reset()
 
     def send_keep_alive(self):
-        keep_alive_request = BaseRequest(function="keepalive")
-        response = self.on_attach_message_received(keep_alive_request)
         try:
-            self._send_method(response)
+            message = self._message_handler.start_keep_alive()
+            self.send(message)
+            self._keep_alive_handler.reset()
         except WebSocketConnectionClosedException:
             self.disconnect()
 
@@ -166,8 +138,7 @@ class OperationalService:
 
     def disconnect(self):
         log_info(__name__, "Terminating the execution...")
+        self._keep_alive_handler.stop()
         if self._web_socket:
             self._web_socket._ws.close()
-        self._keep_alive_handler.stop()
-        self._web_socket = None
-        self._thread.join()
+            self._web_socket = None

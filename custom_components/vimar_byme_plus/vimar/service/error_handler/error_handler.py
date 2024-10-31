@@ -42,7 +42,6 @@ class ErrorHandler:
 
     def handle_permanent_error(self):
         self.remove_database()
-        raise PermissionDeniedException
 
     def remove_database(self):
         db_name = get_db_name()

@@ -1,17 +1,18 @@
 from prettytable import PrettyTable
 from ..model.gateway.vimar_data import VimarData
 from ..model.component.vimar_component import VimarComponent
+from .logger import log_info
 
 def beautify(data: VimarData):
-    print("\nLights:")
+    log_info(__name__, "\nLights:")
     print_table(data._lights)
-    print("\nDoors:")
+    log_info(__name__, "\nDoors:")
     print_table(data._access)
-    print("\nCovers:")
+    log_info(__name__, "\nCovers:")
     print_table(data._shutters)
-    print("\nClimate:")
+    log_info(__name__, "\nClimate:")
     print_table(data._climates)
-    print("\nAudios:")
+    log_info(__name__, "\nAudios:")
     print_table(data._audios)
     
 def print_table(components: list[VimarComponent]):

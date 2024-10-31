@@ -10,7 +10,8 @@ from ..model.repository.user_credentials import UserCredentials
 from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService
 from ..utils.logger import log_info
-
+from ..utils.thread import Thread
+from ..utils.thread_monitor import thread_exists
 
 class VimarClient:
     """Class to manage fetching VIMAR data."""
@@ -19,7 +20,8 @@ class VimarClient:
     _operational_service: OperationalService
     _component_repo = Database.instance().component_repo
     _user_repo = Database.instance().user_repo
-
+    _thread_name = "VimarServiceThread"
+    
     def __init__(self, gateway_info: GatewayInfo) -> None:
         """Initialize the coordinator."""
         self._association_service = AssociationService(gateway_info)
@@ -33,7 +35,16 @@ class VimarClient:
     def operational_phase(self):
         """Start the operational phase for Vimar connection."""
         if self._can_connect():
-            self._operational_service.connect()
+            self.connect()
+            
+    def connect(self):
+        """Create a new thread for Operational Phase interaction."""
+        thread = Thread(
+            target=self._operational_service.connect,
+            name=self._thread_name,
+            daemon=True,
+        )
+        thread.start()
 
     def _can_connect(self) -> bool:
         if not self.has_gateway_info():

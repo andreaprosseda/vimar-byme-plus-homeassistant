@@ -8,9 +8,9 @@ from ....utils.logger import log_info
 class KeepAliveMessageHandler(BaseMessageHandler):
     
     def handle_message(self, message: BaseRequestResponse, config: MessageSupportingValues) -> BaseRequestResponse:
-        if isinstance(message, BaseResponse):
-            return self.handle_keep_alive_response()
-        return self.send_keep_alive_request(config)
+        if not message:
+            return self.send_keep_alive_request(config)
+        return self.handle_keep_alive_response()
         
     def send_keep_alive_request(self, config: MessageSupportingValues) -> BaseRequestResponse:
         log_info(__name__, 'Handler requested to send KeepAlive, sending KeepAliveRequest...')
