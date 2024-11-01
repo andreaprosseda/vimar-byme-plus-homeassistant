@@ -2,13 +2,17 @@
 <!-- *** Don't forget to give the project a star! -->
 
 <!-- PROJECT SHIELDS -->
+<div align="center">
+
 [![Releases][release-shield]][release-url]
 [![Builds][build-shield]][build-url]
 [![Commits][commits-shield]][commits-url]
 [![Stars][stars-shield]][stars-url]
+[![License][license-shield]][license-url]
 [![Issues][issues-shield]][issues-url]
 [![Pulls][pulls-shield]][pulls-url]
-[![License][license-shield]][license-url]
+
+</div>
 
 <!-- PROJECT LOGO -->
 <br />
@@ -39,14 +43,15 @@
     <li>
       <a href="#installation">Installation</a>
       <ul>
-        <li><a href="#installation">[Step 1/3] Home Assistant - Install Component</a></li>
-        <li><a href="#installation">[Step 2/3] Vimar Pro - Initial Setup</a></li>
-        <li><a href="#installation">[Step 3/3] Vimar Pro - Generate Setup Code</a></li>
+        <li><a href="#step-13-home-assistant---install-component">[Step 1/3] Home Assistant - Install Component</a></li>
+        <li><a href="#step-23-vimar-pro---initial-setup">[Step 2/3] Vimar Pro - Initial Setup</a></li>
+        <li><a href="#step-33-vimar-pro---generate-setup-code">[Step 3/3] Vimar Pro - Generate Setup Code</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#debugging">Debugging</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <!-- <li><a href="#contributing">Contributing</a></li> -->
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -146,7 +151,17 @@ TBD
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Debugging
+To enable debug add this link on your Home Assistant config YAML:
 
+```yaml
+logger:
+  default: info
+  logs:
+    custom_components.vimar_byme_plus: debug
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -182,7 +197,7 @@ TBD
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+<!-- ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -192,7 +207,7 @@ Contributions are what make the open source community such an amazing place to l
   <img src="https://contrib.rocks/image?repo=andreaprosseda/vimar-byme-plus-homeassistant" alt="contrib.rocks image" />
 </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
