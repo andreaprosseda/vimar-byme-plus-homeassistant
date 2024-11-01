@@ -92,7 +92,7 @@ The installation phase is divided in three steps:
 * [Step 2/3] Vimar Pro - Initial Setup
 * [Step 3/3] Vimar Pro - Generate Setup Code
 
-:warning: Steps 1 and 2 are needed only the first time, while the third one is required everytime the integration is reinstalled or cleaned
+N.B. Steps 1 and 2 are needed only the first time, while the third one is required everytime the integration is reinstalled or cleaned
 
 ### [Step 1/3] Home Assistant - Install Component
 
@@ -228,7 +228,7 @@ logger:
 
 
 <!-- CONTRIBUTING -->
-<!-- ## Contributing
+## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -238,7 +238,7 @@ Contributions are what make the open source community such an amazing place to l
   <img src="https://contrib.rocks/image?repo=andreaprosseda/vimar-byme-plus-homeassistant" alt="contrib.rocks image" />
 </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
