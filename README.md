@@ -265,8 +265,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [commits-shield]: https://img.shields.io/github/commit-activity/t/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
 [commits-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/commits/main/
 
-[build-shield]: https://img.shields.io/github/actions/workflow/status/andreaprosseda/vimar-byme-plus-homeassistant/action.yml?branch=main&style=for-the-badge
-[build-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/actions/runs/11615252356/job/32345364484
+[build-shield]: https://img.shields.io/github/actions/workflow/status/andreaprosseda/vimar-byme-plus-homeassistant/validate.yml?style=for-the-badge
+[build-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/actions/workflows/validate.yml
 
 [issues-shield]: https://img.shields.io/github/issues/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
 [issues-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues
