@@ -17,9 +17,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant">
-    <img src="images/logo.png" alt="Logo" width="auto" height="100">
-  </a>
+  <img src="images/logo.png" alt="Logo" width="auto" height="100">
 
   <h3 align="center">Vimar By-me Plus for HomeAssistant</h3>
 
@@ -126,7 +124,7 @@ For this purpose, an asymmetric encryption mechanism is used which requires the 
 
 <br/>
 
-Here the steps to In details, the installer must execute the following
+Here the steps to follow:
 steps:
 1. Open Vimar Pro app
 2. Click on the plant name
@@ -140,21 +138,47 @@ steps:
 6. Click on `Add`
 
 <div align="center">
-  <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant">
     <img src="images/vimar_pro_first_setup.gif" alt="Gif" width="200">
-  </a>
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### [Step 3/3] Vimar Pro - Generate Setup Code
 
+Here the steps to follow to generate a Setup Code, needed for the integration phase on HomeAssistant (see <a href="#usage">Usage</a>):
+1. Open Vimar Pro app
+2. Click on the plant name
+3. Click on `i` on the right of the Gateway name
+4. Click on 
+   * `Device Maintenance`
+   * `Third Party Client Management`
+   * `Associate New Client`
+5. Fill the `Name` field with a name you prefer
+6. Select `Vimar By-me Plus HomeAssistant` from the integration list (if not available <a href="#step-23-vimar-pro---initial-setup">add it</a>)
+7. Click on `Generate Setup Code`
+8. Save `Setup Code`
+
+:warning: `Setup Code` expires in few minutes, create a new one if it doesn't work
+
+<div align="center">
+    <img src="images/vimar_pro_setup_code.gif" alt="Gif" width="200">
+</div>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
+<!-- USAGE -->
 ## Usage
+It's almost done! Let's proceed to integrate the custom component on Home Assistant:
+1. Open Home Assistant
+2. Click on `Settings`
+3. The Gateway will be automatically discovered and ready to configure
+4. Click on `Configure`
+5. Fill `Setup Code` with the one you created in the previous step
+6. Wait for the integration
 
-TBD
+:warning: This process may take up to 5 minutes. Be patient and wait for the process to be completed!
+
+![Usage Tutorial][usage-tutorial]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -261,3 +285,4 @@ Use this space to list resources you find helpful and would like to give credit 
 [hacs-url]: https://hacs.xyz
 
 [product-screenshot]: images/screenshot.png
+[usage-tutorial]: images/usage.gif
