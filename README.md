@@ -68,11 +68,14 @@ The component follows the Vimar Official integration process and provides an int
 
 Further information here: [Vimar Official Website][vimar-integration-url]
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- Requirements -->
 ## Requirements
 
 * Vimar Gateway:
-  - Gateway 01411
-  - Gateway 01410
+  - 01410 - By-me home automation Light Gateway
+  - 01411 - By-me home automation Gateway
 * Vimar Components (at least one):
   - Access
   - Audio
@@ -81,7 +84,10 @@ Further information here: [Vimar Official Website][vimar-integration-url]
   - Shutter
 * Vimar Pro app access (credentials)
 
-## Installation
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- Installation -->
+## Installation
 
 The installation phase is divided in three steps:
 * [Step 1/3] Home Assistant - Install Component
@@ -93,6 +99,7 @@ The installation phase is divided in three steps:
 ### [Step 1/3] Home Assistant - Install Component
 
 #### Method 1: [HACS][hacs-url]
+:warning: This component has not yet been approved by HACS and is not yet visible 
 > 1. Open HACS
 > 2. Search for `Vimar By-me Plus Home Assistant` 
 > 3. Click the blue download in the right bottom side
