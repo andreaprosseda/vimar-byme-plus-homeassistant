@@ -1,4 +1,3 @@
-import json
 from ....model.repository.user_component import UserComponent
 from ....model.component.vimar_media_player import (
     VimarMediaPlayer,

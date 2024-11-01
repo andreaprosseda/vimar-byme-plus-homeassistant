@@ -1,5 +1,4 @@
 from enum import Enum
-from datetime import datetime
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
 

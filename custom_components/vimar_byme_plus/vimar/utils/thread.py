@@ -1,15 +1,15 @@
 import threading
 from .logger import log_info
 
-class Timer(threading.Timer):
 
+class Timer(threading.Timer):
     def __init__(self, interval, function, *args, name=None, **kwargs):
         super().__init__(interval, function, *args, **kwargs)
-        self.name = name or 'UnnamedTimer'
+        self.name = name or "UnnamedTimer"
         log_info(__name__, f"New Timer created: {self.name}")
 
-class Thread(threading.Thread):
 
+class Thread(threading.Thread):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         log_info(__name__, f"New thread created: {self.name}")

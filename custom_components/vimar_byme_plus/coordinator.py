@@ -21,7 +21,6 @@ from .vimar.client.vimar_client import VimarClient
 from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.component.vimar_action import VimarAction
-from .vimar.utils.logger import log_debug
 
 _LOGGER = logging.getLogger(__name__)
 

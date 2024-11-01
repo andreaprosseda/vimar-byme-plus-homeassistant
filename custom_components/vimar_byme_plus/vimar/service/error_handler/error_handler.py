@@ -4,7 +4,6 @@ from ...model.web_socket.base_request_response import BaseRequestResponse
 from ...utils.logger import log_info
 from ...model.enum.error_response_enum import ErrorResponse
 from ...utils.file import remove_file, get_db_name
-from ...model.exceptions import PermissionDeniedException
 
 
 class ErrorHandler:
@@ -47,7 +46,7 @@ class ErrorHandler:
         db_name = get_db_name()
         log_info(__name__, f"Removing database {db_name} ...")
         remove_file(db_name)
-        
+
     def is_ssl_error(self, exception: Exception) -> bool:
         error_type = type(exception).__name__
         if error_type == "SSLError":

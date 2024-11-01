@@ -7,7 +7,6 @@ from .ss_light_switch import SsLightSwitchMapper
 
 
 class LightMapper:
-    
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarLight]:
         sftype = SfType.LIGHT.value
@@ -18,7 +17,7 @@ class LightMapper:
     def from_obj(component: UserComponent, *args) -> VimarLight:
         mapper = LightMapper.get_mapper(component)
         return mapper.from_obj(component, *args)
-        
+
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
         sstype = component.sstype

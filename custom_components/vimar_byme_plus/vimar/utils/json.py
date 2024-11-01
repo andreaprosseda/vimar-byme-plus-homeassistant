@@ -1,14 +1,17 @@
 import json
 from .file import read_file
 
+
 def read_json(file_name: str) -> dict:
     content = read_file(file_name)
     return json.loads(content)
+
 
 def json_dumps(value: str):
     json_value = json.dumps(value)
     # return remove_nulls(json_value)
     return json_value
+
 
 def remove_nulls(value):
     if isinstance(value, dict):

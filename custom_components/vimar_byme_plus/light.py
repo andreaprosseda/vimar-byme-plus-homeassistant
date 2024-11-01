@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from math import ceil
 from typing import Any
 
 from homeassistant.components.light import ColorMode, LightEntity, ATTR_BRIGHTNESS
@@ -11,7 +10,6 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util.color import value_to_brightness
 from homeassistant.util.percentage import (
-    percentage_to_ranged_value,
     ranged_value_to_percentage,
 )
 

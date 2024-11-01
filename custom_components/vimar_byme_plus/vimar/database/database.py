@@ -8,7 +8,8 @@ from .repository.user_repo import UserRepo
 from ..utils.file import get_file_path
 from ..utils.logger import log_info
 
-DATABASE_NAME = 'home.db'
+DATABASE_NAME = "home.db"
+
 
 class Database:
     ambient_repo: AmbientRepo

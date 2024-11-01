@@ -33,10 +33,7 @@ class UserRepo(BaseRepo):
             return None
         username, setup_code, useruid, password = record
         return UserCredentials(
-            username=username,
-            useruid=useruid,
-            password=password,
-            setup_code=setup_code
+            username=username, useruid=useruid, password=password, setup_code=setup_code
         )
 
     def insert(self, credentials: UserCredentials):

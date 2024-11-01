@@ -7,8 +7,6 @@ from .ss_shutter_without_position_mapper import SsShutterWithoutPositionMapper
 
 
 class ShutterMapper:
-    
-    
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarCover]:
         sftype = SfType.SHUTTER.value
@@ -19,7 +17,7 @@ class ShutterMapper:
     def from_obj(component: UserComponent, *args) -> VimarCover:
         mapper = ShutterMapper.get_mapper(component)
         return mapper.from_obj(component, *args)
-        
+
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
         sstype = component.sstype

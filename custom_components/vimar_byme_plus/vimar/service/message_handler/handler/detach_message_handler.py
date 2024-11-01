@@ -4,7 +4,6 @@ from ..base_handler_message import BaseMessageHandler
 from ....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
-from ....utils.logger import log_info
 
 
 class DetachMessageHandler(BaseMessageHandler):

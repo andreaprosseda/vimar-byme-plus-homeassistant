@@ -1,6 +1,7 @@
 from dataclasses import dataclass, asdict
 from ...utils.json import json_dumps
 
+
 @dataclass
 class GatewayInfo:
     address: str | None = None
@@ -18,7 +19,7 @@ class GatewayInfo:
             port=20615,
             deviceuid="3A2643FBB24000",
             plantname="Cruizer",
-            protocolversion="2.7"
+            protocolversion="2.7",
         )
 
     @classmethod
@@ -29,9 +30,9 @@ class GatewayInfo:
             port=port,
             deviceuid=props.get("deviceuid"),
             plantname=props.get("plantname"),
-            protocolversion=props.get("protocolversion")
+            protocolversion=props.get("protocolversion"),
         )
-                
+
     def to_dict(self) -> dict:
         return asdict(self)
 

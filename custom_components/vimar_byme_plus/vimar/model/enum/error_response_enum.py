@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ErrorResponse(Enum):
     IP_CONNECTOR_NO_ERR = 0
     IP_CONNECTOR_ERR_MALFORMED_MESSAGE = 1
@@ -30,14 +31,14 @@ class ErrorResponse(Enum):
     IP_CONNECTOR_ERR_LANG_NOT_SUPPORTED = 31
     IP_CONNECTOR_ERR_SYSTEM_LOADING = 34
     IP_CONNECTOR_ERR_INVALID_CONTEXT = 35
-    
+
     @staticmethod
     def get_name_by_code(code: int | None) -> str:
         if not code or code == 0:
             return None
-        
+
         for elem in ErrorResponse:
             if elem.value == code:
                 return elem.name
-        
-        return 'UNKNOWN_ERROR'
+
+        return "UNKNOWN_ERROR"

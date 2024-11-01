@@ -1,16 +1,13 @@
 """Config flow for VIMAR By-me Plus."""
 
 from __future__ import annotations
-from collections.abc import Mapping
 from typing import Any
 
 import logging
 import voluptuous as vol
 
-from homeassistant import config_entries, exceptions
-from homeassistant.exceptions import ConfigEntryAuthFailed
-from homeassistant.config_entries import ConfigFlowResult, SOURCE_REAUTH
-from homeassistant.core import HomeAssistant
+from homeassistant import config_entries
+from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.components import zeroconf
 
 from .const import (
@@ -26,8 +23,7 @@ from .const import (
 )
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
-from .vimar.utils.logger import log_debug, log_error
-from .vimar.model.gateway.gateway_info import GatewayInfo
+from .vimar.utils.logger import log_debug
 
 _LOGGER = logging.getLogger(__name__)
 

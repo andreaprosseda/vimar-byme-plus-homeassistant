@@ -1,6 +1,7 @@
 from dataclasses import dataclass, asdict
 from ...utils.json import json_dumps
 
+
 @dataclass
 class BaseRequestResponse:
     type: str
@@ -9,6 +10,6 @@ class BaseRequestResponse:
     target: str
     token: str
     msgid: str
-        
+
     def to_json(self):
         return json_dumps(asdict(self))

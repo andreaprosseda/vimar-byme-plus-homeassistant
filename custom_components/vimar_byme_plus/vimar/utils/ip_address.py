@@ -1,7 +1,8 @@
-    # import netifaces
+# import netifaces
+
 
 def get_ip_address() -> str:
-    return '192.168.1.132'
+    return "192.168.1.132"
     # def get_lan_ips():
     #     ip_addresses = {}
     #     for interface in netifaces.interfaces():

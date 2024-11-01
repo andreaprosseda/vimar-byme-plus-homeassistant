@@ -34,7 +34,6 @@ class ElementRepo(BaseRepo):
         result = cursor.fetchone()
         return result[0] if result else None
 
-
     def delete_all(self):
         query = "DELETE FROM elements;"
         self.execute(query)

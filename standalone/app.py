@@ -10,7 +10,7 @@ if __name__ == "__main__":
     if requested:
         service.association_phase()
     service.operational_phase()
-    
+
     while True:
         value = input("Press Enter to continue")
         data = service.retrieve_data()

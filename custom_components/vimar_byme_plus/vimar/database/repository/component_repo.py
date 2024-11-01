@@ -6,6 +6,7 @@ from ...model.repository.user_component import UserComponent
 from ...model.repository.user_element import UserElement
 from ...model.repository.user_ambient import UserAmbient
 
+
 class ComponentRepo(BaseRepo):
     element_repo: ElementRepo
 
@@ -123,9 +124,11 @@ class ComponentRepo(BaseRepo):
             a_hash,
             a_idambient,
             a_idparent,
-            a_name
+            a_name,
         ) = row
         ambient = UserAmbient(a_dictKey, a_hash, a_idambient, a_idparent, a_name)
         element = UserElement(e_enable, e_element_id, e_sfetype, e_value)
-        component = UserComponent(c_dictKey, c_idambient, c_idsf, c_name, c_sftype, c_sstype)
+        component = UserComponent(
+            c_dictKey, c_idambient, c_idsf, c_name, c_sftype, c_sstype
+        )
         return component, element, ambient

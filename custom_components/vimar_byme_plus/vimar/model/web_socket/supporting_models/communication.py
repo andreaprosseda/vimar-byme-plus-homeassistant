@@ -2,6 +2,7 @@ from enum import Enum
 from dataclasses import dataclass
 from typing import Optional
 
+
 @dataclass
 class CommunicationMode(Enum):
     ON_DEMAND_TCP = 1
@@ -9,12 +10,13 @@ class CommunicationMode(Enum):
     DUAL_MODE_TCP = 3
     WEB_SOCKET = 4
 
+
 @dataclass
 class Communication:
     ipaddress: str
     communicationmode: Optional[int]
     ipport: Optional[int]
-        
+
     def __init__(self, address: str, port: int = None, mode: CommunicationMode = None):
         self.ipaddress = address
         self.ipport = port

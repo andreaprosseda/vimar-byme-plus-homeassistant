@@ -2,17 +2,13 @@
 
 from __future__ import annotations
 
-import logging
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
+from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from .coordinator import Coordinator
-from .vimar.utils.logger import log_debug, log_info
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
-from .vimar.model.gateway.gateway_info import GatewayInfo
 
 PLATFORMS = [Platform.CLIMATE, Platform.COVER, Platform.LIGHT, Platform.MEDIA_PLAYER]
 

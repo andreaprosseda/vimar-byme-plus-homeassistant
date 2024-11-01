@@ -9,7 +9,6 @@ from ...model.component.vimar_climate import (
 )
 from ...model.enum.sftype_enum import SfType
 from ...model.enum.sfetype_enum import SfeType
-from ...utils.logger import log_info
 
 SFTYPE = SfType.CLIMA.value
 

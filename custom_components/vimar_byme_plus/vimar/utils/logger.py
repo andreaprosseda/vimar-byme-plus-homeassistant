@@ -7,7 +7,7 @@ level = logging.INFO
 logger = logging.getLogger(__name__)
 logger.setLevel(level)
 
-if 'standalone' in __name__:
+if "standalone" in __name__:
     remove_file("app.log")
     file_handler = logging.FileHandler(get_file_path("app.log"), mode="a")
     file_handler.setLevel(level)

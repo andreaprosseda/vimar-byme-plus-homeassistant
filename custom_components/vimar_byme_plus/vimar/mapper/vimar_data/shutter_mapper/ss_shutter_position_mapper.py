@@ -1,4 +1,3 @@
-import traceback
 from ....model.repository.user_component import UserComponent
 from ....model.component.vimar_cover import VimarCover, CoverEntityFeature
 from ....model.enum.sftype_enum import SfType

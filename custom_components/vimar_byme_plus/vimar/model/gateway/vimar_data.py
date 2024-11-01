@@ -5,6 +5,7 @@ from ..component.vimar_cover import VimarCover
 from ..component.vimar_climate import VimarClimate
 from ..component.vimar_media_player import VimarMediaPlayer
 
+
 @dataclass
 class VimarData:
     _lights: list[VimarLight] = field(default_factory=list)
@@ -21,12 +22,17 @@ class VimarData:
 
     def get_climates(self) -> list:
         return self._climates
-    
+
     def get_audios(self) -> list:
         return self._audios
 
     def get_all(self) -> list[VimarComponent]:
-        return self.get_lights() + self.get_covers() + self.get_climates() + self.get_audios()
+        return (
+            self.get_lights()
+            + self.get_covers()
+            + self.get_climates()
+            + self.get_audios()
+        )
 
     def get_by_id(self, id: str) -> VimarComponent:
         for component in self.get_all():

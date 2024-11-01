@@ -9,7 +9,7 @@ class SsLightDimmerMapper:
     SFTYPE = SfType.LIGHT.value
     SSTYPE = SsType.LIGHT_DIMMER.value
 
-    def from_obj(self, component: UserComponent, *args)-> VimarLight:
+    def from_obj(self, component: UserComponent, *args) -> VimarLight:
         return VimarLight(
             id=component.idsf,
             name=component.name,
@@ -32,15 +32,15 @@ class SsLightDimmerMapper:
     def get_is_on(self, component: UserComponent) -> bool:
         value = component.get_value(SfeType.STATE_ON_OFF)
         return value == "On" if value else False
-    
+
     def get_brightness(self, component: UserComponent) -> int | None:
         value = component.get_value(SfeType.STATE_BRIGHTNESS)
         if value.isdigit:
             return int(value)
-        return None # Change up/Change down
+        return None  # Change up/Change down
 
     def get_color_mode(self, component: UserComponent) -> ColorMode:
         return ColorMode.BRIGHTNESS
-    
+
     def get_supported_color_modes(self, component: UserComponent) -> set[ColorMode]:
-        return { self.get_color_mode(component) }
+        return {self.get_color_mode(component)}

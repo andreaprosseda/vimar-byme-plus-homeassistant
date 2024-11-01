@@ -12,7 +12,7 @@ class BaseMessageHandler(HandlerInterface):
     _ambient_repo = Database.instance().ambient_repo
     _component_repo = Database.instance().component_repo
     _element_repo = Database.instance().element_repo
-        
+
     def save_user_credentials(self, response: dict):
         credentials = UserCredentials.obj_from_dict(response)
         self._user_repo.update(credentials)
