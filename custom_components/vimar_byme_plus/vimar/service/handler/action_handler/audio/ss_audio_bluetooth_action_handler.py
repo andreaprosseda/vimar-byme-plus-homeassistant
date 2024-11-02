@@ -36,6 +36,6 @@ class SsAudioBluetoothActionHandler(BaseActionHandler):
         """Send previous track command."""
         return [self._action(id, TRACK, "Down")]
 
-    def get_next_actions(self) -> list[VimarAction]:
+    def get_next_actions(self, id: str) -> list[VimarAction]:
         """Send next track command."""
         return [self._action(id, TRACK, "Up")]

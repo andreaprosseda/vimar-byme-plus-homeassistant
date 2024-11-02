@@ -104,7 +104,9 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
     @property
     def source_list(self) -> list[str] | None:
         """List of available input sources."""
-        return self._component.source_list
+        if not self._component.source_list:
+            return None
+        return [source.name for source in self._component.source_list]
 
     @property
     def supported_features(self) -> MediaPlayerEntityFeature:

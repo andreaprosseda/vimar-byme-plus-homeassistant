@@ -29,22 +29,22 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
         if not position:
             return []
         value = self._get_frequency_control_json(position)
-        return [self._action(id, FREQUENCY, value)]
+        return [self._action(component.id, FREQUENCY, value)]
     
     def get_previous_fm_actions(self, id: str) -> list[VimarAction]:
         """Turn the media player on."""
         return [self._action(id, STATION, "Scan prev")]
 
-    def get_next_fm_actions(self) -> list[VimarAction]:
+    def get_next_fm_actions(self, id: str) -> list[VimarAction]:
         """Turn the media player off."""
         return [self._action(id, STATION, "Scan next")]
 
-    def _get_position(component: VimarMediaPlayer, source: str) -> str | None:
+    def _get_position(self, component: VimarMediaPlayer, source: str) -> str | None:
         for component_source in component.source_list:
             if component_source.name == source:
                 return component_source.id
         return None
         
-    def _get_frequency_control_json(position: str) -> str:
+    def _get_frequency_control_json(self, position: str) -> str:
         json = {'action': 'select', 'position': position}
         return json_dumps(json)

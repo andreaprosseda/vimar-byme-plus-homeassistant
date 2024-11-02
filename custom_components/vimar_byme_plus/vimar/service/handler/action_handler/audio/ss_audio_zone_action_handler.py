@@ -32,7 +32,7 @@ class SsAudioZoneActionHandler(BaseActionHandler):
         """Turn the media player on."""
         return [self._action(id, ON_OFF, "On")]
 
-    def get_turn_off_actions(self) -> list[VimarAction]:
+    def get_turn_off_actions(self, id: str) -> list[VimarAction]:
         """Turn the media player off."""
         return [self._action(id, ON_OFF, "Off")]
 
@@ -48,12 +48,12 @@ class SsAudioZoneActionHandler(BaseActionHandler):
         
     def get_select_source_actions(self, component: VimarMediaPlayer, source: str) -> list[VimarAction]:
         """Select input source."""
-        source_id = self._get_source_id(source)
+        source_id = self._get_source_id(component, source)
         if source_id:
-            return [self._action(id, SOURCE, source_id)]
+            return [self._action(component.id, SOURCE, source_id)]
         return []
     
-    def _get_source_id(component: VimarMediaPlayer, source: str) -> str | None:
+    def _get_source_id(self, component: VimarMediaPlayer, source: str) -> str | None:
         for component_source in component.source_list:
             if component_source.name == source:
                 return component_source.id
