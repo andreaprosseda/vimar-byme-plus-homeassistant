@@ -13,7 +13,7 @@ from ...model.web_socket.request.session_request import SessionRequest
 from ...model.web_socket.web_socket_config import WebSocketConfig
 from ...utils.logger import log_debug, log_info
 from ...utils.session_token import get_session_token
-from ...service.message_handler.message_handler import MessageHandler
+from ...service.handler.message_handler.message_handler import MessageHandler
 
 
 class SyncBaseSocket:

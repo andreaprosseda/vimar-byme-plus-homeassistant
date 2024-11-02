@@ -1,4 +1,4 @@
-from .message_handler.message_handler import MessageHandler
+from .handler.message_handler.message_handler import MessageHandler
 from ..client.authenticator_client import AuthenticatorClient
 from ..client.web_service.sync_attach_phase import SyncAttachPhase
 from ..client.web_service.sync_session_phase import SyncSessionPhase
