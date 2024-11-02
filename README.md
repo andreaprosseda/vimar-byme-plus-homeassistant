@@ -37,6 +37,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#support">Support</a></li>
     <li><a href="#requirements">Requirements</a></li>
     <li>
       <a href="#installation">Installation</a>
@@ -67,6 +68,16 @@ The component follows the Vimar Official integration process and provides an int
 Further information here: [Vimar Official Website][vimar-integration-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Support 
+
+Hey there! I'm a tech enthusiast and dedicated coder, fuelled by caffeine and a passion for the home-automation world.
+Your support directly powers my coffee stash, keeps my energy up, and lets me focus more on creating and maintaining the resources you rely on.
+
+If my work has helped you in any way, consider buying me a coffee — it’s a small way to contribute but makes a big difference and helps keep this project alive and maintained. 
+Thank you for fueling my passion for tech and open-source! ❤️
+
+[![Buy Me a Coffee][coffee-shield]][coffee-url]
 
 <!-- Requirements -->
 ## Requirements
@@ -280,6 +291,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-shield]: https://img.shields.io/github/license/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
 [license-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/LICENSE
 
+[coffee-shield]: https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png
+[coffee-url]: https://www.buymeacoffee.com/andreaprosseda
 
 [vimar-integration-url]: https://www.vimar.com/it/it/integrazione-con-il-sistema-domotico-by-me-plus-17577122.html
 [hacs-url]: https://hacs.xyz
