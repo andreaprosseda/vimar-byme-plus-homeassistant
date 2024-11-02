@@ -36,7 +36,7 @@ class AudioMapper:
             return SsAudioZoneMapper()
         if sstype == SsAudioBluetoothMapper.SSTYPE:
             return SsAudioBluetoothMapper()
-        return NotImplementedError()
+        raise NotImplementedError
 
     @staticmethod
     def remove_sources(components: list[UserComponent]) -> list[UserComponent]:

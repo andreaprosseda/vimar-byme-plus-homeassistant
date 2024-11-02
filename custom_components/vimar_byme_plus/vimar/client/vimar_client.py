@@ -2,8 +2,7 @@
 
 from ..config.const import USERNAME
 from ..database.database import Database
-from ..mapper.vimar_data.vimar_data_mapper import VimarDataMapper
-from ..model.component.vimar_action import VimarAction
+from ..mapper.vimar_data_mapper import VimarDataMapper
 from ..model.exceptions import CodeNotValidException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.gateway.vimar_data import VimarData
@@ -12,6 +11,8 @@ from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService
 from ..utils.logger import log_info
 from ..utils.thread import Thread
+from ..model.enum.action_type import ActionType
+from ..model.component.vimar_component import VimarComponent
 
 
 class VimarClient:
@@ -47,9 +48,9 @@ class VimarClient:
         )
         thread.start()
 
-    def send(self, actions: list[VimarAction]):
+    def send(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
-        self._operational_service.send_actions(actions)
+        self._operational_service.send_action(component, action_type, *args)
 
     def stop(self):
         """Stop coordinator processes."""

@@ -5,6 +5,7 @@ from ...model.component.vimar_media_player import (
     MediaType,
     MediaPlayerEntityFeature,
     MediaPlayerState,
+    Source
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
@@ -12,10 +13,6 @@ from ...model.enum.sstype_enum import SsType
 
 class SsAudioRadioFmMapper:
     SSTYPE = SsType.AUDIO_RADIO_FM.value
-
-    # TBD:
-    # STATE_DEVICE_CONNECTED = 'SFE_State_DeviceConnected'
-    # STATE_AUX = 'SFE_State_Aux'
 
     def from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         return VimarMediaPlayer(
@@ -107,12 +104,19 @@ class SsAudioRadioFmMapper:
         except Exception:
             return "Manual"
 
-    def _get_frequency_names(self, component: UserComponent) -> list[str] | None:
+    def _get_frequency_names(self, component: UserComponent) -> list[Source] | None:
         try:
             frequencies = component.get_value(SfeType.STATE_MEM_FREQUENCY_NAMES)
             frequencies_json = json.loads(frequencies)
-            names = [frequencies_json[f"freq{i+1}_name"] for i in range(8)]
-            names.append("Manual")
-            return names
+            sources = []
+            for i in range(8):
+                name = frequencies_json[f"freq{i+1}_name"]
+                source = self._get_source(i+1, name)
+                sources.append(source)
+            sources.append(self._get_source(-1, "Manual"))
+            return sources
         except Exception:
             return None
+        
+    def _get_source(id: int, name: str) -> Source:
+        return Source(id = str(id), name = name)

@@ -25,4 +25,4 @@ class ShutterMapper:
             return SsShutterPositionMapper()
         if sstype == SsShutterWithoutPositionMapper.SSTYPE:
             return SsShutterWithoutPositionMapper()
-        return NotImplementedError()
+        raise NotImplementedError

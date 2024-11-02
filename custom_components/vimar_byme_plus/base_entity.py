@@ -9,9 +9,8 @@ from .coordinator import Coordinator
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.component_type import ComponentType
 from .vimar.model.gateway.vimar_data import VimarData
-from .vimar.model.component.vimar_action import VimarAction
 from .vimar.utils.logger import log_info
-
+from .vimar.model.enum.action_type import ActionType
 
 class BaseEntity(CoordinatorEntity):
     """Vimar abstract base entity."""
@@ -75,10 +74,8 @@ class BaseEntity(CoordinatorEntity):
             self._component = data.get_by_id(self._component.id)
             self.async_write_ha_state()
 
-    def send(self, actions: list[VimarAction]) -> None:
+    def send(self, actionType: ActionType, *args) -> None:
         """Send a request coming from HomeAssistant to Gateway."""
-        if actions:
-            coordinator: Coordinator = self.coordinator
-            coordinator.send(actions)
-        else:
-            log_info(__name__, f"[{self._component.name}] No action to send")
+        component = self._component 
+        coordinator: Coordinator = self.coordinator
+        coordinator.send(component, actionType, *args)

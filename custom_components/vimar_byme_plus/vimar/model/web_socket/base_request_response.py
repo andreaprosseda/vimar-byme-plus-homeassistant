@@ -11,5 +11,5 @@ class BaseRequestResponse:
     token: str
     msgid: str
 
-    def to_json(self):
+    def to_json(self) -> str:
         return json_dumps(asdict(self))

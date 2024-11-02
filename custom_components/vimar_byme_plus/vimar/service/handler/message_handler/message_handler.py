@@ -20,7 +20,7 @@ from .phase.register_message_handler import RegisterMessageHandler
 from .phase.session_message_handler import SessionMessageHandler
 from .phase.sf_discovery_message_handler import SfDiscoveryMessageHandler
 from .phase.unknown_message_handler import UnknownMessageHandler
-from .base_handler_message import BaseMessageHandler
+from .base_handler_message import HandlerInterface
 
 
 class MessageHandler:
@@ -93,7 +93,7 @@ class MessageHandler:
         )
 
     @staticmethod
-    def _get_handler(phase: IntegrationPhase) -> BaseMessageHandler:
+    def _get_handler(phase: IntegrationPhase) -> HandlerInterface:
         match phase:
             case IntegrationPhase.INIT:
                 return InitMessageHandler()

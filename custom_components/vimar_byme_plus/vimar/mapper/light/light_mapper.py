@@ -1,5 +1,5 @@
-from .ss_light_dimmer import SsLightDimmerMapper
-from .ss_light_switch import SsLightSwitchMapper
+from .ss_light_dimmer_mapper import SsLightDimmerMapper
+from .ss_light_switch_mapper import SsLightSwitchMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_light import VimarLight
@@ -25,4 +25,4 @@ class LightMapper:
             return SsLightSwitchMapper()
         if sstype == SsLightDimmerMapper.SSTYPE:
             return SsLightDimmerMapper()
-        return NotImplementedError()
+        raise NotImplementedError

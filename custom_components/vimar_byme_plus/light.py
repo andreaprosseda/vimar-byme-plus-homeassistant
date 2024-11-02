@@ -19,6 +19,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_light import VimarLight
 from .vimar.utils.logger import log_debug
+from .vimar.model.enum.action_type import ActionType
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -139,13 +140,11 @@ class Light(BaseEntity, LightEntity):
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""
         brightness = self._get_brightness_1_100(**kwargs)
-        actions = self._component.get_turn_on_actions(brightness)
-        self.send(actions)
+        self.send(ActionType.ON, brightness)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the light off."""
-        actions = self._component.get_turn_off_actions()
-        self.send(actions)
+        self.send(ActionType.OFF)
 
     def _get_brightness_1_100(self, **kwargs: Any) -> int | None:
         scale = self.BRIGHTNESS_SCALE

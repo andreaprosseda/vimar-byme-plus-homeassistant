@@ -7,7 +7,7 @@ def read_json(file_name: str) -> dict:
     return json.loads(content)
 
 
-def json_dumps(value: str):
+def json_dumps(value: str) -> str:
     json_value = json.dumps(value)
     # return remove_nulls(json_value)
     return json_value

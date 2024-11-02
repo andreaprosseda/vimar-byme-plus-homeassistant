@@ -42,6 +42,10 @@ class MediaPlayerEntityFeature(Enum):
     MEDIA_ANNOUNCE = 1048576
     MEDIA_ENQUEUE = 2097152
 
+@dataclass
+class Source:
+    id: str
+    name: str
 
 @dataclass
 class VimarMediaPlayer(VimarComponent):
@@ -58,7 +62,7 @@ class VimarMediaPlayer(VimarComponent):
     media_track: int | None
     source_id: str | None
     current_source: str | None
-    source_list: list[str] | None
+    source_list: list[Source] | None
     supported_features: list[MediaPlayerEntityFeature]
 
     def __init__(
@@ -81,7 +85,7 @@ class VimarMediaPlayer(VimarComponent):
         media_track: int | None = None,
         source_id: str | None = None,
         current_source: str | None = None,
-        source_list: list[str] | None = None,
+        source_list: list[Source] | None = None,
         supported_features: MediaPlayerEntityFeature = None,
     ) -> None:
         super().__init__(id, name, device_group, device_name, area)

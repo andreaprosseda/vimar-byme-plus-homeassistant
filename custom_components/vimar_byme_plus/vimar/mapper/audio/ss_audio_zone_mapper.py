@@ -4,6 +4,7 @@ from ...model.component.vimar_media_player import (
     MediaPlayerState,
     MediaType,
     MediaPlayerEntityFeature,
+    Source
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
@@ -108,7 +109,7 @@ class SsAudioZoneMapper:
         self, component: UserComponent, sources: list[VimarMediaPlayer]
     ) -> list[str] | None:
         """Name of all input sources."""
-        return [source.name for source in sources]
+        return [Source(source.source_id, source.name) for source in sources]
 
     def get_supported_features(
         self, component: UserComponent

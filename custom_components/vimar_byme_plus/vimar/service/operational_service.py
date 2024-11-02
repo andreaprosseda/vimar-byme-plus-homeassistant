@@ -11,9 +11,11 @@ from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..model.exceptions import VimarErrorResponseException
 from ..scheduler.keep_alive_handler import KeepAliveHandler
 from ..utils.logger import log_info
-from .error_handler.error_handler import ErrorHandler
-from .message_handler.message_handler import MessageHandler
-
+from .handler.action_handler.action_handler import ActionHandler
+from .handler.error_handler.error_handler import ErrorHandler
+from .handler.message_handler.message_handler import MessageHandler
+from ..model.enum.action_type import ActionType
+from ..model.component.vimar_component import VimarComponent
 
 class OperationalService:
     gateway_address: str
@@ -23,8 +25,10 @@ class OperationalService:
     gateway_info: GatewayInfo
 
     _message_handler: MessageHandler
+    _action_handler: ActionHandler
     _error_handler: ErrorHandler
     _keep_alive_handler: KeepAliveHandler
+    
     _web_socket: WSAttachPhase = None
     _user_repo = Database.instance().user_repo
 
@@ -33,8 +37,9 @@ class OperationalService:
         self.gateway_address = gateway_info.address
         self.session_port = gateway_info.port
         self.gateway_info = gateway_info
-        self._message_handler = MessageHandler(gateway_info)
+        self._action_handler = ActionHandler()
         self._error_handler = ErrorHandler(gateway_info)
+        self._message_handler = MessageHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
 
     def connect(self):
@@ -46,10 +51,12 @@ class OperationalService:
         except Exception as err:
             raise VimarErrorResponseException(err) from err
 
-    def send_actions(self, actions: list[VimarAction]):
+    def send_action(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
+        actions = self._action_handler.get_actions(component, action_type, *args)
         message = self._message_handler.start_do_action(actions)
-        self.send_message(message)
+        log_info(__name__, f"Message to send:\n\n\n{message.to_json()}\n\n\n")
+        # self.send_message(message)
 
     def send_message(self, message: BaseRequest):
         """Send a request coming from HomeAssistant to Gateway."""

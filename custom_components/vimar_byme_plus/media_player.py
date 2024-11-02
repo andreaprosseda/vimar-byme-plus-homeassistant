@@ -20,7 +20,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_media_player import VimarMediaPlayer
 from .vimar.utils.logger import log_debug
-
+from .vimar.model.enum.action_type import ActionType
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -114,39 +114,39 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
 
     def turn_on(self) -> None:
         """Turn the media player on."""
-        raise NotImplementedError
+        self.send(ActionType.ON)
 
     def turn_off(self) -> None:
         """Turn the media player off."""
-        raise NotImplementedError
+        self.send(ActionType.OFF)
 
     def mute_volume(self, mute: bool) -> None:
         """Mute the volume."""
-        raise NotImplementedError
+        self.send(ActionType.SET_LEVEL, 0)
 
     def set_volume_level(self, volume: float) -> None:
         """Set volume level, range 0..1."""
-        raise NotImplementedError
+        self.send(ActionType.SET_LEVEL, volume)
 
     def media_play(self) -> None:
         """Send play command."""
-        raise NotImplementedError
+        self.send(ActionType.PLAY)
 
     def media_pause(self) -> None:
         """Send pause command."""
-        raise NotImplementedError
+        self.send(ActionType.PAUSE)
 
     def media_stop(self) -> None:
         """Send stop command."""
-        raise NotImplementedError
+        self.send(ActionType.STOP)
 
     def media_previous_track(self) -> None:
         """Send previous track command."""
-        raise NotImplementedError
+        self.send(ActionType.PREVIOUS)
 
     def media_next_track(self) -> None:
         """Send next track command."""
-        raise NotImplementedError
+        self.send(ActionType.NEXT)
 
     def media_seek(self, position: float) -> None:
         """Send seek command."""
@@ -160,7 +160,7 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
 
     def select_source(self, source: str) -> None:
         """Select input source."""
-        raise NotImplementedError
+        self.send(ActionType.SET_SOURCE, source)
 
     def select_sound_mode(self, sound_mode: str) -> None:
         """Select sound mode."""
@@ -180,7 +180,7 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
 
     def toggle(self) -> None:
         """Toggle the power on the media player."""
-        raise NotImplementedError
+        self.send(ActionType.TOGGLE)
 
     def volume_up(self) -> None:
         """Turn volume up for media player."""

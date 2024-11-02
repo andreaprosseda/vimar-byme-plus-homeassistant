@@ -1,9 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
-from .vimar_action import VimarAction
-from ..enum.sfetype_enum import SfeType
-
 
 class ColorMode(Enum):
     UNKNOWN = "unknown"
@@ -16,11 +13,6 @@ class ColorMode(Enum):
     RGBW = "rgbw"
     RGBWW = "rgbww"
     WHITE = "white"
-
-
-CMD_ON_OFF = SfeType.CMD_ON_OFF
-CMD_BRIGHTNESS = SfeType.CMD_BRIGHTNESS
-
 
 @dataclass
 class VimarLight(VimarComponent):
@@ -35,17 +27,6 @@ class VimarLight(VimarComponent):
     effect_list: list[str] | None
     effect: str | None
     supported_color_modes: set[ColorMode] | None
-
-    def get_turn_on_actions(self, brigthness: int | None = None) -> list[VimarAction]:
-        """Turn the light on."""
-        result = [self._get_action(CMD_ON_OFF, "On")]
-        if brigthness:
-            result.append(self._get_action(CMD_BRIGHTNESS, str(brigthness)))
-        return result
-
-    def get_turn_off_actions(self) -> list[VimarAction]:
-        """Turn the light off."""
-        return [self._get_action(CMD_ON_OFF, "Off")]
 
     @staticmethod
     def get_table_header() -> list:

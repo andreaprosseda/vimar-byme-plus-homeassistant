@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-from .vimar_action import VimarAction
-from ..enum.sfetype_enum import SfeType
 
 
 @dataclass
@@ -17,6 +15,3 @@ class VimarComponent:
 
     def to_table(self) -> list:
         return [self.area, self.name]
-
-    def _get_action(self, sfetype: SfeType, value: str) -> VimarAction:
-        return VimarAction(idsf=self.id, sfetype=sfetype, value=value)
