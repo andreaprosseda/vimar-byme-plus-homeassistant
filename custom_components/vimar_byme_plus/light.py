@@ -61,7 +61,7 @@ class Light(BaseEntity, LightEntity):
 
         HomeAssitant Description: The brightness of this light between 1..255.
         """
-        return self._get_scaled_brightness()
+        return self._get_brightness_1_255()
 
     @property
     def color_mode(self) -> ColorMode | str | None:

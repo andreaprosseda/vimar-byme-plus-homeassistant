@@ -40,7 +40,7 @@ class VimarLight(VimarComponent):
         """Turn the light on."""
         result = [self._get_action(CMD_ON_OFF, "On")]
         if brigthness:
-            result.append(self._get_action(CMD_BRIGHTNESS, brigthness))
+            result.append(self._get_action(CMD_BRIGHTNESS, str(brigthness)))
         return result
 
     def get_turn_off_actions(self) -> list[VimarAction]:
