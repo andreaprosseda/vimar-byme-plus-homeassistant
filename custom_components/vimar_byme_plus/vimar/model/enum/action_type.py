@@ -5,11 +5,11 @@ class ActionType(Enum):
     ON = "ON"
     OFF = "OFF"
     TOGGLE = "TOGGLE"
-    
+
     OPEN = "OPEN"
     CLOSE = "CLOSE"
     STOP = "STOP"
-    
+
     PLAY = "PLAY"
     PAUSE = "PAUSE"
     PREVIOUS = "PREVIOUS"

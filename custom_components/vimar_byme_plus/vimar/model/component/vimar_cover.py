@@ -2,6 +2,7 @@ from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
 
+
 class CoverEntityFeature(Enum):
     OPEN = 1
     CLOSE = 2

@@ -9,8 +9,8 @@ from .coordinator import Coordinator
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.component_type import ComponentType
 from .vimar.model.gateway.vimar_data import VimarData
-from .vimar.utils.logger import log_info
 from .vimar.model.enum.action_type import ActionType
+
 
 class BaseEntity(CoordinatorEntity):
     """Vimar abstract base entity."""
@@ -76,6 +76,6 @@ class BaseEntity(CoordinatorEntity):
 
     def send(self, actionType: ActionType, *args) -> None:
         """Send a request coming from HomeAssistant to Gateway."""
-        component = self._component 
+        component = self._component
         coordinator: Coordinator = self.coordinator
         coordinator.send(component, actionType, *args)

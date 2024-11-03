@@ -4,7 +4,6 @@ from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
 from ..database.database import Database
 from ..model.gateway.gateway_info import GatewayInfo
-from ..model.component.vimar_action import VimarAction
 from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
@@ -17,6 +16,7 @@ from .handler.message_handler.message_handler import MessageHandler
 from ..model.enum.action_type import ActionType
 from ..model.component.vimar_component import VimarComponent
 
+
 class OperationalService:
     gateway_address: str
     session_port: int
@@ -28,7 +28,7 @@ class OperationalService:
     _action_handler: ActionHandler
     _error_handler: ErrorHandler
     _keep_alive_handler: KeepAliveHandler
-    
+
     _web_socket: WSAttachPhase = None
     _user_repo = Database.instance().user_repo
 

@@ -9,11 +9,14 @@ from ..base_action_handler import BaseActionHandler
 PLAY_PAUSE = SfeType.CMD_PLAY_PAUSE
 TRACK = SfeType.CMD_SKIP_TRACK
 
+
 class SsAudioBluetoothActionHandler(BaseActionHandler):
     SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_BLUETOOTH.value
 
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.PLAY:
             return self.get_play_actions(component.id)
         if action_type == ActionType.PAUSE:
@@ -23,15 +26,15 @@ class SsAudioBluetoothActionHandler(BaseActionHandler):
         if action_type == ActionType.NEXT:
             return self.get_next_actions(component.id)
         raise NotImplementedError
-     
+
     def get_play_actions(self, id: str) -> list[VimarAction]:
         """Send previous track command."""
         return [self._action(id, PLAY_PAUSE, "Play")]
-    
+
     def get_pause_actions(self, id: str) -> list[VimarAction]:
         """Send previous track command."""
-        return [self._action(id, PLAY_PAUSE, "Pause")]    
-    
+        return [self._action(id, PLAY_PAUSE, "Pause")]
+
     def get_previous_actions(self, id: str) -> list[VimarAction]:
         """Send previous track command."""
         return [self._action(id, TRACK, "Down")]

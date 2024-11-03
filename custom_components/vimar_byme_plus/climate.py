@@ -21,6 +21,7 @@ from .vimar.model.component.vimar_climate import VimarClimate
 from .vimar.utils.logger import log_debug
 from .vimar.model.enum.action_type import ActionType
 
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: CoordinatorConfigEntry,
@@ -78,8 +79,7 @@ class Climate(BaseEntity, ClimateEntity):
 
     @property
     def hvac_action(self) -> HVACAction | None:
-        """Return the current running hvac operation if supported. The current HVAC action (heating, cooling)
-        """
+        """Return the current running hvac operation if supported. The current HVAC action (heating, cooling)"""
         action = self._component.hvac_action
         if not action:
             return None
@@ -182,7 +182,7 @@ class Climate(BaseEntity, ClimateEntity):
     def turn_off(self) -> None:
         """Turn the entity off."""
         self.send(ActionType.TURN_OFF)
-        
+
     def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set new target hvac mode."""
         raise NotImplementedError

@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 from functools import reduce
-from typing import Any
 
 from homeassistant.components.media_player import (
-    BrowseMedia,
     MediaPlayerEntity,
     MediaPlayerEntityFeature,
     MediaPlayerState,
     MediaType,
-    RepeatMode,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -21,6 +18,7 @@ from .coordinator import Coordinator
 from .vimar.model.component.vimar_media_player import VimarMediaPlayer
 from .vimar.utils.logger import log_debug
 from .vimar.model.enum.action_type import ActionType
+
 
 async def async_setup_entry(
     hass: HomeAssistant,

@@ -8,11 +8,14 @@ from ..base_action_handler import BaseActionHandler
 
 SHUTTER = SfeType.CMD_SHUTTER
 
+
 class SsShutterPositionActionHandler(BaseActionHandler):
     SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_POSITION.value
 
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.OPEN:
             return self.get_open_cover_actions(component.id)
         if action_type == ActionType.CLOSE:
@@ -22,7 +25,7 @@ class SsShutterPositionActionHandler(BaseActionHandler):
         if action_type == ActionType.SET_LEVEL:
             return self.get_set_cover_position_actions(component.id, args[0])
         raise NotImplementedError
-            
+
     def get_open_cover_actions(self, id: str) -> list[VimarAction]:
         """Open the cover."""
         return [self._action(id, SHUTTER, "0")]
@@ -34,7 +37,9 @@ class SsShutterPositionActionHandler(BaseActionHandler):
     def get_stop_cover_actions(self, id: str) -> list[VimarAction]:
         """Stop the cover."""
         return [self._action(id, SHUTTER, "Stop")]
-    
-    def get_set_cover_position_actions(self, id: str, position: int) -> list[VimarAction]:
+
+    def get_set_cover_position_actions(
+        self, id: str, position: int
+    ) -> list[VimarAction]:
         """Move the cover to a specific position."""
         return [self._action(id, SHUTTER, str(position))]

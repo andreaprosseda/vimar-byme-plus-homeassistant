@@ -21,7 +21,7 @@ class SfeType(Enum):
     CMD_SKIP_TRACK = "SFE_Cmd_SkipTrack"
     CMD_PLAY_PAUSE = "SFE_Cmd_PlayPause"
     CMD_MEM_FREQUENCY_CONTROL = "SFE_Cmd_MemFrequencyControl"
-    
+
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"
     STATE_AMBIENT_TEMPERATURE = "SFE_State_AmbientTemperature"
     STATE_CHANGE_OVER_MODE = "SFE_State_ChangeOverMode"

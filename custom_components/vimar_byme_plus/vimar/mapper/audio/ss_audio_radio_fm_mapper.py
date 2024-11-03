@@ -5,7 +5,7 @@ from ...model.component.vimar_media_player import (
     MediaType,
     MediaPlayerEntityFeature,
     MediaPlayerState,
-    Source
+    Source,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
@@ -115,12 +115,12 @@ class SsAudioRadioFmMapper:
             sources = []
             for i in range(8):
                 name = frequencies_json[f"freq{i+1}_name"]
-                source = self._get_source(i+1, name)
+                source = self._get_source(i + 1, name)
                 sources.append(source)
             sources.append(self._get_source(-1, "Manual"))
             return sources
         except Exception:
             return None
-        
+
     def _get_source(self, id: int, name: str) -> Source:
-        return Source(id = str(id), name = name)
+        return Source(id=str(id), name=name)

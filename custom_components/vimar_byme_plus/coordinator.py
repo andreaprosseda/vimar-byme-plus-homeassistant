@@ -22,6 +22,7 @@ from .vimar.model.gateway.gateway_info import GatewayInfo
 from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.action_type import ActionType
+
 _LOGGER = logging.getLogger(__name__)
 
 

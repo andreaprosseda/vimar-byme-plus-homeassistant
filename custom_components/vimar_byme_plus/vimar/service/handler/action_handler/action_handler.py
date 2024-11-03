@@ -11,8 +11,9 @@ from ....model.enum.sftype_enum import SfType
 
 
 class ActionHandler:
-    
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         handler = ActionHandler._get_handler(component.device_group)
         return handler.get_actions(component, action_type, *args)
 

@@ -19,6 +19,7 @@ from .vimar.utils.logger import log_debug
 from .base_entity import BaseEntity
 from .vimar.model.enum.action_type import ActionType
 
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: CoordinatorConfigEntry,

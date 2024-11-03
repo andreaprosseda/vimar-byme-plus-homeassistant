@@ -8,11 +8,14 @@ from ..base_action_handler import BaseActionHandler
 
 SHUTTER = SfeType.CMD_SHUTTER_WITHOUT_POSITION
 
+
 class SsShutterWithoutPositionActionHandler(BaseActionHandler):
     SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_WITHOUT_POSITION.value
 
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.OPEN:
             return self.get_open_cover_actions(component.id)
         if action_type == ActionType.CLOSE:
@@ -20,7 +23,7 @@ class SsShutterWithoutPositionActionHandler(BaseActionHandler):
         if action_type == ActionType.STOP:
             return self.get_stop_cover_actions(component.id)
         raise NotImplementedError
-            
+
     def get_open_cover_actions(self, id: str) -> list[VimarAction]:
         """Open the cover."""
         return [self._action(id, SHUTTER, "Up")]

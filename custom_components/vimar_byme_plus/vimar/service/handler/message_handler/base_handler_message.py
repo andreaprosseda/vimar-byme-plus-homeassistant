@@ -26,6 +26,7 @@ class HandlerInterface(ABC):
     def requires_response(self, message: BaseRequest) -> bool:
         return message.params[0]["requiredresp"]
 
+
 class BaseMessageHandler(HandlerInterface):
     _user_repo = Database.instance().user_repo
     _ambient_repo = Database.instance().ambient_repo

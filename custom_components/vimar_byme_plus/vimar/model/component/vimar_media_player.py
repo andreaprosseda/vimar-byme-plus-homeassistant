@@ -42,10 +42,12 @@ class MediaPlayerEntityFeature(Enum):
     MEDIA_ANNOUNCE = 1048576
     MEDIA_ENQUEUE = 2097152
 
+
 @dataclass
 class Source:
     id: str
     name: str
+
 
 @dataclass
 class VimarMediaPlayer(VimarComponent):

@@ -10,11 +10,14 @@ from .....utils.json import json_dumps
 STATION = SfeType.CMD_SKIP_STATION
 FREQUENCY = SfeType.CMD_MEM_FREQUENCY_CONTROL
 
+
 class SsAudioRadioFmActionHandler(BaseActionHandler):
     SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_RADIO_FM.value
 
-    def get_actions(self, component: VimarMediaPlayer, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarMediaPlayer, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.SET_SOURCE:
             return self.get_select_frequency_actions(component, args[0])
         if action_type == ActionType.PREVIOUS:
@@ -22,15 +25,17 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
         if action_type == ActionType.NEXT:
             return self.get_next_fm_actions(component.id)
         raise NotImplementedError
-        
-    def get_select_frequency_actions(self, component: VimarMediaPlayer, source: str) -> list[VimarAction]:
+
+    def get_select_frequency_actions(
+        self, component: VimarMediaPlayer, source: str
+    ) -> list[VimarAction]:
         """Select input source."""
         position = self._get_position(component, source)
         if not position:
             return []
         value = self._get_frequency_control_json(position)
         return [self._action(component.id, FREQUENCY, value)]
-    
+
     def get_previous_fm_actions(self, id: str) -> list[VimarAction]:
         """Turn the media player on."""
         return [self._action(id, STATION, "Scan prev")]
@@ -44,7 +49,7 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
             if component_source.name == source:
                 return component_source.id
         return None
-        
+
     def _get_frequency_control_json(self, position: str) -> str:
-        json = {'action': 'select', 'position': position}
+        json = {"action": "select", "position": position}
         return json_dumps(json)

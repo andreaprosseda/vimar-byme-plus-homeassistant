@@ -24,7 +24,9 @@ class ErrorHandler:
             return self.handle_permanent_error()
         return None
 
-    def is_temporary_error(self, exception: Exception, message: BaseRequestResponse) -> bool:
+    def is_temporary_error(
+        self, exception: Exception, message: BaseRequestResponse
+    ) -> bool:
         if self.is_ssl_error(exception):
             return True
         if self.is_vimar_temporary_error(message):

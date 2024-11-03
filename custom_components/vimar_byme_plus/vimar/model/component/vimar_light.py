@@ -2,6 +2,7 @@ from enum import Enum
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
 
+
 class ColorMode(Enum):
     UNKNOWN = "unknown"
     ONOFF = "onoff"
@@ -13,6 +14,7 @@ class ColorMode(Enum):
     RGBW = "rgbw"
     RGBWW = "rgbww"
     WHITE = "white"
+
 
 @dataclass
 class VimarLight(VimarComponent):
