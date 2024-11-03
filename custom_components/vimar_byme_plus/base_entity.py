@@ -69,10 +69,9 @@ class BaseEntity(CoordinatorEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle device update."""
-        if self._component:
-            data: VimarData = self.coordinator.data
-            self._component = data.get_by_id(self._component.id)
-            self.async_write_ha_state()
+        data: VimarData = self.coordinator.data
+        self._component = data.get_by_id(self._component.id)
+        self.async_write_ha_state()
 
     def send(self, actionType: ActionType, *args) -> None:
         """Send a request coming from HomeAssistant to Gateway."""
