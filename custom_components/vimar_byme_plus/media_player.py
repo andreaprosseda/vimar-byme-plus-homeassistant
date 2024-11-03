@@ -150,68 +150,10 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
         """Send next track command."""
         self.send(ActionType.NEXT)
 
-    def media_seek(self, position: float) -> None:
-        """Send seek command."""
-        raise NotImplementedError
-
-    def play_media(
-        self, media_type: MediaType | str, media_id: str, **kwargs: Any
-    ) -> None:
-        """Play a piece of media."""
-        raise NotImplementedError
-
     def select_source(self, source: str) -> None:
         """Select input source."""
         self.send(ActionType.SET_SOURCE, source)
 
-    def select_sound_mode(self, sound_mode: str) -> None:
-        """Select sound mode."""
-        raise NotImplementedError
-
-    def clear_playlist(self) -> None:
-        """Clear players playlist."""
-        raise NotImplementedError
-
-    def set_shuffle(self, shuffle: bool) -> None:
-        """Enable/disable shuffle mode."""
-        raise NotImplementedError
-
-    def set_repeat(self, repeat: RepeatMode) -> None:
-        """Set repeat mode."""
-        raise NotImplementedError
-
     def toggle(self) -> None:
         """Toggle the power on the media player."""
         self.send(ActionType.TOGGLE)
-
-    def volume_up(self) -> None:
-        """Turn volume up for media player."""
-        raise NotImplementedError
-
-    def volume_down(self) -> None:
-        """Turn volume down for media player."""
-        raise NotImplementedError
-
-    def media_play_pause(self) -> None:
-        """Play or pause the media player."""
-        raise NotImplementedError
-
-    async def async_browse_media(
-        self,
-        media_content_type: MediaType | str | None = None,
-        media_content_id: str | None = None,
-    ) -> BrowseMedia:
-        """Return a BrowseMedia instance.
-
-        The BrowseMedia instance will be used by the
-        "media_player/browse_media" websocket command.
-        """
-        raise NotImplementedError
-
-    def join_players(self, group_members: list[str]) -> None:
-        """Join `group_members` as a player group with the current player."""
-        raise NotImplementedError
-
-    def unjoin_player(self) -> None:
-        """Remove this player from any group."""
-        raise NotImplementedError
