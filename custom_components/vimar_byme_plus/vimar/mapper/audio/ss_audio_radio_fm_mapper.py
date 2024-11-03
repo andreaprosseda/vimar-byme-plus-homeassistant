@@ -51,14 +51,10 @@ class SsAudioRadioFmMapper:
 
     def get_current_source(self, component: UserComponent) -> str | None:
         """Name of the current input source."""
-        print("current")
-        print(self._get_frequency_name(component))
         return self._get_frequency_name(component)
 
     def get_source_list(self, component: UserComponent) -> list[str] | None:
         """List of available input sources."""
-        print("lis")
-        print(self._get_frequency_names(component))
         return self._get_frequency_names(component)
 
     def get_supported_features(

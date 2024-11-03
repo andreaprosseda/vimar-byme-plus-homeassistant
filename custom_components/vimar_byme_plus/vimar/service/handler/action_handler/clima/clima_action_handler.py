@@ -39,6 +39,8 @@ class ClimaActionHandler(BaseActionHandler):
             return [self._action(id, HVAC_MODE, ChangeOverMode.COOL.value)]
         if hvac_mode == HVACMode.HEAT.ha_value:
             return [self._action(id, HVAC_MODE, ChangeOverMode.HEAT.value)]
+        if hvac_mode == HVACMode.OFF.ha_value:
+            return self.get_turn_off_actions(id)
         raise NotImplementedError
 
     def get_set_temperature(self, id: str, temperature: str) -> list[VimarAction]:
