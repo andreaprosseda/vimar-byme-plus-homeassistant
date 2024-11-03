@@ -61,7 +61,7 @@ class SsAudioZoneMapper:
         return int(value) / 100
 
     def get_volume_step(self, component: UserComponent) -> float:
-        return 1 / 100
+        return 1 / 10
 
     def get_is_volume_muted(self, component: UserComponent) -> bool | None:
         return self.get_volume_level(component) == 0
@@ -118,6 +118,7 @@ class SsAudioZoneMapper:
         return [
             MediaPlayerEntityFeature.VOLUME_SET,
             MediaPlayerEntityFeature.VOLUME_MUTE,
+            MediaPlayerEntityFeature.VOLUME_STEP,
             MediaPlayerEntityFeature.SELECT_SOURCE,
             MediaPlayerEntityFeature.TURN_OFF,
             MediaPlayerEntityFeature.TURN_ON,
