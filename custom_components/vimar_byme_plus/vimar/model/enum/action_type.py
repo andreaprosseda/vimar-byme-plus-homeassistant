@@ -4,7 +4,6 @@ from enum import Enum
 class ActionType(Enum):
     ON = "ON"
     OFF = "OFF"
-    TOGGLE = "TOGGLE"
 
     OPEN = "OPEN"
     CLOSE = "CLOSE"
@@ -17,3 +16,6 @@ class ActionType(Enum):
 
     SET_LEVEL = "SET_LEVEL"
     SET_SOURCE = "SET_SOURCE"
+
+    SET_TEMP = "SET_TEMP"
+    SET_HVAC_MODE = "SET_HVAC_MODE"

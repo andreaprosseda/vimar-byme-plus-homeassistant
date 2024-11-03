@@ -1,25 +1,25 @@
 """Platform for cover integration."""
 
 from __future__ import annotations
-
+from functools import reduce
 from typing import Any
-
 from homeassistant.components.climate import (
     ClimateEntity,
     ClimateEntityFeature,
     HVACAction,
     HVACMode,
+    ATTR_TEMPERATURE,
 )
 from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .base_entity import BaseEntity
 from . import CoordinatorConfigEntry
+from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_climate import VimarClimate
-from .vimar.utils.logger import log_debug
 from .vimar.model.enum.action_type import ActionType
+from .vimar.utils.logger import log_debug
 
 
 async def async_setup_entry(
@@ -79,7 +79,7 @@ class Climate(BaseEntity, ClimateEntity):
 
     @property
     def hvac_action(self) -> HVACAction | None:
-        """Return the current running hvac operation if supported. The current HVAC action (heating, cooling)"""
+        """Return the current running hvac operation if supported. The current HVAC action (heating, cooling)."""
         action = self._component.hvac_action
         if not action:
             return None
@@ -97,7 +97,7 @@ class Climate(BaseEntity, ClimateEntity):
 
     @property
     def target_temperature_step(self) -> float | None:
-        """Return the supported step of target temperature. Can be increased or decreased"""
+        """Return the supported step of target temperature. Can be increased or decreased."""
         return self._component.target_temperature_step
 
     @property
@@ -143,13 +143,8 @@ class Climate(BaseEntity, ClimateEntity):
     @property
     def supported_features(self) -> ClimateEntityFeature:
         """Return the list of supported features defined by using values in the ClimateEntityFeature enum and are combined using the bitwise or (|) operator."""
-        return (
-            ClimateEntityFeature.TARGET_TEMPERATURE
-            | ClimateEntityFeature.TURN_ON
-            | ClimateEntityFeature.TURN_OFF
-            | ClimateEntityFeature.FAN_MODE
-            | ClimateEntityFeature.PRESET_MODE
-        )
+        features = [f.value for f in self._component.supported_features]
+        return reduce(lambda x, y: x | y, features, ClimateEntityFeature(0))
 
     @property
     def min_temp(self) -> float:
@@ -171,34 +166,23 @@ class Climate(BaseEntity, ClimateEntity):
         """Return the maximum humidity."""
         return self._component.max_humidity
 
-    def toggle(self) -> None:
-        """Toggle the entity."""
-        self.send(ActionType.TOGGLE)
-
     def turn_on(self) -> None:
         """Turn the entity on."""
-        self.send(ActionType.TURN_ON)
+        self.send(ActionType.ON)
 
     def turn_off(self) -> None:
         """Turn the entity off."""
-        self.send(ActionType.TURN_OFF)
+        self.send(ActionType.OFF)
 
     def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set new target hvac mode."""
-        raise NotImplementedError
-
-    def set_swing_mode(self, swing_mode: str) -> None:
-        """Set new target swing operation."""
-        raise NotImplementedError
+        self.send(ActionType.SET_HVAC_MODE, hvac_mode.value)
 
     def set_temperature(self, **kwargs: Any) -> None:
         """Set new target temperature."""
-        raise NotImplementedError
-
-    def set_humidity(self, humidity: int) -> None:
-        """Set new target humidity."""
-        raise NotImplementedError
+        temperature = kwargs.get(ATTR_TEMPERATURE)
+        self.send(ActionType.SET_TEMP, temperature)
 
     def set_fan_mode(self, fan_mode: str) -> None:
         """Set new target fan mode."""
-        raise NotImplementedError
+        self.send(ActionType.SET_LEVEL, fan_mode)

@@ -151,7 +151,3 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
     def select_source(self, source: str) -> None:
         """Select input source."""
         self.send(ActionType.SET_SOURCE, source)
-
-    def toggle(self) -> None:
-        """Toggle the power on the media player."""
-        self.send(ActionType.TOGGLE)

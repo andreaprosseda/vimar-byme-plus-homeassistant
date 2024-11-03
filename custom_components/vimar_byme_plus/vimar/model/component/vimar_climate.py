@@ -98,6 +98,18 @@ class FanModeV3(Enum):
                 return elem.ha_value
         return None
 
+class ClimateEntityFeature(Enum):
+    """Supported features of the climate entity."""
+
+    TARGET_TEMPERATURE = 1
+    TARGET_TEMPERATURE_RANGE = 2
+    TARGET_HUMIDITY = 4
+    FAN_MODE = 8
+    PRESET_MODE = 16
+    SWING_MODE = 32
+    AUX_HEAT = 64
+    TURN_OFF = 128
+    TURN_ON = 256
 
 @dataclass
 class VimarClimate(VimarComponent):
@@ -117,7 +129,7 @@ class VimarClimate(VimarComponent):
     fan_modes: list[str] | None
     swing_mode: str | None
     swing_modes: list[str] | None
-    # supported_features: ClimateEntityFeature
+    supported_features: list[ClimateEntityFeature]
     min_temp: float
     max_temp: float
     min_humidity: float

@@ -6,6 +6,7 @@ from ...model.component.vimar_climate import (
     PresetMode,
     ChangeOverMode,
     FanModeV3,
+    ClimateEntityFeature
 )
 from ...model.enum.sftype_enum import SfType
 from ...model.enum.sfetype_enum import SfeType
@@ -42,7 +43,7 @@ class ClimaMapper:
             fan_modes=ClimaMapper.fan_modes(component),
             swing_mode=ClimaMapper.swing_mode(component),
             swing_modes=ClimaMapper.swing_modes(component),
-            # supported_features=ClimaMapper.supported_features(component),
+            supported_features=ClimaMapper.supported_features(component),
             current_humidity=ClimaMapper.current_humidity(component),
             target_humidity=ClimaMapper.target_humidity(component),
             min_humidity=ClimaMapper.min_humidity(component),
@@ -111,14 +112,14 @@ class ClimaMapper:
 
     @staticmethod
     def preset_mode(component: UserComponent) -> str | None:
-        # return None
-        value = component.get_value(SfeType.STATE_HVAC_MODE)
-        return PresetMode.get_preset_mode_value(value)
+        return None
+        # value = component.get_value(SfeType.STATE_HVAC_MODE)
+        # return PresetMode.get_preset_mode_value(value)
 
     @staticmethod
     def preset_modes(component: UserComponent) -> list[str] | None:
-        # return None
-        return {mode.ha_value for mode in PresetMode}
+        return None
+        # return {mode.ha_value for mode in PresetMode}
 
     @staticmethod
     def fan_mode(component: UserComponent) -> str | None:
@@ -140,9 +141,15 @@ class ClimaMapper:
     def swing_modes(component: UserComponent) -> list[str] | None:
         return None
 
-    # @staticmethod
-    # def supported_features(component: UserComponent) -> ClimateEntityFeature:
-    #     pass
+    @staticmethod
+    def supported_features(component: UserComponent) -> list[ClimateEntityFeature]:
+        return [
+            ClimateEntityFeature.TARGET_TEMPERATURE,
+            ClimateEntityFeature.TURN_ON,
+            ClimateEntityFeature.TURN_OFF,
+            ClimateEntityFeature.FAN_MODE,
+            # ClimateEntityFeature.PRESET_MODE,
+        ]
 
     @staticmethod
     def current_humidity(component: UserComponent) -> float | None:

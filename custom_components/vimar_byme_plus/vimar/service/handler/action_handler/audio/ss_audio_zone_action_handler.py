@@ -22,8 +22,6 @@ class SsAudioZoneActionHandler(BaseActionHandler):
             return self.get_turn_on_actions(component.id)
         if action_type == ActionType.OFF:
             return self.get_turn_off_actions(component.id)
-        if action_type == ActionType.TOGGLE:
-            return self.get_toggle_actions(component.id, component.is_on)
         if action_type == ActionType.SET_SOURCE:
             return self.get_select_source_actions(component, args[0])
         if action_type == ActionType.SET_LEVEL:
@@ -37,12 +35,6 @@ class SsAudioZoneActionHandler(BaseActionHandler):
     def get_turn_off_actions(self, id: str) -> list[VimarAction]:
         """Turn the media player off."""
         return [self._action(id, ON_OFF, "Off")]
-
-    def get_toggle_actions(self, id: str, is_on: bool) -> list[VimarAction]:
-        """Toggle the power on the media player."""
-        if is_on:
-            return self.get_turn_off_actions(id)
-        return self.get_turn_on_actions(id)
 
     def get_select_volume_level_actions(
         self, id: str, volume: float
