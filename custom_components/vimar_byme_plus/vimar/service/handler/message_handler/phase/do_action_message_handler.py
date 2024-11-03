@@ -11,7 +11,7 @@ class DoActionMessageHandler(BaseMessageHandler):
     def handle_message(
         self, message: BaseRequestResponse, config: MessageSupportingValues
     ) -> BaseRequestResponse:
-        if not message and config.actions:
+        if not message:
             return self.get_do_action_request(config)
         return self._idle()
 

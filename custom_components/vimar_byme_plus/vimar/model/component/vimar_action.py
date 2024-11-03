@@ -5,5 +5,5 @@ from ..enum.sfetype_enum import SfeType
 @dataclass
 class VimarAction:
     idsf: str
-    sfetype: SfeType
+    sfetype: str
     value: str

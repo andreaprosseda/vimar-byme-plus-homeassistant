@@ -21,14 +21,14 @@ class SsShutterWithoutPositionActionHandler(BaseActionHandler):
             return self.get_stop_cover_actions(component.id)
         raise NotImplementedError
             
-    def get_open_cover_actions(self, id: str) -> list[VimarAction]:
+    def get_open_cover_actions(self) -> list[VimarAction]:
         """Open the cover."""
         return [self._action(id, SHUTTER, "Up")]
 
-    def get_close_cover_actions(self, id: str) -> list[VimarAction]:
+    def get_close_cover_actions(self) -> list[VimarAction]:
         """Close cover."""
         return [self._action(id, SHUTTER, "Down")]
 
-    def get_stop_cover_actions(self, id: str) -> list[VimarAction]:
+    def get_stop_cover_actions(self) -> list[VimarAction]:
         """Stop the cover."""
         return [self._action(id, SHUTTER, "Stop")]

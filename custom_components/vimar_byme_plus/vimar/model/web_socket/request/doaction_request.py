@@ -19,6 +19,6 @@ class DoActionRequest(BaseRequest):
     def get_argument(self, action: VimarAction) -> dict:
         return {
             "idsf": action.idsf,
-            "sfetype": action.sfetype.value,
+            "sfetype": action.sfetype,
             "value": action.value,
         }
