@@ -25,11 +25,11 @@ class SsShutterPositionActionHandler(BaseActionHandler):
             
     def get_open_cover_actions(self, id: str) -> list[VimarAction]:
         """Open the cover."""
-        return [self._action(id, SHUTTER, 0)]
+        return [self._action(id, SHUTTER, "0")]
 
     def get_close_cover_actions(self, id: str) -> list[VimarAction]:
         """Close cover."""
-        return [self._action(id, SHUTTER, 100)]
+        return [self._action(id, SHUTTER, "100")]
 
     def get_stop_cover_actions(self, id: str) -> list[VimarAction]:
         """Stop the cover."""
@@ -37,4 +37,4 @@ class SsShutterPositionActionHandler(BaseActionHandler):
     
     def get_set_cover_position_actions(self, id: str, position: int) -> list[VimarAction]:
         """Move the cover to a specific position."""
-        return [self._action(id, SHUTTER, position)]
+        return [self._action(id, SHUTTER, str(position))]

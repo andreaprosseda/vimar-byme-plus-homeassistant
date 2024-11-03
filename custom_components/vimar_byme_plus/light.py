@@ -40,7 +40,8 @@ async def async_setup_entry(
 class Light(BaseEntity, LightEntity):
     """Provides a Vimar light."""
 
-    BRIGHTNESS_SCALE = (1, 100)
+    VIMAR_BRIGHTNESS_SCALE = (1, 100)
+    HA_BRIGHTNESS_SCALE = (1, 255)
     _component: VimarLight
 
     def __init__(self, coordinator: Coordinator, component: VimarLight) -> None:
@@ -147,14 +148,14 @@ class Light(BaseEntity, LightEntity):
         self.send(ActionType.OFF)
 
     def _get_brightness_1_100(self, **kwargs: Any) -> int | None:
-        scale = self.BRIGHTNESS_SCALE
+        scale = self.HA_BRIGHTNESS_SCALE
         brightness = kwargs.get(ATTR_BRIGHTNESS, None)
         if not brightness:
             return None
         return ranged_value_to_percentage(scale, brightness)
 
     def _get_brightness_1_255(self) -> int | None:
-        scale = self.BRIGHTNESS_SCALE
+        scale = self.VIMAR_BRIGHTNESS_SCALE
         brightness = self._component.brightness
         if not brightness:
             return None

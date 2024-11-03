@@ -44,7 +44,7 @@ class SsAudioZoneActionHandler(BaseActionHandler):
 
     def get_select_volume_level_actions(self, id: str, volume: float) -> list[VimarAction]:
         """Set volume level, range 0..1."""
-        return [self._action(id, VOLUME, volume*100)]
+        return [self._action(id, VOLUME, int(volume * 100))]
         
     def get_select_source_actions(self, component: VimarMediaPlayer, source: str) -> list[VimarAction]:
         """Select input source."""
