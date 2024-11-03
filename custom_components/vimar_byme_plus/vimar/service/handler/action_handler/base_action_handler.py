@@ -58,4 +58,4 @@ class BaseActionHandler(HandlerInterface):
         return self._component_repo.get_component_of_type(type.value)
 
     def _action(self, id: str, sfetype: SfeType, value: Any) -> VimarAction:
-        return VimarAction(idsf=id, sfetype=sfetype.value, value=value)
+        return VimarAction(idsf=id, sfetype=sfetype.value, value=str(value))

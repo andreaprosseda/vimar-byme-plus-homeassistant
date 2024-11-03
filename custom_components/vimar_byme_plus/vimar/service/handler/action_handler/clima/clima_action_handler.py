@@ -1,5 +1,5 @@
 from .....model.enum.action_type import ActionType
-from .....model.component.vimar_climate import VimarClimate, HVACMode, ChangeOverMode
+from .....model.component.vimar_climate import HVACAction, HVACMode, ChangeOverMode
 from .....model.component.vimar_component import VimarComponent
 from .....model.component.vimar_action import VimarAction
 from ..base_action_handler import BaseActionHandler
@@ -29,10 +29,10 @@ class ClimaActionHandler(BaseActionHandler):
         raise NotImplementedError
 
     def get_turn_on_actions(self, id: str) -> list[VimarAction]:
-        return [self._action(id, ON_OFF, "On")]
+        return [self._action(id, HVAC_MODE, "Manual")]
 
     def get_turn_off_actions(self, id: str) -> list[VimarAction]:
-        return [self._action(id, ON_OFF, "Off")]
+        return [self._action(id, HVAC_MODE, "Off")]
 
     def get_set_hvac_mode(self, id: str, hvac_mode: str) -> list[VimarAction]:
         if hvac_mode == HVACMode.COOL.ha_value:
@@ -44,7 +44,7 @@ class ClimaActionHandler(BaseActionHandler):
         raise NotImplementedError
 
     def get_set_temperature(self, id: str, temperature: str) -> list[VimarAction]:
-        return [self._action(id, SETPOINT, float(temperature))]
+        return [self._action(id, SETPOINT, temperature)]
 
     def get_set_fan_level(self, id: str, fan_mode: str) -> list[VimarAction]:
         return [self._action(id, FAN, fan_mode)]
