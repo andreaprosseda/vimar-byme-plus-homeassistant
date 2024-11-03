@@ -25,7 +25,7 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
         
     def get_select_frequency_actions(self, component: VimarMediaPlayer, source: str) -> list[VimarAction]:
         """Select input source."""
-        position = self._get_position(component.source_list, source)
+        position = self._get_position(component, source)
         if not position:
             return []
         value = self._get_frequency_control_json(position)
