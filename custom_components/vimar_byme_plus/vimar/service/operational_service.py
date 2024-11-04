@@ -55,6 +55,7 @@ class OperationalService:
         """Send a request coming from HomeAssistant to Gateway."""
         actions = self._action_handler.get_actions(component, action_type, *args)
         message = self._message_handler.start_do_action(actions)
+        log_info(__name__, f"Sending message\n{message.to_json()}")
         self.send_message(message)
 
     def send_message(self, message: BaseRequest):

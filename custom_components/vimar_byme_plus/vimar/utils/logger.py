@@ -2,7 +2,7 @@ import logging
 from .file import get_file_path, remove_file
 
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-level = logging.INFO
+level = logging.DEBUG
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level)
