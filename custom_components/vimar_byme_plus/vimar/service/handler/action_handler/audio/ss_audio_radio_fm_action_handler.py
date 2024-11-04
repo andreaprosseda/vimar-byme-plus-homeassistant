@@ -51,5 +51,5 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
         return None
 
     def _get_frequency_control_json(self, position: str) -> str:
-        json = {"action": "select", "position": position}
+        json = {"action": "select", "position": int(position)}
         return json_dumps(json)
