@@ -1,5 +1,5 @@
 from .....model.enum.action_type import ActionType
-from .....model.component.vimar_climate import HVACAction, HVACMode, ChangeOverMode
+from .....model.component.vimar_climate import HVACMode, ChangeOverMode
 from .....model.component.vimar_component import VimarComponent
 from .....model.component.vimar_action import VimarAction
 from ..base_action_handler import BaseActionHandler

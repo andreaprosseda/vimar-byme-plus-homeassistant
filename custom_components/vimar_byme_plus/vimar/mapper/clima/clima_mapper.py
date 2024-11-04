@@ -3,10 +3,9 @@ from ...model.component.vimar_climate import (
     VimarClimate,
     HVACMode,
     HVACAction,
-    PresetMode,
     ChangeOverMode,
     FanModeV3,
-    ClimateEntityFeature
+    ClimateEntityFeature,
 )
 from ...model.enum.sftype_enum import SfType
 from ...model.enum.sfetype_enum import SfeType

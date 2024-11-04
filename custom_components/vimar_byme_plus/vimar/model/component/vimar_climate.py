@@ -98,6 +98,7 @@ class FanModeV3(Enum):
                 return elem.ha_value
         return None
 
+
 class ClimateEntityFeature(Enum):
     """Supported features of the climate entity."""
 
@@ -110,6 +111,7 @@ class ClimateEntityFeature(Enum):
     AUX_HEAT = 64
     TURN_OFF = 128
     TURN_ON = 256
+
 
 @dataclass
 class VimarClimate(VimarComponent):
