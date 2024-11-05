@@ -89,6 +89,8 @@ class WebSocketBaseVimar:
         raise NotImplementedError()
 
     def send(self, request: BaseRequestResponse):
+        if not request:
+            return
         self.last_client_message = request
         json_string = request.to_json()
         log_debug(__name__, f"Sending message:\n{json_string}")
