@@ -17,12 +17,12 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="images/logo.png" alt="Logo" width="auto" height="100">
+  <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/logo.png" alt="Logo" width="auto" height="100">
 
   <h3 align="center">Vimar By-me Plus for HomeAssistant</h3>
 
   <p align="center">
-    An Home Assistant Custom Integration for Vimar Gateway 01411
+    An Home Assistant Custom Integration for Vimar Gateway 01410/01411
     <br />
     <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues/new?labels=bug&template=bug-report.md">Report Bug</a>
     ·
@@ -153,7 +153,7 @@ steps:
 6. Click on `Add`
 
 <div align="center">
-    <img src="images/vimar_pro_first_setup.gif" alt="Gif" width="200">
+    <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/vimar_pro_first_setup.gif" alt="Gif" width="200">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -176,7 +176,7 @@ Here the steps to follow to generate a Setup Code, needed for the integration ph
 :warning: `Setup Code` expires in few minutes, create a new one if it doesn't work
 
 <div align="center">
-    <img src="images/vimar_pro_setup_code.gif" alt="Gif" width="200">
+    <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/vimar_pro_setup_code.gif" alt="Gif" width="200">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
