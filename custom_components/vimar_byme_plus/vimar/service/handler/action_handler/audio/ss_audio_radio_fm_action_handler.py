@@ -31,7 +31,7 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
     ) -> list[VimarAction]:
         """Select input source."""
         position = self._get_position(component, source)
-        if not position:
+        if not position or int(position) < 0:
             return []
         value = self._get_frequency_control_json(position)
         return [self._action(component.id, FREQUENCY, value)]
