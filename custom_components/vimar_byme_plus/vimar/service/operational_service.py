@@ -120,6 +120,9 @@ class OperationalService:
             log_info(__name__, message)
             time.sleep(seconds_to_wait)
             self.connect()
+        if self._error_handler.is_temporary_error(None, message):
+            log_info(__name__, "Reconnecting...")
+            self.connect()
 
     def handle_keep_alive(self, message: BaseRequestResponse):
         if message:

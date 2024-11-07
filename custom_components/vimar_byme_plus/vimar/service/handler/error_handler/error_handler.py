@@ -53,6 +53,8 @@ class ErrorHandler:
         remove_file(db_name)
 
     def is_ssl_error(self, exception: Exception) -> bool:
+        if not exception:
+            return False
         error_type = type(exception).__name__
         if error_type == "SSLError":
             log_info(__name__, "SSLError, sending new message...")
@@ -71,12 +73,17 @@ class ErrorHandler:
             values = [error.value for error in errors]
             if message.error in values:
                 return True
+        return False
 
     def is_vimar_temporary_error(self, message: BaseRequestResponse) -> bool:
         if isinstance(message, BaseResponse):
             errors = [
                 ErrorResponse.IP_CONNECTOR_ERR_MALFORMED_ARGS,
+                ErrorResponse.IP_CONNECTOR_ERR_MALFORMED_MESSAGE,
+                ErrorResponse.IP_CONNECTOR_ERR_MALFORMED_PARAMS,
+                ErrorResponse.IP_CONNECTOR_ERR_ELEMENT_VALUE,
             ]
             values = [error.value for error in errors]
             if message.error in values:
                 return True
+        return False
