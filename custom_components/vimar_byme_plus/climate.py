@@ -1,14 +1,16 @@
 """Platform for cover integration."""
 
 from __future__ import annotations
+
 from functools import reduce
 from typing import Any
+
 from homeassistant.components.climate import (
+    ATTR_TEMPERATURE,
     ClimateEntity,
     ClimateEntityFeature,
     HVACAction,
     HVACMode,
-    ATTR_TEMPERATURE,
 )
 from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
@@ -123,12 +125,13 @@ class Climate(BaseEntity, ClimateEntity):
     @property
     def fan_mode(self) -> str | None:
         """Return the fan setting. Requires ClimateEntityFeature.FAN_MODE."""
-        return self._component.fan_mode
+        mode = self._component.fan_mode
+        return mode.ha_value if mode else None
 
     @property
     def fan_modes(self) -> list[str] | None:
         """Return the list of available fan modes. Requires ClimateEntityFeature.FAN_MODE."""
-        return self._component.fan_modes
+        return [mode.ha_value for mode in self._component.fan_modes]
 
     @property
     def swing_mode(self) -> str | None:
@@ -166,14 +169,6 @@ class Climate(BaseEntity, ClimateEntity):
         """Return the maximum humidity."""
         return self._component.max_humidity
 
-    def turn_on(self) -> None:
-        """Turn the entity on."""
-        self.send(ActionType.ON)
-
-    def turn_off(self) -> None:
-        """Turn the entity off."""
-        self.send(ActionType.OFF)
-
     def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set new target hvac mode."""
         self.send(ActionType.SET_HVAC_MODE, hvac_mode.value)
@@ -186,3 +181,7 @@ class Climate(BaseEntity, ClimateEntity):
     def set_fan_mode(self, fan_mode: str) -> None:
         """Set new target fan mode."""
         self.send(ActionType.SET_LEVEL, fan_mode)
+
+    def set_preset_mode(self, preset_mode: str) -> None:
+        """Set new preset mode."""
+        self.send(ActionType.SET_PRESET_MODE, preset_mode)

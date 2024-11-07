@@ -2,12 +2,12 @@ import logging
 from .file import get_file_path, remove_file
 
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-level = logging.DEBUG
 
 logger = logging.getLogger(__name__)
-logger.setLevel(level)
+logger.setLevel(logging.INFO)
 
 if "standalone" in __name__:
+    level = logging.DEBUG
     remove_file("app.log")
     file_handler = logging.FileHandler(get_file_path("app.log"), mode="a")
     file_handler.setLevel(level)

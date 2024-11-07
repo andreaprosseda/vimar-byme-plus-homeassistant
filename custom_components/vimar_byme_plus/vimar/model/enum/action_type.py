@@ -19,3 +19,4 @@ class ActionType(Enum):
 
     SET_TEMP = "SET_TEMP"
     SET_HVAC_MODE = "SET_HVAC_MODE"
+    SET_PRESET_MODE = "SET_PRESET_MODE"

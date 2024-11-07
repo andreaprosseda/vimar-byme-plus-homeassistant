@@ -77,7 +77,7 @@ class WebSocketBaseVimar:
         return False
 
     def on_message(self, ws: WebSocketApp, message: BaseRequestResponse):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def on_error(self, ws: WebSocketApp, exception: Exception):
         pass
@@ -86,7 +86,7 @@ class WebSocketBaseVimar:
         pass
 
     def on_open(self, ws: WebSocketApp):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def send(self, request: BaseRequestResponse):
         if not request:

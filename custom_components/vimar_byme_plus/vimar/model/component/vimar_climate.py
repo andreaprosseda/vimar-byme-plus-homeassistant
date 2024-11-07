@@ -5,41 +5,52 @@ from .vimar_component import VimarComponent
 
 
 class PresetMode(Enum):
-    AUTO = "Auto", "none"
-    COMFORT = "Comfort", "comfort"
-    ECONOMY = "Economy", "eco"
-    OFF = "Off", "none"
+    OFF = "Off", False
+    ECONOMY = "Absence", False
+    PROTECTION = "Protection", False
+    AUTO = "Auto", True
+    MANUAL = "Manual", True
+    REDUCTION = "Reduction", True
+    TIMED_MANUAL = "Timed manual", True
+
+    def __init__(self, vimar_value: str, on: bool):
+        self.vimar_value = vimar_value
+        self.on = on
+
+    @staticmethod
+    def get_group_values(preset_mode: str) -> list[str] | None:
+        mode = PresetMode.get_preset_mode(preset_mode)
+        if not mode:
+            return None
+        return [preset.vimar_value for preset in PresetMode if preset.on == mode.on]
+
+    @staticmethod
+    def get_preset_mode(vimar_value: str | None) -> Optional["PresetMode"]:
+        for elem in PresetMode:
+            if elem.vimar_value == vimar_value:
+                return elem
+        return None
+
+
+class HVACMode(Enum):
+    OFF = "Off", "off"
+    ABSENCE = "Absence", "off"
+    PROTECTION = "Protection", "off"
+    AUTO = "Auto", "heat_cool"
+    MANUAL = "Manual", "heat_cool"
+    REDUCTION = "Reduction", "heat_cool"
+    TIMED_MANUAL = "Timed manual", "heat_cool"
 
     def __init__(self, vimar_value, ha_value):
         self.vimar_value = vimar_value
         self.ha_value = ha_value
 
     @staticmethod
-    def get_preset_mode_value(vimar_value: str | None) -> str:
-        for elem in PresetMode:
-            if elem.vimar_value == vimar_value:
-                return elem.ha_value
-        return PresetMode.OFF.ha_value
-
-
-class HVACMode(Enum):
-    # AUTO = "Auto", "auto"
-    # MANUAL = "Manual", "TO_BE_DEFINED_PROGRAMMATICALLY"
-    # REDUCTION = "Reduction"
-    # ABSENCE = "Absence"
-    # PROTECTION = "Protection"
-    # TIMED_MANUAL = "Timed manual"
-    # COMFORT = "Comfort"
-    # ECONOMY = "Economy"
-    OFF = "Off", "off"
-    HEAT = "Heat", "heat"
-    COOL = "Cool", "cool"
-    # FAN = "Fan", "fan_only"
-    # DRY = "Dry", "dry"
-
-    def __init__(self, vimar_value, ha_value):
-        self.vimar_value = vimar_value
-        self.ha_value = ha_value
+    def get_ha_hvac_mode(ha_value: str | None) -> Optional["HVACMode"]:
+        for elem in HVACMode:
+            if elem.ha_value == ha_value:
+                return elem
+        return None
 
     @staticmethod
     def get_hvac_mode(vimar_value: str | None) -> Optional["HVACMode"]:
@@ -81,8 +92,9 @@ class ChangeOverMode(Enum):
         return None
 
 
-class FanModeV3(Enum):
-    FAN_OFF = "Off", "off"
+class FanMode(Enum):
+    AUTOMATIC = "Automatic", "auto"
+    # FAN_OFF = "Off", "off"
     FAN_LOW = "V1", "low"
     FAN_MEDIUM = "V2", "medium"
     FAN_HIGH = "V3", "high"
@@ -92,10 +104,10 @@ class FanModeV3(Enum):
         self.ha_value = ha_value
 
     @staticmethod
-    def get_fan_mode_value(vimar_value: str | None) -> str | None:
-        for elem in FanModeV3:
+    def get_fan_mode(vimar_value: str | None) -> Optional["FanMode"]:
+        for elem in FanMode:
             if elem.vimar_value == vimar_value:
-                return elem.ha_value
+                return elem
         return None
 
 
@@ -127,8 +139,8 @@ class VimarClimate(VimarComponent):
     target_temperature_low: float | None
     preset_mode: str | None
     preset_modes: list[str] | None
-    fan_mode: str | None
-    fan_modes: list[str] | None
+    fan_mode: FanMode | None
+    fan_modes: list[FanMode] | None
     swing_mode: str | None
     swing_modes: list[str] | None
     supported_features: list[ClimateEntityFeature]
@@ -136,6 +148,8 @@ class VimarClimate(VimarComponent):
     max_temp: float
     min_humidity: float
     max_humidity: float
+    on_behaviour: PresetMode | None
+    off_behaviour: PresetMode | None
 
     @staticmethod
     def get_table_header() -> list:

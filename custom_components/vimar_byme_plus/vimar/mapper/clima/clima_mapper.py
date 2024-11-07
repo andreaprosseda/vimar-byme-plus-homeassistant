@@ -3,9 +3,9 @@ from ...model.component.vimar_climate import (
     VimarClimate,
     HVACMode,
     HVACAction,
-    ChangeOverMode,
-    FanModeV3,
+    FanMode,
     ClimateEntityFeature,
+    PresetMode,
 )
 from ...model.enum.sftype_enum import SfType
 from ...model.enum.sfetype_enum import SfeType
@@ -13,6 +13,7 @@ from ...model.enum.sfetype_enum import SfeType
 SFTYPE = SfType.CLIMA.value
 
 
+# SFE_State_TimedManual
 class ClimaMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarClimate]:
@@ -47,6 +48,8 @@ class ClimaMapper:
             target_humidity=ClimaMapper.target_humidity(component),
             min_humidity=ClimaMapper.min_humidity(component),
             max_humidity=ClimaMapper.max_humidity(component),
+            on_behaviour=ClimaMapper.on_behaviour(component),
+            off_behaviour=ClimaMapper.off_behaviour(component),
         )
 
     @staticmethod
@@ -55,17 +58,90 @@ class ClimaMapper:
         return float(value) if value else None
 
     @staticmethod
+    def target_temperature(component: UserComponent) -> float | None:
+        value = component.get_value(SfeType.STATE_AMBIENT_SETPOINT)
+        return float(value) if value else None
+
+    @staticmethod
+    def hvac_mode(component: UserComponent) -> HVACMode | None:
+        value = component.get_value(SfeType.STATE_HVAC_MODE)
+        return HVACMode.get_hvac_mode(value)
+
+    @staticmethod
+    def hvac_modes(component: UserComponent) -> list[HVACMode]:
+        return [HVACMode.OFF, HVACMode.AUTO]
+
+    @staticmethod
+    def hvac_action(component: UserComponent) -> HVACAction | None:
+        hvac_mode = component.get_value(SfeType.STATE_HVAC_MODE)
+        hvac_action = ClimaMapper._get_hvac_action(component)
+        if hvac_mode != "Off" and hvac_action == HVACAction.OFF:
+            return HVACAction.IDLE
+        return hvac_action
+
+    @staticmethod
+    def preset_mode(component: UserComponent) -> str | None:
+        value = component.get_value(SfeType.STATE_HVAC_MODE)
+        mode = PresetMode.get_preset_mode(value)
+        return mode.vimar_value if mode else None
+
+    @staticmethod
+    def preset_modes(component: UserComponent) -> list[str] | None:
+        mode = ClimaMapper.preset_mode(component)
+        return PresetMode.get_group_values(mode)
+
+    @staticmethod
+    def fan_mode(component: UserComponent) -> FanMode | None:
+        mode = ClimaMapper.hvac_mode(component)
+        fan_mode = component.get_value(SfeType.STATE_FAN_MODE)
+        fan_speed = component.get_value(SfeType.STATE_FAN_SPEED_3V)
+        mode = FanMode.get_fan_mode(fan_mode)
+        speed = FanMode.get_fan_mode(fan_speed)
+        return mode if mode else speed
+
+    @staticmethod
+    def fan_modes(component: UserComponent) -> list[FanMode] | None:
+        return list(FanMode)
+
+    @staticmethod
+    def supported_features(component: UserComponent) -> list[ClimateEntityFeature]:
+        features = [
+            ClimateEntityFeature.TARGET_TEMPERATURE,
+            ClimateEntityFeature.TURN_OFF,
+            ClimateEntityFeature.PRESET_MODE,
+        ]
+        hvac_action = ClimaMapper._get_hvac_action(component)
+        if hvac_action and hvac_action == HVACAction.COOL:
+            features.append(ClimateEntityFeature.FAN_MODE)
+        return features
+
+    @staticmethod
+    def current_humidity(component: UserComponent) -> float | None:
+        value = component.get_value(SfeType.STATE_HUMIDITY)
+        return float(value) if value else None
+
+    @staticmethod
+    def target_humidity(component: UserComponent) -> float | None:
+        value = component.get_value(SfeType.STATE_HUMIDITY_SETPOINT)
+        return float(value) if value else None
+
+    @staticmethod
+    def on_behaviour(component: UserComponent) -> PresetMode | None:
+        value = component.get_value(SfeType.STATE_ON_BEHAVIOUR)
+        return PresetMode.get_preset_mode(value)
+
+    @staticmethod
+    def off_behaviour(component: UserComponent) -> PresetMode | None:
+        value = component.get_value(SfeType.STATE_OFF_BEHAVIOUR)
+        return PresetMode.get_preset_mode(value)
+
+    @staticmethod
     def min_temp(component: UserComponent) -> float:
         return 4.0
 
     @staticmethod
     def max_temp(component: UserComponent) -> float:
         return 40.0
-
-    @staticmethod
-    def target_temperature(component: UserComponent) -> float | None:
-        value = component.get_value(SfeType.STATE_AMBIENT_SETPOINT)
-        return float(value) if value else None
 
     @staticmethod
     def target_temperature_step(component: UserComponent) -> float | None:
@@ -80,85 +156,12 @@ class ClimaMapper:
         return ClimaMapper.max_temp(component)
 
     @staticmethod
-    def hvac_mode(component: UserComponent) -> HVACMode | None:
-        value = component.get_value(SfeType.STATE_HVAC_MODE)
-        hvac_mode = HVACMode.get_hvac_mode(value)
-        if hvac_mode:
-            return hvac_mode
-
-        value = component.get_value(SfeType.STATE_CHANGE_OVER_MODE)
-        change_over_mode = ChangeOverMode.get_change_over_mode(value)
-        if not change_over_mode:
-            return None
-        if change_over_mode == ChangeOverMode.HEAT:
-            return HVACMode.HEAT
-        if change_over_mode == ChangeOverMode.COOL:
-            return HVACMode.COOL
-        return None
-
-    @staticmethod
-    def hvac_modes(component: UserComponent) -> list[HVACMode]:
-        return list(HVACMode)
-
-    @staticmethod
-    def hvac_action(component: UserComponent) -> HVACAction | None:
-        value = component.get_value(SfeType.STATE_OUT_STATUS)
-        hvac_action = HVACAction.get_hvac_action(value)
-        hvac_mode = component.get_value(SfeType.STATE_HVAC_MODE)
-        if hvac_mode != "Off" and hvac_action == HVACAction.OFF:
-            return HVACAction.IDLE
-        return hvac_action
-
-    @staticmethod
-    def preset_mode(component: UserComponent) -> str | None:
-        return None
-        # value = component.get_value(SfeType.STATE_HVAC_MODE)
-        # return PresetMode.get_preset_mode_value(value)
-
-    @staticmethod
-    def preset_modes(component: UserComponent) -> list[str] | None:
-        return None
-        # return {mode.ha_value for mode in PresetMode}
-
-    @staticmethod
-    def fan_mode(component: UserComponent) -> str | None:
-        fan_mode = component.get_value(SfeType.STATE_FAN_MODE)
-        if fan_mode == "Automatic":
-            return "auto"
-        fan_speed = component.get_value(SfeType.STATE_FAN_SPEED_3V)
-        return FanModeV3.get_fan_mode_value(fan_speed)
-
-    @staticmethod
-    def fan_modes(component: UserComponent) -> list[str] | None:
-        return ["off", "low", "medium", "high", "auto"]
-
-    @staticmethod
     def swing_mode(component: UserComponent) -> str | None:
         return None
 
     @staticmethod
     def swing_modes(component: UserComponent) -> list[str] | None:
         return None
-
-    @staticmethod
-    def supported_features(component: UserComponent) -> list[ClimateEntityFeature]:
-        return [
-            ClimateEntityFeature.TARGET_TEMPERATURE,
-            ClimateEntityFeature.TURN_ON,
-            ClimateEntityFeature.TURN_OFF,
-            ClimateEntityFeature.FAN_MODE,
-            # ClimateEntityFeature.PRESET_MODE,
-        ]
-
-    @staticmethod
-    def current_humidity(component: UserComponent) -> float | None:
-        value = component.get_value(SfeType.STATE_HUMIDITY)
-        return float(value) if value else None
-
-    @staticmethod
-    def target_humidity(component: UserComponent) -> float | None:
-        value = component.get_value(SfeType.STATE_HUMIDITY_SETPOINT)
-        return float(value) if value else None
 
     @staticmethod
     def min_humidity(component: UserComponent) -> float:
@@ -168,13 +171,7 @@ class ClimaMapper:
     def max_humidity(component: UserComponent) -> float:
         return 99.0
 
-
-# SFE_State_OnBehaviour
-# - Auto
-# - Manual
-# - Reduction
-
-# SFE_State_OffBehaviour
-# - Absence
-# - Protction
-# - Off
+    @staticmethod
+    def _get_hvac_action(component: UserComponent) -> HVACAction | None:
+        value = component.get_value(SfeType.STATE_OUT_STATUS)
+        return HVACAction.get_hvac_action(value)
