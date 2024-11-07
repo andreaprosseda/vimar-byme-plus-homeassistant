@@ -57,6 +57,11 @@ class OperationalService:
         message = self._message_handler.start_do_action(actions)
         self.send_message(message)
 
+    def send_get_status(self, idsf: int):
+        """Send a request coming from HomeAssistant to Gateway."""
+        message = self._message_handler.start_get_status(idsf)
+        self.send_message(message)
+
     def send_message(self, message: BaseRequest):
         """Send a request coming from HomeAssistant to Gateway."""
         if not self._web_socket:

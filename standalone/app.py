@@ -15,3 +15,4 @@ if __name__ == "__main__":
         value = input("Press Enter to continue")
         data = service.retrieve_data()
         beautify(data)
+        # service.send_get_status(1067)

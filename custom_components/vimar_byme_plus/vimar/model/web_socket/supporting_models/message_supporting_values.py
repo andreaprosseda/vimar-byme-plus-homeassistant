@@ -9,3 +9,4 @@ class MessageSupportingValues:
     msgid: str
     protocol_version: str
     actions: list[VimarAction]
+    idsf: int

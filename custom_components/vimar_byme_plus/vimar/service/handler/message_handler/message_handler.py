@@ -20,6 +20,7 @@ from .phase.register_message_handler import RegisterMessageHandler
 from .phase.session_message_handler import SessionMessageHandler
 from .phase.sf_discovery_message_handler import SfDiscoveryMessageHandler
 from .phase.unknown_message_handler import UnknownMessageHandler
+from .phase.get_status_message_handler import GetStatusMessageHandler
 from .base_handler_message import HandlerInterface
 
 
@@ -52,6 +53,10 @@ class MessageHandler:
     def start_do_action(self, actions: list[VimarAction]) -> BaseRequest:
         phase = IntegrationPhase.DO_ACTION
         return self.message_from_phase(phase, actions)
+
+    def start_get_status(self, idsf: int) -> BaseRequest:
+        phase = IntegrationPhase.GET_STATUS
+        return self.message_from_phase(phase, idsf)
 
     def message_from_phase(self, phase: IntegrationPhase, *args) -> BaseRequestResponse:
         config = self._get_supporting_config(*args)
@@ -90,6 +95,7 @@ class MessageHandler:
             msgid=self._last_msgid + 1,
             protocol_version=self._gateway_info.protocolversion,
             actions=args[0] if args else [],
+            idsf=args[0] if args else [],
         )
 
     @staticmethod
@@ -113,6 +119,8 @@ class MessageHandler:
                 return ExpireMessageHandler()
             case IntegrationPhase.REGISTER:
                 return RegisterMessageHandler()
+            case IntegrationPhase.GET_STATUS:
+                return GetStatusMessageHandler()
             case IntegrationPhase.KEEP_ALIVE:
                 return KeepAliveMessageHandler()
             case IntegrationPhase.DETACH:

@@ -12,6 +12,7 @@ class IntegrationPhase(Enum):
     CHANGE_STATUS = "changestatus"
     EXPIRE = "expire"
     DO_ACTION = "doaction"
+    GET_STATUS = "getstatus"
     KEEP_ALIVE = "keepalive"
     DETACH = "detach"
 

@@ -52,6 +52,10 @@ class VimarClient:
         """Send a request coming from HomeAssistant to Gateway."""
         self._operational_service.send_action(component, action_type, *args)
 
+    def get_status(self, idsf: int):
+        """Send a request coming from HomeAssistant to Gateway."""
+        self._operational_service.send_get_status(idsf)
+        
     def stop(self):
         """Stop coordinator processes."""
         self._operational_service.disconnect()

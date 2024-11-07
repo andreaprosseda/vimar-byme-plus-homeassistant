@@ -27,3 +27,22 @@ def print_table(components: list[VimarComponent]):
     for component in sorted_components:
         table.add_row(component.to_table())
     print(table)
+
+
+def print_elements(elements: dict):
+    if not elements:
+        return
+
+    header = ["Type", "Enable", "Value"]
+    cmd_table = PrettyTable(header)
+    state_table = PrettyTable(header)
+
+    sorted_components = sorted(elements, key=lambda obj: (obj['sfetype'], obj['enable']))
+    for component in sorted_components:
+        if 'SFE_Cmd' in component['sfetype']:
+            cmd_table.add_row([component['sfetype'], component['enable'], component['value']])
+        if 'SFE_State' in component['sfetype']:
+            state_table.add_row([component['sfetype'], component['enable'], component['value']])
+    print(cmd_table)
+    print(state_table)
+
