@@ -25,7 +25,7 @@ class StandAloneService:
 
     def send_get_status(self, idsf: int):
         self._client.get_status(idsf)
-        
+
     def retrieve_data(self) -> VimarData:
         return self._client.retrieve_data()
 

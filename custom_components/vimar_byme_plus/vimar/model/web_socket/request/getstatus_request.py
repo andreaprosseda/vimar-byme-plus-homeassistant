@@ -16,7 +16,4 @@ class GetStatusRequest(BaseRequest):
     #     return [self.get_argument(action) for action in actions]
 
     def get_argument(self, idsf: int) -> dict:
-        return {
-            "idsf": idsf,
-            "sfetype": []
-        }
+        return {"idsf": idsf, "sfetype": []}

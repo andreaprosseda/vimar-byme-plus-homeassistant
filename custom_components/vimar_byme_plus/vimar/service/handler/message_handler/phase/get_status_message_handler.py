@@ -8,6 +8,7 @@ from .....model.web_socket.supporting_models.message_supporting_values import (
 from .....utils.logger import log_info
 from .....utils.beautify import print_elements
 
+
 class GetStatusMessageHandler(BaseMessageHandler):
     def handle_message(
         self, message: BaseRequestResponse, config: MessageSupportingValues
@@ -27,8 +28,8 @@ class GetStatusMessageHandler(BaseMessageHandler):
             msgid=config.msgid,
             idsf=config.idsf,
         )
-        
+
     def log(self, response: BaseRequestResponse):
         if response and isinstance(response, BaseResponse):
             if response.result:
-                print_elements(response.result[0]['elements'])
+                print_elements(response.result[0]["elements"])
