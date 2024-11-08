@@ -50,7 +50,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#debugging">Debugging</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <!-- <li><a href="#contributing">Contributing</a></li> -->
+    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
   </ol>
 </details>
@@ -301,5 +301,5 @@ Use this space to list resources you find helpful and would like to give credit 
 [vimar-integration-url]: https://www.vimar.com/it/it/integrazione-con-il-sistema-domotico-by-me-plus-17577122.html
 [hacs-url]: https://hacs.xyz
 
-[product-screenshot]: images/screenshot.png
-[usage-tutorial]: images/usage.gif
+[product-screenshot]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/screenshot.png
+[usage-tutorial]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/usage.gif
