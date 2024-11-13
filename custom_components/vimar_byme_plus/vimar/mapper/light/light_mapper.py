@@ -10,8 +10,8 @@ class LightMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarLight]:
         sftype = SfType.LIGHT.value
-        shutters = [component for component in components if component.sftype == sftype]
-        return [LightMapper.from_obj(shutter) for shutter in shutters]
+        lights = [component for component in components if component.sftype == sftype]
+        return [LightMapper.from_obj(light) for light in lights]
 
     @staticmethod
     def from_obj(component: UserComponent, *args) -> VimarLight:
