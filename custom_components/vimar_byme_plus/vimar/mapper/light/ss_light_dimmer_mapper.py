@@ -35,7 +35,7 @@ class SsLightDimmerMapper:
 
     def get_brightness(self, component: UserComponent) -> int | None:
         value = component.get_value(SfeType.STATE_BRIGHTNESS)
-        if value.isdigit:
+        if value.isdigit():
             return int(value)
         return None  # Change up/Change down
 
