@@ -36,7 +36,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     def start(self):
         """Start coordinator processes."""
         self.client.operational_phase()
-        self.data = self.client.retrieve_data()
+        self._update_data()
 
     def stop(self):
         """Stop coordinator processes."""
