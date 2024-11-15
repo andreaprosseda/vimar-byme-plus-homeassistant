@@ -3,16 +3,16 @@
 from ..config.const import USERNAME
 from ..database.database import Database
 from ..mapper.vimar_data_mapper import VimarDataMapper
+from ..model.component.vimar_component import VimarComponent
+from ..model.enum.action_type import ActionType
 from ..model.exceptions import CodeNotValidException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.gateway.vimar_data import VimarData
 from ..model.repository.user_credentials import UserCredentials
 from ..service.association_service import AssociationService
-from ..service.operational_service import OperationalService
+from ..service.operational_service import OperationalService, Update
 from ..utils.logger import log_info
 from ..utils.thread import Thread
-from ..model.enum.action_type import ActionType
-from ..model.component.vimar_component import VimarComponent
 
 
 class VimarClient:
@@ -24,10 +24,10 @@ class VimarClient:
     _user_repo = Database.instance().user_repo
     _thread_name = "VimarServiceThread"
 
-    def __init__(self, gateway_info: GatewayInfo) -> None:
+    def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize the coordinator."""
         self._association_service = AssociationService(gateway_info)
-        self._operational_service = OperationalService(gateway_info)
+        self._operational_service = OperationalService(gateway_info, callback)
 
     def association_phase(self):
         """Start the association phase for Vimar connection."""

@@ -1,20 +1,27 @@
+from collections.abc import Coroutine
 import time
+from typing import Any
+
 from websocket import WebSocketConnectionClosedException
+
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
 from ..database.database import Database
+from ..model.component.vimar_component import VimarComponent
+from ..model.enum.action_type import ActionType
+from ..model.enum.integration_phase import IntegrationPhase
+from ..model.exceptions import VimarErrorResponseException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
-from ..model.exceptions import VimarErrorResponseException
 from ..scheduler.keep_alive_handler import KeepAliveHandler
 from ..utils.logger import log_info
 from .handler.action_handler.action_handler import ActionHandler
 from .handler.error_handler.error_handler import ErrorHandler
 from .handler.message_handler.message_handler import MessageHandler
-from ..model.enum.action_type import ActionType
-from ..model.component.vimar_component import VimarComponent
+
+type Update = Coroutine[Any, Any, None]
 
 
 class OperationalService:
@@ -23,6 +30,7 @@ class OperationalService:
     attach_port: int | None = None
 
     gateway_info: GatewayInfo
+    update_callback: Update
 
     _message_handler: MessageHandler
     _action_handler: ActionHandler
@@ -32,11 +40,12 @@ class OperationalService:
     _web_socket: WSAttachPhase = None
     _user_repo = Database.instance().user_repo
 
-    def __init__(self, gateway_info: GatewayInfo) -> None:
+    def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize Vimar intagration."""
         self.gateway_address = gateway_info.address
         self.session_port = gateway_info.port
         self.gateway_info = gateway_info
+        self.update_callback = callback
         self._action_handler = ActionHandler()
         self._error_handler = ErrorHandler(gateway_info)
         self._message_handler = MessageHandler(gateway_info)
@@ -95,7 +104,7 @@ class OperationalService:
         self, message: BaseRequestResponse
     ) -> BaseRequestResponse:
         response = self._message_handler.message_received(message)
-
+        self.trigger_changes(message)
         self.handle_keep_alive(response)
         return response
 
@@ -123,6 +132,12 @@ class OperationalService:
         if self._error_handler.is_temporary_error(None, message):
             log_info(__name__, "Reconnecting...")
             self.connect()
+
+    def trigger_changes(self, message: BaseRequestResponse):
+        phase = IntegrationPhase.get(message.function)
+        change_phase = IntegrationPhase.CHANGE_STATUS
+        if isinstance(message, BaseRequest) and phase == change_phase:
+            self.update_callback()
 
     def handle_keep_alive(self, message: BaseRequestResponse):
         if message:

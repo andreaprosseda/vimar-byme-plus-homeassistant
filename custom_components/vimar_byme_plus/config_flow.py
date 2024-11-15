@@ -1,25 +1,26 @@
 """Config flow for VIMAR By-me Plus."""
 
 from __future__ import annotations
-from typing import Any
 
 import logging
+from typing import Any
+
 import voluptuous as vol
 
 from homeassistant import config_entries
-from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.components import zeroconf
+from homeassistant.config_entries import ConfigFlowResult
 
 from .const import (
-    GATEWAY_NAME,
     ADDRESS,
+    CODE,
+    DOMAIN,
     GATEWAY_ID,
     GATEWAY_MODEL,
-    CODE,
+    GATEWAY_NAME,
     HOST,
     PORT,
     PROTOCOL,
-    DOMAIN,
 )
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
@@ -46,7 +47,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    # CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL  # CONN_CLASS_LOCAL_PUSH
+    CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_PUSH
 
     async def async_step_user(self, user_input=None) -> ConfigFlowResult:
         """Handle the user manual setup."""

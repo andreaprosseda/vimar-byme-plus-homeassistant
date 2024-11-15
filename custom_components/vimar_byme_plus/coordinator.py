@@ -1,27 +1,16 @@
 """Provides the Vimar Coordinator."""
 
-from datetime import timedelta
 import logging
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import (
-    GATEWAY_NAME,
-    ADDRESS,
-    PORT,
-    GATEWAY_ID,
-    HOST,
-    PROTOCOL,
-    CODE,
-    DEFAULT_UPDATE_INTERVAL,
-    DOMAIN,
-)
+from .const import ADDRESS, CODE, DOMAIN, GATEWAY_ID, GATEWAY_NAME, HOST, PORT, PROTOCOL
 from .vimar.client.vimar_client import VimarClient
-from .vimar.model.gateway.gateway_info import GatewayInfo
-from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.enum.action_type import ActionType
+from .vimar.model.gateway.gateway_info import GatewayInfo
+from .vimar.model.gateway.vimar_data import VimarData
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,11 +24,10 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     def __init__(self, hass: HomeAssistant, user_input: dict[str, str]) -> None:
         """Initialize the coordinator."""
         self.gateway_info = self._get_gateway_info(user_input)
-        self.client = VimarClient(self.gateway_info)
+        self.client = VimarClient(self.gateway_info, self.update_data)
         self.client.set_setup_code(user_input.get(CODE))
 
-        interval = timedelta(seconds=DEFAULT_UPDATE_INTERVAL)
-        super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=interval)
+        super().__init__(hass, _LOGGER, name=DOMAIN)
 
     def associate(self):
         """Test coordinator processes."""
@@ -48,6 +36,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     def start(self):
         """Start coordinator processes."""
         self.client.operational_phase()
+        self.data = self.client.retrieve_data()
 
     def stop(self):
         """Stop coordinator processes."""
@@ -57,10 +46,16 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         """Send a request coming from HomeAssistant to Gateway."""
         self.client.send(component, action_type, *args)
 
+    def update_data(self):
+        """Update data when new status is received from the Gateway."""
+        self.hass.loop.call_soon_threadsafe(self._update_data)
+
+    def _update_data(self):
+        data = self.client.retrieve_data()
+        self.async_set_updated_data(data)
+
     async def _async_update_data(self) -> VimarData:
-        """Get the latest data."""
         return self.client.retrieve_data()
-        # return await self.hass.async_add_executor_job(self._sync_update)
 
     def _get_gateway_info(self, user_input: dict[str, str]) -> GatewayInfo:
         return GatewayInfo(

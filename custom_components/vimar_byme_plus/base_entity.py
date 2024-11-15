@@ -66,6 +66,17 @@ class BaseEntity(CoordinatorEntity):
             suggested_area=self._component.area,
         )
 
+    def send(self, actionType: ActionType, *args) -> None:
+        """Send a request coming from HomeAssistant to Gateway."""
+        component = self._component
+        coordinator: Coordinator = self.coordinator
+        coordinator.send(component, actionType, *args)
+
+    @property
+    def should_poll(self) -> bool:
+        """Return True if entity has to be polled for state. False if entity pushes its state to HA."""
+        return False
+
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle device update."""
@@ -73,9 +84,3 @@ class BaseEntity(CoordinatorEntity):
             data: VimarData = self.coordinator.data
             self._component = data.get_by_id(self._component.id)
             self.async_write_ha_state()
-
-    def send(self, actionType: ActionType, *args) -> None:
-        """Send a request coming from HomeAssistant to Gateway."""
-        component = self._component
-        coordinator: Coordinator = self.coordinator
-        coordinator.send(component, actionType, *args)
