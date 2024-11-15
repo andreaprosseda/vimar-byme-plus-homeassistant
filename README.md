@@ -108,7 +108,7 @@ N.B. Steps 1 and 2 are needed only the first time, while the third one is requir
 ### [Step 1/3] Home Assistant - Install Component
 
 #### Method 1: [HACS][hacs-url]
-:warning: This component has not yet been approved by HACS and is not yet visible 
+:warning: This component has not yet been approved by HACS and is not yet direclty visible, steps 2-5 are required at the moment.
 > 1. Open HACS
 > 2. Click on the three dots (in the top right corner)
 > 3. Select Custom Repositories (Archivi digitali personalizzati)
@@ -172,6 +172,16 @@ Here the steps to follow to generate a Setup Code, needed for the integration ph
 6. Select `Vimar By-me Plus HomeAssistant` from the integration list (if not available <a href="#step-23-vimar-pro---initial-setup">add it</a>)
 7. Click on `Generate Setup Code`
 8. Save `Setup Code`
+9. Click on this [link](https://vimar-byme-plus-authenticator.onrender.com/api/vimar/identifier) to awake the Authenticator Backend and wait for its response.
+
+<details>
+  <summary>Why Step 9?</summary>
+The Authenticator Backend is deployed on a Free Instance and it is spin down after 15 minutes of inactivity, causing delays upon reactivation. Opening the link leads to the reactivation of the Backend and speeds up the next phase.
+
+N.B. The Backend is invoked only for the Setup Phase and not during the operational phase.
+</details>
+
+<br/>
 
 :warning: `Setup Code` expires in few minutes, create a new one if it doesn't work
 
