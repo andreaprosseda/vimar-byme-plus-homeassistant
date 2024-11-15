@@ -1,23 +1,24 @@
 """Platform for cover integration."""
 
 from __future__ import annotations
+
 from functools import reduce
 from typing import Any
 
 from homeassistant.components.cover import (
+    ATTR_POSITION,
     CoverEntity,
     CoverEntityFeature,
-    ATTR_POSITION,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .coordinator import Coordinator
 from . import CoordinatorConfigEntry
-from .vimar.model.component.vimar_cover import VimarCover
-from .vimar.utils.logger import log_debug
 from .base_entity import BaseEntity
+from .coordinator import Coordinator
+from .vimar.model.component.vimar_cover import VimarCover
 from .vimar.model.enum.action_type import ActionType
+from .vimar.utils.logger import log_debug
 
 
 async def async_setup_entry(

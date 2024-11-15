@@ -12,17 +12,6 @@ class GatewayInfo:
     protocolversion: str | None = None
 
     @classmethod
-    def from_mocked_values(cls):
-        return cls(
-            host="AG-3A2643FBB24000.local.",
-            address="192.168.1.50",
-            port=20615,
-            deviceuid="3A2643FBB24000",
-            plantname="Cruizer",
-            protocolversion="2.7",
-        )
-
-    @classmethod
     def from_info(cls, host: str, address: str, port: int, props: dict):
         return cls(
             host=host,

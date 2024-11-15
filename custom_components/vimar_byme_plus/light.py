@@ -5,21 +5,18 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from homeassistant.components.light import ColorMode, LightEntity, ATTR_BRIGHTNESS
+from homeassistant.components.light import ATTR_BRIGHTNESS, ColorMode, LightEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util.color import value_to_brightness
-from homeassistant.util.percentage import (
-    ranged_value_to_percentage,
-)
-
+from homeassistant.util.percentage import ranged_value_to_percentage
 
 from . import CoordinatorConfigEntry
 from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_light import VimarLight
-from .vimar.utils.logger import log_debug
 from .vimar.model.enum.action_type import ActionType
+from .vimar.utils.logger import log_debug
 
 _LOGGER = logging.getLogger(__name__)
 
