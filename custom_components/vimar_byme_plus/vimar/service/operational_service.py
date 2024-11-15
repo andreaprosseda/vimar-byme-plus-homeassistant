@@ -134,6 +134,9 @@ class OperationalService:
             self.connect()
 
     def trigger_changes(self, message: BaseRequestResponse):
+        if not self.update_callback:
+            return
+        
         phase = IntegrationPhase.get(message.function)
         change_phase = IntegrationPhase.CHANGE_STATUS
         if isinstance(message, BaseRequest) and phase == change_phase:

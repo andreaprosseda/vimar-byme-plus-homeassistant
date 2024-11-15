@@ -10,7 +10,7 @@ class StandAloneService:
 
     def __init__(self):
         gateway_info = self.get_gateway_info()
-        self._client = VimarClient(gateway_info)
+        self._client = VimarClient(gateway_info, None)
 
     def get_gateway_info(self) -> GatewayInfo:
         founder = GatewayFounderService()
