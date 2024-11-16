@@ -5,12 +5,28 @@
             "no_devices_found": "No devices found on the network",
             "single_instance_allowed": "Already configured. Only a single configuration possible."
         },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "invalid_code": "Setup Code not valid. Code is 4-digit!",
+            "unknown": "Unexpected error"
+        },
         "step": {
             "confirm": {
                 "description": "Do you want to start setup?"
             },
             "user": {
-                "description": "Use the auto-discovery or check documentation"
+                "data": {
+                    "code": "Setup Code [1234]",
+                    "gtw_address": "Gateway IP Address [192.168.1.XX]",
+                    "gtw_id": "Gateway Device ID [3A26XXXXXXXXXX]",
+                    "gtw_model": "Gateway Model [AG+]",
+                    "gtw_name": "Gateway Name",
+                    "gtw_port": "Gateway Port [20615]",
+                    "host": "Hostname [AG-3A26XXXXXXXXXX]",
+                    "protocol": "Protocol Version [2.7]"
+                },
+                "description": "Please enter your Setup Code obtained from Vimar Pro app.\nRefer to the official documentation for additional info [here](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
             }
         }
     }

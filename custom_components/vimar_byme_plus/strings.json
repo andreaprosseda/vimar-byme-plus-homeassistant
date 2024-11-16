@@ -1,17 +1,33 @@
 {
   "config": {
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]",
+      "no_devices_found": "[%key:common::config_flow::abort::no_devices_found%]",
+      "single_instance_allowed": "[%key:common::config_flow::abort::single_instance_allowed%]"
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+      "invalid_code": "Setup Code not valid. Code is 4-digit!",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
     "step": {
-      "user": {
-        "description": "Please enter your Setup Code [4 digit]"
-      },
       "confirm": {
         "description": "[%key:common::config_flow::description::confirm_setup%]"
+      },
+      "user": {
+        "data": {
+          "gtw_name": "Gateway Name",
+          "gtw_address": "Gateway IP Address [192.168.1.XX]",
+          "gtw_port": "Gateway Port [20615]",
+          "gtw_model": "Gateway Model [AG+]",
+          "gtw_id": "Gateway Device ID [3A26XXXXXXXXXX]",
+          "host": "Hostname [AG-3A26XXXXXXXXXX]",
+          "protocol": "Protocol Version [2.7]",
+          "code": "Setup Code [1234]"
+        },
+        "description": "Please enter your Setup Code obtained from Vimar Pro app.\nRefer to the official documentation for additional info [here](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
       }
-    },
-    "abort": {
-      "single_instance_allowed": "[%key:common::config_flow::abort::single_instance_allowed%]",
-      "no_devices_found": "[%key:common::config_flow::abort::no_devices_found%]",
-      "already_configured": "Device is already configured"
     }
   }
 }

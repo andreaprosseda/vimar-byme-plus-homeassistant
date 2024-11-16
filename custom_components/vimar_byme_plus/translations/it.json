@@ -1,0 +1,33 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "[%key:common::config_flow::abort::already_configured_device%]",
+            "no_devices_found": "[%key:common::config_flow::abort::no_devices_found%]",
+            "single_instance_allowed": "[%key:common::config_flow::abort::single_instance_allowed%]"
+        },
+        "error": {
+            "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+            "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+            "unknown": "[%key:common::config_flow::error::unknown%]",
+            "invalid_code": "Setup Code not valid. Code is 4-digit!"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "gtw_name": "Gateway Name",
+                    "gtw_address": "Indirizzo IP [192.168.1.XX]",
+                    "gtw_port": "Porta [20615]",
+                    "gtw_model": "Modello [AG+]",
+                    "gtw_id": "ID Gateway [3A26XXXXXXXXXX]",
+                    "host": "Hostname [AG-3A26XXXXXXXXXX]",
+                    "protocol": "Versione del protocollo di comunicazione [2.7]",
+                    "code": "Setup Code [1234]"
+                },
+                "description": "Inserisci il Setup Code ottenuto dall'app Vimar Pro.\nPer ulteriori info, leggi la documentazione ufficiale [qui](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
+            },
+            "confirm": {
+                "description": "[%key:common::config_flow::description::confirm_setup%]"
+            }
+        }
+    }
+}
