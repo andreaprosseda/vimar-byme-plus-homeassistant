@@ -4,6 +4,7 @@ from ...component.vimar_action import VimarAction
 
 @dataclass
 class MessageSupportingValues:
+    ip_address: str
     target: str
     token: str
     msgid: str

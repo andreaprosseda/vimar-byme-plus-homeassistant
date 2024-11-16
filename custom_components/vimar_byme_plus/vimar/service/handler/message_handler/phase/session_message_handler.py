@@ -20,4 +20,5 @@ class SessionMessageHandler(BaseMessageHandler):
             token=config.token,
             protocol_version=config.protocol_version,
             user_credentials=self.get_user_credentials(),
+            ip_address=config.ip_address
         )

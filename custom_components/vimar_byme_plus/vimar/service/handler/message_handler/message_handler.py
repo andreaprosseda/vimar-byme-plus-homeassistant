@@ -90,6 +90,7 @@ class MessageHandler:
 
     def _get_supporting_config(self, *args) -> MessageSupportingValues:
         return MessageSupportingValues(
+            ip_address=self._gateway_info.address,
             target=self._gateway_info.deviceuid,
             token=self._token,
             msgid=self._last_msgid + 1,

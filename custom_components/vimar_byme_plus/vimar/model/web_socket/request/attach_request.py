@@ -4,7 +4,6 @@ from ..supporting_models.communication import Communication
 from ..supporting_models.credential import Credential
 from ..supporting_models.client_info import ClientInfo
 from ...repository.user_credentials import UserCredentials
-from ....utils.ip_address import get_ip_address
 
 
 @dataclass
@@ -15,20 +14,21 @@ class AttachRequest(BaseRequest):
         token: str,
         protocol_version: str,
         user_credentials: UserCredentials,
+        ip_address: str
     ):
         super().__init__()
         self.function = "attach"
         self.target = target
         self.token = token
         self.msgid = "0"
-        self.args = self.get_args(protocol_version, user_credentials)
+        self.args = self.get_args(protocol_version, user_credentials, ip_address)
 
     def get_args(
-        self, protocol_version: str, user_credentials: UserCredentials
+        self, protocol_version: str, user_credentials: UserCredentials, ip_address: str
     ) -> list:
         credential = self.get_credential(user_credentials)
         client_info = self.get_client_info(user_credentials, protocol_version)
-        communication = self.get_communication()
+        communication = self.get_communication(ip_address)
         argument = self.get_argument(credential, client_info, communication)
         return [argument]
 
@@ -49,8 +49,8 @@ class AttachRequest(BaseRequest):
             manufacturer_tag=credentials.username,
         )
 
-    def get_communication(self) -> Communication:
-        return Communication(address=get_ip_address())
+    def get_communication(self, ip_address: str) -> Communication:
+        return Communication(address=ip_address)
 
     def get_argument(
         self,

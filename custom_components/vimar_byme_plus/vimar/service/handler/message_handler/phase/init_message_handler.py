@@ -21,3 +21,4 @@ class InitMessageHandler(BaseMessageHandler):
     def get_session_request(self, config: MessageSupportingValues) -> SessionRequest:
         """Return SessionRequest object."""
         return SessionRequest(target=config.target, token=get_session_token())
+        return SessionRequest(target=config.target, token=get_session_token(), ip_address=config.ip_address)
