@@ -14,7 +14,7 @@ class AttachRequest(BaseRequest):
         token: str,
         protocol_version: str,
         user_credentials: UserCredentials,
-        ip_address: str
+        ip_address: str,
     ):
         super().__init__()
         self.function = "attach"
