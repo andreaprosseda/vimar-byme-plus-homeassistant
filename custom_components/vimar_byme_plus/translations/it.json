@@ -26,6 +26,7 @@
                 "description": "Usa la Discovery Automatica per una configurazione più semplice o compila i valori sottostanti.\nPer ulteriori info, leggi la documentazione ufficiale [qui](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
             },
             "discovery_confirm": {
+                "title": "VIMAR By-me Plus HUB",
                 "description": "Inserisci il Setup Code ottenuto dall'app Vimar Pro.\nPer ulteriori info, leggi la documentazione ufficiale [qui](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
             },
             "confirm": {
