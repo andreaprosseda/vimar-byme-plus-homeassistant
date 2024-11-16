@@ -9,7 +9,7 @@ from ....model.enum.component_type import ComponentType
 from ....model.repository.user_ambient import UserAmbient
 from ....model.repository.user_component import UserComponent
 from ....model.repository.user_credentials import UserCredentials
-from ....utils.logger import log_info
+from ....utils.logger import log_debug, log_info
 
 
 class HandlerInterface(ABC):
@@ -20,7 +20,7 @@ class HandlerInterface(ABC):
         pass
 
     def _idle(self) -> BaseRequestResponse:
-        log_info(__name__, "Entering idle state: no action required for this phase...")
+        log_debug(__name__, "Entering idle state: no action required for this phase...")
         return None
 
     def requires_response(self, message: BaseRequest) -> bool:

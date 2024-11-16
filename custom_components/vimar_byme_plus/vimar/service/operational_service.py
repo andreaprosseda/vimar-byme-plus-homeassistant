@@ -79,16 +79,16 @@ class OperationalService:
 
     def sync_session_phase(self):
         """Handle SessionPhase interaction."""
-        log_info(__name__, "Starting Session Phase...")
+        log_info(__name__, "Starting Operational | Session Phase...")
         config = self._get_config()
         handler = self._message_handler
         client = SyncSessionPhase(config, handler)
         self.attach_port = client.connect()
-        log_info(__name__, "Session Phase Done!")
+        log_info(__name__, "Operational | Session Phase Done!")
 
     def async_attach_phase(self):
         """Handle AttachPhase interaction."""
-        log_info(__name__, "Starting Attach Phase...")
+        log_info(__name__, "Starting Operational | Attach Phase...")
         config = self._get_config_for_attach_phase()
         self._web_socket = WSAttachPhase(config)
         self._web_socket.connect()
@@ -130,7 +130,7 @@ class OperationalService:
             time.sleep(seconds_to_wait)
             self.connect()
         if self._error_handler.is_temporary_error(None, message):
-            log_info(__name__, "Reconnecting...")
+            log_info(__name__, "Temporary Error detected, reconnecting...")
             self.connect()
 
     def trigger_changes(self, message: BaseRequestResponse):

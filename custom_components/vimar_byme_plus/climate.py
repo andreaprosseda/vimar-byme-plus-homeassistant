@@ -21,7 +21,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_climate import VimarClimate
 from .vimar.model.enum.action_type import ActionType
-from .vimar.utils.logger import log_debug
+from .vimar.utils.logger import log_info
 
 
 async def async_setup_entry(
@@ -33,7 +33,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
     components = coordinator.data.get_climates()
     entities = [Climate(coordinator, component) for component in components]
-    log_debug(__name__, f"Climates found: {len(entities)}")
+    log_info(__name__, f"Climates found: {len(entities)}")
     async_add_entities(entities, True)
 
 

@@ -57,10 +57,10 @@ class ErrorHandler:
             return False
         error_type = type(exception).__name__
         if error_type == "SSLError":
-            log_info(__name__, "SSLError, sending new message...")
+            log_error(__name__, "SSLError, sending new message...")
             return True
         if error_type == "SSLEOFError":
-            log_info(__name__, "SSLError, sending new message...")
+            log_error(__name__, "SSLEOFError, sending new message...")
             return True
         return False
 

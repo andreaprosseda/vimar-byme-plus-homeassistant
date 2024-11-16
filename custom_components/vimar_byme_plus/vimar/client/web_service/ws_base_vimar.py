@@ -6,7 +6,7 @@ from ...model.web_socket.base_request_response import BaseRequestResponse
 from ...model.web_socket.base_request import BaseRequest
 from ...model.web_socket.base_response import BaseResponse
 from ...model.enum.error_response_enum import ErrorResponse
-from ...utils.logger import log_info, log_debug
+from ...utils.logger import log_error, log_info, log_debug
 
 
 class WebSocketBaseVimar:
@@ -51,8 +51,8 @@ class WebSocketBaseVimar:
 
     def _on_error(self, ws: WebSocketApp, error: Exception):
         error_type = type(error).__name__
-        log_info(__name__, f"Error occurred: {error_type}: {str(error)}")
-        log_debug(__name__, f"Stack trace:\n{traceback.format_exc()}")
+        log_error(__name__, f"Error occurred: {error_type}: {str(error)}")
+        log_error(__name__, f"Stack trace:\n{traceback.format_exc()}")
         self.on_error(ws, error)
 
     def _on_close(self, ws: WebSocketApp, close_status_code: int, close_msg: str):
@@ -64,7 +64,7 @@ class WebSocketBaseVimar:
         self.on_close(ws)
 
     def _on_open(self, ws: WebSocketApp):
-        log_info(__name__, "Opening connection...")
+        log_debug(__name__, "Opening connection...")
         self.on_open(ws)
 
     def is_error(self, base_request_response: BaseRequestResponse) -> bool:
@@ -72,7 +72,7 @@ class WebSocketBaseVimar:
             error_code = base_request_response.error
             name = ErrorResponse.get_name_by_code(error_code)
             if name:
-                log_info(__name__, f"\nCurrent error code name is: {name}\n")
+                log_error(__name__, f"\nCurrent error code name is: {name}\n")
                 return True
         return False
 

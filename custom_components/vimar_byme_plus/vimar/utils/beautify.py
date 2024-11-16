@@ -5,15 +5,15 @@ from .logger import log_info
 
 
 def beautify(data: VimarData):
-    log_info(__name__, "\nLights:")
+    log_info(__name__, "\n\nLights:")
     print_table(data._lights)
-    log_info(__name__, "\nDoors:")
+    log_info(__name__, "\n\nDoors:")
     print_table(data._access)
-    log_info(__name__, "\nCovers:")
+    log_info(__name__, "\n\nCovers:")
     print_table(data._shutters)
-    log_info(__name__, "\nClimate:")
+    log_info(__name__, "\n\nClimate:")
     print_table(data._climates)
-    log_info(__name__, "\nAudios:")
+    log_info(__name__, "\n\nAudios:")
     print_table(data._audios)
 
 

@@ -16,7 +16,7 @@ from . import CoordinatorConfigEntry
 from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_media_player import VimarMediaPlayer
-from .vimar.utils.logger import log_debug
+from .vimar.utils.logger import log_info
 from .vimar.model.enum.action_type import ActionType
 
 
@@ -29,7 +29,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
     components = coordinator.data.get_audios()
     entities = [MediaPlayer(coordinator, component) for component in components]
-    log_debug(__name__, f"Media Players found: {len(entities)}")
+    log_info(__name__, f"Media Players found: {len(entities)}")
     async_add_entities(entities, True)
 
 

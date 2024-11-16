@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 from typing import Any
 
 from homeassistant.components.light import ATTR_BRIGHTNESS, ColorMode, LightEntity
@@ -16,9 +15,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_light import VimarLight
 from .vimar.model.enum.action_type import ActionType
-from .vimar.utils.logger import log_debug
-
-_LOGGER = logging.getLogger(__name__)
+from .vimar.utils.logger import log_info
 
 
 async def async_setup_entry(
@@ -30,7 +27,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
     components = coordinator.data.get_lights()
     entities = [Light(coordinator, component) for component in components]
-    log_debug(__name__, f"Lights found: {len(entities)}")
+    log_info(__name__, f"Lights found: {len(entities)}")
     async_add_entities(entities, True)
 
 

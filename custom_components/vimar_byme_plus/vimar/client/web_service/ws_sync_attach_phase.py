@@ -45,7 +45,7 @@ class WSSessionPhase:
 
     def _receive_session_response(self, ws: WebSocket) -> int:
         """Receive SessionResponse object."""
-        log_info(__name__, "Receiving SessionResponse...")
+        log_debug(__name__, "Receiving SessionResponse...")
         message = ws.recv()
         log_debug(__name__, f"Received message:\n{message}")
         return self._get_port_to_attach(message)

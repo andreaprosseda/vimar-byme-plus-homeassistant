@@ -48,7 +48,7 @@ class SyncBaseSocket:
 
     def receive(self) -> BaseRequestResponse:
         """Receive message."""
-        log_info(__name__, "Waiting for response...")
+        log_debug(__name__, "Waiting for response...")
         message = self.ws.recv()
         log_debug(__name__, f"Received message:\n{message}")
         return self._get_object(message)

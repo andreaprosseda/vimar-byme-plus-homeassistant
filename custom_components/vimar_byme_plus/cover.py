@@ -18,7 +18,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_cover import VimarCover
 from .vimar.model.enum.action_type import ActionType
-from .vimar.utils.logger import log_debug
+from .vimar.utils.logger import log_info
 
 
 async def async_setup_entry(
@@ -30,7 +30,7 @@ async def async_setup_entry(
     coordinator = entry.runtime_data
     components = coordinator.data.get_covers()
     entities = [Cover(coordinator, component) for component in components]
-    log_debug(__name__, f"Covers found: {len(entities)}")
+    log_info(__name__, f"Covers found: {len(entities)}")
     async_add_entities(entities, True)
 
 

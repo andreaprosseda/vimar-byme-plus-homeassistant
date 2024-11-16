@@ -6,7 +6,7 @@ from .repository.component_repo import ComponentRepo
 from .repository.element_repo import ElementRepo
 from .repository.user_repo import UserRepo
 from ..utils.file import get_file_path
-from ..utils.logger import log_info
+from ..utils.logger import log_error, log_info
 
 DATABASE_NAME = "home.db"
 
@@ -44,4 +44,4 @@ class Database:
             log_info(__name__, "Connection to SQLite DB successful")
             return self._connection
         except Error as e:
-            log_info(__name__, f"Error occurred: {e}")
+            log_error(__name__, f"Error occurred: {e}")

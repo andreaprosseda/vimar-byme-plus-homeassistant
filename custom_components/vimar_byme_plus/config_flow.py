@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 from typing import Any
 
 import voluptuous as vol
@@ -24,9 +23,8 @@ from .const import (
 )
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
-from .vimar.utils.logger import log_debug
+from .vimar.utils.logger import log_error, log_debug
 
-_LOGGER = logging.getLogger(__name__)
 
 ZEROCONF_DATA_SCHEMA = vol.Schema({vol.Required(CODE): str})
 
@@ -102,10 +100,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             except VimarErrorResponseException as err:
                 errors["base"] = f"Error returned from Gateway: {err.message}"
             except CodeNotValidException:
-                # Setup Code not valid. Code is 4-digit!
                 errors["base"] = "invalid_code"
             except Exception:  # pylint: disable=broad-except
-                _LOGGER.exception("Unexpected exception")
+                log_error("Unexpected exception during the finalization phase")
                 errors["base"] = "unknown"
 
         return self.async_show_form(

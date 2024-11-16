@@ -4,14 +4,14 @@ from .....model.web_socket.request.detach_request import DetachRequest
 from .....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
-from .....utils.logger import log_info
+from .....utils.logger import log_error
 
 
 class UnknownMessageHandler(BaseMessageHandler):
     def handle_message(
         self, message: BaseRequestResponse, config: MessageSupportingValues
     ) -> BaseRequestResponse:
-        log_info(__name__, "Unknown Phase!!!")
+        log_error(__name__, "Unknown Phase!!!")
         return self.get_detach_request(config)
 
     def get_detach_request(self, config: MessageSupportingValues) -> DetachRequest:
