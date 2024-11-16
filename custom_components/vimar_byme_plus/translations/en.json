@@ -15,6 +15,9 @@
             "confirm": {
                 "description": "Do you want to start setup?"
             },
+            "discovery_confirm": {
+                "description": "Please enter your Setup Code obtained from Vimar Pro app.\nRefer to the official documentation for additional info [here](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
+            },
             "user": {
                 "data": {
                     "code": "Setup Code [1234]",
@@ -26,7 +29,7 @@
                     "host": "Hostname [AG-3A26XXXXXXXXXX]",
                     "protocol": "Protocol Version [2.7]"
                 },
-                "description": "Please enter your Setup Code obtained from Vimar Pro app.\nRefer to the official documentation for additional info [here](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
+                "description": "Use the Discovery for a easier setup or fill the following values.\nRefer to the official documentation for additional info [here](https://github.com/andreaprosseda/vimar-byme-plus-homeassistant?tab=readme-ov-file#step-23-vimar-pro---initial-setup)"
             }
         }
     }
