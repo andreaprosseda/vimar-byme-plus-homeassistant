@@ -172,7 +172,7 @@ Here the steps to follow to generate a Setup Code, needed for the integration ph
 6. Select `Vimar By-me Plus HomeAssistant` from the integration list (if not available <a href="#step-23-vimar-pro---initial-setup">add it</a>)
 7. Click on `Generate Setup Code`
 8. Save `Setup Code`
-9. Click on this [link](https://vimar-byme-plus-authenticator.onrender.com/api/vimar/identifier) to awake the Authenticator Backend and wait for its response.
+9. Click on this [link](https://vimar-byme-plus-authenticator.onrender.com/api/vimar/identifier) to awake the Authenticator Backend and wait for its response. (It may take up to 5 minutes!)
 
 <details>
   <summary>Why Step 9?</summary>
