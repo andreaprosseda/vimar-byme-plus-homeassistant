@@ -26,7 +26,8 @@ class SsShutterPositionMapper(BaseMapper):
         )
 
     def current_position(self, component: UserComponent) -> int | None:
-        return self._get_position(component)
+        is_changing = self._is_changing(component)
+        return self._get_position(component) if not is_changing else None
 
     def is_closed(self, component: UserComponent) -> bool | None:
         position = self._get_position(component)

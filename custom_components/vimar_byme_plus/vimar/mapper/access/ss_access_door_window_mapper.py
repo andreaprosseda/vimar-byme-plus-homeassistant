@@ -31,4 +31,7 @@ class SsAccessDoorWindowMapper:
         return value == "Off" if value else None
 
     def get_supported_features(self, component: UserComponent) -> list[CoverEntityFeature]:
-        return [CoverEntityFeature.OPEN]
+        return [
+            CoverEntityFeature.OPEN,
+            CoverEntityFeature.SET_POSITION
+        ]

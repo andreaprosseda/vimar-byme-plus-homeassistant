@@ -15,7 +15,7 @@ class ActionHandler:
     def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
         handler = ActionHandler._get_handler(component.device_group)
         actions = handler.get_actions(component, action_type, *args)
-        self.save(actions)
+        # self.save(actions)
         return actions
 
     @staticmethod
