@@ -15,7 +15,7 @@ Steps to reproduce the behavior.
 A clear and concise description of what you expected to happen.
 
 ### Environment
- - OS: [e.g. Raspberry Pi, QNAP]
+ - HomeAssistant Version: [e.g. 2024.11.3]
  - Other details that you think may affect.
 
 ### Additional context
