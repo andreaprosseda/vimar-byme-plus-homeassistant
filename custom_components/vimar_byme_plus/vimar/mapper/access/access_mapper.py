@@ -18,6 +18,7 @@ class AccessMapper:
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
+            device_class=AccessMapper.device_class(component),
             area=component.ambient.name,
             current_cover_position=AccessMapper.current_position(component),
             is_closed=AccessMapper.is_closed(component),
@@ -25,6 +26,12 @@ class AccessMapper:
             is_opening=False,
             supported_features=AccessMapper.get_supported_features(component),
         )
+
+    @staticmethod
+    def device_class(component: UserComponent) -> str:
+        if component.sstype == "SS_Access_Gate":
+            return "gate"
+        return "door"
 
     @staticmethod
     def current_position(component: UserComponent) -> int | None:
