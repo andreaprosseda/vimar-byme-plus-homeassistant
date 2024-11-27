@@ -5,7 +5,6 @@ from ...repository.user_component import UserComponent
 
 @dataclass
 class RegisterRequest(BaseRequest):
-
     def __init__(self, target: str, token: str, components: list[UserComponent]):
         super().__init__()
         self.function = "register"

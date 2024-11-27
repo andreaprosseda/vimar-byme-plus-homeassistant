@@ -2,7 +2,9 @@ from abc import ABC, abstractmethod
 from ....database.database import Database
 from ....model.web_socket.base_request_response import BaseRequestResponse
 from ....model.web_socket.base_request import BaseRequest
-from ....model.web_socket.supporting_models.message_supporting_values import MessageSupportingValues
+from ....model.web_socket.supporting_models.message_supporting_values import (
+    MessageSupportingValues,
+)
 from ....model.enum.component_type import ComponentType
 from ....model.repository.user_ambient import UserAmbient
 from ....model.repository.user_component import UserComponent
@@ -12,7 +14,9 @@ from ....utils.logger import log_debug, log_info
 
 class HandlerInterface(ABC):
     @abstractmethod
-    def handle_message(self, message: BaseRequestResponse, config: MessageSupportingValues) -> BaseRequestResponse:
+    def handle_message(
+        self, message: BaseRequestResponse, config: MessageSupportingValues
+    ) -> BaseRequestResponse:
         pass
 
     def _idle(self) -> BaseRequestResponse:

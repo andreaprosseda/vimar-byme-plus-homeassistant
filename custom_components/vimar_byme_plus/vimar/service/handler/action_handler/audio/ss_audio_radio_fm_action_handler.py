@@ -15,7 +15,9 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
     SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_RADIO_FM.value
 
-    def get_actions(self, component: VimarMediaPlayer, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarMediaPlayer, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.SET_SOURCE:
             return self.get_select_frequency_actions(component, args[0])
         if action_type == ActionType.PREVIOUS:
@@ -24,7 +26,9 @@ class SsAudioRadioFmActionHandler(BaseActionHandler):
             return self.get_next_fm_actions(component.id)
         raise NotImplementedError
 
-    def get_select_frequency_actions(self, component: VimarMediaPlayer, source: str) -> list[VimarAction]:
+    def get_select_frequency_actions(
+        self, component: VimarMediaPlayer, source: str
+    ) -> list[VimarAction]:
         """Select input source."""
         position = self._get_position(component, source)
         if not position or int(position) < 0:

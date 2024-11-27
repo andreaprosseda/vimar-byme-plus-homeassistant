@@ -7,8 +7,9 @@ from ..base_action_handler import HandlerInterface
 
 
 class LightActionHandler:
-    
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         handler = self.get_handler(component)
         return handler.get_actions(component, action_type, *args)
 

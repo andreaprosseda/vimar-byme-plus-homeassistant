@@ -96,10 +96,19 @@ class ComponentRepo(BaseRepo):
         return list(result.values())
 
     def _get_values(self, row: list[Any]) -> UserComponent:
-        (dictKey, idambient, idsf, name, sftype, sstype,) = row
+        (
+            dictKey,
+            idambient,
+            idsf,
+            name,
+            sftype,
+            sstype,
+        ) = row
         return UserComponent(dictKey, idambient, idsf, name, sftype, sstype)
 
-    def _get_all_values(self, row: list[Any]) -> tuple[UserComponent, UserElement, UserAmbient]:
+    def _get_all_values(
+        self, row: list[Any]
+    ) -> tuple[UserComponent, UserElement, UserAmbient]:
         (
             c_dictKey,
             c_idambient,
@@ -119,5 +128,7 @@ class ComponentRepo(BaseRepo):
         ) = row
         ambient = UserAmbient(a_dictKey, a_hash, a_idambient, a_idparent, a_name)
         element = UserElement(e_enable, e_element_id, e_sfetype, e_value)
-        component = UserComponent(c_dictKey, c_idambient, c_idsf, c_name, c_sftype, c_sstype)
+        component = UserComponent(
+            c_dictKey, c_idambient, c_idsf, c_name, c_sftype, c_sstype
+        )
         return component, element, ambient

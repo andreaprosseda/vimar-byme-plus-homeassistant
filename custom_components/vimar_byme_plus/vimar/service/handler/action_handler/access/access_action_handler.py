@@ -8,8 +8,9 @@ ON_OFF = SfeType.CMD_ON_OFF
 
 
 class AccessActionHandler(BaseActionHandler):
-    
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.OPEN:
             return self.get_open_cover_actions(component.id)
         raise NotImplementedError

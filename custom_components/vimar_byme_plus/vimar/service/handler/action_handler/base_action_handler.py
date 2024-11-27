@@ -14,7 +14,9 @@ from ....utils.logger import log_info
 
 class HandlerInterface(ABC):
     @abstractmethod
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         pass
 
 

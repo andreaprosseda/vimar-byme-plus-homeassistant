@@ -10,5 +10,7 @@ class SsAudioRcaActionHandler(BaseActionHandler):
     SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_RCA.value
 
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         raise NotImplementedError

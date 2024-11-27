@@ -30,8 +30,7 @@ class SsAccessGateMapper:
         value = component.get_value(SfeType.STATE_ON_OFF)
         return value == "Off" if value else None
 
-    def get_supported_features(self, component: UserComponent) -> list[CoverEntityFeature]:
-        return [
-            CoverEntityFeature.OPEN,
-            CoverEntityFeature.SET_POSITION
-        ]
+    def get_supported_features(
+        self, component: UserComponent
+    ) -> list[CoverEntityFeature]:
+        return [CoverEntityFeature.OPEN, CoverEntityFeature.SET_POSITION]

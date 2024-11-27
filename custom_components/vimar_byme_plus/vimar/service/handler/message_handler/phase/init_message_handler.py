@@ -1,7 +1,9 @@
 from ..base_handler_message import BaseMessageHandler
 from .....model.web_socket.base_request_response import BaseRequestResponse
 from .....model.web_socket.request.session_request import SessionRequest
-from .....model.web_socket.supporting_models.message_supporting_values import MessageSupportingValues
+from .....model.web_socket.supporting_models.message_supporting_values import (
+    MessageSupportingValues,
+)
 from .....utils.logger import log_debug
 from .....utils.session_token import get_session_token
 
@@ -9,7 +11,9 @@ from .....utils.session_token import get_session_token
 class InitMessageHandler(BaseMessageHandler):
     """Manage Init Handler."""
 
-    def handle_message(self, message: BaseRequestResponse, config: MessageSupportingValues) -> BaseRequestResponse:
+    def handle_message(
+        self, message: BaseRequestResponse, config: MessageSupportingValues
+    ) -> BaseRequestResponse:
         """Handle Initialization for Session Phase."""
         log_debug(__name__, "Session phase completed, sending Attach Request...")
         return self.get_session_request(config)

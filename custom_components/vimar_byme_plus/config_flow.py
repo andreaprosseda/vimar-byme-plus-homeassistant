@@ -58,7 +58,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return await self._initialize(step_id, schema, user_input)
         return self.async_show_form(step_id=step_id, data_schema=schema)
 
-    async def async_step_zeroconf(self, discovery_info: zeroconf.ZeroconfServiceInfo) -> ConfigFlowResult:
+    async def async_step_zeroconf(
+        self, discovery_info: zeroconf.ZeroconfServiceInfo
+    ) -> ConfigFlowResult:
         """Handle zeroconf discovery."""
         user_input = self._get_discovery_info_as_user_input(discovery_info)
         await self.async_set_unique_id(user_input[GATEWAY_ID])
@@ -75,7 +77,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(step_id=step_id, data_schema=schema)
 
-    async def async_step_discovery_confirm(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+    async def async_step_discovery_confirm(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
         """Confirm discovery."""
         step_id = "discovery_confirm"
         schema = ZEROCONF_DATA_SCHEMA
@@ -84,7 +88,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return await self._initialize(step_id, schema, user_input)
         return self.async_show_form(step_id=step_id, data_schema=schema)
 
-    async def _initialize(self, step_id: str, data_schema: Any, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+    async def _initialize(
+        self, step_id: str, data_schema: Any, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
         """Start the config flow."""
         errors = {}
         if user_input is not None:
@@ -99,7 +105,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 log_error("Unexpected exception during the finalization phase")
                 errors["base"] = "unknown"
 
-        return self.async_show_form(step_id=step_id, data_schema=data_schema, errors=errors)
+        return self.async_show_form(
+            step_id=step_id, data_schema=data_schema, errors=errors
+        )
 
     async def _finalize(self, user_input: dict[str, str]) -> ConfigFlowResult:
         """Finalize the config flow."""
@@ -117,7 +125,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         user_input.update(new_info)
         return user_input
 
-    def _get_discovery_info_as_user_input(self, discovery_info: zeroconf.ZeroconfServiceInfo) -> dict[str, str]:
+    def _get_discovery_info_as_user_input(
+        self, discovery_info: zeroconf.ZeroconfServiceInfo
+    ) -> dict[str, str]:
         props = discovery_info.properties
         return {
             HOST: discovery_info.hostname.replace(".local.", ""),
@@ -129,7 +139,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             PROTOCOL: props.get("protocolversion"),
         }
 
-    def _get_default_value_as_user_input(self, user_input: dict[str, str]) -> dict[str, str]:
+    def _get_default_value_as_user_input(
+        self, user_input: dict[str, str]
+    ) -> dict[str, str]:
         return {
             HOST: f"AG-{user_input[GATEWAY_ID]}",
             ADDRESS: user_input[ADDRESS],

@@ -100,14 +100,23 @@ class OperationalService:
     def on_attach_connection_opened(self):
         self._keep_alive_handler.set_handler(self.send_keep_alive)
 
-    def on_attach_message_received(self, message: BaseRequestResponse) -> BaseRequestResponse:
+    def on_attach_message_received(
+        self, message: BaseRequestResponse
+    ) -> BaseRequestResponse:
         response = self._message_handler.message_received(message)
         self.trigger_changes(message)
         self.handle_keep_alive(response)
         return response
 
-    def on_attach_error_message_received(self, last_client_message: BaseRequestResponse, last_server_message: BaseRequestResponse, exception: Exception) -> BaseRequestResponse:
-        response = self._error_handler.error_message_received(last_client_message, last_server_message, exception)
+    def on_attach_error_message_received(
+        self,
+        last_client_message: BaseRequestResponse,
+        last_server_message: BaseRequestResponse,
+        exception: Exception,
+    ) -> BaseRequestResponse:
+        response = self._error_handler.error_message_received(
+            last_client_message, last_server_message, exception
+        )
         self.handle_keep_alive(response)
         return response
 

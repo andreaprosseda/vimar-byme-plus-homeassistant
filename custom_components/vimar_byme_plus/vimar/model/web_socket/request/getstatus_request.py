@@ -4,7 +4,6 @@ from ..base_request import BaseRequest
 
 @dataclass
 class GetStatusRequest(BaseRequest):
-
     def __init__(self, target: str, token: str, msgid: str, idsf: int):
         super().__init__()
         self.function = "getstatus"

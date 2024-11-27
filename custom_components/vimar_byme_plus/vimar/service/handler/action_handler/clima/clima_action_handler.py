@@ -19,8 +19,9 @@ OFF_STATE = SfeType.STATE_OFF_BEHAVIOUR
 
 
 class ClimaActionHandler(BaseActionHandler):
-    
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.SET_HVAC_MODE:
             return self.set_hvac_mode(component, args[0])
         if action_type == ActionType.SET_PRESET_MODE:
@@ -74,13 +75,17 @@ class ClimaActionHandler(BaseActionHandler):
         if fan_mode == FanMode.FAN_HIGH.ha_value:
             return self._action(id, FAN, FanMode.FAN_HIGH.vimar_value)
         return None
-    
-    def _get_previous_hvac_mode_on_if_needed(self, component: VimarClimate) -> list[VimarAction]:
+
+    def _get_previous_hvac_mode_on_if_needed(
+        self, component: VimarClimate
+    ) -> list[VimarAction]:
         if component.hvac_mode == HVACMode.OFF:
             return self.set_hvac_mode(component, HVACMode.AUTO.vimar_value)
         return []
 
     def _get_timed_manual_if_needed(self, component: VimarClimate) -> list[VimarAction]:
         if component.on_behaviour == PresetMode.AUTO:
-            return self.set_preset_mode(component.id, PresetMode.TIMED_MANUAL.vimar_value)
+            return self.set_preset_mode(
+                component.id, PresetMode.TIMED_MANUAL.vimar_value
+            )
         return []

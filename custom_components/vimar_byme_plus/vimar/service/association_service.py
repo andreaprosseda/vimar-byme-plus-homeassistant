@@ -77,7 +77,9 @@ class AssociationService:
         client = SyncAttachPhase(config, handler)
         return client.connect()
 
-    def _get_config(self, port: int, user_credentials: UserCredentials = None) -> WebSocketConfig:
+    def _get_config(
+        self, port: int, user_credentials: UserCredentials = None
+    ) -> WebSocketConfig:
         config = WebSocketConfig()
         config.gateway_info = self.gateway_info
         config.user_credentials = user_credentials

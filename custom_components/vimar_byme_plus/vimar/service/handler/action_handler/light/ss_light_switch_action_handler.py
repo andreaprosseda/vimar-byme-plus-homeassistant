@@ -13,7 +13,9 @@ class SsLightSwitchActionHandler(BaseActionHandler):
     SFTYPE = SfType.LIGHT.value
     SSTYPE = SsType.LIGHT_SWITCH.value
 
-    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
+    def get_actions(
+        self, component: VimarComponent, action_type: ActionType, *args
+    ) -> list[VimarAction]:
         if action_type == ActionType.ON:
             return self.get_turn_on_actions(component.id)
         if action_type == ActionType.OFF:

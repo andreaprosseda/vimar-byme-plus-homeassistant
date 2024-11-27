@@ -44,7 +44,9 @@ class SsAudioBluetoothMapper:
             return MediaPlayerState.PAUSED
         return MediaPlayerState.ON
 
-    def get_media_content_type(self, component: UserComponent) -> MediaType | str | None:
+    def get_media_content_type(
+        self, component: UserComponent
+    ) -> MediaType | str | None:
         """Content type of current playing media."""
         return MediaType.MUSIC
 
@@ -76,7 +78,9 @@ class SsAudioBluetoothMapper:
         """Name of the current input source."""
         return None
 
-    def get_supported_features(self, component: UserComponent) -> list[MediaPlayerEntityFeature]:
+    def get_supported_features(
+        self, component: UserComponent
+    ) -> list[MediaPlayerEntityFeature]:
         """Flag media player features that are supported."""
         return [
             MediaPlayerEntityFeature.PLAY,
