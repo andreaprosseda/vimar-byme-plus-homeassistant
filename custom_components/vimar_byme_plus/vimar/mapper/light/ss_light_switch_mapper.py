@@ -15,6 +15,7 @@ class SsLightSwitchMapper:
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
+            device_class="light",
             area=component.ambient.name,
             is_on=self.get_is_on(component),
             brightness=None,

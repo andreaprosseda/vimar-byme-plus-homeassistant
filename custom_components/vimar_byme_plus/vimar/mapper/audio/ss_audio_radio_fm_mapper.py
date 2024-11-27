@@ -20,6 +20,7 @@ class SsAudioRadioFmMapper:
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
+            device_class="receiver",
             area=component.ambient.name,
             is_on=True,
             state=self.get_state(component),

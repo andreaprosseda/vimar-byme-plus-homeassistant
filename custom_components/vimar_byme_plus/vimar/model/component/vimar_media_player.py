@@ -67,46 +67,6 @@ class VimarMediaPlayer(VimarComponent):
     source_list: list[Source] | None
     supported_features: list[MediaPlayerEntityFeature]
 
-    def __init__(
-        self,
-        id: str,
-        name: str,
-        device_group: str,
-        device_name: str,
-        area: str,
-        is_on: bool | None = None,
-        state: MediaPlayerState | None = None,
-        volume_level: float | None = None,
-        volume_step: float = None,
-        is_volume_muted: bool | None = None,
-        media_content_type: MediaType | str | None = None,
-        media_title: str | None = None,
-        media_artist: str | None = None,
-        media_album_name: str | None = None,
-        media_album_artist: str | None = None,
-        media_track: int | None = None,
-        source_id: str | None = None,
-        current_source: str | None = None,
-        source_list: list[Source] | None = None,
-        supported_features: MediaPlayerEntityFeature = None,
-    ) -> None:
-        super().__init__(id, name, device_group, device_name, area)
-        self.is_on = is_on
-        self.state = state
-        self.volume_level = volume_level
-        self.volume_step = volume_step
-        self.is_volume_muted = is_volume_muted
-        self.media_content_type = media_content_type
-        self.media_title = media_title
-        self.media_artist = media_artist
-        self.media_album_name = media_album_name
-        self.media_album_artist = media_album_artist
-        self.media_track = media_track
-        self.source_id = source_id
-        self.current_source = current_source
-        self.source_list = source_list
-        self.supported_features = supported_features
-
     @staticmethod
     def get_table_header() -> list:
         return ["Area", "Name", "Type", "isOn", "Source", "Volume"]

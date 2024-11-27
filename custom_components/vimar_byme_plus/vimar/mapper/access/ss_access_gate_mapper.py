@@ -13,6 +13,7 @@ class SsAccessGateMapper:
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
+            device_class="gate",
             area=component.ambient.name,
             current_cover_position=self.current_position(component),
             is_closed=self.is_closed(component),

@@ -26,6 +26,7 @@ class ClimaMapper:
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
+            device_class="climate",
             area=component.ambient.name,
             current_temperature=ClimaMapper.current_temperature(component),
             min_temp=ClimaMapper.min_temp(component),
