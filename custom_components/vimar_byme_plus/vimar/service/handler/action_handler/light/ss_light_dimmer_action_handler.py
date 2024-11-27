@@ -14,9 +14,7 @@ class SsLightDimmerActionHandler(BaseActionHandler):
     SFTYPE = SfType.LIGHT.value
     SSTYPE = SsType.LIGHT_DIMMER.value
 
-    def get_actions(
-        self, component: VimarComponent, action_type: ActionType, *args
-    ) -> list[VimarAction]:
+    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
         if action_type == ActionType.ON:
             return self.get_turn_on_actions(component.id, args[0])
         if action_type == ActionType.OFF:

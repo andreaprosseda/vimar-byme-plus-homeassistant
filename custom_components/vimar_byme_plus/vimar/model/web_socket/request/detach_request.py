@@ -4,6 +4,7 @@ from ..base_request import BaseRequest
 
 @dataclass
 class DetachRequest(BaseRequest):
+
     def __init__(self, target: str, token: str, msgid: str):
         super().__init__()
         self.function = "detach"

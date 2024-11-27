@@ -4,9 +4,7 @@ from ....model.gateway.gateway_info import GatewayInfo
 from ....model.web_socket.base_request import BaseRequest
 from ....model.web_socket.base_request_response import BaseRequestResponse
 from ....model.web_socket.base_response import BaseResponse
-from ....model.web_socket.supporting_models.message_supporting_values import (
-    MessageSupportingValues,
-)
+from ....model.web_socket.supporting_models.message_supporting_values import MessageSupportingValues
 from ....utils.session_token import get_session_token
 from .phase.ambient_discovery_message_handler import AmbientDiscoveryMessageHandler
 from .phase.attach_message_handler import AttachMessageHandler
@@ -82,9 +80,7 @@ class MessageHandler:
         if message.msgid:
             self._last_msgid = int(message.msgid)
 
-    def _save_token_if_needed(
-        self, phase: IntegrationPhase, message: BaseRequestResponse
-    ):
+    def _save_token_if_needed(self, phase: IntegrationPhase, message: BaseRequestResponse):
         if phase == IntegrationPhase.ATTACH and isinstance(message, BaseResponse):
             self._token = message.result[0]["token"]
 

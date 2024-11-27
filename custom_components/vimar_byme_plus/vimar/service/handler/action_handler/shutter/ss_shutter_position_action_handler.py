@@ -13,9 +13,7 @@ class SsShutterPositionActionHandler(BaseActionHandler):
     SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_POSITION.value
 
-    def get_actions(
-        self, component: VimarComponent, action_type: ActionType, *args
-    ) -> list[VimarAction]:
+    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
         if action_type == ActionType.OPEN:
             return self.get_open_cover_actions(component.id)
         if action_type == ActionType.CLOSE:
@@ -38,8 +36,6 @@ class SsShutterPositionActionHandler(BaseActionHandler):
         """Stop the cover."""
         return [self._action(id, SHUTTER, "Stop")]
 
-    def get_set_cover_position_actions(
-        self, id: str, position: int
-    ) -> list[VimarAction]:
+    def get_set_cover_position_actions(self, id: str, position: int) -> list[VimarAction]:
         """Move the cover to a specific position."""
         return [self._action(id, SHUTTER, str(position))]

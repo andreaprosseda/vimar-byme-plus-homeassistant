@@ -5,6 +5,7 @@ from ...component.vimar_action import VimarAction
 
 @dataclass
 class DoActionRequest(BaseRequest):
+
     def __init__(self, target: str, token: str, msgid: str, actions: list[VimarAction]):
         super().__init__()
         self.function = "doaction"

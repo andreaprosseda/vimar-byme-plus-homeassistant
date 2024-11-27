@@ -67,15 +67,11 @@ class SsAudioZoneMapper:
     def get_is_volume_muted(self, component: UserComponent) -> bool | None:
         return self.get_volume_level(component) == 0
 
-    def get_media_content_type(
-        self, component: UserComponent
-    ) -> MediaType | str | None:
+    def get_media_content_type(self, component: UserComponent) -> MediaType | str | None:
         """Content type of current playing media."""
         return MediaType.MUSIC
 
-    def get_media_title(
-        self, component: UserComponent, sources: list[VimarMediaPlayer]
-    ) -> str | None:
+    def get_media_title(self, component: UserComponent, sources: list[VimarMediaPlayer]) -> str | None:
         """Title of current playing media."""
         return self.get_current_source(component, sources)
 
@@ -99,22 +95,16 @@ class SsAudioZoneMapper:
         """Name of the current input source."""
         return None
 
-    def get_current_source(
-        self, component: UserComponent, sources: list[VimarMediaPlayer]
-    ) -> str | None:
+    def get_current_source(self, component: UserComponent, sources: list[VimarMediaPlayer]) -> str | None:
         """Name of the current input source."""
         value = component.get_value(SfeType.STATE_CURRENT_SOURCE)
         return self._get_source_name(value, sources)
 
-    def get_source_list(
-        self, component: UserComponent, sources: list[VimarMediaPlayer]
-    ) -> list[str] | None:
+    def get_source_list(self, component: UserComponent, sources: list[VimarMediaPlayer]) -> list[str] | None:
         """Name of all input sources."""
         return [Source(source.source_id, source.name) for source in sources]
 
-    def get_supported_features(
-        self, component: UserComponent
-    ) -> list[MediaPlayerEntityFeature]:
+    def get_supported_features(self, component: UserComponent) -> list[MediaPlayerEntityFeature]:
         """Flag media player features that are supported."""
         return [
             MediaPlayerEntityFeature.VOLUME_SET,
@@ -125,9 +115,7 @@ class SsAudioZoneMapper:
             MediaPlayerEntityFeature.TURN_ON,
         ]
 
-    def _get_source_name(
-        self, value: str | None, sources: list[VimarMediaPlayer]
-    ) -> str | None:
+    def _get_source_name(self, value: str | None, sources: list[VimarMediaPlayer]) -> str | None:
         if not value:
             return None
         for source in sources:

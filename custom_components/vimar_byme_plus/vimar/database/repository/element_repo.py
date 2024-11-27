@@ -5,6 +5,7 @@ from sqlite3 import Connection
 
 
 class ElementRepo(BaseRepo):
+
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()

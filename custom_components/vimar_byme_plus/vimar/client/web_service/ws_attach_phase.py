@@ -36,9 +36,7 @@ class WSAttachPhase(WebSocketBaseVimar):
     def on_error(self, ws: WebSocketApp, exception: Exception):
         callback = self._config.on_error_message_callback
         if callback:
-            request = callback(
-                self.last_client_message, self.last_server_message, exception
-            )
+            request = callback(self.last_client_message, self.last_server_message, exception)
             if request:
                 self.send(request)
             else:

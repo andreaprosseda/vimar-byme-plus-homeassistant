@@ -5,6 +5,7 @@ from ..supporting_models.communication import Communication, CommunicationMode
 
 @dataclass
 class SessionRequest(BaseRequest):
+
     def __init__(self, target: str, token: str, ip_address: str):
         super().__init__(
             function="session",
@@ -24,5 +25,7 @@ class SessionRequest(BaseRequest):
 
     def get_communication(self, ip_address: str) -> Communication:
         return Communication(
-            address=ip_address, port=0, mode=CommunicationMode.WEB_SOCKET
+            address=ip_address,
+            port=0,
+            mode=CommunicationMode.WEB_SOCKET
         )

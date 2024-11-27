@@ -4,6 +4,7 @@ from ...model.repository.user_ambient import UserAmbient
 
 
 class AmbientRepo(BaseRepo):
+
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()

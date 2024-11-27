@@ -12,21 +12,14 @@ class ErrorHandler:
     def __init__(self, gateway_info: GatewayInfo):
         self._gateway_info = gateway_info
 
-    def error_message_received(
-        self,
-        last_client_message: BaseRequestResponse,
-        last_server_message: BaseRequestResponse,
-        exception: Exception,
-    ) -> BaseRequestResponse:
+    def error_message_received(self, last_client_message: BaseRequestResponse, last_server_message: BaseRequestResponse, exception: Exception) -> BaseRequestResponse:
         if self.is_temporary_error(exception, last_client_message):
             return self.handle_temporary_error(last_client_message)
         if self.is_permanent_error(last_server_message):
             return self.handle_permanent_error()
         return None
 
-    def is_temporary_error(
-        self, exception: Exception, message: BaseRequestResponse
-    ) -> bool:
+    def is_temporary_error(self, exception: Exception, message: BaseRequestResponse) -> bool:
         if self.is_ssl_error(exception):
             return True
         if self.is_vimar_temporary_error(message):
@@ -39,9 +32,7 @@ class ErrorHandler:
             return True
         return False
 
-    def handle_temporary_error(
-        self, last_client_message: BaseRequestResponse
-    ) -> BaseRequestResponse:
+    def handle_temporary_error(self, last_client_message: BaseRequestResponse) -> BaseRequestResponse:
         return last_client_message
 
     def handle_permanent_error(self):

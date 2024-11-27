@@ -7,7 +7,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN, MANIFACTURER
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_component import VimarComponent
-from .vimar.model.enum.component_type import ComponentType
 from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.enum.action_type import ActionType
 
@@ -17,11 +16,7 @@ class BaseEntity(CoordinatorEntity):
 
     _component: VimarComponent
 
-    def __init__(
-        self,
-        coordinator: Coordinator,
-        component: VimarComponent,
-    ) -> None:
+    def __init__(self, coordinator: Coordinator, component: VimarComponent) -> None:
         """Initialize BaseEntity."""
         super().__init__(coordinator)
         self._component = component

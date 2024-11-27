@@ -19,9 +19,8 @@ OFF_STATE = SfeType.STATE_OFF_BEHAVIOUR
 
 
 class ClimaActionHandler(BaseActionHandler):
-    def get_actions(
-        self, component: VimarComponent, action_type: ActionType, *args
-    ) -> list[VimarAction]:
+    
+    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
         if action_type == ActionType.SET_HVAC_MODE:
             return self.set_hvac_mode(component, args[0])
         if action_type == ActionType.SET_PRESET_MODE:

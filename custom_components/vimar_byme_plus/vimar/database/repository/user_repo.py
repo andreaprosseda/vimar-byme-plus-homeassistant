@@ -4,6 +4,7 @@ from sqlite3 import Connection
 
 
 class UserRepo(BaseRepo):
+
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()
@@ -33,7 +34,10 @@ class UserRepo(BaseRepo):
             return None
         username, setup_code, useruid, password = record
         return UserCredentials(
-            username=username, useruid=useruid, password=password, setup_code=setup_code
+            username=username,
+            useruid=useruid,
+            password=password,
+            setup_code=setup_code
         )
 
     def insert(self, credentials: UserCredentials):
@@ -60,12 +64,5 @@ class UserRepo(BaseRepo):
             SET useruid = ?, password = ?, setup_code = ?
             WHERE username = ?;
         """
-        self.execute(
-            query,
-            (
-                credentials.useruid,
-                credentials.password,
-                None,
-                credentials.username,
-            ),
-        )
+        values = (credentials.useruid, credentials.password, None, credentials.username,)
+        self.execute(query, values,)

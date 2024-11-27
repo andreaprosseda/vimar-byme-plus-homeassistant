@@ -5,6 +5,7 @@ from ..supporting_models.parameter import Parameter
 
 @dataclass
 class SfDiscoveryRequest(BaseRequest):
+
     def __init__(self, target: str, token: str, ambient_ids: list[str]):
         super().__init__()
         self.function = "sfdiscovery"

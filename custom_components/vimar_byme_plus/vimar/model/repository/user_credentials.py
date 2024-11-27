@@ -31,5 +31,7 @@ class UserCredentials:
     def obj_from_dict(response: BaseResponse) -> "UserCredentials":
         result = response.result[0]
         return UserCredentials(
-            username=USERNAME, useruid=result["useruid"], password=result["password"]
+            username=USERNAME,
+            useruid=result["useruid"],
+            password=result["password"]
         )

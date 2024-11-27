@@ -42,9 +42,7 @@ class SsShutterPositionMapper(BaseMapper):
         position = self._get_position(component)
         return is_changing and position <= 50
 
-    def get_supported_features(
-        self, component: UserComponent
-    ) -> list[CoverEntityFeature]:
+    def get_supported_features(self, component: UserComponent) -> list[CoverEntityFeature]:
         """Flag media player features that are supported."""
         return [
             CoverEntityFeature.CLOSE,

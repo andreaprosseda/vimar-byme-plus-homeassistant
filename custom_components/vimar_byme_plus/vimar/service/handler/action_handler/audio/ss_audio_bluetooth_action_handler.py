@@ -14,9 +14,7 @@ class SsAudioBluetoothActionHandler(BaseActionHandler):
     SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_BLUETOOTH.value
 
-    def get_actions(
-        self, component: VimarComponent, action_type: ActionType, *args
-    ) -> list[VimarAction]:
+    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
         if action_type == ActionType.PLAY:
             return self.get_play_actions(component.id)
         if action_type == ActionType.PAUSE:

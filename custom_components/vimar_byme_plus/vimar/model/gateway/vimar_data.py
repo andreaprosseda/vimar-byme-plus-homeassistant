@@ -27,12 +27,7 @@ class VimarData:
         return self._audios
 
     def get_all(self) -> list[VimarComponent]:
-        return (
-            self.get_lights()
-            + self.get_covers()
-            + self.get_climates()
-            + self.get_audios()
-        )
+        return self.get_lights() + self.get_covers() + self.get_climates() + self.get_audios()
 
     def get_by_id(self, id: str) -> VimarComponent:
         for component in self.get_all():

@@ -13,9 +13,7 @@ class SsShutterWithoutPositionActionHandler(BaseActionHandler):
     SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_WITHOUT_POSITION.value
 
-    def get_actions(
-        self, component: VimarComponent, action_type: ActionType, *args
-    ) -> list[VimarAction]:
+    def get_actions(self, component: VimarComponent, action_type: ActionType, *args) -> list[VimarAction]:
         if action_type == ActionType.OPEN:
             return self.get_open_cover_actions(component.id)
         if action_type == ActionType.CLOSE:

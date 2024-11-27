@@ -8,6 +8,7 @@ from ...repository.user_credentials import UserCredentials
 
 @dataclass
 class AttachRequest(BaseRequest):
+
     def __init__(
         self,
         target: str,
@@ -23,9 +24,7 @@ class AttachRequest(BaseRequest):
         self.msgid = "0"
         self.args = self.get_args(protocol_version, user_credentials, ip_address)
 
-    def get_args(
-        self, protocol_version: str, user_credentials: UserCredentials, ip_address: str
-    ) -> list:
+    def get_args(self, protocol_version: str, user_credentials: UserCredentials, ip_address: str) -> list:
         credential = self.get_credential(user_credentials)
         client_info = self.get_client_info(user_credentials, protocol_version)
         communication = self.get_communication(ip_address)
@@ -39,9 +38,7 @@ class AttachRequest(BaseRequest):
             password=credentials.password,
         )
 
-    def get_client_info(
-        self, credentials: UserCredentials, protocol_version: str
-    ) -> ClientInfo:
+    def get_client_info(self, credentials: UserCredentials, protocol_version: str) -> ClientInfo:
         return ClientInfo(
             client_tag="thirdpartyapp",
             sf_model_version="1.0.0",
@@ -52,12 +49,7 @@ class AttachRequest(BaseRequest):
     def get_communication(self, ip_address: str) -> Communication:
         return Communication(address=ip_address)
 
-    def get_argument(
-        self,
-        credential: Credential,
-        client_info: ClientInfo,
-        communication: Communication,
-    ):
+    def get_argument(self, credential: Credential, client_info: ClientInfo, communication: Communication):
         return {
             "credential": credential,
             "clientinfo": client_info,

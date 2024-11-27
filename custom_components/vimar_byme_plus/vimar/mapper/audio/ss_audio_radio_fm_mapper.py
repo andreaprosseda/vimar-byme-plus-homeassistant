@@ -36,9 +36,7 @@ class SsAudioRadioFmMapper:
         """State of the player."""
         return MediaPlayerState.PLAYING
 
-    def get_media_content_type(
-        self, component: UserComponent
-    ) -> MediaType | str | None:
+    def get_media_content_type(self, component: UserComponent) -> MediaType | str | None:
         """Content type of current playing media."""
         return MediaType.CHANNEL
 
@@ -58,9 +56,7 @@ class SsAudioRadioFmMapper:
         """List of available input sources."""
         return self._get_frequency_names(component)
 
-    def get_supported_features(
-        self, component: UserComponent
-    ) -> list[MediaPlayerEntityFeature]:
+    def get_supported_features(self, component: UserComponent) -> list[MediaPlayerEntityFeature]:
         """Flag media player features that are supported."""
         return [
             MediaPlayerEntityFeature.PREVIOUS_TRACK,
@@ -95,9 +91,7 @@ class SsAudioRadioFmMapper:
         except Exception:
             return 0
 
-    def _get_frequency_name_by_id(
-        self, frequency_id: int, component: UserComponent
-    ) -> str | None:
+    def _get_frequency_name_by_id(self, frequency_id: int, component: UserComponent) -> str | None:
         try:
             frequencies = component.get_value(SfeType.STATE_MEM_FREQUENCY_NAMES)
             frequencies_json = json.loads(frequencies)
