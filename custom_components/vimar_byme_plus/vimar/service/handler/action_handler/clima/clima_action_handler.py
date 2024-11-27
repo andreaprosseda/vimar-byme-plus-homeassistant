@@ -43,7 +43,7 @@ class ClimaActionHandler(BaseActionHandler):
         return [self._action(id, HVAC_MODE, preset_mode.vimar_value)]
 
     def set_temperature(self, component: VimarClimate, temp: str) -> list[VimarAction]:
-        result = self._get_previous_hvac_mode_on(component)
+        result = self._get_previous_hvac_mode_on_if_needed(component)
         result.extend(self._get_timed_manual_if_needed(component))
         result.append(self._action(component.id, SETPOINT, temp))
         return result
@@ -75,6 +75,11 @@ class ClimaActionHandler(BaseActionHandler):
             return self._action(id, FAN, FanMode.FAN_HIGH.vimar_value)
         return None
     
+    def _get_previous_hvac_mode_on_if_needed(self, component: VimarClimate) -> list[VimarAction]:
+        if component.hvac_mode == HVACMode.OFF:
+            return self.set_hvac_mode(component, HVACMode.AUTO.vimar_value)
+        return []
+
     def _get_timed_manual_if_needed(self, component: VimarClimate) -> list[VimarAction]:
         if component.on_behaviour == PresetMode.AUTO:
             return self.set_preset_mode(component.id, PresetMode.TIMED_MANUAL.vimar_value)
