@@ -78,7 +78,14 @@ Your support directly powers my coffee stash, keeps my energy up, and lets me fo
 If my work has helped you in any way, consider buying me a coffee — it’s a small way to contribute but makes a big difference and helps keep this project alive and maintained. 
 Thank you for fueling my passion for tech and open-source! ❤️
 
-[![Buy Me a Coffee][coffee-shield]][coffee-url]
+<a href="https://www.buymeacoffee.com/andreaprosseda">
+  <img align="center" src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="coffee image" height="55" />
+</a>
+
+<a href="https://paypal.me/AndreaProsseda">
+  <img align="center" src="https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png" alt="paypal image" height="80" />
+</a>
+
 
 <!-- Requirements -->
 ## Requirements
@@ -308,6 +315,9 @@ Use this space to list resources you find helpful and would like to give credit 
 
 [coffee-shield]: https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png
 [coffee-url]: https://www.buymeacoffee.com/andreaprosseda
+
+[paypal-shield]: https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png
+[paypal-url]: https://paypal.me/AndreaProsseda
 
 [vimar-integration-url]: https://www.vimar.com/it/it/integrazione-con-il-sistema-domotico-by-me-plus-17577122.html
 [hacs-url]: https://hacs.xyz
