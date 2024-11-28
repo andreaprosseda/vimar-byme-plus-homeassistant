@@ -13,7 +13,14 @@ class AccessActionHandler(BaseActionHandler):
     ) -> list[VimarAction]:
         if action_type == ActionType.OPEN:
             return self.get_open_cover_actions(component.id)
+        if action_type == ActionType.SET_LEVEL:
+            return self.get_open_cover_actions(component.id, args[0])
         raise NotImplementedError
+
+    def set_cover_position(self, id: str, position: str) -> list[VimarAction]:
+        if position and int(position) > 0:
+            return [self._action(id, ON_OFF, "On")]
+        return []
 
     def get_open_cover_actions(self, id: str) -> list[VimarAction]:
         return [self._action(id, ON_OFF, "On")]
