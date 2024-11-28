@@ -22,12 +22,13 @@
   <h3 align="center">Vimar By-me Plus for HomeAssistant</h3>
 
   <p align="center">
-    An Home Assistant Custom Integration for Vimar Gateway 01410/01411
-    <br />
+    <p>An Home Assistant Custom Integration for Vimar Gateway 01410/01411<p/>
+    <p>If you like this repo, give me a ⭐ clicking on the `Star` button in upper right corner<p/>
     <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues/new?labels=bug&template=bug-report.md">Report Bug</a>
     ·
     <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues/new?labels=enhancement&template=feature-request.md">Request Feature</a>
   </p>
+    <br />
 </div>
 
 
