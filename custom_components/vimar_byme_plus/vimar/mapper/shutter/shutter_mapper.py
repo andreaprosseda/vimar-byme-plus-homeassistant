@@ -4,6 +4,8 @@ from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_cover import VimarCover
 from ...model.enum.sftype_enum import SfType
+from ...utils.logger import not_implemented
+from ...utils.filtering import filter_none
 
 
 class ShutterMapper:
@@ -11,12 +13,17 @@ class ShutterMapper:
     def from_list(components: list[UserComponent]) -> list[VimarCover]:
         sftype = SfType.SHUTTER.value
         shutters = [component for component in components if component.sftype == sftype]
-        return [ShutterMapper.from_obj(shutter) for shutter in shutters]
+        components = [ShutterMapper.from_obj(shutter) for shutter in shutters]
+        return filter_none(components)
 
     @staticmethod
     def from_obj(component: UserComponent, *args) -> VimarCover:
-        mapper = ShutterMapper.get_mapper(component)
-        return mapper.from_obj(component, *args)
+        try:
+            mapper = ShutterMapper.get_mapper(component)
+            return mapper.from_obj(component, *args)
+        except NotImplementedError:
+            not_implemented(component)
+            return None
 
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
