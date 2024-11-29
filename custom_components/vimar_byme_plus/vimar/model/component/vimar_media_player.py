@@ -47,6 +47,10 @@ class MediaPlayerEntityFeature(Enum):
 class Source:
     id: str
     name: str
+    component_id: str
+    media_class: str
+    media_content_type: str
+    children_list: list[str]
 
 
 @dataclass
@@ -65,6 +69,7 @@ class VimarMediaPlayer(VimarComponent):
     source_id: str | None
     current_source: str | None
     source_list: list[Source] | None
+    source_flavor: Source | None
     supported_features: list[MediaPlayerEntityFeature]
 
     @staticmethod

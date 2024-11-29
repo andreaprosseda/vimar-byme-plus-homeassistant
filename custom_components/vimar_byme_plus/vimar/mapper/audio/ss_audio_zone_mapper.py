@@ -1,21 +1,16 @@
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_media_player import (
-    VimarMediaPlayer,
+    MediaPlayerEntityFeature,
     MediaPlayerState,
     MediaType,
-    MediaPlayerEntityFeature,
-    Source,
+    VimarMediaPlayer,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
 
 
 class SsAudioZoneMapper:
     SSTYPE = SsType.AUDIO_ZONE.value
-
-    # TBD:
-    # STATE_DEVICE_CONNECTED = 'SFE_State_DeviceConnected'
-    # STATE_AUX = 'SFE_State_Aux'
 
     def from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         sources = args[0]
@@ -40,6 +35,7 @@ class SsAudioZoneMapper:
             source_id=self.get_source_id(component),
             current_source=self.get_current_source(component, sources),
             source_list=self.get_source_list(component, sources),
+            source_flavor=None,
             supported_features=self.get_supported_features(component),
         )
 
@@ -114,7 +110,7 @@ class SsAudioZoneMapper:
         self, component: UserComponent, sources: list[VimarMediaPlayer]
     ) -> list[str] | None:
         """Name of all input sources."""
-        return [Source(source.source_id, source.name) for source in sources]
+        return [source.source_flavor for source in sources]
 
     def get_supported_features(
         self, component: UserComponent
@@ -125,6 +121,8 @@ class SsAudioZoneMapper:
             MediaPlayerEntityFeature.VOLUME_MUTE,
             MediaPlayerEntityFeature.VOLUME_STEP,
             MediaPlayerEntityFeature.SELECT_SOURCE,
+            MediaPlayerEntityFeature.BROWSE_MEDIA,
+            MediaPlayerEntityFeature.PLAY_MEDIA,
             MediaPlayerEntityFeature.TURN_OFF,
             MediaPlayerEntityFeature.TURN_ON,
         ]
