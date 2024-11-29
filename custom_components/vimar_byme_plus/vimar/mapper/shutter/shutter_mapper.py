@@ -1,3 +1,4 @@
+from .ss_curtain_position_mapper import SsCurtainPositionMapper
 from .ss_shutter_position_mapper import SsShutterPositionMapper
 from .ss_shutter_without_position_mapper import SsShutterWithoutPositionMapper
 from ..base_mapper import BaseMapper
@@ -32,4 +33,6 @@ class ShutterMapper:
             return SsShutterPositionMapper()
         if sstype == SsShutterWithoutPositionMapper.SSTYPE:
             return SsShutterWithoutPositionMapper()
+        if sstype == SsCurtainPositionMapper.SSTYPE:
+            return SsCurtainPositionMapper()
         raise NotImplementedError

@@ -18,28 +18,12 @@ class SsShutterWithoutPositionMapper(BaseMapper):
             device_name=component.sstype,
             device_class="shutter",
             area=component.ambient.name,
-            current_cover_position=self.current_position(component),
-            is_closed=self.is_closed(component),
-            is_closing=self.is_closing(component),
-            is_opening=self.is_opening(component),
+            current_cover_position=None,
+            is_closed=None,
+            is_closing=None,
+            is_opening=None,
             supported_features=self.get_supported_features(component),
         )
-
-    def current_position(self, component: UserComponent) -> int | None:
-        return None
-
-    def is_closed(self, component: UserComponent) -> bool | None:
-        return None
-
-    def is_closing(self, component: UserComponent) -> bool:
-        return None
-        # is_changing = self._is_changing(component)
-        # return is_changing
-
-    def is_opening(self, component: UserComponent) -> bool:
-        return None
-        # is_changing = self._is_changing(component)
-        # return is_changing
 
     def get_supported_features(
         self, component: UserComponent

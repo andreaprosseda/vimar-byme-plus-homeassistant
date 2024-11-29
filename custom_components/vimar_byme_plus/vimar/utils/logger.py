@@ -5,7 +5,6 @@ from ..model.repository.user_component import UserComponent
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 if "standalone" in __name__:
     level = logging.DEBUG
