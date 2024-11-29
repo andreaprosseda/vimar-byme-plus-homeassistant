@@ -22,9 +22,18 @@ class SsAudioBluetoothMapper:
             area=component.ambient.name,
             is_on=True,
             state=self.get_state(component),
+            volume_level=None,
+            volume_step=None,
+            is_volume_muted=None,
             media_content_type=self.get_media_content_type(component),
+            media_title=None,
+            media_artist=None,
+            media_album_name=None,
+            media_album_artist=None,
+            media_track=None,
             source_id=self.get_source_id(component),
             current_source=self.get_current_source(component),
+            source_list=None,
             supported_features=self.get_supported_features(component),
         )
 
