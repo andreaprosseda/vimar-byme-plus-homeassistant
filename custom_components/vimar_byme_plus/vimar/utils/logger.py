@@ -1,5 +1,6 @@
 import logging
 from .file import get_file_path, remove_file
+from ..model.repository.user_component import UserComponent
 
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
@@ -35,3 +36,10 @@ def log_debug(__name__: str, message: str):
 def log_error(__name__: str, message: str):
     logger.name = __name__
     logger.error(message)
+
+
+def not_implemented(component: UserComponent):
+    name = component.name
+    sstype = component.sstype
+    message = f"[{name}] Component of type {sstype} not yet implemented!"
+    log_error(__name__, message)

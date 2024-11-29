@@ -4,6 +4,8 @@ from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_cover import VimarCover
 from ...model.enum.sftype_enum import SfType
+from ...utils.logger import not_implemented
+from ...utils.filtering import filter_none
 
 
 class AccessMapper:
@@ -11,12 +13,17 @@ class AccessMapper:
     def from_list(components: list[UserComponent]) -> list[VimarCover]:
         sftype = SfType.ACCESS.value
         shutters = [component for component in components if component.sftype == sftype]
-        return [AccessMapper.from_obj(shutter) for shutter in shutters]
+        components = [AccessMapper.from_obj(shutter) for shutter in shutters]
+        return filter_none(components)
 
     @staticmethod
     def from_obj(component: UserComponent, *args) -> VimarCover:
-        mapper = AccessMapper.get_mapper(component)
-        return mapper.from_obj(component, *args)
+        try:
+            mapper = AccessMapper.get_mapper(component)
+            return mapper.from_obj(component, *args)
+        except NotImplementedError:
+            not_implemented(component)
+            return None
 
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
