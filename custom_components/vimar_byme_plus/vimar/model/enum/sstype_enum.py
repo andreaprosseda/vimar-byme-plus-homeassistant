@@ -11,6 +11,7 @@ class SsType(Enum):
     SHUTTER_POSITION = "SS_Shutter_Position"
     SHUTTER_WITHOUT_POSITION = "SS_Shutter_WithoutPosition"
     CURTAIN_POSITION = "SS_Curtain_Position"
+    CURTAIN_WITHOUT_POSITION = "SS_Curtain_WithoutPosition"
 
     AUDIO_RADIO_FM = "SS_Audio_RadioFM"
     AUDIO_ZONE = "SS_Audio_Zone"
