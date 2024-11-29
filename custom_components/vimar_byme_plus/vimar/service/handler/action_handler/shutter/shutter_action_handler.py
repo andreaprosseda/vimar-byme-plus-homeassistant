@@ -1,3 +1,7 @@
+from .ss_curtain_position_action_handler import SsCurtainPositionActionHandler
+from .ss_curtain_without_position_action_handler import (
+    SsCurtainWithoutPositionActionHandler,
+)
 from .ss_shutter_position_action_handler import SsShutterPositionActionHandler
 from .ss_shutter_without_position_action_handler import (
     SsShutterWithoutPositionActionHandler,
@@ -22,4 +26,8 @@ class ShutterActionHandler:
             return SsShutterPositionActionHandler()
         if sstype == SsShutterWithoutPositionActionHandler.SSTYPE:
             return SsShutterWithoutPositionActionHandler()
+        if sstype == SsCurtainPositionActionHandler.SSTYPE:
+            return SsCurtainPositionActionHandler()
+        if sstype == SsCurtainWithoutPositionActionHandler.SSTYPE:
+            return SsCurtainWithoutPositionActionHandler()
         raise NotImplementedError
