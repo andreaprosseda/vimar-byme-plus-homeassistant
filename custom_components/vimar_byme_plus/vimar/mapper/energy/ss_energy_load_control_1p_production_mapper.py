@@ -1,10 +1,63 @@
+from decimal import Decimal, ROUND_HALF_UP
+from ..base_mapper import BaseMapper
+from ...model.repository.user_component import UserComponent
+from ...model.component.vimar_sensor import (
+    VimarSensor,
+    SensorDeviceClass,
+    SensorStateClass,
+    SensorMeasurementUnit,
+)
+from ...model.enum.sftype_enum import SfType
+from ...model.enum.sfetype_enum import SfeType
+from ...model.enum.sstype_enum import SsType
 from .ss_energy_load_control_1p_mapper import SsEnergyLoadControl1pMapper
 from ...model.enum.sstype_enum import SsType
 
+MODES = {
+    "Exchange": SfeType.STATE_GLOBAL_ACTIVE_POWER_EXCHANGE,
+    "Production": SfeType.STATE_GLOBAL_ACTIVE_POWER_PRODUCT,
+    "Consumption": SfeType.STATE_GLOBAL_ACTIVE_POWER_CONSUMPTION,
+}
+
+EXCHANGE = SfeType.STATE_GLOBAL_ACTIVE_POWER_EXCHANGE
+PRODUCT = SfeType.STATE_GLOBAL_ACTIVE_POWER_PRODUCT
+CONSUMPTION = SfeType.STATE_GLOBAL_ACTIVE_POWER_CONSUMPTION
+
 
 class SsEnergyLoadControl1pProductionMapper(SsEnergyLoadControl1pMapper):
+    SFTYPE = SfType.ENERGY.value
     SSTYPE = SsType.ENERGY_LOAD_CONTROL_1P_PRODUCTION.value
 
-    # SFE_State_GlobalActivePowerExchange
-    # SFE_State_GlobalActivePowerProduct
-    # SFE_State_GlobalActivePowerConsumption
+    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
+        return [
+            self._from_obj(component, "Exchange"),
+            self._from_obj(component, "Production"),
+            self._from_obj(component, "Consumption"),
+        ]
+
+    def _from_obj(self, component: UserComponent, mode: str) -> VimarSensor:
+        return VimarSensor(
+            id=str(component.idsf) + "_" + mode.lower(),
+            name=component.name + " - " + mode,
+            device_group=component.sftype,
+            device_name=component.sstype,
+            device_class=SensorDeviceClass.POWER,
+            area=component.ambient.name,
+            native_value=self.native_value(component, MODES.get(mode)),
+            decimal_precision=self.decimal_precision(component),
+            unit_of_measurement=SensorMeasurementUnit.KILO_WATT,
+            state_class=SensorStateClass.MEASUREMENT,
+            options=None,
+        )
+
+    def native_value(
+        self, component: UserComponent, sfetype: SfeType
+    ) -> Decimal | None:
+        value = component.get_value(sfetype)
+        if not value:
+            return None
+        decimal_value = Decimal(value) / 1000
+        return decimal_value.quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
+
+    def decimal_precision(self, component: UserComponent) -> int:
+        return 3
