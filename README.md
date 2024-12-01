@@ -241,6 +241,11 @@ logger:
   - [X] Bluetooth (not tested)
 - [X] Add Clima
   - [x] Clima Zone
+- [x] Add Energy
+  - [x] Energy Load
+  - [x] Energy Measure (1P & 3P)
+  - [x] Energy Load Control (1P & 3P)
+  - [x] Energy Load Control Production (1P & 3P)
 - [x] Add Light
   - [x] Switch (On/Off)
   - [x] Dimmer (Brightness)
