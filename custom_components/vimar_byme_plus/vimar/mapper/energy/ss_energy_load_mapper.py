@@ -14,7 +14,10 @@ class SsEnergyLoadMapper(BaseMapper):
     SFTYPE = SfType.ENERGY.value
     SSTYPE = SsType.ENERGY_LOAD.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarSensor:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
+        return [self._from_obj(component, *args)]
+    
+    def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
             id=component.idsf,
             name=component.name,

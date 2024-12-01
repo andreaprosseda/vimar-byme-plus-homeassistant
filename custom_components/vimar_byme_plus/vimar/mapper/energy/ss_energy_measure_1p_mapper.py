@@ -16,7 +16,10 @@ class SsEnergyMeasure1pMapper(BaseMapper):
     SFTYPE = SfType.ENERGY.value
     SSTYPE = SsType.ENERGY_MEASURE_1P.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarSensor:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
+        return [self._from_obj(component, *args)]
+    
+    def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
             id=component.idsf,
             name=component.name,

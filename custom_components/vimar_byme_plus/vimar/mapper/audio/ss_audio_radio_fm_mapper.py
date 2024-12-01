@@ -15,7 +15,10 @@ from ...utils.logger import log_error
 class SsAudioRadioFmMapper:
     SSTYPE = SsType.AUDIO_RADIO_FM.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarMediaPlayer]:
+        return [self._from_obj(component, *args)]
+    
+    def _from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         return VimarMediaPlayer(
             id=component.idsf,
             name=component.name,

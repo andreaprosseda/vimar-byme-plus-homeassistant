@@ -5,7 +5,7 @@ from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_light import VimarLight
 from ...model.enum.sftype_enum import SfType
 from ...utils.logger import not_implemented
-from ...utils.filtering import filter_none
+from ...utils.filtering import flat
 
 
 class LightMapper:
@@ -14,16 +14,16 @@ class LightMapper:
         sftype = SfType.LIGHT.value
         lights = [component for component in components if component.sftype == sftype]
         components = [LightMapper.from_obj(light) for light in lights]
-        return filter_none(components)
+        return flat(components)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> VimarLight:
+    def from_obj(component: UserComponent, *args) -> list[VimarLight]:
         try:
             mapper = LightMapper.get_mapper(component)
             return mapper.from_obj(component, *args)
         except NotImplementedError:
             not_implemented(component)
-            return None
+            return []
 
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:

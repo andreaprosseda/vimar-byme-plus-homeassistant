@@ -14,7 +14,7 @@ from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_sensor import VimarSensor
 from ...model.enum.sftype_enum import SfType
 from ...utils.logger import not_implemented
-from ...utils.filtering import filter_none
+from ...utils.filtering import flat
 
 
 class EnergyMapper:
@@ -23,16 +23,16 @@ class EnergyMapper:
         sftype = SfType.ENERGY.value
         energies = [component for component in components if component.sftype == sftype]
         components = [EnergyMapper.from_obj(energy) for energy in energies]
-        return filter_none(components)
+        return flat(components)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> VimarSensor:
+    def from_obj(component: UserComponent, *args) -> list[VimarSensor]:
         try:
             mapper = EnergyMapper.get_mapper(component)
             return mapper.from_obj(component, *args)
         except NotImplementedError:
             not_implemented(component)
-            return None
+            return []
 
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:

@@ -12,7 +12,10 @@ from ...model.repository.user_component import UserComponent
 class SsAudioZoneMapper:
     SSTYPE = SsType.AUDIO_ZONE.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarMediaPlayer]:
+        return [self._from_obj(component, *args)]
+    
+    def _from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         sources = args[0]
         return VimarMediaPlayer(
             id=component.idsf,
