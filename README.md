@@ -261,9 +261,9 @@ logger:
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
   - [ ] Light (RGB, Philips, etc)
   - [ ] Shutter (Slat)
-- [ ] Add Energy
 - [ ] Add Irrigation
-- [ ] Add Sensor and Scene
+- [ ] Add Scene
+- [ ] Add Alarm
 - [ ] Add Video Intercom/Door Bell
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
