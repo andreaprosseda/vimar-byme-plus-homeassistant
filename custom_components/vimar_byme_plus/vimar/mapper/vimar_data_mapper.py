@@ -3,6 +3,7 @@ from .audio.audio_mapper import AudioMapper
 from .access.access_mapper import AccessMapper
 from .light.light_mapper import LightMapper
 from .shutter.shutter_mapper import ShutterMapper
+from .energy.energy_mapper import EnergyMapper
 from ..model.repository.user_component import UserComponent
 from ..model.gateway.vimar_data import VimarData
 
@@ -16,4 +17,5 @@ class VimarDataMapper:
             _access=AccessMapper.from_list(components),
             _climates=ClimaMapper.from_list(components),
             _audios=AudioMapper.from_list(components),
+            _energies=EnergyMapper.from_list(components),
         )

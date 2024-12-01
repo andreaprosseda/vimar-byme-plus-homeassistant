@@ -10,7 +10,13 @@ from homeassistant.exceptions import ConfigEntryAuthFailed
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 
-PLATFORMS = [Platform.CLIMATE, Platform.COVER, Platform.LIGHT, Platform.MEDIA_PLAYER]
+PLATFORMS = [
+    Platform.CLIMATE,
+    Platform.COVER,
+    Platform.LIGHT,
+    Platform.MEDIA_PLAYER,
+    Platform.SENSOR,
+]
 
 type CoordinatorConfigEntry = ConfigEntry[Coordinator]
 

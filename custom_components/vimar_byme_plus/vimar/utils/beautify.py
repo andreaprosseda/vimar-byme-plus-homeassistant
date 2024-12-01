@@ -15,6 +15,8 @@ def beautify(data: VimarData):
     print_table(data._climates)
     log_info(__name__, "\n\nAudios:")
     print_table(data._audios)
+    log_info(__name__, "\n\Energies:")
+    print_table(data._energies)
 
 
 def print_table(components: list[VimarComponent]):

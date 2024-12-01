@@ -5,12 +5,12 @@ from functools import reduce
 from typing import Any
 
 from homeassistant.components.media_player import (
+    BrowseMedia,
     MediaClass,
     MediaPlayerEntity,
     MediaPlayerEntityFeature,
     MediaPlayerState,
     MediaType,
-    BrowseMedia,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
