@@ -15,6 +15,8 @@ class SfeType(Enum):
     CMD_BRIGHTNESS = "SFE_Cmd_Brightness"
     CMD_SHUTTER = "SFE_Cmd_Shutter"
     CMD_SHUTTER_WITHOUT_POSITION = "SFE_Cmd_ShutterWithoutPosition"
+    CMD_SLAT = "SFE_Cmd_Slat"
+    CMD_SLAT_WITHOUT_POSITION = "SFE_Cmd_SlatWithoutPosition"
     CMD_TIMED_DYNAMIC_MODE = "SFE_Cmd_TimedDynamicMode"
     CMD_TIMED_MANUAL = "SFE_Cmd_TimedManual"
     CMD_SKIP_STATION = "SFE_Cmd_SkipStation"
@@ -51,6 +53,7 @@ class SfeType(Enum):
 
     STATE_OUT_STATUS = "SFE_State_OutStatus"
     STATE_SHUTTER = "SFE_State_Shutter"
+    STATE_SLAT = "SFE_State_Slat"
     STATE_TIMED_MANUAL = "SFE_State_TimedManual"
     STATE_HUMIDITY = "SFE_State_Humidity"
     STATE_HUMIDITY_SETPOINT = "SFE_State_HumiditySetpoint"

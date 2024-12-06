@@ -22,6 +22,7 @@ class SsShutterWithoutPositionMapper(BaseMapper):
             device_class="shutter",
             area=component.ambient.name,
             current_cover_position=None,
+            current_tilt_position=None,
             is_closed=None,
             is_closing=None,
             is_opening=None,

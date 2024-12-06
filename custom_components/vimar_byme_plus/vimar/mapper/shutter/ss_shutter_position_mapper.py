@@ -22,6 +22,7 @@ class SsShutterPositionMapper(BaseMapper):
             device_class="shutter",
             area=component.ambient.name,
             current_cover_position=self.current_position(component),
+            current_tilt_position=self.current_tilt_position(component),
             is_closed=self.is_closed(component),
             is_closing=self.is_closing(component),
             is_opening=self.is_opening(component),
@@ -31,6 +32,9 @@ class SsShutterPositionMapper(BaseMapper):
     def current_position(self, component: UserComponent) -> int | None:
         is_changing = self._is_changing(component)
         return self._get_position(component) if not is_changing else None
+
+    def current_tilt_position(self, component: UserComponent) -> int | None:
+        return None
 
     def is_closed(self, component: UserComponent) -> bool | None:
         position = self._get_position(component)

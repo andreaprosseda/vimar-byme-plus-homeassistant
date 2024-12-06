@@ -1,15 +1,19 @@
+from .....model.component.vimar_action import VimarAction
+from .....model.component.vimar_component import VimarComponent
+from .....model.enum.action_type import ActionType
+from ..base_action_handler import HandlerInterface
 from .ss_curtain_position_action_handler import SsCurtainPositionActionHandler
 from .ss_curtain_without_position_action_handler import (
     SsCurtainWithoutPositionActionHandler,
 )
 from .ss_shutter_position_action_handler import SsShutterPositionActionHandler
+from .ss_shutter_slat_position_action_handler import SsShutterSlatPositionActionHandler
+from .ss_shutter_slat_without_position_action_handler import (
+    SsShutterSlatWithoutPositionActionHandler,
+)
 from .ss_shutter_without_position_action_handler import (
     SsShutterWithoutPositionActionHandler,
 )
-from .....model.enum.action_type import ActionType
-from .....model.component.vimar_action import VimarAction
-from .....model.component.vimar_component import VimarComponent
-from ..base_action_handler import HandlerInterface
 
 
 class ShutterActionHandler:
@@ -26,6 +30,10 @@ class ShutterActionHandler:
             return SsShutterPositionActionHandler()
         if sstype == SsShutterWithoutPositionActionHandler.SSTYPE:
             return SsShutterWithoutPositionActionHandler()
+        if sstype == SsShutterSlatPositionActionHandler.SSTYPE:
+            return SsShutterSlatPositionActionHandler()
+        if sstype == SsShutterSlatWithoutPositionActionHandler.SSTYPE:
+            return SsShutterSlatWithoutPositionActionHandler()
         if sstype == SsCurtainPositionActionHandler.SSTYPE:
             return SsCurtainPositionActionHandler()
         if sstype == SsCurtainWithoutPositionActionHandler.SSTYPE:

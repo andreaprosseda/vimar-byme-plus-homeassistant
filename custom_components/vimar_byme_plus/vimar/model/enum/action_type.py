@@ -8,7 +8,13 @@ class ActionType(Enum):
     OPEN = "OPEN"
     CLOSE = "CLOSE"
     STOP = "STOP"
-
+    SET_POSITION = "SET_POSITION"
+    
+    OPEN_SLAT = "OPEN"
+    CLOSE_SLAT = "CLOSE"
+    STOP_SLAT = "STOP"
+    SET_SLAT_POSITION = "SET_POSITION"
+    
     PLAY = "PLAY"
     PAUSE = "PAUSE"
     PREVIOUS = "PREVIOUS"

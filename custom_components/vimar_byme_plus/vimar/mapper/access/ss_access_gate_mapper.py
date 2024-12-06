@@ -1,7 +1,7 @@
-from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_cover import VimarCover, CoverEntityFeature
-from ...model.enum.sstype_enum import SsType
+from ...model.component.vimar_cover import CoverEntityFeature, VimarCover
 from ...model.enum.sfetype_enum import SfeType
+from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
 
 
 class SsAccessGateMapper:
@@ -19,6 +19,7 @@ class SsAccessGateMapper:
             device_class="gate",
             area=component.ambient.name,
             current_cover_position=self.current_position(component),
+            current_tilt_position=None,
             is_closed=self.is_closed(component),
             is_closing=False,
             is_opening=False,
