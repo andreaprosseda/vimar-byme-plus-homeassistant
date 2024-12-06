@@ -7,7 +7,7 @@ from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_media_player import VimarMediaPlayer
 from ...model.enum.sftype_enum import SfType
 from ...utils.logger import not_implemented
-from ...utils.filtering import filter_none
+from ...utils.filtering import flat
 
 
 class AudioMapper:
@@ -16,17 +16,16 @@ class AudioMapper:
         sftype = SfType.AUDIO.value
         audios = [component for component in components if component.sftype == sftype]
         sources = AudioMapper.remove_sources(audios)
-        components = AudioMapper.get_components(audios, sources)
-        return filter_none(components)
+        return AudioMapper.get_components(audios, sources)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> VimarMediaPlayer:
+    def from_obj(component: UserComponent, *args) -> list[VimarMediaPlayer]:
         try:
             mapper = AudioMapper.get_mapper(component)
             return mapper.from_obj(component, *args)
         except NotImplementedError:
             not_implemented(component)
-            return None
+            return []
 
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
@@ -46,8 +45,10 @@ class AudioMapper:
         audio_list: list[UserComponent], source_list: list[UserComponent]
     ) -> list[VimarMediaPlayer]:
         sources = [AudioMapper.from_obj(source) for source in source_list]
-        audios = [AudioMapper.from_obj(audio, sources) for audio in audio_list]
-        return sources + audios
+        flat_sources = flat(sources)
+        audios = [AudioMapper.from_obj(audio, flat_sources) for audio in audio_list]
+        flat_audios = flat(audios)
+        return flat_sources + flat_audios
 
     @staticmethod
     def remove_sources(components: list[UserComponent]) -> list[UserComponent]:

@@ -9,7 +9,10 @@ class SsLightDimmerMapper:
     SFTYPE = SfType.LIGHT.value
     SSTYPE = SsType.LIGHT_DIMMER.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarLight:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarLight]:
+        return [self._from_obj(component, *args)]
+
+    def _from_obj(self, component: UserComponent, *args) -> VimarLight:
         return VimarLight(
             id=component.idsf,
             name=component.name,

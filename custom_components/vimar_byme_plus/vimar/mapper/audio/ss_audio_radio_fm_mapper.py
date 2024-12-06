@@ -9,12 +9,16 @@ from ...model.component.vimar_media_player import (
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...utils.logger import log_error
 
 
 class SsAudioRadioFmMapper:
     SSTYPE = SsType.AUDIO_RADIO_FM.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarMediaPlayer]:
+        return [self._from_obj(component, *args)]
+
+    def _from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         return VimarMediaPlayer(
             id=component.idsf,
             name=component.name,
@@ -36,6 +40,7 @@ class SsAudioRadioFmMapper:
             source_id=self.get_source_id(component),
             current_source=self.get_current_source(component),
             source_list=self.get_source_list(component),
+            source_flavor=self.get_source_flavor(component),
             supported_features=self.get_supported_features(component),
         )
 
@@ -61,9 +66,20 @@ class SsAudioRadioFmMapper:
         """Name of the current input source."""
         return self._get_frequency_name(component)
 
-    def get_source_list(self, component: UserComponent) -> list[str] | None:
+    def get_source_list(self, component: UserComponent) -> list[Source] | None:
         """List of available input sources."""
-        return self._get_frequency_names(component)
+        return self._get_frequency_sources(component)
+
+    def get_source_flavor(self, component: UserComponent) -> Source | None:
+        """Name of the current input source."""
+        return Source(
+            id=self.get_source_id(component),
+            name=component.name,
+            component_id=component.idsf,
+            media_class="channel",
+            media_content_type="channel",
+            children_list=self._get_frequency_names(component),
+        )
 
     def get_supported_features(
         self, component: UserComponent
@@ -112,19 +128,40 @@ class SsAudioRadioFmMapper:
         except Exception:
             return "Manual"
 
-    def _get_frequency_names(self, component: UserComponent) -> list[Source] | None:
+    def _get_frequency_sources(self, component: UserComponent) -> list[Source] | None:
         try:
             frequencies = component.get_value(SfeType.STATE_MEM_FREQUENCY_NAMES)
             frequencies_json = json.loads(frequencies)
             sources = []
             for i in range(8):
                 name = frequencies_json[f"freq{i+1}_name"]
-                source = self._get_source(i + 1, name)
+                source = self._get_source(component, i + 1, name)
                 sources.append(source)
-            sources.append(self._get_source(-1, "Manual"))
+            sources.append(self._get_source(component, -1, "Manual"))
             return sources
-        except Exception:
+        except Exception as e:
+            log_error(__name__, f"Exception occurred: {e}")
             return None
 
-    def _get_source(self, id: int, name: str) -> Source:
-        return Source(id=str(id), name=name)
+    def _get_frequency_names(self, component: UserComponent) -> list[str] | None:
+        try:
+            frequencies = component.get_value(SfeType.STATE_MEM_FREQUENCY_NAMES)
+            frequencies_json = json.loads(frequencies)
+            sources = []
+            for i in range(8):
+                name = frequencies_json[f"freq{i+1}_name"]
+                sources.append(name)
+            return sources
+        except Exception as e:
+            log_error(__name__, f"An exception occurred: {e}")
+            return None
+
+    def _get_source(self, component: UserComponent, id: int, name: str) -> Source:
+        return Source(
+            id=str(id),
+            name=name,
+            component_id=component.idsf,
+            media_class="channel",
+            media_content_type="channel",
+            children_list=[],
+        )

@@ -4,6 +4,7 @@ from ...model.component.vimar_media_player import (
     MediaType,
     MediaPlayerEntityFeature,
     MediaPlayerState,
+    Source,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
@@ -12,7 +13,10 @@ from ...model.enum.sstype_enum import SsType
 class SsAudioRcaMapper:
     SSTYPE = SsType.AUDIO_RCA.value
 
-    def from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
+    def from_obj(self, component: UserComponent, *args) -> list[VimarMediaPlayer]:
+        return [self._from_obj(component, *args)]
+
+    def _from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         return VimarMediaPlayer(
             id=component.idsf,
             name=component.name,
@@ -34,6 +38,7 @@ class SsAudioRcaMapper:
             source_id=self.get_source_id(component),
             current_source=self.get_current_source(component),
             source_list=None,
+            source_flavor=self.get_source_flavor(component),
             supported_features=self.get_supported_features(component),
         )
 
@@ -54,6 +59,17 @@ class SsAudioRcaMapper:
     def get_current_source(self, component: UserComponent) -> str | None:
         """Name of the current input source."""
         return None
+
+    def get_source_flavor(self, component: UserComponent) -> Source | None:
+        """Name of the current input source."""
+        return Source(
+            id=self.get_source_id(component),
+            name=component.name,
+            component_id=component.idsf,
+            media_class="music",
+            media_content_type="music",
+            children_list=[],
+        )
 
     def get_supported_features(
         self, component: UserComponent

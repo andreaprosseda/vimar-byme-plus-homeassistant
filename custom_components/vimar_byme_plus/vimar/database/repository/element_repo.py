@@ -8,6 +8,7 @@ class ElementRepo(BaseRepo):
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()
+        self.alter_table()
 
     def create_table(self):
         query = """
@@ -17,10 +18,23 @@ class ElementRepo(BaseRepo):
                 enable BOOLEAN NOT NULL,
                 sfetype TEXT NOT NULL,
                 value TEXT,
+                updated TIMESTAMP,
                 FOREIGN KEY (idcomponent) REFERENCES components (idsf)
             );
         """
         self.execute(query)
+
+    def alter_table(self):
+        query = "PRAGMA table_info(elements);"
+        cursor = self.cursor().execute(query)
+        columns = [column[1] for column in cursor.fetchall()]
+        if "updated" not in columns:
+            alter = "ALTER TABLE elements ADD COLUMN updated TIMESTAMP;"
+            cursor.execute(alter)
+            set_update = """
+            UPDATE elements SET updated = CURRENT_TIMESTAMP WHERE updated IS NULL;
+            """
+            cursor.execute(set_update)
 
     def get_value_by_id(self, idcomponent: str, type: str) -> str:
         elements_data = (idcomponent, type)
@@ -50,9 +64,9 @@ class ElementRepo(BaseRepo):
         elements_data = [element.to_tuple() for element in elements]
         query = """
             INSERT INTO elements
-                (enable, idcomponent, sfetype, value)
+                (enable, idcomponent, sfetype, value, updated)
             VALUES
-                (?, ?, ?, ?);
+                (?, ?, ?, ?, ?);
         """
         self.execute(query, elements_data)
 
@@ -60,7 +74,7 @@ class ElementRepo(BaseRepo):
         elements_data = [element.to_tuple_for_update() for element in elements]
         query = """
             UPDATE elements
-            SET enable = ?, value = ?
+            SET enable = ?, value = ?, updated = ?
             WHERE idcomponent = ? AND sfetype = ?;
         """
         self.execute(query, elements_data)

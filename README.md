@@ -241,20 +241,30 @@ logger:
   - [X] Bluetooth (not tested)
 - [X] Add Clima
   - [x] Clima Zone
+- [x] Add Energy
+  - [x] Energy Load
+  - [x] Energy Measure (1P & 3P)
+  - [x] Energy Load Control (1P & 3P)
+  - [x] Energy Load Control Production (1P & 3P)
 - [x] Add Light
   - [x] Switch (On/Off)
   - [x] Dimmer (Brightness)
 - [X] Add Shutter
   - [x] Shutter with Position
   - [x] Shutter without Position
-- [ ] Code cleaning
+  - [x] Curtain with Position
+  - [x] Curtain without Position
+- [x] Code and Readme cleaning
 - [ ] Add not implemented types of:
   - [ ] Access (InterfaceContact)
   - [ ] Audio (Bluetooth)
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
   - [ ] Light (RGB, Philips, etc)
-  - [ ] Shutter (Slat, Curtains, etc)
-- [ ] Add Energy, Irrigation, Sensor
+  - [ ] Shutter (Slat)
+- [ ] Add Irrigation
+- [ ] Add Scene
+- [ ] Add Alarm
+- [ ] Add Video Intercom/Door Bell
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

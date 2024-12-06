@@ -32,6 +32,8 @@ class SfeType(Enum):
     STATE_FAN_SPEED = "SFE_State_FanSpeed"
     STATE_FAN_SPEED_3V = "SFE_State_FanSpeed3V"
     STATE_FORCED_ON_TIME = "SFE_State_ForcedOnTime"
+    STATE_GLOBAL_ACTIVE_POWER_EXCHANGE = "SFE_State_GlobalActivePowerExchange"
+    STATE_GLOBAL_ACTIVE_POWER_PRODUCT = "SFE_State_GlobalActivePowerProduct"
     STATE_GLOBAL_ACTIVE_POWER_CONSUMPTION = "SFE_State_GlobalActivePowerConsumption"
     STATE_GLOBAL_THRESHOLD = "SFE_State_GlobalThreshold"
     STATE_HVAC_MODE = "SFE_State_HVACMode"

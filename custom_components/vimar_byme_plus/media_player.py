@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 from functools import reduce
+from typing import Any
 
 from homeassistant.components.media_player import (
+    BrowseMedia,
+    MediaClass,
     MediaPlayerEntity,
     MediaPlayerEntityFeature,
     MediaPlayerState,
@@ -15,7 +18,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from . import CoordinatorConfigEntry
 from .base_entity import BaseEntity
 from .coordinator import Coordinator
-from .vimar.model.component.vimar_media_player import VimarMediaPlayer
+from .vimar.model.component.vimar_media_player import VimarMediaPlayer, Source
 from .vimar.utils.logger import log_info
 from .vimar.model.enum.action_type import ActionType
 
@@ -151,3 +154,81 @@ class MediaPlayer(BaseEntity, MediaPlayerEntity):
     def select_source(self, source: str) -> None:
         """Select input source."""
         self.send(ActionType.SET_SOURCE, source)
+
+    async def async_browse_media(
+        self,
+        media_content_type: MediaType | str | None = None,
+        media_content_id: str | None = None,
+    ) -> BrowseMedia:
+        """Return a BrowseMedia instance."""
+        if media_content_type == MediaType.CHANNEL and media_content_id:
+            return self._browse_radio_fm(media_content_id)
+        return self._browse_root()
+
+    def play_media(
+        self, media_type: MediaType | str, media_id: str, **kwargs: Any
+    ) -> None:
+        """Play a piece of media."""
+        if media_type == MediaType.MUSIC.value:
+            self.send(ActionType.SET_SOURCE, media_id)
+        if media_type == MediaType.CHANNEL.value:
+            source = media_id.split("-")[0]
+            frequency_index = media_id.split("-")[1]
+            self.send(ActionType.SET_SOURCE, source, frequency_index)
+
+    def _browse_root(self) -> BrowseMedia:
+        sources = self._component.source_list
+        media_list = [self._get_browse_media_from_source(source) for source in sources]
+        return BrowseMedia(
+            title="Sources",
+            media_class=MediaClass.APP,
+            media_content_id="apps",
+            media_content_type=MediaType.APPS,
+            can_play=False,
+            can_expand=False,
+            children=media_list,
+        )
+
+    def _browse_radio_fm(self, media_content_id: str) -> BrowseMedia:
+        for source in self._component.source_list:
+            if source.id == media_content_id:
+                return self._browse_channel_from_source(source)
+        return None
+
+    def _browse_channel_from_source(self, source: Source) -> BrowseMedia:
+        children = source.children_list
+        media_list = [
+            self._get_browse_media_fm(source, index, child)
+            for index, child in enumerate(children, start=1)
+        ]
+        return BrowseMedia(
+            title=source.name,
+            media_class=MediaClass.CHANNEL,
+            media_content_id=source.id,
+            media_content_type=MediaType.CHANNELS,
+            can_play=not media_list,
+            can_expand=bool(media_list),
+            children=media_list,
+        )
+
+    def _get_browse_media_fm(
+        self, source: Source, index: int, name: str
+    ) -> BrowseMedia:
+        return BrowseMedia(
+            media_class=MediaClass.CHANNEL,
+            media_content_type=MediaClass.CHANNEL,
+            media_content_id=source.id + "-" + str(index),
+            title=name,
+            can_play=True,
+            can_expand=False,
+        )
+
+    def _get_browse_media_from_source(self, source: Source) -> BrowseMedia:
+        return BrowseMedia(
+            media_class=source.media_class,
+            media_content_type=source.media_content_type,
+            media_content_id=source.id,
+            title=source.name,
+            can_play=not source.children_list,
+            can_expand=bool(source.children_list),
+        )

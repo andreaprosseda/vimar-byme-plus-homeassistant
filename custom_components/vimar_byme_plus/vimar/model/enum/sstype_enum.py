@@ -17,3 +17,11 @@ class SsType(Enum):
     AUDIO_ZONE = "SS_Audio_Zone"
     AUDIO_RCA = "SS_Audio_RCA"
     AUDIO_BLUETOOTH = "SS_Audio_Bluetooth"
+
+    ENERGY_LOAD = "SS_Energy_Load"
+    ENERGY_LOAD_CONTROL_1P = "SS_Energy_LoadControl1P"
+    ENERGY_LOAD_CONTROL_3P = "SS_Energy_LoadControl3P"
+    ENERGY_LOAD_CONTROL_1P_PRODUCTION = "SS_Energy_LoadControl1PProduction"
+    ENERGY_LOAD_CONTROL_3P_PRODUCTION = "SS_Energy_LoadControl3PProduction"
+    ENERGY_MEASURE_1P = "SS_Energy_Measure1P"
+    ENERGY_MEASURE_3P = "SS_Energy_Measure3P"
