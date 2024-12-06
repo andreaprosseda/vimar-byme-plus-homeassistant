@@ -38,6 +38,12 @@ class UserComponent:
                 return element.value
         return None
 
+    def get_last_update(self, sfetype: SfeType) -> str:
+        for element in self.elements:
+            if element.sfetype == sfetype.value:
+                return element.last_update
+        return None
+
     @staticmethod
     def list_from_response(response: BaseResponse) -> list["UserComponent"]:
         components = []

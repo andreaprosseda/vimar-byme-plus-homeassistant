@@ -60,7 +60,7 @@ class ComponentRepo(BaseRepo):
         query = """
             SELECT
                 c.dictKey, c.idambient, c.idsf, c.name, c.sftype, c.sstype,
-                e.id, e.enable, e.sfetype, e.value,
+                e.id, e.enable, e.sfetype, e.value, e.updated,
                 a.dictKey, a.hash, a.idambient, a.idparent, a.name
             FROM
                 components c
@@ -120,6 +120,7 @@ class ComponentRepo(BaseRepo):
             e_enable,
             e_sfetype,
             e_value,
+            e_updated,
             a_dictKey,
             a_hash,
             a_idambient,
@@ -127,7 +128,7 @@ class ComponentRepo(BaseRepo):
             a_name,
         ) = row
         ambient = UserAmbient(a_dictKey, a_hash, a_idambient, a_idparent, a_name)
-        element = UserElement(e_enable, e_element_id, e_sfetype, e_value)
+        element = UserElement(e_enable, e_element_id, e_sfetype, e_value, e_updated)
         component = UserComponent(
             c_dictKey, c_idambient, c_idsf, c_name, c_sftype, c_sstype
         )

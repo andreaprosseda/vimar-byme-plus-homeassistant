@@ -12,7 +12,7 @@ class SsShutterPositionMapper(BaseMapper):
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarCover]:
         return [self._from_obj(component, *args)]
-    
+
     def _from_obj(self, component: UserComponent, *args) -> VimarCover:
         return VimarCover(
             id=component.idsf,

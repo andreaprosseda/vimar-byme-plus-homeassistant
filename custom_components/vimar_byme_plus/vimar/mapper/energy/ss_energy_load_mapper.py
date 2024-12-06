@@ -16,7 +16,7 @@ class SsEnergyLoadMapper(BaseMapper):
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
         return [self._from_obj(component, *args)]
-    
+
     def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
             id=component.idsf,
@@ -26,6 +26,7 @@ class SsEnergyLoadMapper(BaseMapper):
             device_class=SensorDeviceClass.ENUM,
             area=component.ambient.name,
             native_value=self.native_value(component),
+            last_update=None,
             decimal_precision=None,
             unit_of_measurement=None,
             state_class=None,

@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 from dataclasses import dataclass
 from .vimar_component import VimarComponent
@@ -19,11 +20,13 @@ class SensorDeviceClass(StrEnum):
 
 class SensorMeasurementUnit(StrEnum):
     KILO_WATT = "kW"
+    KILO_WATT_HOUR = "kWh"
 
 
 @dataclass
 class VimarSensor(VimarComponent):
     native_value: str | Decimal | None
+    last_update: datetime
     decimal_precision: int | None
     unit_of_measurement: SensorMeasurementUnit | None
     state_class: SensorStateClass | None

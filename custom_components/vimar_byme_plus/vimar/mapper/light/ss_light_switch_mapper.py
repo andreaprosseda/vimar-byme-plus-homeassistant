@@ -11,7 +11,7 @@ class SsLightSwitchMapper:
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarLight]:
         return [self._from_obj(component, *args)]
-    
+
     def _from_obj(self, component: UserComponent, *args) -> VimarLight:
         return VimarLight(
             id=component.idsf,

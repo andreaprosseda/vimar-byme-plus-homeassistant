@@ -1,6 +1,7 @@
 from typing import Optional
 from dataclasses import dataclass, asdict
 from ...utils.json import json_dumps
+from datetime import datetime
 
 
 @dataclass
@@ -9,15 +10,28 @@ class UserElement:
     idcomponent: Optional[int]
     sfetype: Optional[str]
     value: Optional[str]
+    last_update: Optional[str]
 
     def to_json(self):
         return json_dumps(asdict(self))
 
     def to_tuple(self) -> tuple:
-        return (self.enable, self.idcomponent, self.sfetype, self.value)
+        return (
+            self.enable,
+            self.idcomponent,
+            self.sfetype,
+            self.value,
+            self.last_update,
+        )
 
     def to_tuple_for_update(self) -> tuple:
-        return (self.enable, self.value, self.idcomponent, self.sfetype)
+        return (
+            self.enable,
+            self.value,
+            self.last_update,
+            self.idcomponent,
+            self.sfetype,
+        )
 
     @staticmethod
     def list_from_dict(id_component: int, elems: dict) -> list["UserElement"]:
@@ -34,4 +48,5 @@ class UserElement:
             idcomponent=id_component,
             sfetype=elem.get("sfetype"),
             value=elem.get("value"),
+            last_update=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         )

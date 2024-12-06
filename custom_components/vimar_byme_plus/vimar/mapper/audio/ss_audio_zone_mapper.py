@@ -14,7 +14,7 @@ class SsAudioZoneMapper:
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarMediaPlayer]:
         return [self._from_obj(component, *args)]
-    
+
     def _from_obj(self, component: UserComponent, *args) -> VimarMediaPlayer:
         sources = args[0]
         return VimarMediaPlayer(

@@ -12,6 +12,7 @@ from ...model.enum.sfetype_enum import SfeType
 
 SFTYPE = SfType.CLIMA.value
 
+
 class ClimaMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarClimate]:
