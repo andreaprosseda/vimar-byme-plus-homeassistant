@@ -17,6 +17,7 @@ class CoverEntityFeature(Enum):
 @dataclass
 class VimarCover(VimarComponent):
     current_cover_position: int | None
+    current_tilt_position: int | None
     is_closed: bool | None
     is_closing: bool | None
     is_opening: bool | None

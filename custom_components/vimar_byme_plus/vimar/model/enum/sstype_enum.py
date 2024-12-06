@@ -9,7 +9,9 @@ class SsType(Enum):
     ACCESS_DOOR_WINDOW = "SS_Access_DoorWindow"
 
     SHUTTER_POSITION = "SS_Shutter_Position"
+    SHUTTER_SLAT_POSITION = "SS_Shutter_SlatPosition"
     SHUTTER_WITHOUT_POSITION = "SS_Shutter_WithoutPosition"
+    SHUTTER_SLAT_WITHOUT_POSITION = "SS_Shutter_SlatWithoutPosition"
     CURTAIN_POSITION = "SS_Curtain_Position"
     CURTAIN_WITHOUT_POSITION = "SS_Curtain_WithoutPosition"
 

@@ -7,6 +7,7 @@ from typing import Any
 
 from homeassistant.components.cover import (
     ATTR_POSITION,
+    ATTR_TILT_POSITION,
     CoverEntity,
     CoverEntityFeature,
 )
@@ -51,6 +52,12 @@ class Cover(BaseEntity, CoverEntity):
         return 100 - position if (position is not None) else None
 
     @property
+    def current_cover_tilt_position(self) -> int | None:
+        """Return current position of cover tilt where 0 means closed and 100 is fully open."""
+        position = self._component.current_tilt_position
+        return 100 - position if (position is not None) else None
+
+    @property
     def is_opening(self) -> bool | None:
         """Return if the cover is opening or not. Used to determine state."""
         return self._component.is_opening
@@ -82,8 +89,25 @@ class Cover(BaseEntity, CoverEntity):
     def set_cover_position(self, **kwargs: Any) -> None:
         """Move the cover to a specific position."""
         position = str(100 - int(kwargs[ATTR_POSITION]))
-        self.send(ActionType.SET_LEVEL, position)
+        self.send(ActionType.SET_POSITION, position)
 
     def stop_cover(self, **kwargs: Any) -> None:
         """Stop the cover."""
         self.send(ActionType.STOP)
+
+    def open_cover_tilt(self, **kwargs: Any) -> None:
+        """Open the cover tilt."""
+        self.send(ActionType.OPEN_SLAT)
+
+    def close_cover_tilt(self, **kwargs: Any) -> None:
+        """Close the cover tilt."""
+        self.send(ActionType.CLOSE_SLAT)
+
+    def set_cover_tilt_position(self, **kwargs: Any) -> None:
+        """Move the cover tilt to a specific position."""
+        position = str(100 - int(kwargs[ATTR_TILT_POSITION]))
+        self.send(ActionType.SET_SLAT_POSITION, position)
+
+    def stop_cover_tilt(self, **kwargs: Any) -> None:
+        """Stop the cover."""
+        self.send(ActionType.STOP_SLAT)

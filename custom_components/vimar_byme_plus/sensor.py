@@ -120,7 +120,9 @@ class Sensor(BaseEntity, SensorEntity):
     def _can_update_previous_measure(self) -> bool:
         temp_date: datetime = self.temp_measure.get("date")
         current_date: datetime = self.current_measure.get("date")
-        return (current_date - temp_date).total_seconds() > 0
+        if temp_date and current_date:
+            return (current_date - temp_date).total_seconds() > 0
+        return False
 
     def _create_measure(self, component: VimarSensor | None = None) -> dict:
         if not component or not component.native_value:

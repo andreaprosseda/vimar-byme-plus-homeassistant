@@ -97,6 +97,7 @@ Thank you for fueling my passion for tech and open-source! ❤️
   - Access
   - Audio
   - Clima
+  - Energy
   - Light
   - Shutter
 * Vimar Pro app access (credentials)
@@ -252,17 +253,16 @@ logger:
 - [X] Add Shutter
   - [x] Shutter with Position
   - [x] Shutter without Position
+  - [x] Shutter Slat with Position
+  - [x] Shutter Slat without Position
   - [x] Curtain with Position
   - [x] Curtain without Position
 - [x] Code and Readme cleaning
 - [ ] Add not implemented types of:
-  - [ ] Access (InterfaceContact)
   - [ ] Audio (Bluetooth)
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
   - [ ] Light (RGB, Philips, etc)
-  - [ ] Shutter (Slat)
 - [ ] Add Irrigation
-- [ ] Add Scene
 - [ ] Add Alarm
 - [ ] Add Video Intercom/Door Bell
 

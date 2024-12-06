@@ -1,9 +1,9 @@
-from .....model.enum.action_type import ActionType
-from .....model.enum.sftype_enum import SfType
-from .....model.enum.sfetype_enum import SfeType
-from .....model.enum.sstype_enum import SsType
 from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_component import VimarComponent
+from .....model.enum.action_type import ActionType
+from .....model.enum.sfetype_enum import SfeType
+from .....model.enum.sftype_enum import SfType
+from .....model.enum.sstype_enum import SsType
 from ..base_action_handler import BaseActionHandler
 
 SHUTTER = SfeType.CMD_SHUTTER
@@ -22,7 +22,7 @@ class SsShutterPositionActionHandler(BaseActionHandler):
             return self.get_close_cover_actions(component.id)
         if action_type == ActionType.STOP:
             return self.get_stop_cover_actions(component.id)
-        if action_type == ActionType.SET_LEVEL:
+        if action_type == ActionType.SET_POSITION:
             return self.get_set_cover_position_actions(component.id, args[0])
         raise NotImplementedError
 
