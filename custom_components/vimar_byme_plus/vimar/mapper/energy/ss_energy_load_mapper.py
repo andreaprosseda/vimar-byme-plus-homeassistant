@@ -34,7 +34,10 @@ class SsEnergyLoadMapper(BaseMapper):
         )
 
     def native_value(self, component: UserComponent) -> str | Decimal | None:
-        return component.get_value(SfeType.STATE_LOAD)
+        value = component.get_value(SfeType.STATE_LOAD)
+        if value:
+            return value
+        return "Unknown"
 
     def get_values(self, component: UserComponent) -> list[str]:
-        return ["Auto on", "Auto off", "Forced on", "Forced off"]
+        return ["Auto on", "Auto off", "Forced on", "Forced off", "Unknown"]

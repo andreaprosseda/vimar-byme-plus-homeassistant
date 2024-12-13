@@ -51,7 +51,7 @@ class SsEnergyMeasure1pMapper(BaseMapper):
             last_update=self.last_update(component),
             decimal_precision=self.decimal_precision(component),
             unit_of_measurement=SensorMeasurementUnit.KILO_WATT_HOUR,
-            state_class=SensorStateClass.MEASUREMENT,
+            state_class=None,
             options=None,
         )
 
