@@ -37,4 +37,8 @@ class SsAccessDoorWindowMapper:
     def get_supported_features(
         self, component: UserComponent
     ) -> list[CoverEntityFeature]:
-        return [CoverEntityFeature.OPEN, CoverEntityFeature.SET_POSITION]
+        return [
+            CoverEntityFeature.OPEN,
+            CoverEntityFeature.CLOSE,
+            CoverEntityFeature.SET_POSITION,
+        ]
