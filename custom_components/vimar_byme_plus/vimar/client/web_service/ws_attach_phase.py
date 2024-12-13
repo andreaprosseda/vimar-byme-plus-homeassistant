@@ -46,3 +46,6 @@ class WSAttachPhase(WebSocketBaseVimar):
 
     def get_mock_session_response(self) -> BaseResponse:
         return BaseResponse(function="session", msgid=0)
+
+    def close(self):
+        self._ws.close()

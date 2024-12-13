@@ -25,9 +25,11 @@ class ErrorHandler:
         return None
 
     def is_temporary_error(
-        self, exception: Exception, message: BaseRequestResponse
+        self, exception: Exception, message: BaseRequestResponse = None
     ) -> bool:
         if self.is_ssl_error(exception):
+            return True
+        if self.is_gateway_unreachable_error(exception):
             return True
         if self.is_vimar_temporary_error(message):
             log_error(__name__, f"Not valid request:\n{message.to_json()}")
@@ -61,6 +63,18 @@ class ErrorHandler:
             return True
         if error_type == "SSLEOFError":
             log_error(__name__, "SSLEOFError, sending new message...")
+            return True
+        return False
+
+    def is_gateway_unreachable_error(self, exception: Exception) -> bool:
+        if not exception:
+            return False
+        error_type = type(exception).__name__
+        if error_type == "OSError":
+            log_error(__name__, "Host is unreachable, sending new message...")
+            return True
+        if error_type == "ConnectionRefusedError":
+            log_error(__name__, "Connection refused, sending new message...")
             return True
         return False
 

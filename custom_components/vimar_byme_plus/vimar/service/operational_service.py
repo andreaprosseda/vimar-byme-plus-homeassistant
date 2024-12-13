@@ -57,8 +57,13 @@ class OperationalService:
             self.clean()
             self.sync_session_phase()
             self.async_attach_phase()
-        except Exception as err:
-            raise VimarErrorResponseException(err) from err
+        except Exception as exc:
+            if self._error_handler.is_temporary_error(exception=exc):
+                log_info(__name__, "Waiting 60 seconds before reconnecting...")
+                time.sleep(60)
+                self.connect()
+            else:
+                raise VimarErrorResponseException(exc) from exc
 
     def send_action(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
@@ -179,5 +184,5 @@ class OperationalService:
         log_info(__name__, "Terminating the execution...")
         self._keep_alive_handler.stop()
         if self._web_socket:
-            self._web_socket._ws.close()
+            self._web_socket.close()
             self._web_socket = None
