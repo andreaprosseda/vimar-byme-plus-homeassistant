@@ -20,7 +20,7 @@ class SsShutterSlatPositionActionHandler(SsShutterPositionActionHandler):
             return self.get_close_slat_actions(component.id)
         if action_type == ActionType.SET_SLAT_POSITION:
             return self.get_set_slat_position_actions(component.id, args[0])
-        raise NotImplementedError
+        return super().get_actions(component, action_type, *args)
 
     def get_open_slat_actions(self, id: str) -> list[VimarAction]:
         """Open the cover slat."""
