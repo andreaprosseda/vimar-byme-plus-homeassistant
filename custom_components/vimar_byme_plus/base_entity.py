@@ -1,14 +1,16 @@
 """Insteon base entity."""
 
-from homeassistant.core import callback
+from homeassistant.core import callback, HomeAssistantError
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from websocket import WebSocketConnectionClosedException
 
 from .const import DOMAIN, MANIFACTURER
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_component import VimarComponent
 from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.enum.action_type import ActionType
+from .vimar.model.exceptions import VimarErrorResponseException
 
 
 class BaseEntity(CoordinatorEntity):
@@ -62,9 +64,19 @@ class BaseEntity(CoordinatorEntity):
 
     def send(self, actionType: ActionType, *args) -> None:
         """Send a request coming from HomeAssistant to Gateway."""
-        component = self._component
-        coordinator: Coordinator = self.coordinator
-        coordinator.send(component, actionType, *args)
+        try:
+            component = self._component
+            coordinator: Coordinator = self.coordinator
+            coordinator.send(component, actionType, *args)
+        except WebSocketConnectionClosedException as err:
+            message = "Connection with Gateway is closed, restart the integration"
+            raise HomeAssistantError(message) from err
+        except NotImplementedError as err:
+            message = "Method not implemented, contact the creator on GitHub"
+            raise HomeAssistantError(message) from err
+        except VimarErrorResponseException as err:
+            message = f"Error received from Gateway: {err.message}"
+            raise HomeAssistantError(message) from err
 
     @property
     def should_poll(self) -> bool:
