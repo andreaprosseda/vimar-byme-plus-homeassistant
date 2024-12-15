@@ -100,6 +100,7 @@ Thank you for fueling my passion for tech and open-source! ❤️
   - Energy
   - Irrigation
   - Light
+  - Scene
   - Sensor
   - Switch
   - Shutter
