@@ -25,6 +25,7 @@ class SsEnergyLoadMapper(BaseMapper):
             device_name=component.sstype,
             device_class=SensorDeviceClass.ENUM,
             area=component.ambient.name,
+            main_id=component.idsf,
             native_value=self.native_value(component),
             last_update=None,
             decimal_precision=None,

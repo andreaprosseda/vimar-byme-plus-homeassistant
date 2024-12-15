@@ -30,7 +30,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up component based on a config entry."""
     coordinator = entry.runtime_data
-    components = coordinator.data.get_audios()
+    components = coordinator.data.get_media_players()
     entities = [MediaPlayer(coordinator, component) for component in components]
     log_info(__name__, f"Media Players found: {len(entities)}")
     async_add_entities(entities, True)

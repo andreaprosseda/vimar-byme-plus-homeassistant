@@ -25,6 +25,7 @@ class SensorMeasurementUnit(StrEnum):
 
 @dataclass
 class VimarSensor(VimarComponent):
+    main_id: str | None
     native_value: str | Decimal | None
     last_update: datetime
     decimal_precision: int | None
