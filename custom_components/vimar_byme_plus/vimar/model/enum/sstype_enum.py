@@ -30,3 +30,5 @@ class SsType(Enum):
 
     IRRIGATION_MULTI_ZONES = "SS_Irrigation_MultiZones"
     AUTOMATION_ON_OFF = "SS_Automation_OnOff"
+
+    SCENE_EXECUTOR = "SS_Scene_Executor"

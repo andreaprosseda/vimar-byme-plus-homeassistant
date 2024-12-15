@@ -28,6 +28,7 @@ class SfeType(Enum):
     CMD_ON_BEHAVIOUR = "SFE_Cmd_OnBehaviour"
     CMD_IMMEDIATE_START_STOP = "SFE_Cmd_ImmediateStartStop"
     CMD_SKIP_ZONE = "SFE_Cmd_SkipZone"
+    CMD_EXECUTE = "SFE_Cmd_Execute"
 
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"
     STATE_AMBIENT_TEMPERATURE = "SFE_State_AmbientTemperature"
