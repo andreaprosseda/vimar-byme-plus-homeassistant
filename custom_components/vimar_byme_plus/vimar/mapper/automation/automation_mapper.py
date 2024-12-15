@@ -1,4 +1,5 @@
 from .ss_automation_on_off_mapper import SsAutomationOnOffMapper
+from .ss_automation_timer_astronomic_mapper import SsAutomationTimerAstronomicMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_switch import VimarSwitch
@@ -29,4 +30,6 @@ class AutomationMapper:
         sstype = component.sstype
         if sstype == SsAutomationOnOffMapper.SSTYPE:
             return SsAutomationOnOffMapper()
+        if sstype == SsAutomationTimerAstronomicMapper.SSTYPE:
+            return SsAutomationTimerAstronomicMapper()
         raise NotImplementedError
