@@ -240,6 +240,9 @@ logger:
   - [X] RadioFM
   - [X] RCA
   - [X] Bluetooth (not tested)
+- [X] Add Automation
+  - [X] On Off
+  - [X] Technical Alarm
 - [X] Add Clima
   - [x] Clima Zone
 - [x] Add Energy
@@ -247,9 +250,18 @@ logger:
   - [x] Energy Measure (1P & 3P)
   - [x] Energy Load Control (1P & 3P)
   - [x] Energy Load Control Production (1P & 3P)
+- [x] Add Irrigation
+  - [x] Multi Zone
 - [x] Add Light
   - [x] Switch (On/Off)
   - [x] Dimmer (Brightness)
+- [x] Add Scene
+  - [x] Scene Executor
+- [x] Add Sensor
+  - [x] Air Quality Gradient
+  - [x] Humidity
+  - [x] Interface Contact
+  - [x] Weather Station
 - [X] Add Shutter
   - [x] Shutter with Position
   - [x] Shutter without Position
@@ -262,7 +274,6 @@ logger:
   - [ ] Audio (Bluetooth)
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
   - [ ] Light (RGB, Philips, etc)
-- [ ] Add Irrigation
 - [ ] Add Alarm
 - [ ] Add Video Intercom/Door Bell
 
