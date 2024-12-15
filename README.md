@@ -98,7 +98,10 @@ Thank you for fueling my passion for tech and open-source! ❤️
   - Audio
   - Clima
   - Energy
+  - Irrigation
   - Light
+  - Sensor
+  - Switch
   - Shutter
 * Vimar Pro app access (credentials)
 
