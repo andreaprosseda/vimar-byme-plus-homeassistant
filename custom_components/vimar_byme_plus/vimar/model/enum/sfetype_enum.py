@@ -83,3 +83,11 @@ class SfeType(Enum):
     STATE_PROGRAM_SETTINGS = "SFE_State_ProgramSettings"
 
     STATE_OUTPUT = "SFE_State_Output"
+    STATE_ALARM = "SFE_State_Alarm"
+
+    STATE_AIR_QUALITY_GRADIENT = "SFE_State_AirQualityGradient"
+    STATE_ITS_NIGHT = "SFE_State_ItsNight"
+    STATE_ITS_RAINING = "SFE_State_ItsRaining"
+    STATE_LUMINOSITY = "SFE_State_Luminosity"
+    STATE_SENSOR_TEMPERATURE = "SFE_State_SensorTemperature"
+    STATE_WIND_SPEED = "SFE_State_WindSpeed"

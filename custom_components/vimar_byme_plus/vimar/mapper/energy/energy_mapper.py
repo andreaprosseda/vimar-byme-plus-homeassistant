@@ -11,7 +11,7 @@ from .ss_energy_load_control_3p_production_mapper import (
 )
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_sensor import VimarSensor
+from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sftype_enum import SfType
 from ...utils.logger import not_implemented
 from ...utils.filtering import flat
@@ -19,14 +19,14 @@ from ...utils.filtering import flat
 
 class EnergyMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarSensor]:
+    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
         sftype = SfType.ENERGY.value
         energies = [component for component in components if component.sftype == sftype]
         components = [EnergyMapper.from_obj(energy) for energy in energies]
         return flat(components)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> list[VimarSensor]:
+    def from_obj(component: UserComponent, *args) -> list[VimarComponent]:
         try:
             mapper = EnergyMapper.get_mapper(component)
             return mapper.from_obj(component, *args)

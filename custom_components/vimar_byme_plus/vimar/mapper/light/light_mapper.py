@@ -2,7 +2,7 @@ from .ss_light_dimmer_mapper import SsLightDimmerMapper
 from .ss_light_switch_mapper import SsLightSwitchMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_light import VimarLight
+from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sftype_enum import SfType
 from ...utils.logger import not_implemented
 from ...utils.filtering import flat
@@ -10,14 +10,14 @@ from ...utils.filtering import flat
 
 class LightMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarLight]:
+    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
         sftype = SfType.LIGHT.value
         lights = [component for component in components if component.sftype == sftype]
         components = [LightMapper.from_obj(light) for light in lights]
         return flat(components)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> list[VimarLight]:
+    def from_obj(component: UserComponent, *args) -> list[VimarComponent]:
         try:
             mapper = LightMapper.get_mapper(component)
             return mapper.from_obj(component, *args)

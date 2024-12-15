@@ -1,4 +1,4 @@
-from ...model.component.vimar_cover import VimarCover
+from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sftype_enum import SfType
 from ...model.repository.user_component import UserComponent
 from ...utils.filtering import flat
@@ -14,14 +14,14 @@ from .ss_shutter_without_position_mapper import SsShutterWithoutPositionMapper
 
 class ShutterMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarCover]:
+    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
         sftype = SfType.SHUTTER.value
         shutters = [component for component in components if component.sftype == sftype]
         components = [ShutterMapper.from_obj(shutter) for shutter in shutters]
         return flat(components)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> list[VimarCover]:
+    def from_obj(component: UserComponent, *args) -> list[VimarComponent]:
         try:
             mapper = ShutterMapper.get_mapper(component)
             return mapper.from_obj(component, *args)

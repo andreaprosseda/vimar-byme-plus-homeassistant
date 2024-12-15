@@ -14,8 +14,12 @@ class SensorStateClass(StrEnum):
 class SensorDeviceClass(StrEnum):
     ENERGY = "energy"
     ENERGY_STORAGE = "energy_storage"
-    POWER = "power"
     ENUM = "enum"
+    HUMIDITY = "humidity"
+    ILLUMINANCE = "illuminance"
+    POWER = "power"
+    TEMPERATURE = "temperature"
+    WIND_SPEED = "wind_speed"
 
 
 class SensorMeasurementUnit(StrEnum):

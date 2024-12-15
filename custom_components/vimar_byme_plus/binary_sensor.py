@@ -2,17 +2,13 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime
-from decimal import Decimal
 
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
 )
-from homeassistant.components.sensor.const import SensorStateClass
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import StateType
 
 from . import CoordinatorConfigEntry
 from .base_entity import BaseEntity

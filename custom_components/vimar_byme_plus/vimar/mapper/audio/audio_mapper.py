@@ -4,7 +4,7 @@ from .ss_audio_zone_mapper import SsAudioZoneMapper
 from .ss_audio_bluetooth_mapper import SsAudioBluetoothMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_media_player import VimarMediaPlayer
+from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sftype_enum import SfType
 from ...utils.logger import not_implemented
 from ...utils.filtering import flat
@@ -12,14 +12,14 @@ from ...utils.filtering import flat
 
 class AudioMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarMediaPlayer]:
+    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
         sftype = SfType.AUDIO.value
         audios = [component for component in components if component.sftype == sftype]
         sources = AudioMapper.remove_sources(audios)
         return AudioMapper.get_components(audios, sources)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> list[VimarMediaPlayer]:
+    def from_obj(component: UserComponent, *args) -> list[VimarComponent]:
         try:
             mapper = AudioMapper.get_mapper(component)
             return mapper.from_obj(component, *args)
@@ -43,7 +43,7 @@ class AudioMapper:
     @staticmethod
     def get_components(
         audio_list: list[UserComponent], source_list: list[UserComponent]
-    ) -> list[VimarMediaPlayer]:
+    ) -> list[VimarComponent]:
         sources = [AudioMapper.from_obj(source) for source in source_list]
         flat_sources = flat(sources)
         audios = [AudioMapper.from_obj(audio, flat_sources) for audio in audio_list]

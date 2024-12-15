@@ -1,4 +1,5 @@
 from ...model.repository.user_component import UserComponent
+from ...model.component.vimar_component import VimarComponent
 from ...model.component.vimar_climate import (
     VimarClimate,
     HVACMode,
@@ -15,7 +16,7 @@ SFTYPE = SfType.CLIMA.value
 
 class ClimaMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarClimate]:
+    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
         return [ClimaMapper.from_obj(c) for c in components if c.sftype == SFTYPE]
 
     @staticmethod
