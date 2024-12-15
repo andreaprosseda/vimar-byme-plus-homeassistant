@@ -12,7 +12,7 @@ class VimarButton(VimarComponent):
             "Area",
             "Name",
             "Type",
-            "Main ID",
+            "Value",
         ]
 
     def to_table(self) -> list:
@@ -20,5 +20,5 @@ class VimarButton(VimarComponent):
             self.area,
             self.name,
             self.device_name,
-            self.main_id,
+            "self.native_value",
         ]

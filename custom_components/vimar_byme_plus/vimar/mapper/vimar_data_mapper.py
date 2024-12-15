@@ -1,18 +1,20 @@
-from .clima.clima_mapper import ClimaMapper
-from .audio.audio_mapper import AudioMapper
+from ..model.gateway.vimar_data import VimarData
+from ..model.repository.user_component import UserComponent
 from .access.access_mapper import AccessMapper
-from .light.light_mapper import LightMapper
-from .shutter.shutter_mapper import ShutterMapper
+from .audio.audio_mapper import AudioMapper
+from .automation.automation_mapper import AutomationMapper
+from .clima.clima_mapper import ClimaMapper
 from .energy.energy_mapper import EnergyMapper
 from .irrigation.irrigation_mapper import IrrigationMapper
-from ..model.repository.user_component import UserComponent
-from ..model.gateway.vimar_data import VimarData
+from .light.light_mapper import LightMapper
+from .shutter.shutter_mapper import ShutterMapper
 
 
 class VimarDataMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> VimarData:
         return VimarData(
+            _automations=AutomationMapper.from_list(components),
             _accesses=AccessMapper.from_list(components),
             _audios=AudioMapper.from_list(components),
             _climates=ClimaMapper.from_list(components),
@@ -20,5 +22,4 @@ class VimarDataMapper:
             _irrigations=IrrigationMapper.from_list(components),
             _lights=LightMapper.from_list(components),
             _shutters=ShutterMapper.from_list(components),
-            _switches=[]#SwitchMapper.from_list(components),
         )

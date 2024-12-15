@@ -1,5 +1,6 @@
 from .base_action_handler import BaseActionHandler
 from .access.access_action_handler import AccessActionHandler
+from .automation.automation_action_handler import AutomationActionHandler
 from .audio.audio_action_handler import AudioActionHandler
 from .clima.clima_action_handler import ClimaActionHandler
 from .light.light_action_handler import LightActionHandler
@@ -26,13 +27,15 @@ class ActionHandler:
                 return AccessActionHandler()
             case SfType.AUDIO:
                 return AudioActionHandler()
+            case SfType.AUTOMATION:
+                return AutomationActionHandler()
             case SfType.CLIMA:
                 return ClimaActionHandler()
+            case SfType.IRRIGATION:
+                return IrrigationActionHandler()
             case SfType.LIGHT:
                 return LightActionHandler()
             case SfType.SHUTTER:
                 return ShutterActionHandler()
-            case SfType.IRRIGATION:
-                return IrrigationActionHandler()
             case _:
                 raise NotImplementedError

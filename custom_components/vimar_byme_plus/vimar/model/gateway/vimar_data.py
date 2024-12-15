@@ -11,6 +11,7 @@ from ..component.vimar_switch import VimarSwitch
 
 @dataclass
 class VimarData:
+    _automations: list[VimarSwitch] = field(default_factory=list)
     _accesses: list[VimarCover] = field(default_factory=list)
     _audios: list[VimarMediaPlayer] = field(default_factory=list)
     _climates: list[VimarClimate] = field(default_factory=list)
@@ -18,7 +19,6 @@ class VimarData:
     _lights: list[VimarLight] = field(default_factory=list)
     _shutters: list[VimarCover] = field(default_factory=list)
     _irrigations: list[VimarComponent] = field(default_factory=list)
-    _switches: list[VimarSwitch] = field(default_factory=list)
 
     def get_all(self) -> list[VimarComponent]:
         return (
@@ -50,7 +50,7 @@ class VimarData:
         return self._energies + self._get_irrigation_sensors()
 
     def get_switches(self) -> list:
-        return self._switches + self._get_irrigation_switches()
+        return self._automations + self._get_irrigation_switches()
 
     def _get_irrigation_buttons(self) -> list[VimarButton]:
         return [ety for ety in self._irrigations if isinstance(ety, VimarButton)]
