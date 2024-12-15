@@ -7,19 +7,23 @@ from .clima.clima_mapper import ClimaMapper
 from .energy.energy_mapper import EnergyMapper
 from .irrigation.irrigation_mapper import IrrigationMapper
 from .light.light_mapper import LightMapper
+from .scene.scene_mapper import SceneMapper
+from .sensor.sensor_mapper import SensorMapper
 from .shutter.shutter_mapper import ShutterMapper
 
 
 class VimarDataMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> VimarData:
-        return VimarData(
-            _automations=AutomationMapper.from_list(components),
-            _accesses=AccessMapper.from_list(components),
-            _audios=AudioMapper.from_list(components),
-            _climates=ClimaMapper.from_list(components),
-            _energies=EnergyMapper.from_list(components),
-            _irrigations=IrrigationMapper.from_list(components),
-            _lights=LightMapper.from_list(components),
-            _shutters=ShutterMapper.from_list(components),
-        )
+        vimar_components = []
+        vimar_components.extend(AccessMapper.from_list(components))
+        vimar_components.extend(AudioMapper.from_list(components))
+        vimar_components.extend(AutomationMapper.from_list(components))
+        vimar_components.extend(ClimaMapper.from_list(components))
+        vimar_components.extend(EnergyMapper.from_list(components))
+        vimar_components.extend(IrrigationMapper.from_list(components))
+        vimar_components.extend(LightMapper.from_list(components))
+        vimar_components.extend(SceneMapper.from_list(components))
+        vimar_components.extend(SensorMapper.from_list(components))
+        vimar_components.extend(ShutterMapper.from_list(components))
+        return VimarData(vimar_components)

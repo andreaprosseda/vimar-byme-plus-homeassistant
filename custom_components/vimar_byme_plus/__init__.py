@@ -11,13 +11,14 @@ from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 
 PLATFORMS = [
+    Platform.BINARY_SENSOR,
     Platform.BUTTON,
     Platform.CLIMATE,
     Platform.COVER,
     Platform.LIGHT,
     Platform.MEDIA_PLAYER,
     Platform.SENSOR,
-    Platform.SWITCH
+    Platform.SWITCH,
 ]
 
 type CoordinatorConfigEntry = ConfigEntry[Coordinator]

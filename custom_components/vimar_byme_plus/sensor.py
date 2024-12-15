@@ -40,7 +40,7 @@ class Sensor(BaseEntity, SensorEntity):
     current_measure: dict
 
     def __init__(self, coordinator: Coordinator, component: VimarSensor) -> None:
-        """Initialize the cover."""
+        """Initialize the sensor."""
         self._component = component
         self.temp_measure = self._create_measure()
         self.previous_measure = self._create_measure()

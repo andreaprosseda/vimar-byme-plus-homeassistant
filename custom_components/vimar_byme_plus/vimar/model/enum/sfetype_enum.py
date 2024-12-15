@@ -81,3 +81,5 @@ class SfeType(Enum):
 
     STATE_ACTIVE_ZONE = "SFE_State_ActiveZone"
     STATE_PROGRAM_SETTINGS = "SFE_State_ProgramSettings"
+
+    STATE_OUTPUT = "SFE_State_Output"
