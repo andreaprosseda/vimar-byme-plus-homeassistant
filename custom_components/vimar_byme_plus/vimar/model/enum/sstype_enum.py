@@ -30,5 +30,7 @@ class SsType(Enum):
 
     IRRIGATION_MULTI_ZONES = "SS_Irrigation_MultiZones"
     AUTOMATION_ON_OFF = "SS_Automation_OnOff"
+    AUTOMATION_TIMER_ASTRONOMIC = "SS_Automation_TimerAstronomic"
+    SENSOR_INTERFACE_CONTACT = "SS_Sensor_InterfaceContact"
 
     SCENE_EXECUTOR = "SS_Scene_Executor"
