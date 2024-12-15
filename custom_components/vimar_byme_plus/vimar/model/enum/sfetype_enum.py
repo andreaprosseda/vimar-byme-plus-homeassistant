@@ -26,6 +26,8 @@ class SfeType(Enum):
     CMD_CHANGE_OVER_MODE = "SFE_Cmd_ChangeOverMode"
     CMD_OFF_BEHAVIOUR = "SFE_Cmd_OffBehaviour"
     CMD_ON_BEHAVIOUR = "SFE_Cmd_OnBehaviour"
+    CMD_IMMEDIATE_START_STOP = "SFE_Cmd_ImmediateStartStop"
+    CMD_SKIP_ZONE = "SFE_Cmd_SkipZone"
 
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"
     STATE_AMBIENT_TEMPERATURE = "SFE_State_AmbientTemperature"
@@ -75,3 +77,6 @@ class SfeType(Enum):
     STATE_SLEEP_SETTING = "SFE_State_SleepSetting"
     STATE_SOURCE_ID = "SFE_State_SourceId"
     STATE_VOLUME = "SFE_State_Volume"
+
+    STATE_ACTIVE_ZONE = "SFE_State_ActiveZone"
+    STATE_PROGRAM_SETTINGS = "SFE_State_ProgramSettings"

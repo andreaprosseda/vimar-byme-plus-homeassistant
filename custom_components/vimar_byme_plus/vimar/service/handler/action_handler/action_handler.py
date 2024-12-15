@@ -4,6 +4,7 @@ from .audio.audio_action_handler import AudioActionHandler
 from .clima.clima_action_handler import ClimaActionHandler
 from .light.light_action_handler import LightActionHandler
 from .shutter.shutter_action_handler import ShutterActionHandler
+from .irrigation.irrigation_action_handler import IrrigationActionHandler
 from ....model.enum.action_type import ActionType
 from ....model.component.vimar_action import VimarAction
 from ....model.component.vimar_component import VimarComponent
@@ -15,9 +16,7 @@ class ActionHandler:
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
         handler = ActionHandler._get_handler(component.device_group)
-        actions = handler.get_actions(component, action_type, *args)
-        # self.save(actions)
-        return actions
+        return handler.get_actions(component, action_type, *args)
 
     @staticmethod
     def _get_handler(device_group: str) -> BaseActionHandler:
@@ -33,5 +32,7 @@ class ActionHandler:
                 return LightActionHandler()
             case SfType.SHUTTER:
                 return ShutterActionHandler()
+            case SfType.IRRIGATION:
+                return IrrigationActionHandler()
             case _:
                 raise NotImplementedError

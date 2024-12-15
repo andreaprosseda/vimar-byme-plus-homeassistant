@@ -2,6 +2,8 @@ from enum import Enum
 
 
 class ActionType(Enum):
+    PRESS = "PRESS"
+
     ON = "ON"
     OFF = "OFF"
 

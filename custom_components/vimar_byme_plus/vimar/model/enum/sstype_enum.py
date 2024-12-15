@@ -27,3 +27,5 @@ class SsType(Enum):
     ENERGY_LOAD_CONTROL_3P_PRODUCTION = "SS_Energy_LoadControl3PProduction"
     ENERGY_MEASURE_1P = "SS_Energy_Measure1P"
     ENERGY_MEASURE_3P = "SS_Energy_Measure3P"
+    
+    IRRIGATION_MULTI_ZONES = "SS_Irrigation_MultiZones"
