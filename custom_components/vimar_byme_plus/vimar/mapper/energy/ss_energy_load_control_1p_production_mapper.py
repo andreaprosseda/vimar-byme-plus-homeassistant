@@ -68,7 +68,7 @@ class SsEnergyLoadControl1pProductionMapper(SsEnergyLoadControl1pMapper):
             last_update=self.last_update(component, MODES.get(mode)),
             decimal_precision=self.decimal_precision(component),
             unit_of_measurement=SensorMeasurementUnit.KILO_WATT_HOUR,
-            state_class=None,
+            state_class=SensorStateClass.TOTAL_INCREASING,
             options=None,
         )
 
