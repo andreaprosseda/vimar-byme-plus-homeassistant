@@ -44,8 +44,8 @@
       <a href="#installation">Installation</a>
       <ul>
         <li><a href="#step-13-home-assistant---install-component">[Step 1/3] Home Assistant - Install Component</a></li>
-        <li><a href="#step-23-vimar-pro---initial-setup">[Step 2/3] Vimar Pro - Initial Setup</a></li>
-        <li><a href="#step-33-vimar-pro---generate-setup-code">[Step 3/3] Vimar Pro - Generate Setup Code</a></li>
+        <li><a href="#step-23-vimar-pro---initial-setup">[Step 2/3] Vimar VIEW PRO - Initial Setup</a></li>
+        <li><a href="#step-33-vimar-pro---generate-setup-code">[Step 3/3] Vimar VIEW PRO - Generate Setup Code</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -104,7 +104,7 @@ Thank you for fueling my passion for tech and open-source! ❤️
   - Sensor
   - Switch
   - Shutter
-* Vimar Pro app access (credentials)
+* Vimar VIEW PRO app access (credentials)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -113,8 +113,8 @@ Thank you for fueling my passion for tech and open-source! ❤️
 
 The installation phase is divided in three steps:
 * [Step 1/3] Home Assistant - Install Component
-* [Step 2/3] Vimar Pro - Initial Setup
-* [Step 3/3] Vimar Pro - Generate Setup Code
+* [Step 2/3] Vimar VIEW PRO - Initial Setup
+* [Step 3/3] Vimar VIEW PRO - Generate Setup Code
 
 N.B. Steps 1 and 2 are needed only the first time, while the third one is required everytime the integration is reinstalled or cleaned
 
@@ -139,7 +139,7 @@ N.B. Steps 1 and 2 are needed only the first time, while the third one is requir
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### [Step 2/3] Vimar Pro - Initial Setup
+### [Step 2/3] Vimar VIEW PRO - Initial Setup
 
 The insertion of the public key in the By-me Gateway is required to enable the communication between this integration and the Gateway.
 
@@ -154,7 +154,7 @@ For this purpose, an asymmetric encryption mechanism is used which requires the 
 
 Here the steps to follow:
 steps:
-1. Open Vimar Pro app
+1. Open Vimar VIEW PRO app
 2. Click on the plant name
 3. Click on `i` on the right of the Gateway name
 4. Click on 
@@ -171,10 +171,10 @@ steps:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### [Step 3/3] Vimar Pro - Generate Setup Code
+### [Step 3/3] Vimar VIEW PRO - Generate Setup Code
 
 Here the steps to follow to generate a Setup Code, needed for the integration phase on HomeAssistant (see <a href="#usage">Usage</a>):
-1. Open Vimar Pro app
+1. Open Vimar VIEW PRO app
 2. Click on the plant name
 3. Click on `i` on the right of the Gateway name
 4. Click on 
