@@ -88,7 +88,7 @@ class VimarClient:
 
     def validate_code(self, code: str):
         """Validate the setup code syntax."""
-        if not code or code.isdigit() or len(code) != 4:
+        if not code or not code.isdigit() or len(code) != 4:
             raise CodeNotValidException
 
     def _can_connect(self) -> bool:
