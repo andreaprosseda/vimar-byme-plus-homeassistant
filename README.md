@@ -259,6 +259,7 @@ logger:
 - [x] Add Light
   - [x] Switch (On/Off)
   - [x] Dimmer (Brightness)
+  - [x] Dimmer RGB (Brightness + RGB)
 - [x] Add Scene
   - [x] Scene Executor
 - [x] Add Sensor
@@ -277,7 +278,7 @@ logger:
 - [ ] Add not implemented types of:
   - [ ] Audio (Bluetooth)
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
-  - [ ] Light (RGB, Philips, etc)
+  - [ ] Light (Philips, etc)
 - [ ] Add Alarm
 - [ ] Add Video Intercom/Door Bell
 
