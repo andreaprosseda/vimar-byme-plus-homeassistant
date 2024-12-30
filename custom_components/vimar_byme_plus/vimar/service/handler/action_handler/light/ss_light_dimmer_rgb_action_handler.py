@@ -1,13 +1,10 @@
 from .ss_light_dimmer_action_handler import SsLightDimmerActionHandler
 from .....model.enum.action_type import ActionType
-from .....model.enum.sftype_enum import SfType
 from .....model.enum.sfetype_enum import SfeType
 from .....model.enum.sstype_enum import SsType
 from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_component import VimarComponent
 from .....model.component.vimar_light import VimarLight
-from ..base_action_handler import BaseActionHandler
-from .....utils.logger import log_info
 
 ON_OFF = SfeType.CMD_ON_OFF
 BRIGHTNESS = SfeType.CMD_BRIGHTNESS
