@@ -6,7 +6,6 @@ from ...model.enum.sstype_enum import SsType
 
 
 class SsLightSwitchMapper:
-    SFTYPE = SfType.LIGHT.value
     SSTYPE = SsType.LIGHT_SWITCH.value
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarLight]:
@@ -21,15 +20,10 @@ class SsLightSwitchMapper:
             device_class="light",
             area=component.ambient.name,
             is_on=self.get_is_on(component),
-            brightness=None,
+            brightness=self.get_brightness(component),
             color_mode=self.get_color_mode(component),
-            hs_color=None,
-            xy_color=None,
-            rgb_color=None,
-            rgbw_color=None,
-            rgbww_color=None,
-            effect_list=None,
-            effect=None,
+            hsv_color=self.get_hsv_color(component),
+            rgb_color=self.get_rgb_color(component),
             supported_color_modes=self.get_supported_color_modes(component),
         )
 
@@ -41,4 +35,13 @@ class SsLightSwitchMapper:
         return ColorMode.ONOFF
 
     def get_supported_color_modes(self, component: UserComponent) -> set[ColorMode]:
-        return {self.get_color_mode(component)}
+        return {ColorMode.ONOFF}
+
+    def get_brightness(self, component: UserComponent) -> int | None:
+        return None
+
+    def get_hsv_color(self, component: UserComponent) -> tuple[int, int, int] | None:
+        return None
+
+    def get_rgb_color(self, component: UserComponent) -> tuple[int, int, int] | None:
+        return None

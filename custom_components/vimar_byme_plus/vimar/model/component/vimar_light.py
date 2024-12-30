@@ -21,13 +21,8 @@ class VimarLight(VimarComponent):
     is_on: bool
     brightness: int | None
     color_mode: ColorMode | None
-    hs_color: tuple[float, float] | None
-    xy_color: tuple[float, float] | None
+    hsv_color: tuple[int, int, int] | None
     rgb_color: tuple[int, int, int] | None
-    rgbw_color: tuple[int, int, int, int] | None
-    rgbww_color: tuple[int, int, int, int, int] | None
-    effect_list: list[str] | None
-    effect: str | None
     supported_color_modes: set[ColorMode] | None
 
     @staticmethod

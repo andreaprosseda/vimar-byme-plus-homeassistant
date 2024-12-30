@@ -13,6 +13,8 @@ class SfeType(Enum):
     CMD_VOLUME = "SFE_Cmd_Volume"
     CMD_CURRENT_SOURCE = "SFE_Cmd_CurrentSource"
     CMD_BRIGHTNESS = "SFE_Cmd_Brightness"
+    CMD_HSV = "SFE_Cmd_HSV"
+    CMD_RGB = "SFE_Cmd_RGB"
     CMD_SHUTTER = "SFE_Cmd_Shutter"
     CMD_SHUTTER_WITHOUT_POSITION = "SFE_Cmd_ShutterWithoutPosition"
     CMD_SLAT = "SFE_Cmd_Slat"
@@ -52,6 +54,8 @@ class SfeType(Enum):
     STATE_ON_OFF = "SFE_State_OnOff"
 
     STATE_BRIGHTNESS = "SFE_State_Brightness"
+    STATE_HSV = "SFE_State_HSV"
+    STATE_RGB = "SFE_State_RGB"
     STATE_MINIMUM_DIMMING_VALUE = "SFE_State_MinimumDimmingValue"
 
     STATE_OUT_STATUS = "SFE_State_OutStatus"

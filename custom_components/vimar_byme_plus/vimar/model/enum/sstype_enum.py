@@ -4,6 +4,7 @@ from enum import Enum
 class SsType(Enum):
     LIGHT_SWITCH = "SS_Light_Switch"
     LIGHT_DIMMER = "SS_Light_Dimmer"
+    LIGHT_DIMMER_RGB = "SS_Light_DimmerRGB"
 
     ACCESS_GATE = "SS_Access_Gate"
     ACCESS_DOOR_WINDOW = "SS_Access_DoorWindow"

@@ -1,4 +1,5 @@
 from .ss_light_dimmer_mapper import SsLightDimmerMapper
+from .ss_light_dimmer_rgb_mapper import SsLightDimmerRgbMapper
 from .ss_light_switch_mapper import SsLightSwitchMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
@@ -32,4 +33,6 @@ class LightMapper:
             return SsLightSwitchMapper()
         if sstype == SsLightDimmerMapper.SSTYPE:
             return SsLightDimmerMapper()
+        if sstype == SsLightDimmerRgbMapper.SSTYPE:
+            return SsLightDimmerRgbMapper()
         raise NotImplementedError

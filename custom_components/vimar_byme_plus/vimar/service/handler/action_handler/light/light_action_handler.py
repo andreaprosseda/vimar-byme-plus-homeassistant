@@ -1,5 +1,6 @@
 from .ss_light_switch_action_handler import SsLightSwitchActionHandler
 from .ss_light_dimmer_action_handler import SsLightDimmerActionHandler
+from .ss_light_dimmer_rgb_action_handler import SsLightDimmerRgbActionHandler
 from .....model.enum.action_type import ActionType
 from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_component import VimarComponent
@@ -20,4 +21,6 @@ class LightActionHandler:
             return SsLightSwitchActionHandler()
         if sstype == SsLightDimmerActionHandler.SSTYPE:
             return SsLightDimmerActionHandler()
+        if sstype == SsLightDimmerRgbActionHandler.SSTYPE:
+            return SsLightDimmerRgbActionHandler()
         raise NotImplementedError

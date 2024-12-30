@@ -10,7 +10,6 @@ ON_OFF = SfeType.CMD_ON_OFF
 
 
 class SsLightSwitchActionHandler(BaseActionHandler):
-    SFTYPE = SfType.LIGHT.value
     SSTYPE = SsType.LIGHT_SWITCH.value
 
     def get_actions(

@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import Any
 
-from homeassistant.components.light import ATTR_BRIGHTNESS, ColorMode, LightEntity
+from homeassistant.components.light import (
+    ATTR_BRIGHTNESS,
+    ATTR_RGB_COLOR,
+    ColorMode,
+    LightEntity,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util.color import value_to_brightness
@@ -64,34 +69,9 @@ class Light(BaseEntity, LightEntity):
         return self._component.hs_color
 
     @property
-    def xy_color(self) -> tuple[float, float] | None:
-        """Return the xy color value [float, float]. This property will be copied to the light's state attribute when the light's color mode is set to ColorMode.XY and ignored otherwise."""
-        return self._component.xy_color
-
-    @property
     def rgb_color(self) -> tuple[int, int, int] | None:
         """Return the rgb color value [int, int, int]. This property will be copied to the light's state attribute when the light's color mode is set to ColorMode.RGB and ignored otherwise."""
         return self._component.rgb_color
-
-    @property
-    def rgbw_color(self) -> tuple[int, int, int, int] | None:
-        """Return the rgbw color value [int, int, int, int]. This property will be copied to the light's state attribute when the light's color mode is set to ColorMode.RGBW and ignored otherwise."""
-        return self._component.rgbw_color
-
-    @property
-    def rgbww_color(self) -> tuple[int, int, int, int, int] | None:
-        """Return the rgbww color value [int, int, int, int, int]. This property will be copied to the light's state attribute when the light's color mode is set to ColorMode.RGBWW and ignored otherwise."""
-        return self._component.rgbww_color
-
-    @property
-    def effect_list(self) -> list[str] | None:
-        """Return the list of supported effects."""
-        return self._component.effect_list
-
-    @property
-    def effect(self) -> str | None:
-        """Return the current effect. Should be EFFECT_OFF if the light supports effects and no effect is currently rendered."""
-        return self._component.effect
 
     @property
     def supported_color_modes(self) -> set[ColorMode] | set[str] | None:
@@ -101,8 +81,10 @@ class Light(BaseEntity, LightEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""
+        log_info(__name__, kwargs)
         brightness = self._get_brightness_1_100(**kwargs)
-        self.send(ActionType.ON, brightness)
+        rgb = self._get_rgb_string(**kwargs)
+        self.send(ActionType.ON, brightness, rgb)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the light off."""
@@ -121,3 +103,9 @@ class Light(BaseEntity, LightEntity):
         if not brightness:
             return None
         return value_to_brightness(scale, brightness)
+
+    def _get_rgb_string(self, **kwargs: Any) -> str | None:
+        rgb = kwargs.get(ATTR_RGB_COLOR, None)
+        if not rgb:
+            return None
+        return ",".join(map(str, rgb))
