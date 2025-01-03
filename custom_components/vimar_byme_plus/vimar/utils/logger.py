@@ -5,9 +5,9 @@ from ..model.repository.user_component import UserComponent
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 logger = logging.getLogger(__name__)
+level = logging.DEBUG
 
 if "standalone" in __name__:
-    level = logging.DEBUG
     logger.setLevel(level)
 
     remove_file("app.log")
@@ -22,23 +22,23 @@ if "standalone" in __name__:
     logger.addHandler(stream_handler)
 
 
-def log_info(__name__: str, message: str):
-    logger.name = __name__
-    logger.info(message)
+def log_info(module_name: str, message: str):
+    result = f"[{module_name}] {message}"
+    logger.info(result)
 
 
-def log_debug(__name__: str, message: str):
-    logger.name = __name__
-    logger.debug(message)
+def log_debug(module_name: str, message: str):
+    result = f"[{module_name}] {message}"
+    logger.debug(result)
 
 
-def log_error(__name__: str, message: str):
-    logger.name = __name__
-    logger.error(message)
+def log_error(module_name: str, message: str):
+    result = f"[{module_name}] {message}"
+    logger.error(result)
 
 
-def not_implemented(component: UserComponent):
+def not_implemented(module_name: str, component: UserComponent):
     name = component.name
     sstype = component.sstype
     message = f"[{name}] Component of type {sstype} not yet implemented!"
-    log_error(__name__, message)
+    log_error(module_name, message)

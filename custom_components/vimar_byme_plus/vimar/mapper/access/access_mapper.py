@@ -22,7 +22,7 @@ class AccessMapper:
             mapper = AccessMapper.get_mapper(component)
             return mapper.from_obj(component, *args)
         except NotImplementedError:
-            not_implemented(component)
+            not_implemented(__name__, component)
             return []
 
     @staticmethod

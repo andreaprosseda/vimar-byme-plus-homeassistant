@@ -103,6 +103,7 @@ class OperationalService:
         self._message_handler.clean()
 
     def on_attach_connection_opened(self):
+        self._keep_alive_handler = KeepAliveHandler()
         self._keep_alive_handler.set_handler(self.send_keep_alive)
 
     def on_attach_message_received(
