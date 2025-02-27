@@ -17,12 +17,15 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/logo.png" alt="Logo" width="auto" height="100">
+  <picture>
+    <source srcset="./images/logo-on-dark.png" media="(prefers-color-scheme: dark)" width="auto" height="80"/>
+    <img src="./images/logo-on-light.png" alt="Home Assistant Logo" width="auto" height="80"/>
+  </picture>
 
   <h3 align="center">Vimar By-me Plus for HomeAssistant</h3>
 
   <p align="center">
-    <p>An Home Assistant Custom Integration for Vimar Gateway 01410/01411<p/>
+    <p>An unofficial Home Assistant Custom Integration for Vimar Gateway 01410/01411<p/>
     <p>If you like this repo, give me a ⭐ clicking on the `Star` button in upper right corner<p/>
     <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues/new?labels=bug&template=bug-report.md">Report Bug</a>
     ·
@@ -32,6 +35,11 @@
 </div>
 
 
+
+> [!IMPORTANT]
+> This is a personal project developed by me and is not affiliated with, maintained, authorized, or endorsed by Vimar S.p.A. in any way. Use at your own risk.
+
+<br/>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -279,8 +287,13 @@ logger:
   - [ ] Audio (Bluetooth)
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
   - [ ] Light (Philips, etc)
-- [ ] Add Alarm
-- [ ] Add Video Intercom/Door Bell
+- ~~ [ ] Add Alarm ~~
+- ~~ [ ] Add Video Intercom/Door Bell ~~
+
+<br/>
+
+> [!IMPORTANT]
+> Although the initial roadmap included the support for the Alarm System and the Video Intercom, the official Vimar specifications do not currently allow for their integration. This development is on hold until Vimar provides official support for these features.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
