@@ -287,8 +287,8 @@ logger:
   - [ ] Audio (Bluetooth)
   - [ ] Clima (Mitsubishi, Daikin, LG, etc)
   - [ ] Light (Philips, etc)
-- ~~ [ ] Add Alarm ~~
-- ~~ [ ] Add Video Intercom/Door Bell ~~
+- [ ] ~~Add Alarm~~
+- [ ] ~~Add Video Intercom/Door Bell~~
 
 <br/>
 
