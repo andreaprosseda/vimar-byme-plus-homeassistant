@@ -1,5 +1,4 @@
 from ...model.component.vimar_switch import VimarSwitch
-from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
 

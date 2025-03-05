@@ -1,7 +1,6 @@
 from decimal import Decimal
 
 from ...model.component.vimar_sensor import (
-    SensorDeviceClass,
     VimarSensor,
     SensorMeasurementUnit,
 )

@@ -2,7 +2,6 @@ from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_component import VimarComponent
 from .....model.enum.action_type import ActionType
 from .....model.enum.sfetype_enum import SfeType
-from .....model.enum.sftype_enum import SfType
 from .....model.enum.sstype_enum import SsType
 from ..base_action_handler import BaseActionHandler
 

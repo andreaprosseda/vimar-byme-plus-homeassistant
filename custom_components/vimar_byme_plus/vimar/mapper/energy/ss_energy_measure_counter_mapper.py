@@ -1,12 +1,8 @@
-from decimal import Decimal
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_sensor import (
     VimarSensor,
-    SensorDeviceClass,
 )
-from ...model.enum.sftype_enum import SfType
-from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 
 

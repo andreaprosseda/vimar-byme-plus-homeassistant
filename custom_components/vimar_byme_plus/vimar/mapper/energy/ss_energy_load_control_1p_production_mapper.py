@@ -8,7 +8,6 @@ from ...model.component.vimar_sensor import (
     VimarSensor,
 )
 from ...model.enum.sfetype_enum import SfeType
-from ...model.enum.sftype_enum import SfType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
 from .ss_energy_load_control_1p_mapper import SsEnergyLoadControl1pMapper
