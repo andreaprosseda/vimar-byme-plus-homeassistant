@@ -7,7 +7,6 @@ from ...model.enum.sstype_enum import SsType
 
 
 class SsShutterWithoutPositionMapper(BaseMapper):
-    SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_WITHOUT_POSITION.value
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarCover]:

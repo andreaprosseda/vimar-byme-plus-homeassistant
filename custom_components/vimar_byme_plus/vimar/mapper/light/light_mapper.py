@@ -1,5 +1,14 @@
+from .ss_light_constant_control_mapper import SsLightConstantControlMapper
 from .ss_light_dimmer_mapper import SsLightDimmerMapper
 from .ss_light_dimmer_rgb_mapper import SsLightDimmerRgbMapper
+from .ss_light_dynamic_dimmer_mapper import SsLightDynamicDimmerMapper
+from .ss_light_philips_dimmer_mapper import SsLightPhilipsDimmerMapper
+from .ss_light_philips_dimmer_rgb_mapper import SsLightPhilipsDimmerRgbMapper
+from .ss_light_philips_dynamic_dimmer_mapper import SsLightPhilipsDynamicDimmerMapper
+from .ss_light_philips_dynamic_dimmer_rgb_mapper import (
+    SsLightPhilipsDynamicDimmerRgbMapper,
+)
+from .ss_light_philips_switch_mapper import SsLightPhilipsSwitchMapper
 from .ss_light_switch_mapper import SsLightSwitchMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
@@ -29,10 +38,24 @@ class LightMapper:
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
         sstype = component.sstype
-        if sstype == SsLightSwitchMapper.SSTYPE:
-            return SsLightSwitchMapper()
+        if sstype == SsLightConstantControlMapper.SSTYPE:
+            return SsLightConstantControlMapper()
         if sstype == SsLightDimmerMapper.SSTYPE:
             return SsLightDimmerMapper()
         if sstype == SsLightDimmerRgbMapper.SSTYPE:
             return SsLightDimmerRgbMapper()
+        if sstype == SsLightDynamicDimmerMapper.SSTYPE:
+            return SsLightDynamicDimmerMapper()
+        if sstype == SsLightPhilipsDimmerMapper.SSTYPE:
+            return SsLightPhilipsDimmerMapper()
+        if sstype == SsLightPhilipsDimmerRgbMapper.SSTYPE:
+            return SsLightPhilipsDimmerRgbMapper()
+        if sstype == SsLightPhilipsDynamicDimmerMapper.SSTYPE:
+            return SsLightPhilipsDynamicDimmerMapper()
+        if sstype == SsLightPhilipsDynamicDimmerRgbMapper.SSTYPE:
+            return SsLightPhilipsDynamicDimmerRgbMapper()
+        if sstype == SsLightPhilipsSwitchMapper.SSTYPE:
+            return SsLightPhilipsSwitchMapper()
+        if sstype == SsLightSwitchMapper.SSTYPE:
+            return SsLightSwitchMapper()
         raise NotImplementedError

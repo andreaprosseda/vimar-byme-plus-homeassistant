@@ -1,6 +1,8 @@
 from .ss_automation_on_off_mapper import SsAutomationOnOffMapper
+from .ss_automation_output_control_mapper import SsAutomationOutputControlMapper
 from .ss_automation_technical_alarm_mapper import SsAutomationTechnicalAlarmMapper
 from .ss_automation_timer_astronomic_mapper import SsAutomationTimerAstronomicMapper
+from .ss_automation_timer_periodic_mapper import SsAutomationTimerPeriodicMapper
 from .ss_automation_timer_weekly_mapper import SsAutomationTimerWeeklyMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
@@ -32,10 +34,14 @@ class AutomationMapper:
         sstype = component.sstype
         if sstype == SsAutomationOnOffMapper.SSTYPE:
             return SsAutomationOnOffMapper()
+        if sstype == SsAutomationOutputControlMapper.SSTYPE:
+            return SsAutomationOutputControlMapper()
         if sstype == SsAutomationTechnicalAlarmMapper.SSTYPE:
             return SsAutomationTechnicalAlarmMapper()
         if sstype == SsAutomationTimerAstronomicMapper.SSTYPE:
             return SsAutomationTimerAstronomicMapper()
+        if sstype == SsAutomationTimerPeriodicMapper.SSTYPE:
+            return SsAutomationTimerPeriodicMapper()
         if sstype == SsAutomationTimerWeeklyMapper.SSTYPE:
             return SsAutomationTimerWeeklyMapper()
         raise NotImplementedError

@@ -12,7 +12,6 @@ FREQUENCY = SfeType.CMD_MEM_FREQUENCY_CONTROL
 
 
 class SsAudioRadioFmActionHandler(BaseActionHandler):
-    SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_RADIO_FM.value
 
     def get_actions(

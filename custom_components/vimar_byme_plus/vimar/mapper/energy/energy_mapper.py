@@ -9,6 +9,7 @@ from .ss_energy_load_control_1p_production_mapper import (
 from .ss_energy_load_control_3p_production_mapper import (
     SsEnergyLoadControl3pProductionMapper,
 )
+from .ss_energy_measure_counter_mapper import SsEnergyMeasureCounterMapper
 from ..base_mapper import BaseMapper
 from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_component import VimarComponent
@@ -39,16 +40,18 @@ class EnergyMapper:
         sstype = component.sstype
         if sstype == SsEnergyLoadMapper.SSTYPE:
             return SsEnergyLoadMapper()
+        if sstype == SsEnergyLoadControl1pMapper.SSTYPE:
+            return SsEnergyLoadControl1pMapper()
+        if sstype == SsEnergyLoadControl1pProductionMapper.SSTYPE:
+            return SsEnergyLoadControl1pProductionMapper()
+        if sstype == SsEnergyLoadControl3pMapper.SSTYPE:
+            return SsEnergyLoadControl3pMapper()
+        if sstype == SsEnergyLoadControl3pProductionMapper.SSTYPE:
+            return SsEnergyLoadControl3pProductionMapper()
         if sstype == SsEnergyMeasure1pMapper.SSTYPE:
             return SsEnergyMeasure1pMapper()
         if sstype == SsEnergyMeasure3pMapper.SSTYPE:
             return SsEnergyMeasure3pMapper()
-        if sstype == SsEnergyLoadControl1pMapper.SSTYPE:
-            return SsEnergyLoadControl1pMapper()
-        if sstype == SsEnergyLoadControl3pMapper.SSTYPE:
-            return SsEnergyLoadControl3pMapper()
-        if sstype == SsEnergyLoadControl1pProductionMapper.SSTYPE:
-            return SsEnergyLoadControl1pProductionMapper()
-        if sstype == SsEnergyLoadControl3pProductionMapper.SSTYPE:
-            return SsEnergyLoadControl3pProductionMapper()
+        if sstype == SsEnergyMeasureCounterMapper.SSTYPE:
+            return SsEnergyMeasureCounterMapper()
         raise NotImplementedError

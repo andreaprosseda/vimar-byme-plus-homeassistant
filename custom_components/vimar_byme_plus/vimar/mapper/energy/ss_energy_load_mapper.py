@@ -11,7 +11,6 @@ from ...model.enum.sstype_enum import SsType
 
 
 class SsEnergyLoadMapper(BaseMapper):
-    SFTYPE = SfType.ENERGY.value
     SSTYPE = SsType.ENERGY_LOAD.value
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:

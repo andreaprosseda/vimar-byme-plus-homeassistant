@@ -10,7 +10,6 @@ SHUTTER = SfeType.CMD_SHUTTER
 
 
 class SsShutterPositionActionHandler(BaseActionHandler):
-    SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_POSITION.value
 
     def get_actions(

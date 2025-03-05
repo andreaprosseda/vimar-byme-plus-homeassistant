@@ -11,7 +11,6 @@ TRACK = SfeType.CMD_SKIP_TRACK
 
 
 class SsAudioBluetoothActionHandler(BaseActionHandler):
-    SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_BLUETOOTH.value
 
     def get_actions(

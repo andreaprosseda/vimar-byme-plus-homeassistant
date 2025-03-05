@@ -10,7 +10,6 @@ SHUTTER = SfeType.CMD_SHUTTER_WITHOUT_POSITION
 
 
 class SsShutterWithoutPositionActionHandler(BaseActionHandler):
-    SFTYPE = SfType.SHUTTER.value
     SSTYPE = SsType.SHUTTER_WITHOUT_POSITION.value
 
     def get_actions(

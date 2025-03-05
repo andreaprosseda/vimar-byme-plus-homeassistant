@@ -7,7 +7,6 @@ from ..base_action_handler import BaseActionHandler
 
 
 class SsAudioRcaActionHandler(BaseActionHandler):
-    SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_RCA.value
 
     def get_actions(

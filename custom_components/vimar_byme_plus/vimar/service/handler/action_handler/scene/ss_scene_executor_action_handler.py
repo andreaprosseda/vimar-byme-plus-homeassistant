@@ -10,7 +10,6 @@ EXECUTE = SfeType.CMD_EXECUTE
 
 
 class SsSceneExecutorActionHandler(BaseActionHandler):
-    SFTYPE = SfType.SCENE.value
     SSTYPE = SsType.SCENE_EXECUTOR.value
 
     def get_actions(

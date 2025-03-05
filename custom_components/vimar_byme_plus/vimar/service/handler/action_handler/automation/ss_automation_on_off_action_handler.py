@@ -10,7 +10,6 @@ ON_OFF = SfeType.CMD_ON_OFF
 
 
 class SsAutomationOnOffActionHandler(BaseActionHandler):
-    SFTYPE = SfType.AUTOMATION.value
     SSTYPE = SsType.AUTOMATION_ON_OFF.value
 
     def get_actions(
