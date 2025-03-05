@@ -1,13 +1,12 @@
-from ...model.component.vimar_cover import VimarCover
+from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
+from ..sensor.ss_sensor_interface_contact_mapper import SsSensorInterfaceContactMapper
 
 
-class SsAccessInterfaceContactMapper:
+class SsAccessInterfaceContactMapper(SsSensorInterfaceContactMapper):
     SSTYPE = SsType.ACCESS_INTERFACE_CONTACT.value
 
-    def from_obj(self, component: UserComponent, *args) -> list[VimarCover]:
-        return [self._from_obj(component, *args)]
-
-    def _from_obj(self, component: UserComponent, *args) -> VimarCover:
-        raise NotImplementedError
+    def get_is_on(self, component: UserComponent) -> bool:
+        value = component.get_value(SfeType.STATE_ACCESS)
+        return value == "Open" if value else False
