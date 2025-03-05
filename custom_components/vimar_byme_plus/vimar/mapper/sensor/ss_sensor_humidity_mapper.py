@@ -1,6 +1,10 @@
 from decimal import Decimal
 
-from ...model.component.vimar_sensor import SensorDeviceClass, VimarSensor
+from ...model.component.vimar_sensor import (
+    SensorDeviceClass,
+    VimarSensor,
+    SensorMeasurementUnit,
+)
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
@@ -24,7 +28,7 @@ class SsSensorHumidityMapper:
             native_value=self.native_value(component),
             last_update=None,
             decimal_precision=self.decimal_precision(component),
-            unit_of_measurement=None,
+            unit_of_measurement=SensorMeasurementUnit.PERCENTAGE,
             state_class=None,
             options=None,
         )
@@ -36,4 +40,4 @@ class SsSensorHumidityMapper:
         return None
 
     def decimal_precision(self, component: UserComponent) -> int:
-        return 1
+        return 0
