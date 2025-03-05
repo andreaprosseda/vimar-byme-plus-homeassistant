@@ -16,7 +16,7 @@ from ...utils.filtering import flat
 class SceneActivatorMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarComponent]:
-        sftype = SfType.SCENE.value
+        sftype = SfType.SCENE_ACTIVATOR.value
         shutters = [component for component in components if component.sftype == sftype]
         components = [SceneActivatorMapper.from_obj(shutter) for shutter in shutters]
         return flat(components)
