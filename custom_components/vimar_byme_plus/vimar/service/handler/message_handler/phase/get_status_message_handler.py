@@ -6,7 +6,6 @@ from .....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
 from .....utils.logger import log_info
-from .....utils.beautify import print_elements
 
 
 class GetStatusMessageHandler(BaseMessageHandler):
@@ -15,7 +14,7 @@ class GetStatusMessageHandler(BaseMessageHandler):
     ) -> BaseRequestResponse:
         if not message and config.actions:
             return self.get_status_request(config)
-        self.log(message)
+        # self.log(message)
         return self._idle()
 
     def get_status_request(self, config: MessageSupportingValues) -> GetStatusRequest:
@@ -29,7 +28,7 @@ class GetStatusMessageHandler(BaseMessageHandler):
             idsf=config.idsf,
         )
 
-    def log(self, response: BaseRequestResponse):
-        if response and isinstance(response, BaseResponse):
-            if response.result:
-                print_elements(response.result[0]["elements"])
+    # def log(self, response: BaseRequestResponse):
+    #     if response and isinstance(response, BaseResponse):
+    #         if response.result:
+    #             print_elements(response.result[0]["elements"])
