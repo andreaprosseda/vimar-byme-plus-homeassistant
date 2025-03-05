@@ -18,8 +18,8 @@
 <br />
 <div align="center">
   <picture>
-    <source srcset="./images/logo-on-dark.png" media="(prefers-color-scheme: dark)" width="auto" height="80"/>
-    <img src="./images/logo-on-light.png" alt="Home Assistant Logo" width="auto" height="80"/>
+    <source srcset="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/logo-on-dark.png" media="(prefers-color-scheme: dark)" width="auto" height="80"/>
+    <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/logo-on-light.png" alt="Home Assistant Logo" width="auto" height="80"/>
   </picture>
 
   <h3 align="center">Vimar By-me Plus for HomeAssistant</h3>

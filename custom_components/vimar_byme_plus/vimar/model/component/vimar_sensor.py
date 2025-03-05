@@ -12,19 +12,33 @@ class SensorStateClass(StrEnum):
 
 
 class SensorDeviceClass(StrEnum):
+    AQI = "aqi"
+    CURRENT = "current"
     ENERGY = "energy"
     ENERGY_STORAGE = "energy_storage"
     ENUM = "enum"
     HUMIDITY = "humidity"
     ILLUMINANCE = "illuminance"
     POWER = "power"
+    PRESSURE = "pressure"
     TEMPERATURE = "temperature"
+    VOLTAGE = "voltage"
+    VOLUME_FLOW_RATE = "volume_flow_rate"
     WIND_SPEED = "wind_speed"
 
 
 class SensorMeasurementUnit(StrEnum):
+    CELSIUS = "°C"
+    CUBIC_METERS_PER_HOUR = "m³/h"
     KILO_WATT = "kW"
     KILO_WATT_HOUR = "kWh"
+    LITRE_PER_SQUARE_METER = "l/m²"
+    LUX = "lx"
+    METERS_PER_SECOND = "m/s"
+    MILLIAMPERE = "mA"
+    MILLIVOLTS = "mV"
+    PASCAL = "Pa"
+    PERCENTAGE = "%"
 
 
 @dataclass

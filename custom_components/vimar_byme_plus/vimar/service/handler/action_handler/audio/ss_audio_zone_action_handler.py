@@ -1,5 +1,4 @@
 from .....model.enum.action_type import ActionType
-from .....model.enum.sftype_enum import SfType
 from .....model.enum.sfetype_enum import SfeType
 from .....model.enum.sstype_enum import SsType
 from .....model.component.vimar_action import VimarAction
@@ -14,7 +13,6 @@ FREQUENCY = SfeType.CMD_MEM_FREQUENCY_CONTROL
 
 
 class SsAudioZoneActionHandler(BaseActionHandler):
-    SFTYPE = SfType.AUDIO.value
     SSTYPE = SsType.AUDIO_ZONE.value
 
     def get_actions(

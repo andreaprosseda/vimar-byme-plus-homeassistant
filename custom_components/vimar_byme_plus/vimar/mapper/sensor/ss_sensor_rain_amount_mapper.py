@@ -1,16 +1,16 @@
 from decimal import Decimal
-from ..base_mapper import BaseMapper
-from ...model.repository.user_component import UserComponent
+
 from ...model.component.vimar_sensor import (
     VimarSensor,
-    SensorDeviceClass,
+    SensorMeasurementUnit,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
 
 
-class SsEnergyLoadMapper(BaseMapper):
-    SSTYPE = SsType.ENERGY_LOAD.value
+class SsSensorRainAmountMapper:
+    SSTYPE = SsType.SENSOR_RAIN_AMOUNT.value
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
         return [self._from_obj(component, *args)]
@@ -21,22 +21,22 @@ class SsEnergyLoadMapper(BaseMapper):
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
-            device_class=SensorDeviceClass.ENUM,
+            device_class=None,
             area=component.ambient.name,
             main_id=component.idsf,
             native_value=self.native_value(component),
             last_update=None,
-            decimal_precision=None,
-            unit_of_measurement=None,
+            decimal_precision=self.decimal_precision(component),
+            unit_of_measurement=SensorMeasurementUnit.LITRE_PER_SQUARE_METER,
             state_class=None,
-            options=self.get_values(component),
+            options=None,
         )
 
     def native_value(self, component: UserComponent) -> str | Decimal | None:
-        value = component.get_value(SfeType.STATE_LOAD)
+        value = component.get_value(SfeType.STATE_RAIN_AMOUNT)
         if value:
-            return value
-        return "Unknown"
+            return Decimal(value)
+        return None
 
-    def get_values(self, component: UserComponent) -> list[str]:
-        return ["Auto on", "Auto off", "Forced on", "Forced off", "Unknown"]
+    def decimal_precision(self, component: UserComponent) -> int:
+        return 0

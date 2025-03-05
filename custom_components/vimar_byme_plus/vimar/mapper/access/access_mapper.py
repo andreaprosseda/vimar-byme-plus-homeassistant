@@ -1,3 +1,4 @@
+from .ss_access_interface_contact_mapper import SsAccessInterfaceContactMapper
 from .ss_access_door_window_mapper import SsAccessDoorWindowMapper
 from .ss_access_gate_mapper import SsAccessGateMapper
 from ..base_mapper import BaseMapper
@@ -28,6 +29,8 @@ class AccessMapper:
     @staticmethod
     def get_mapper(component: UserComponent) -> BaseMapper:
         sstype = component.sstype
+        if sstype == SsAccessInterfaceContactMapper.SSTYPE:
+            return SsAccessInterfaceContactMapper()
         if sstype == SsAccessGateMapper.SSTYPE:
             return SsAccessGateMapper()
         if sstype == SsAccessDoorWindowMapper.SSTYPE:

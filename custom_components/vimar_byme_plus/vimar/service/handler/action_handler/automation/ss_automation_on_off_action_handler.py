@@ -2,7 +2,6 @@ from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_component import VimarComponent
 from .....model.enum.action_type import ActionType
 from .....model.enum.sfetype_enum import SfeType
-from .....model.enum.sftype_enum import SfType
 from .....model.enum.sstype_enum import SsType
 from ..base_action_handler import BaseActionHandler
 
@@ -10,7 +9,6 @@ ON_OFF = SfeType.CMD_ON_OFF
 
 
 class SsAutomationOnOffActionHandler(BaseActionHandler):
-    SFTYPE = SfType.AUTOMATION.value
     SSTYPE = SsType.AUTOMATION_ON_OFF.value
 
     def get_actions(

@@ -11,12 +11,11 @@ from ...model.component.vimar_climate import (
 from ...model.enum.sftype_enum import SfType
 from ...model.enum.sfetype_enum import SfeType
 
-SFTYPE = SfType.CLIMA.value
-
 
 class ClimaMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarComponent]:
+        SFTYPE = SfType.CLIMA.value
         return [ClimaMapper.from_obj(c) for c in components if c.sftype == SFTYPE]
 
     @staticmethod
