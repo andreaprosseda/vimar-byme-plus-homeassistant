@@ -1,3 +1,4 @@
+import errno
 from ....model.web_socket.base_response import BaseResponse
 from ....model.gateway.gateway_info import GatewayInfo
 from ....model.web_socket.base_request_response import BaseRequestResponse
@@ -76,6 +77,8 @@ class ErrorHandler:
         if error_type == "ConnectionRefusedError":
             log_error(__name__, "Connection refused, sending new message...")
             return True
+        if isinstance(exception, OSError) and exception.errno == errno.ECONNRESET:
+            log_error(__name__, "Connection reset by peer, sending new message...")
         return False
 
     def is_vimar_permanent_error(self, message: BaseRequestResponse) -> bool:
