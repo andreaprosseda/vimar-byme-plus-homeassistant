@@ -27,4 +27,4 @@ class SsLightDimmerRgbMapper(SsLightDimmerMapper):
         return None  # Changing
 
     def get_supported_color_modes(self, component: UserComponent) -> set[ColorMode]:
-        return {ColorMode.BRIGHTNESS, ColorMode.RGB}
+        return {ColorMode.RGB}
