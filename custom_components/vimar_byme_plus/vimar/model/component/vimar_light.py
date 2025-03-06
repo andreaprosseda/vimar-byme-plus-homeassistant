@@ -23,6 +23,7 @@ class VimarLight(VimarComponent):
     color_mode: ColorMode | None
     hsv_color: tuple[int, int, int] | None
     rgb_color: tuple[int, int, int] | None
+    temp_color: int | None
     supported_color_modes: set[ColorMode] | None
 
     @staticmethod

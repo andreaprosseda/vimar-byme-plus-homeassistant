@@ -9,7 +9,7 @@ ON_OFF = SfeType.CMD_ON_OFF
 BRIGHTNESS = SfeType.CMD_BRIGHTNESS
 
 
-class SsLightPhilipsDimmerRgbActionHandler(SsLightSwitchActionHandler):
+class SsLightPhilipsSwitchActionHandler(SsLightSwitchActionHandler):
     SSTYPE = SsType.LIGHT_PHILIPS_SWITCH.value
 
     def get_actions(

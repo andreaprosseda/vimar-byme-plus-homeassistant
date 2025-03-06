@@ -31,6 +31,7 @@ class SfeType(Enum):
     CMD_IMMEDIATE_START_STOP = "SFE_Cmd_ImmediateStartStop"
     CMD_SKIP_ZONE = "SFE_Cmd_SkipZone"
     CMD_EXECUTE = "SFE_Cmd_Execute"
+    CMD_MIXING_WHITE_VALUE = "SFE_Cmd_MixingWhiteValue"
 
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"
     STATE_AMBIENT_TEMPERATURE = "SFE_State_AmbientTemperature"
@@ -57,6 +58,7 @@ class SfeType(Enum):
     STATE_HSV = "SFE_State_HSV"
     STATE_RGB = "SFE_State_RGB"
     STATE_MINIMUM_DIMMING_VALUE = "SFE_State_MinimumDimmingValue"
+    STATE_MIXING_WHITE_VALUE = "SFE_State_MixingWhiteValue"
 
     STATE_OUT_STATUS = "SFE_State_OutStatus"
     STATE_SHUTTER = "SFE_State_Shutter"

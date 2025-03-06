@@ -23,17 +23,22 @@ class SsLightDimmerRgbActionHandler(SsLightDimmerActionHandler):
         return super().get_actions(component, action_type, *args)
 
     def get_turn_on_actions(
-        self, component: VimarComponent, brightness: int, rgb: str
+        self, component: VimarComponent, brightness: int, rgb: str, white: int
     ) -> list[VimarAction]:
         values = [self._action(component.id, ON_OFF, "On")]
-        if brightness is not None:
-            values.extend(self._get_hsv(component, brightness))
-        if rgb:
-            values.append(self._action(component.id, RGB, rgb))
+        values.extend(self._get_rgb(component.id, rgb))
+        values.extend(self._get_hsv(component, brightness))
         return values
 
     def _get_hsv(self, component: VimarLight, brightness: int) -> list[VimarAction]:
-        hsv = component.hsv_color
-        new_hsv = (hsv[0], hsv[1], brightness)
-        value = ",".join(map(str, new_hsv))
-        return [self._action(component.id, HSV, value)]
+        if brightness is not None:
+            hsv = component.hsv_color
+            new_hsv = (hsv[0], hsv[1], brightness)
+            value = ",".join(map(str, new_hsv))
+            return [self._action(component.id, HSV, value)]
+        return []
+
+    def _get_rgb(self, component: VimarLight, rgb: str) -> list[VimarAction]:
+        if rgb:
+            return [self._action(component.id, RGB, rgb)]
+        return []

@@ -7,12 +7,13 @@ from typing import Any
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
     ATTR_RGB_COLOR,
+    ATTR_COLOR_TEMP_KELVIN,
     ColorMode,
     LightEntity,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.util.color import value_to_brightness
+from homeassistant.util.color import value_to_brightness, scale_to_ranged_value
 from homeassistant.util.percentage import ranged_value_to_percentage
 
 from . import CoordinatorConfigEntry
@@ -39,8 +40,11 @@ async def async_setup_entry(
 class Light(BaseEntity, LightEntity):
     """Provides a Vimar light."""
 
-    VIMAR_BRIGHTNESS_SCALE = (1, 100)
+    VIMAR_SCALE = (1, 100)
     HA_BRIGHTNESS_SCALE = (1, 255)
+    HA_COLOR_TEMP_SCALE = (2700, 6500)
+    _attr_min_color_temp_kelvin = 2700
+    _attr_max_color_temp_kelvin = 6500
     _component: VimarLight
 
     def __init__(self, coordinator: Coordinator, component: VimarLight) -> None:
@@ -66,12 +70,17 @@ class Light(BaseEntity, LightEntity):
     @property
     def hs_color(self) -> tuple[float, float] | None:
         """Return the hue and saturation color value [float, float]. This property will be copied to the light's state attribute when the light's color mode is set to ColorMode.HS and ignored otherwise."""
-        return self._component.hs_color
+        return None  # self._component.hs_color
 
     @property
     def rgb_color(self) -> tuple[int, int, int] | None:
         """Return the rgb color value [int, int, int]. This property will be copied to the light's state attribute when the light's color mode is set to ColorMode.RGB and ignored otherwise."""
         return self._component.rgb_color
+
+    @property
+    def color_temp_kelvin(self) -> int | None:
+        """Return the CT color value in Kelvin."""
+        return self._get_mixing_white_value_2700_6500()
 
     @property
     def supported_color_modes(self) -> set[ColorMode] | set[str] | None:
@@ -84,7 +93,8 @@ class Light(BaseEntity, LightEntity):
         log_info(__name__, kwargs)
         brightness = self._get_brightness_1_100(**kwargs)
         rgb = self._get_rgb_string(**kwargs)
-        self.send(ActionType.ON, brightness, rgb)
+        white = self._get_mixing_white_value_1_100(**kwargs)
+        self.send(ActionType.ON, brightness, rgb, white)
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the light off."""
@@ -92,20 +102,36 @@ class Light(BaseEntity, LightEntity):
 
     def _get_brightness_1_100(self, **kwargs: Any) -> int | None:
         scale = self.HA_BRIGHTNESS_SCALE
-        brightness = kwargs.get(ATTR_BRIGHTNESS, None)
+        brightness = kwargs.get(ATTR_BRIGHTNESS)
         if not brightness:
             return None
         return ranged_value_to_percentage(scale, brightness)
 
     def _get_brightness_1_255(self) -> int | None:
-        scale = self.VIMAR_BRIGHTNESS_SCALE
+        scale = self.VIMAR_SCALE
         brightness = self._component.brightness
         if not brightness:
             return None
         return value_to_brightness(scale, brightness)
 
     def _get_rgb_string(self, **kwargs: Any) -> str | None:
-        rgb = kwargs.get(ATTR_RGB_COLOR, None)
+        rgb = kwargs.get(ATTR_RGB_COLOR)
         if not rgb:
             return None
         return ",".join(map(str, rgb))
+
+    def _get_mixing_white_value_1_100(self, **kwargs: Any) -> int | None:
+        scale = self.HA_COLOR_TEMP_SCALE
+        color_temp = kwargs.get(ATTR_COLOR_TEMP_KELVIN)
+        if not color_temp:
+            return None
+        return ranged_value_to_percentage(scale, color_temp)
+
+    def _get_mixing_white_value_2700_6500(self) -> int | None:
+        source_scale = self.VIMAR_SCALE
+        target_scale = self.HA_COLOR_TEMP_SCALE
+        temp_color = self._component.temp_color
+        if not temp_color:
+            return None
+        value = round(scale_to_ranged_value(source_scale, target_scale, temp_color))
+        return min(6500, max(2700, value))

@@ -23,6 +23,7 @@ class SsLightSwitchMapper:
             color_mode=self.get_color_mode(component),
             hsv_color=self.get_hsv_color(component),
             rgb_color=self.get_rgb_color(component),
+            temp_color=self.get_temp_color(component),
             supported_color_modes=self.get_supported_color_modes(component),
         )
 
@@ -43,4 +44,7 @@ class SsLightSwitchMapper:
         return None
 
     def get_rgb_color(self, component: UserComponent) -> tuple[int, int, int] | None:
+        return None
+
+    def get_temp_color(self, component: UserComponent) -> int | None:
         return None

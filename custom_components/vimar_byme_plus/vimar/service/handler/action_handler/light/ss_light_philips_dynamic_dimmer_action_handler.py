@@ -9,7 +9,7 @@ ON_OFF = SfeType.CMD_ON_OFF
 BRIGHTNESS = SfeType.CMD_BRIGHTNESS
 
 
-class SsLightPhilipsDimmerActionHandler(SsLightDynamicDimmerActionHandler):
+class SsLightPhilipsDynamicDimmerActionHandler(SsLightDynamicDimmerActionHandler):
     SSTYPE = SsType.LIGHT_PHILIPS_DYNAMIC_DIMMER.value
 
     def get_actions(

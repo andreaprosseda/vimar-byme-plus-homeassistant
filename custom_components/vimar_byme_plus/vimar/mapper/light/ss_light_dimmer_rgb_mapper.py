@@ -26,5 +26,8 @@ class SsLightDimmerRgbMapper(SsLightDimmerMapper):
             return tuple(map(int, value.split(",")))
         return None  # Changing
 
+    def get_color_mode(self, component: UserComponent) -> ColorMode:
+        return ColorMode.RGB
+
     def get_supported_color_modes(self, component: UserComponent) -> set[ColorMode]:
         return {ColorMode.RGB}

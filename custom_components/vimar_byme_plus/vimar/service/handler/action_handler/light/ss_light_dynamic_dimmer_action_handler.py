@@ -7,6 +7,7 @@ from .....model.component.vimar_component import VimarComponent
 
 ON_OFF = SfeType.CMD_ON_OFF
 BRIGHTNESS = SfeType.CMD_BRIGHTNESS
+WHITE = SfeType.CMD_MIXING_WHITE_VALUE
 
 
 class SsLightDynamicDimmerActionHandler(SsLightDimmerActionHandler):
@@ -15,4 +16,24 @@ class SsLightDynamicDimmerActionHandler(SsLightDimmerActionHandler):
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
+        if action_type == ActionType.ON:
+            return self.get_turn_on_actions(component, args[0], args[1], args[2])
         return super().get_actions(component, action_type, *args)
+
+    def get_turn_on_actions(
+        self, component: VimarComponent, brightness: int, rgb: str, white: int
+    ) -> list[VimarAction]:
+        values = [self._action(component.id, ON_OFF, "On")]
+        values.extend(self._get_brightness(component.id, brightness))
+        values.extend(self._get_mixing_white_value(component.id, white))
+        return values
+
+    def _get_brightness(self, id: str, brightness: int) -> list[VimarAction]:
+        if brightness is not None:
+            return [self._action(id, BRIGHTNESS, brightness)]
+        return []
+
+    def _get_mixing_white_value(self, id: str, white: int) -> list[VimarAction]:
+        if white is not None:
+            return [self._action(id, WHITE, white)]
+        return []
