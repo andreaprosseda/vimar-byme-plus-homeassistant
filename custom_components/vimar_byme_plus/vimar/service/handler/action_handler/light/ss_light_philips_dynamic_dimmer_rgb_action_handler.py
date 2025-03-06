@@ -21,11 +21,6 @@ class SsLightPhilipsDynamicDimmerRgbActionHandler(
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
-        return super().get_actions(component, action_type, *args)
-
-    def get_actions(
-        self, component: VimarComponent, action_type: ActionType, *args
-    ) -> list[VimarAction]:
         if action_type == ActionType.ON:
             return self.get_turn_on_actions(component, args[0], args[1], args[2])
         return super().get_actions(component, action_type, *args)
