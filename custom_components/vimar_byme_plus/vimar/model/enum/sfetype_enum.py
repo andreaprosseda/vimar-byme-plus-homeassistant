@@ -32,6 +32,9 @@ class SfeType(Enum):
     CMD_SKIP_ZONE = "SFE_Cmd_SkipZone"
     CMD_EXECUTE = "SFE_Cmd_Execute"
     CMD_MIXING_WHITE_VALUE = "SFE_Cmd_MixingWhiteValue"
+    CMD_DOWNKEY_ACTIVE_SCENE = "SFE_Cmd_DownKey_ActiveScene"
+    CMD_START_ACTIVE_SCENE = "SFE_Cmd_CallStart_ActiveScene"
+    CMD_END_ACTIVE_SCENE = "SFE_Cmd_CallEnd_ActiveScene"
 
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"
     STATE_AMBIENT_TEMPERATURE = "SFE_State_AmbientTemperature"

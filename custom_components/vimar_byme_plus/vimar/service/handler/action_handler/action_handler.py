@@ -10,6 +10,7 @@ from .clima.clima_action_handler import ClimaActionHandler
 from .irrigation.irrigation_action_handler import IrrigationActionHandler
 from .light.light_action_handler import LightActionHandler
 from .scene.scene_action_handler import SceneActionHandler
+from .scene_activator.scene_activator_action_handler import SceneActivatorActionHandler
 from .shutter.shutter_action_handler import ShutterActionHandler
 
 
@@ -38,6 +39,8 @@ class ActionHandler:
                 return LightActionHandler()
             case SfType.SCENE:
                 return SceneActionHandler()
+            case SfType.SCENE_ACTIVATOR:
+                return SceneActivatorActionHandler()
             case SfType.SHUTTER:
                 return ShutterActionHandler()
             case _:
