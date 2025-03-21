@@ -39,6 +39,23 @@
 > [!IMPORTANT]
 > This is a personal project developed by me and is not affiliated with, maintained, authorized, or endorsed by Vimar S.p.A. in any way. Use at your own risk.
 
+## Built by Your Support
+
+Hey there! 👋 What started as a fun project has turned into something much bigger! 
+
+This integration has been a truly time-consuming project, requiring many hours of development and a lot of hard work. Every line of code, every test, every bug fix has been carefully crafted to provide the best possible experience.
+
+If my work has been helpful to you, consider making a donation. Every contribution, no matter how small, makes a big difference and allows me to keep dedicating time and resources to maintaining and improving this integration.
+
+<a href="https://paypal.me/AndreaProsseda">
+  <img align="center" src="https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png" alt="paypal image" height="80" />
+</a>
+
+<a href="https://www.buymeacoffee.com/andreaprosseda">
+  <img align="center" src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="coffee image" height="55" />
+</a>
+
+<br/>
 <br/>
 
 <!-- TABLE OF CONTENTS -->
@@ -46,14 +63,13 @@
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#support">Support</a></li>
     <li><a href="#requirements">Requirements</a></li>
     <li>
       <a href="#installation">Installation</a>
       <ul>
         <li><a href="#step-13-home-assistant---install-component">[Step 1/3] Home Assistant - Install Component</a></li>
-        <li><a href="#step-23-vimar-pro---initial-setup">[Step 2/3] Vimar VIEW PRO - Initial Setup</a></li>
-        <li><a href="#step-33-vimar-pro---generate-setup-code">[Step 3/3] Vimar VIEW PRO - Generate Setup Code</a></li>
+        <li><a href="#step-23-vimar-view-pro---initial-setup">[Step 2/3] Vimar VIEW PRO - Initial Setup</a></li>
+        <li><a href="#step-33-vimar-view-pro---generate-setup-code">[Step 3/3] Vimar VIEW PRO - Generate Setup Code</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -77,23 +93,6 @@ The component follows the Vimar Official integration process and provides an int
 Further information here: [Vimar Official Website][vimar-integration-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Support 
-
-Hey there! I'm a tech enthusiast and dedicated coder, fuelled by caffeine and a passion for the home-automation world.
-Your support directly powers my coffee stash, keeps my energy up, and lets me focus more on creating and maintaining the resources you rely on.
-
-If my work has helped you in any way, consider buying me a coffee — it’s a small way to contribute but makes a big difference and helps keep this project alive and maintained. 
-Thank you for fueling my passion for tech and open-source! ❤️
-
-<a href="https://www.buymeacoffee.com/andreaprosseda">
-  <img align="center" src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="coffee image" height="55" />
-</a>
-
-<a href="https://paypal.me/AndreaProsseda">
-  <img align="center" src="https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png" alt="paypal image" height="80" />
-</a>
-
 
 <!-- Requirements -->
 ## Requirements
@@ -225,6 +224,9 @@ It's almost done! Let's proceed to integrate the custom component on Home Assist
 :warning: This process may take up to 5 minutes. Be patient and wait for the process to be completed!
 
 ![Usage Tutorial][usage-tutorial]
+
+> [!IMPORTANT]
+> Some of the implemented entities can produce custom events. For example, the integration fires events related to scenes activation. You can check these events going to Developer Tools > Events and listening to `vimar_byme_plus_event`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
