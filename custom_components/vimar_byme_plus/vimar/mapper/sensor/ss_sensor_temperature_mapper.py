@@ -18,7 +18,7 @@ class SsSensorTemperatureMapper:
 
     def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
-            id=component.idsf,
+            id=component.idsf if not args else args[0],
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,

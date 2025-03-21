@@ -1,6 +1,8 @@
-from decimal import Decimal
+from .ss_sensor_luminosity_mapper import SsSensorLuminosityMapper
+from .ss_sensor_temperature_mapper import SsSensorTemperatureMapper
+from .ss_sensor_wind_speed_mapper import SsSensorWindSpeedMapper
 from ...model.component.vimar_binary_sensor import VimarBinarySensor
-from ...model.component.vimar_sensor import VimarSensor, SensorDeviceClass
+from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
@@ -9,14 +11,15 @@ from ...model.repository.user_component import UserComponent
 class SsSensorWeatherStationMapper:
     SSTYPE = SsType.SENSOR_WEATHER_STATION.value
 
-    def from_obj(self, component: UserComponent, *args) -> list[VimarBinarySensor]:
-        return [
-            self._night_from_obj(component),
-            self._raining_from_obj(component),
-            self._luminosity_from_obj(component),
-            self._temperature_from_obj(component),
-            self._wind_from_obj(component),
-        ]
+    def from_obj(self, component: UserComponent, *args) -> list[VimarComponent]:
+        values = []
+        values.append(self._night_from_obj(component))
+        values.append(self._raining_from_obj(component))
+
+        values.extend(self._luminosity_from_obj(component))
+        values.extend(self._temperature_from_obj(component))
+        values.extend(self._wind_from_obj(component))
+        return values
 
     def _night_from_obj(self, component: UserComponent) -> VimarBinarySensor:
         value = component.get_value(SfeType.STATE_ITS_NIGHT)
@@ -42,67 +45,14 @@ class SsSensorWeatherStationMapper:
             is_on=value == "Raining" if value else False,
         )
 
-    def _luminosity_from_obj(self, component: UserComponent) -> VimarSensor:
-        sfetype = SfeType.STATE_LUMINOSITY
-        return VimarSensor(
-            id=str(component.idsf) + "_luminosity",
-            name=component.name,
-            device_group=component.sftype,
-            device_name=component.sstype,
-            device_class=SensorDeviceClass.ILLUMINANCE,
-            area=component.ambient.name,
-            main_id=component.idsf,
-            native_value=self._native_value(component, sfetype),
-            last_update=None,
-            decimal_precision=self._decimal_precision(component),
-            unit_of_measurement=None,
-            state_class=None,
-            options=None,
-        )
+    def _luminosity_from_obj(self, component: UserComponent) -> list[VimarComponent]:
+        custom_id = str(component.idsf) + "_luminosity"
+        return SsSensorLuminosityMapper().from_obj(component, custom_id)
 
-    def _temperature_from_obj(self, component: UserComponent) -> VimarSensor:
-        sfetype = SfeType.STATE_SENSOR_TEMPERATURE
-        return VimarSensor(
-            id=str(component.idsf) + "_temperature",
-            name=component.name,
-            device_group=component.sftype,
-            device_name=component.sstype,
-            device_class=SensorDeviceClass.TEMPERATURE,
-            area=component.ambient.name,
-            main_id=component.idsf,
-            native_value=self._native_value(component, sfetype),
-            last_update=None,
-            decimal_precision=self._decimal_precision(component),
-            unit_of_measurement=None,
-            state_class=None,
-            options=None,
-        )
+    def _temperature_from_obj(self, component: UserComponent) -> list[VimarComponent]:
+        custom_id = str(component.idsf) + "_temperature"
+        return SsSensorTemperatureMapper().from_obj(component, custom_id)
 
-    def _wind_from_obj(self, component: UserComponent) -> VimarSensor:
-        sfetype = SfeType.STATE_WIND_SPEED
-        return VimarSensor(
-            id=str(component.idsf) + "_wind_speed",
-            name=component.name,
-            device_group=component.sftype,
-            device_name=component.sstype,
-            device_class=SensorDeviceClass.WIND_SPEED,
-            area=component.ambient.name,
-            main_id=component.idsf,
-            native_value=self._native_value(component, sfetype),
-            last_update=None,
-            decimal_precision=self._decimal_precision(component),
-            unit_of_measurement=None,
-            state_class=None,
-            options=None,
-        )
-
-    def _native_value(
-        self, component: UserComponent, sfetype: SfeType
-    ) -> str | Decimal | None:
-        value = component.get_value(sfetype)
-        if value:
-            return Decimal(value)
-        return None
-
-    def _decimal_precision(self, component: UserComponent) -> int:
-        return 1
+    def _wind_from_obj(self, component: UserComponent) -> list[VimarComponent]:
+        custom_id = str(component.idsf) + "_wind_speed"
+        return SsSensorWindSpeedMapper().from_obj(component, custom_id)

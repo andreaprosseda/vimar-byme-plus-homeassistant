@@ -35,6 +35,7 @@ class SensorMeasurementUnit(StrEnum):
     LITRE_PER_SQUARE_METER = "l/m²"
     LUX = "lx"
     METERS_PER_SECOND = "m/s"
+    KILOMETERS_PER_HOUR = "km/h"
     MILLIAMPERE = "mA"
     MILLIVOLTS = "mV"
     PASCAL = "Pa"
