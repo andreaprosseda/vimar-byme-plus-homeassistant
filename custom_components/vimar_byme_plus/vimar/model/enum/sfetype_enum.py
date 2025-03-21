@@ -109,3 +109,4 @@ class SfeType(Enum):
     STATE_VOLUME_FLOW = "SFE_State_VolumeFlow"
     STATE_SENSOR_TEMPERATURE = "SFE_State_SensorTemperature"
     STATE_WIND_SPEED = "SFE_State_WindSpeed"
+    STATE_EXECUTED = "SFE_State_Executed"
