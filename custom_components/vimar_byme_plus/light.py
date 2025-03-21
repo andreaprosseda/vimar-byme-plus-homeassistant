@@ -90,7 +90,6 @@ class Light(BaseEntity, LightEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the Vimar light on."""
-        log_info(__name__, kwargs)
         brightness = self._get_brightness_1_100(**kwargs)
         rgb = self._get_rgb_string(**kwargs)
         white = self._get_mixing_white_value_1_100(**kwargs)
