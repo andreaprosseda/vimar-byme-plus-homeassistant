@@ -5,6 +5,7 @@ from .vimar_component import VimarComponent
 @dataclass
 class VimarButton(VimarComponent):
     main_id: str | None
+    executed: bool
 
     @staticmethod
     def get_table_header() -> list:

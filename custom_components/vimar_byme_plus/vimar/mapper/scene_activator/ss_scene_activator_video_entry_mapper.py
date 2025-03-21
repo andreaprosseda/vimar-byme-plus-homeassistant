@@ -23,6 +23,7 @@ class SsSceneActivatorVideoEntryMapper:
             device_class=None,
             area=component.ambient.name,
             main_id=component.idsf,
+            executed=False,
         )
 
     def button_end_call_from_obj(self, component: UserComponent, *args) -> VimarButton:
@@ -34,4 +35,5 @@ class SsSceneActivatorVideoEntryMapper:
             device_class=None,
             area=component.ambient.name,
             main_id=component.idsf,
+            executed=False,
         )

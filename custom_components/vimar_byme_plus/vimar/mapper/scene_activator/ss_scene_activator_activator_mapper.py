@@ -18,4 +18,5 @@ class SsSceneActivatorActivatorMapper:
             device_class=None,
             area=component.ambient.name,
             main_id=None,
+            executed=False,
         )

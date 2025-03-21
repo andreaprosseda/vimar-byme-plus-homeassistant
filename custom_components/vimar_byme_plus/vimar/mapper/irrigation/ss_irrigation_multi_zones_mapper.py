@@ -32,6 +32,7 @@ class SsIrrigationMultiZonesMapper:
             device_class=None,
             area=component.ambient.name,
             main_id=component.idsf,
+            executed=False,
         )
 
     def button_skip_from_obj(self, component: UserComponent, *args) -> VimarButton:
@@ -45,6 +46,7 @@ class SsIrrigationMultiZonesMapper:
             device_class=None,
             area=component.ambient.name,
             main_id=component.idsf,
+            executed=False,
         )
 
     def switch_auto_from_obj(self, component: UserComponent, *args) -> VimarSwitch:

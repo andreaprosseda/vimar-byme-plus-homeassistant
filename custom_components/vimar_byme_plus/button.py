@@ -4,7 +4,7 @@ from __future__ import annotations
 
 
 from homeassistant.components.button import ButtonEntity
-from homeassistant.core import HomeAssistant
+from homeassistant.core import callback, HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CoordinatorConfigEntry
@@ -12,7 +12,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_button import VimarButton
 from .vimar.model.enum.action_type import ActionType
-from .vimar.utils.logger import log_info
+from .vimar.utils.logger import log_info, log_debug
 
 
 async def async_setup_entry(
@@ -41,3 +41,16 @@ class Button(BaseEntity, ButtonEntity):
     def press(self) -> None:
         """Press the button."""
         self.send(ActionType.PRESS)
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        super()._handle_coordinator_update()
+
+        if self._component and self._component.executed:
+            event = {
+                "id": self._component.id,
+                "name": self._component.name,
+                "type": "scene_executed",
+            }
+            self.hass.bus.fire("vimar_byme_plus_event", event)
+            log_debug(__name__, f"Event fired by {self._component.name}")
