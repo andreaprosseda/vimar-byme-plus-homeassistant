@@ -1,9 +1,9 @@
 from prettytable import PrettyTable
-from ..custom_components.vimar_byme_plus.vimar.model.gateway.vimar_data import VimarData
-from ..custom_components.vimar_byme_plus.vimar.model.component.vimar_component import (
+from .vimar.model.gateway.vimar_data import VimarData
+from .vimar.model.component.vimar_component import (
     VimarComponent,
 )
-from ..custom_components.vimar_byme_plus.vimar.utils.logger import log_info
+from .vimar.utils.logger import log_info
 
 
 def beautify(data: VimarData):
