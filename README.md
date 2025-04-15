@@ -127,16 +127,35 @@ N.B. Steps 1 and 2 are needed only the first time, while the third one is requir
 
 ### [Step 1/3] Home Assistant - Install Component
 
+> [!NOTE]  
+> 🚀 Great news! The integration has been <strong>officially approved by HACS</strong>, no need to add it manually anymore! 🎉
+
+[![Add to my Home Assistant](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=andreaprosseda&repository=vimar-byme-plus-homeassistant&category=integration)
+
 #### Method 1: [HACS][hacs-url]
-:warning: This component has not yet been approved by HACS and is not yet direclty visible, steps 2-5 are required at the moment.
 > 1. Open HACS
-> 2. Click on the three dots (in the top right corner)
-> 3. Select Custom Repositories (Archivi digitali personalizzati)
-> 4. Copy `https://github.com/andreaprosseda/vimar-byme-plus-homeassistant` as Repository and Type as `Integration`
-> 5. Add Custom Repository
 > 5. Search now for `Vimar By-me Plus HUB` in HACS
 > 6. Click the blue download in the right bottom side
 > 7. Restart Home Assistant
+
+
+<details>
+  <summary>Can't you find the integration on HACS?</summary>
+  <br/>
+  :warning: This component has been approved by HACS and is directly visible, but your instance may not have been updated.
+  Try with the following method:
+  <ol>
+    <li>Open HACS</li>
+    <li>Click on the three dots (in the top right corner)</li>
+    <li>Select Custom Repositories (Archivi digitali personalizzati)</li>
+    <li>Copy `https://github.com/andreaprosseda/vimar-byme-plus-homeassistant` as Repository and Type as `Integration`</li>
+    <li>Add Custom Repository</li>
+    <li>Search now for `Vimar By-me Plus HUB` in HACS</li>
+    <li>Click the blue download in the right bottom side</li>
+    <li>Restart Home Assistant</li>
+  </ol>
+</details>
+
 
 #### Method 2: Manual
 > 1. Download the latest release from `GitHub`
