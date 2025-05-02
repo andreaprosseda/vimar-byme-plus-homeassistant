@@ -1,4 +1,3 @@
-from ..base_handler_message import BaseMessageHandler
 from .....model.web_socket.base_request_response import BaseRequestResponse
 from .....model.web_socket.request.session_request import SessionRequest
 from .....model.web_socket.supporting_models.message_supporting_values import (
@@ -6,6 +5,7 @@ from .....model.web_socket.supporting_models.message_supporting_values import (
 )
 from .....utils.logger import log_debug
 from .....utils.session_token import get_session_token
+from ..base_handler_message import BaseMessageHandler
 
 
 class InitMessageHandler(BaseMessageHandler):

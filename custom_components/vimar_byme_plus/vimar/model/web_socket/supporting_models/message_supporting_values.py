@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from ...component.vimar_action import VimarAction
 
 

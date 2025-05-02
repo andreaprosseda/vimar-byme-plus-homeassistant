@@ -1,15 +1,15 @@
-from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_component import VimarComponent
 from ...model.component.vimar_climate import (
-    VimarClimate,
-    HVACMode,
-    HVACAction,
-    FanMode,
     ClimateEntityFeature,
+    FanMode,
+    HVACAction,
+    HVACMode,
     PresetMode,
+    VimarClimate,
 )
-from ...model.enum.sftype_enum import SfType
+from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sfetype_enum import SfeType
+from ...model.enum.sftype_enum import SfType
+from ...model.repository.user_component import UserComponent
 
 
 class ClimaMapper:

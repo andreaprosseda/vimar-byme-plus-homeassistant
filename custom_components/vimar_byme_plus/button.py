@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-
 from homeassistant.components.button import ButtonEntity
-from homeassistant.core import callback, HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CoordinatorConfigEntry
@@ -12,7 +11,7 @@ from .base_entity import BaseEntity
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_button import VimarButton
 from .vimar.model.enum.action_type import ActionType
-from .vimar.utils.logger import log_info, log_debug
+from .vimar.utils.logger import log_debug, log_info
 
 
 async def async_setup_entry(

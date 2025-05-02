@@ -1,16 +1,17 @@
 """Insteon base entity."""
 
-from homeassistant.core import callback, HomeAssistantError
+from websocket import WebSocketConnectionClosedException
+
+from homeassistant.core import HomeAssistantError, callback
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from websocket import WebSocketConnectionClosedException
 
 from .const import DOMAIN, MANIFACTURER
 from .coordinator import Coordinator
 from .vimar.model.component.vimar_component import VimarComponent
-from .vimar.model.gateway.vimar_data import VimarData
 from .vimar.model.enum.action_type import ActionType
 from .vimar.model.exceptions import VimarErrorResponseException
+from .vimar.model.gateway.vimar_data import VimarData
 
 
 class BaseEntity(CoordinatorEntity):

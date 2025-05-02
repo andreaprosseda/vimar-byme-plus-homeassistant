@@ -1,3 +1,9 @@
+from ...model.component.vimar_component import VimarComponent
+from ...model.enum.sftype_enum import SfType
+from ...model.repository.user_component import UserComponent
+from ...utils.filtering import flat
+from ...utils.logger import not_implemented
+from ..base_mapper import BaseMapper
 from .ss_light_constant_control_mapper import SsLightConstantControlMapper
 from .ss_light_dimmer_mapper import SsLightDimmerMapper
 from .ss_light_dimmer_rgb_mapper import SsLightDimmerRgbMapper
@@ -10,12 +16,6 @@ from .ss_light_philips_dynamic_dimmer_rgb_mapper import (
 )
 from .ss_light_philips_switch_mapper import SsLightPhilipsSwitchMapper
 from .ss_light_switch_mapper import SsLightSwitchMapper
-from ..base_mapper import BaseMapper
-from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_component import VimarComponent
-from ...model.enum.sftype_enum import SfType
-from ...utils.logger import not_implemented
-from ...utils.filtering import flat
 
 
 class LightMapper:

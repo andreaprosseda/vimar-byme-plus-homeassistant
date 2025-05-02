@@ -1,6 +1,6 @@
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_light import VimarLight
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
 
 
 class SsLightConstantControlMapper:

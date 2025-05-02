@@ -1,9 +1,10 @@
 from dataclasses import dataclass
+
+from ...repository.user_credentials import UserCredentials
 from ..base_request import BaseRequest
+from ..supporting_models.client_info import ClientInfo
 from ..supporting_models.communication import Communication
 from ..supporting_models.credential import Credential
-from ..supporting_models.client_info import ClientInfo
-from ...repository.user_credentials import UserCredentials
 
 
 @dataclass

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from ..base_request import BaseRequest
+
 from ...repository.user_component import UserComponent
+from ..base_request import BaseRequest
 
 
 @dataclass

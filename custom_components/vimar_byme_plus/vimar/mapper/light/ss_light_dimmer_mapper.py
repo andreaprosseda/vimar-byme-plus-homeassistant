@@ -1,8 +1,8 @@
-from .ss_light_switch_mapper import SsLightSwitchMapper
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_light import ColorMode
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
+from .ss_light_switch_mapper import SsLightSwitchMapper
 
 
 class SsLightDimmerMapper(SsLightSwitchMapper):

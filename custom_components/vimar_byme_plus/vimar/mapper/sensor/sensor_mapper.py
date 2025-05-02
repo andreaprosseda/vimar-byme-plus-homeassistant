@@ -4,8 +4,8 @@ from ...model.repository.user_component import UserComponent
 from ...utils.filtering import flat
 from ...utils.logger import not_implemented
 from ..base_mapper import BaseMapper
-from .ss_sensor_air_quality_mapper import SsSensorAirQualityMapper
 from .ss_sensor_air_quality_gradient_mapper import SsSensorAirQualityGradientMapper
+from .ss_sensor_air_quality_mapper import SsSensorAirQualityMapper
 from .ss_sensor_current_mapper import SsSensorCurrentMapper
 from .ss_sensor_generic_mapper import SsSensorGenericMapper
 from .ss_sensor_humidity_mapper import SsSensorHumidityMapper

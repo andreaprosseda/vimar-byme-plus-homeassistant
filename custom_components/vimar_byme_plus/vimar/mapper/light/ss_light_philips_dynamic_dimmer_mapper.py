@@ -1,5 +1,5 @@
-from .ss_light_dynamic_dimmer_mapper import SsLightDynamicDimmerMapper
 from ...model.enum.sstype_enum import SsType
+from .ss_light_dynamic_dimmer_mapper import SsLightDynamicDimmerMapper
 
 
 class SsLightPhilipsDynamicDimmerMapper(SsLightDynamicDimmerMapper):

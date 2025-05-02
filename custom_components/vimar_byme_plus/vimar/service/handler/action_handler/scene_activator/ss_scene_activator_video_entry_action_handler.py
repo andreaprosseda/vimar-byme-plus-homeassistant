@@ -1,10 +1,10 @@
-from .ss_scene_activator_activator_action_handler import (
-    SsSceneActivatorActivatorActionHandler,
-)
 from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_button import VimarButton
 from .....model.enum.sfetype_enum import SfeType
 from .....model.enum.sstype_enum import SsType
+from .ss_scene_activator_activator_action_handler import (
+    SsSceneActivatorActivatorActionHandler,
+)
 
 START = SfeType.CMD_START_ACTIVE_SCENE
 END = SfeType.CMD_END_ACTIVE_SCENE

@@ -1,7 +1,7 @@
-from .ss_shutter_without_position_mapper import SsShutterWithoutPositionMapper
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_cover import CoverEntityFeature
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
+from .ss_shutter_without_position_mapper import SsShutterWithoutPositionMapper
 
 
 class SsShutterSlatWithoutPositionMapper(SsShutterWithoutPositionMapper):

@@ -3,7 +3,7 @@
 import json
 import ssl
 
-from websocket import create_connection, WebSocket
+from websocket import WebSocket, create_connection
 
 from ...model.web_socket.base_response import BaseResponse
 from ...model.web_socket.request.session_request import SessionRequest

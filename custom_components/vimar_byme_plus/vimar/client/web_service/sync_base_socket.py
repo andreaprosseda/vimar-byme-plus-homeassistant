@@ -7,13 +7,13 @@ from typing import Any
 from websocket import WebSocket, create_connection
 
 from ...model.web_socket.base_request import BaseRequest
-from ...model.web_socket.base_response import BaseResponse
 from ...model.web_socket.base_request_response import BaseRequestResponse
+from ...model.web_socket.base_response import BaseResponse
 from ...model.web_socket.request.session_request import SessionRequest
 from ...model.web_socket.web_socket_config import WebSocketConfig
+from ...service.handler.message_handler.message_handler import MessageHandler
 from ...utils.logger import log_debug, log_info
 from ...utils.session_token import get_session_token
-from ...service.handler.message_handler.message_handler import MessageHandler
 
 
 class SyncBaseSocket:

@@ -1,8 +1,8 @@
-from ..base_mapper import BaseMapper
-from ...model.repository.user_component import UserComponent
-from ...model.component.vimar_cover import VimarCover, CoverEntityFeature
+from ...model.component.vimar_cover import CoverEntityFeature, VimarCover
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
+from ..base_mapper import BaseMapper
 
 
 class SsShutterPositionMapper(BaseMapper):

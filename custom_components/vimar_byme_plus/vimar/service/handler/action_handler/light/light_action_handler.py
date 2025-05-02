@@ -1,4 +1,7 @@
-from .ss_light_switch_action_handler import SsLightSwitchActionHandler
+from .....model.component.vimar_action import VimarAction
+from .....model.component.vimar_component import VimarComponent
+from .....model.enum.action_type import ActionType
+from ..base_action_handler import HandlerInterface
 from .ss_light_dimmer_action_handler import SsLightDimmerActionHandler
 from .ss_light_dimmer_rgb_action_handler import SsLightDimmerRgbActionHandler
 from .ss_light_dynamic_dimmer_action_handler import SsLightDynamicDimmerActionHandler
@@ -6,17 +9,14 @@ from .ss_light_philips_dimmer_action_handler import SsLightPhilipsDimmerActionHa
 from .ss_light_philips_dimmer_rgb_action_handler import (
     SsLightPhilipsDimmerRgbActionHandler,
 )
-from .ss_light_philips_switch_action_handler import SsLightPhilipsSwitchActionHandler
 from .ss_light_philips_dynamic_dimmer_action_handler import (
     SsLightPhilipsDynamicDimmerActionHandler,
 )
 from .ss_light_philips_dynamic_dimmer_rgb_action_handler import (
     SsLightPhilipsDynamicDimmerRgbActionHandler,
 )
-from .....model.enum.action_type import ActionType
-from .....model.component.vimar_action import VimarAction
-from .....model.component.vimar_component import VimarComponent
-from ..base_action_handler import HandlerInterface
+from .ss_light_philips_switch_action_handler import SsLightPhilipsSwitchActionHandler
+from .ss_light_switch_action_handler import SsLightSwitchActionHandler
 
 
 class LightActionHandler:

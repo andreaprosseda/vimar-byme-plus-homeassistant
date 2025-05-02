@@ -1,8 +1,9 @@
+from dataclasses import dataclass
 from datetime import datetime
 from decimal import Decimal
-from dataclasses import dataclass
-from .vimar_component import VimarComponent
 from enum import StrEnum
+
+from .vimar_component import VimarComponent
 
 
 class SensorStateClass(StrEnum):

@@ -1,6 +1,7 @@
 import logging
-from .file import get_file_path, remove_file
+
 from ..model.repository.user_component import UserComponent
+from .file import get_file_path, remove_file
 
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 

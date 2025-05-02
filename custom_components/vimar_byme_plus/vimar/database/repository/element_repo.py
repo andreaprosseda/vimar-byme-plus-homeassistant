@@ -1,7 +1,8 @@
-from .base_repo import BaseRepo
+from sqlite3 import Connection
+
 from ...model.repository.user_component import UserComponent
 from ...model.repository.user_element import UserElement
-from sqlite3 import Connection
+from .base_repo import BaseRepo
 
 
 class ElementRepo(BaseRepo):

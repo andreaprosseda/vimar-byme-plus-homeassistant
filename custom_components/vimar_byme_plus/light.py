@@ -6,14 +6,14 @@ from typing import Any
 
 from homeassistant.components.light import (
     ATTR_BRIGHTNESS,
-    ATTR_RGB_COLOR,
     ATTR_COLOR_TEMP_KELVIN,
+    ATTR_RGB_COLOR,
     ColorMode,
     LightEntity,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.util.color import value_to_brightness, scale_to_ranged_value
+from homeassistant.util.color import scale_to_ranged_value, value_to_brightness
 from homeassistant.util.percentage import ranged_value_to_percentage
 
 from . import CoordinatorConfigEntry

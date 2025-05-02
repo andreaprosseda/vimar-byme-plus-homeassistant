@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from ..base_request import BaseRequest
 from ..supporting_models.parameter import Parameter
 

@@ -1,12 +1,12 @@
-from .ss_sensor_luminosity_mapper import SsSensorLuminosityMapper
-from .ss_sensor_temperature_mapper import SsSensorTemperatureMapper
-from .ss_sensor_wind_speed_mapper import SsSensorWindSpeedMapper
 from ...model.component.vimar_binary_sensor import VimarBinarySensor
 from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
 from .ss_sensor_generic_mapper import SsSensorGenericMapper
+from .ss_sensor_luminosity_mapper import SsSensorLuminosityMapper
+from .ss_sensor_temperature_mapper import SsSensorTemperatureMapper
+from .ss_sensor_wind_speed_mapper import SsSensorWindSpeedMapper
 
 
 class SsSensorWeatherStationMapper(SsSensorGenericMapper):

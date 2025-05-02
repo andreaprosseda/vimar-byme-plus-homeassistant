@@ -131,7 +131,7 @@ class OperationalService:
         self.attach_port = None
         if isinstance(message, BaseRequest):
             seconds_to_wait = self._get_seconds_to_wait(message)
-            message = f"Waiting {str(seconds_to_wait)} seconds before reconnecting..."
+            message = f"Waiting {seconds_to_wait!s} seconds before reconnecting..."
             log_info(__name__, message)
             time.sleep(seconds_to_wait)
             self.connect()

@@ -1,10 +1,10 @@
 """Manage Web Socket Session Phase."""
 
-from .sync_base_socket import SyncBaseSocket
-from ...model.web_socket.base_request import BaseRequest
-from ...model.web_socket.base_response import BaseResponse
 from ...model.enum.error_response_enum import ErrorResponse
 from ...model.exceptions import VimarErrorResponseException
+from ...model.web_socket.base_request import BaseRequest
+from ...model.web_socket.base_response import BaseResponse
+from .sync_base_socket import SyncBaseSocket
 
 
 class SyncAttachPhase(SyncBaseSocket):

@@ -1,10 +1,10 @@
-from ..base_handler_message import BaseMessageHandler
 from .....model.web_socket.base_request_response import BaseRequestResponse
 from .....model.web_socket.request.keep_alive_request import KeepAliveRequest
 from .....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
 from .....utils.logger import log_info
+from ..base_handler_message import BaseMessageHandler
 
 
 class KeepAliveMessageHandler(BaseMessageHandler):

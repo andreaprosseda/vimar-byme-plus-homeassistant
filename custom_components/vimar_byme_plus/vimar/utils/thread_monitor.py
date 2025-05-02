@@ -1,6 +1,7 @@
 import time
-from .thread import Thread
+
 from .logger import log_info
+from .thread import Thread
 
 
 def monitor_threads():

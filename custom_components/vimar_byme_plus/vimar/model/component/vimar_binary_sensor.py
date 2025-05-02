@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from .vimar_component import VimarComponent
 
 
@@ -20,5 +21,5 @@ class VimarBinarySensor(VimarComponent):
             self.area,
             self.name,
             self.device_name,
-            self.native_value,
+            self.is_on,
         ]

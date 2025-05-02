@@ -23,8 +23,7 @@ from .const import (
 )
 from .coordinator import Coordinator
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
-from .vimar.utils.logger import log_error, log_debug
-
+from .vimar.utils.logger import log_debug, log_error
 
 ZEROCONF_DATA_SCHEMA = vol.Schema({vol.Required(CODE): str})
 

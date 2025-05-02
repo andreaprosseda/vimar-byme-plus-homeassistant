@@ -1,14 +1,14 @@
-from .....model.enum.action_type import ActionType
+from .....model.component.vimar_action import VimarAction
 from .....model.component.vimar_climate import (
-    VimarClimate,
-    PresetMode,
-    HVACMode,
     FanMode,
+    HVACMode,
+    PresetMode,
+    VimarClimate,
 )
 from .....model.component.vimar_component import VimarComponent
-from .....model.component.vimar_action import VimarAction
-from ..base_action_handler import BaseActionHandler
+from .....model.enum.action_type import ActionType
 from .....model.enum.sfetype_enum import SfeType
+from ..base_action_handler import BaseActionHandler
 
 HVAC_MODE = SfeType.CMD_HVAC_MODE
 SETPOINT = SfeType.CMD_AMBIENT_SETPOINT

@@ -1,5 +1,5 @@
-from .ss_light_dimmer_rgb_mapper import SsLightDimmerRgbMapper
 from ...model.enum.sstype_enum import SsType
+from .ss_light_dimmer_rgb_mapper import SsLightDimmerRgbMapper
 
 
 class SsLightPhilipsDimmerRgbMapper(SsLightDimmerRgbMapper):

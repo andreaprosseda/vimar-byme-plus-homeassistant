@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from ..model.repository.user_component import UserComponent
+
 from ..model.component.vimar_component import VimarComponent
+from ..model.repository.user_component import UserComponent
 
 
 class BaseMapper(ABC):

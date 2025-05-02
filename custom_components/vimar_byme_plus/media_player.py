@@ -1,6 +1,7 @@
 """Platform for media player integration."""
 
 from __future__ import annotations
+
 from functools import reduce
 from typing import Any
 
@@ -18,9 +19,9 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from . import CoordinatorConfigEntry
 from .base_entity import BaseEntity
 from .coordinator import Coordinator
-from .vimar.model.component.vimar_media_player import VimarMediaPlayer, Source
-from .vimar.utils.logger import log_info
+from .vimar.model.component.vimar_media_player import Source, VimarMediaPlayer
 from .vimar.model.enum.action_type import ActionType
+from .vimar.utils.logger import log_info
 
 
 async def async_setup_entry(

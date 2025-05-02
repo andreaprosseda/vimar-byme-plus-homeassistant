@@ -1,8 +1,8 @@
+from .....model.component.vimar_action import VimarAction
+from .....model.component.vimar_component import VimarComponent
 from .....model.enum.action_type import ActionType
 from .....model.enum.sfetype_enum import SfeType
 from .....model.enum.sstype_enum import SsType
-from .....model.component.vimar_action import VimarAction
-from .....model.component.vimar_component import VimarComponent
 from ..base_action_handler import BaseActionHandler
 
 SHUTTER = SfeType.CMD_SHUTTER_WITHOUT_POSITION

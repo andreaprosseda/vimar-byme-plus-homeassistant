@@ -1,13 +1,13 @@
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_media_player import (
-    VimarMediaPlayer,
-    MediaType,
     MediaPlayerEntityFeature,
     MediaPlayerState,
+    MediaType,
     Source,
+    VimarMediaPlayer,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
 
 
 class SsAudioRcaMapper:

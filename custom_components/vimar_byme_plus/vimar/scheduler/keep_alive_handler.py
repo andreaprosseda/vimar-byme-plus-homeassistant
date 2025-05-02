@@ -1,5 +1,6 @@
+from collections.abc import Callable
 import threading
-from typing import Callable
+
 from ..utils.thread import Timer
 
 

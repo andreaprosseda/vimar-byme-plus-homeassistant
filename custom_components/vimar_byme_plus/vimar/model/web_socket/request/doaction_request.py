@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from ..base_request import BaseRequest
+
 from ...component.vimar_action import VimarAction
+from ..base_request import BaseRequest
 
 
 @dataclass

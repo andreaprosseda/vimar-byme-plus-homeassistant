@@ -1,6 +1,5 @@
-from enum import Enum
 from dataclasses import dataclass
-from typing import Optional
+from enum import Enum
 
 
 @dataclass
@@ -14,8 +13,8 @@ class CommunicationMode(Enum):
 @dataclass
 class Communication:
     ipaddress: str
-    communicationmode: Optional[int]
-    ipport: Optional[int]
+    communicationmode: int | None
+    ipport: int | None
 
     def __init__(self, address: str, port: int = None, mode: CommunicationMode = None):
         self.ipaddress = address

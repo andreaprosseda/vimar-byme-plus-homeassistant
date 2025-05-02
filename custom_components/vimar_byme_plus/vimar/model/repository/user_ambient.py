@@ -1,16 +1,16 @@
-from typing import Optional
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
+
 from ...utils.json import json_dumps
 from ..web_socket.base_response import BaseResponse
 
 
 @dataclass
 class UserAmbient:
-    dictKey: Optional[str]
-    hash: Optional[str]
-    idambient: Optional[int]
-    idparent: Optional[int]
-    name: Optional[str]
+    dictKey: str | None
+    hash: str | None
+    idambient: int | None
+    idparent: int | None
+    name: str | None
 
     def to_json(self):
         return json_dumps(asdict(self))

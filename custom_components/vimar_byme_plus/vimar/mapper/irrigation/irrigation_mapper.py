@@ -1,10 +1,10 @@
-from .ss_irrigation_multi_zones_mapper import SsIrrigationMultiZonesMapper
-from ..base_mapper import BaseMapper
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sftype_enum import SfType
-from ...utils.logger import not_implemented
+from ...model.repository.user_component import UserComponent
 from ...utils.filtering import flat
+from ...utils.logger import not_implemented
+from ..base_mapper import BaseMapper
+from .ss_irrigation_multi_zones_mapper import SsIrrigationMultiZonesMapper
 
 
 class IrrigationMapper:

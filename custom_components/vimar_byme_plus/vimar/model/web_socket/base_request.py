@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
-from .base_request_response import BaseRequestResponse
+
 from ...utils.mac_address import get_mac_address
+from .base_request_response import BaseRequestResponse
 
 
 @dataclass

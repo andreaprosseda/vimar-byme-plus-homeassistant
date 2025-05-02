@@ -1,9 +1,9 @@
-from ..base_handler_message import BaseMessageHandler
 from .....model.web_socket.base_request_response import BaseRequestResponse
 from .....model.web_socket.request.detach_request import DetachRequest
 from .....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
+from ..base_handler_message import BaseMessageHandler
 
 
 class DetachMessageHandler(BaseMessageHandler):

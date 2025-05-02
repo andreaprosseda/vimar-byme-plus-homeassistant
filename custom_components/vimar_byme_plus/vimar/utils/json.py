@@ -1,4 +1,5 @@
 import json
+
 from .file import read_file
 
 
@@ -16,7 +17,6 @@ def json_dumps(value: str) -> str:
 def remove_nulls(value):
     if isinstance(value, dict):
         return {k: remove_nulls(v) for k, v in value.items() if v is not None}
-    elif isinstance(value, list):
+    if isinstance(value, list):
         return [remove_nulls(item) for item in value if item is not None]
-    else:
-        return value
+    return value

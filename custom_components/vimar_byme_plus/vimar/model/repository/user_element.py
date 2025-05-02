@@ -1,16 +1,16 @@
-from typing import Optional
-from dataclasses import dataclass, asdict
-from ...utils.json import json_dumps
+from dataclasses import asdict, dataclass
 from datetime import datetime
+
+from ...utils.json import json_dumps
 
 
 @dataclass
 class UserElement:
-    enable: Optional[bool]
-    idcomponent: Optional[int]
-    sfetype: Optional[str]
-    value: Optional[str]
-    last_update: Optional[str]
+    enable: bool | None
+    idcomponent: int | None
+    sfetype: str | None
+    value: str | None
+    last_update: str | None
 
     def to_json(self):
         return json_dumps(asdict(self))

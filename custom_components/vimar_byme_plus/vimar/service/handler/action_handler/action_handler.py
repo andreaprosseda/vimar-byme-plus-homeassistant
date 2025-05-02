@@ -11,8 +11,8 @@ from .irrigation.irrigation_action_handler import IrrigationActionHandler
 from .light.light_action_handler import LightActionHandler
 from .scene.scene_action_handler import SceneActionHandler
 from .scene_activator.scene_activator_action_handler import SceneActivatorActionHandler
-from .shutter.shutter_action_handler import ShutterActionHandler
 from .sensor.sensor_action_handler import SensorActionHandler
+from .shutter.shutter_action_handler import ShutterActionHandler
 
 
 class ActionHandler:

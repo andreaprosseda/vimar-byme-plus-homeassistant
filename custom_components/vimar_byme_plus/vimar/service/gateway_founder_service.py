@@ -1,6 +1,7 @@
-from zeroconf import Zeroconf, ServiceBrowser, ServiceListener, ServiceInfo
-from ..model.gateway.gateway_info import GatewayInfo
+from zeroconf import ServiceBrowser, ServiceInfo, ServiceListener, Zeroconf
+
 from ..config.const import GATEWAY_SERVICE_TYPE
+from ..model.gateway.gateway_info import GatewayInfo
 from ..utils.logger import log_debug, log_error, log_info
 
 

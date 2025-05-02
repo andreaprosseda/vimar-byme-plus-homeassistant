@@ -1,15 +1,16 @@
 from datetime import datetime
-from decimal import Decimal, ROUND_HALF_UP
-from ..base_mapper import BaseMapper
-from ...model.repository.user_component import UserComponent
+from decimal import ROUND_HALF_UP, Decimal
+
 from ...model.component.vimar_sensor import (
-    VimarSensor,
     SensorDeviceClass,
-    SensorStateClass,
     SensorMeasurementUnit,
+    SensorStateClass,
+    VimarSensor,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
+from ..base_mapper import BaseMapper
 
 
 class SsEnergyMeasure1pMapper(BaseMapper):

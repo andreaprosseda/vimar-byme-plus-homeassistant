@@ -1,14 +1,15 @@
 import json
-from ...model.repository.user_component import UserComponent
+
 from ...model.component.vimar_media_player import (
-    VimarMediaPlayer,
-    MediaType,
     MediaPlayerEntityFeature,
     MediaPlayerState,
+    MediaType,
     Source,
+    VimarMediaPlayer,
 )
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
 from ...utils.logger import log_error
 
 
@@ -134,7 +135,7 @@ class SsAudioRadioFmMapper:
             frequencies_json = json.loads(frequencies)
             sources = []
             for i in range(8):
-                name = frequencies_json[f"freq{i+1}_name"]
+                name = frequencies_json[f"freq{i + 1}_name"]
                 source = self._get_source(component, i + 1, name)
                 sources.append(source)
             sources.append(self._get_source(component, -1, "Manual"))
@@ -149,7 +150,7 @@ class SsAudioRadioFmMapper:
             frequencies_json = json.loads(frequencies)
             sources = []
             for i in range(8):
-                name = frequencies_json[f"freq{i+1}_name"]
+                name = frequencies_json[f"freq{i + 1}_name"]
                 sources.append(name)
             return sources
         except Exception as e:

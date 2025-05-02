@@ -1,22 +1,22 @@
-from .user_element import UserElement
-from .user_ambient import UserAmbient
-from typing import Optional
-from dataclasses import dataclass, asdict, field
-from ..web_socket.base_response import BaseResponse
-from ..web_socket.base_request import BaseRequest
-from ..enum.sfetype_enum import SfeType
+from dataclasses import asdict, dataclass, field
+
 from ...utils.json import json_dumps
+from ..enum.sfetype_enum import SfeType
+from ..web_socket.base_request import BaseRequest
+from ..web_socket.base_response import BaseResponse
+from .user_ambient import UserAmbient
+from .user_element import UserElement
 
 
 @dataclass
 class UserComponent:
-    dictKey: Optional[int]
-    idambient: Optional[int]
-    idsf: Optional[int]
-    name: Optional[str]
-    sftype: Optional[str]
-    sstype: Optional[str]
-    ambient: Optional[UserAmbient] = None
+    dictKey: int | None
+    idambient: int | None
+    idsf: int | None
+    name: str | None
+    sftype: str | None
+    sstype: str | None
+    ambient: UserAmbient | None = None
     elements: list[UserElement] = field(default_factory=list)
 
     def to_json(self):

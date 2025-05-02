@@ -1,8 +1,8 @@
-from .ss_light_philips_dynamic_dimmer_mapper import SsLightPhilipsDynamicDimmerMapper
-from ...model.repository.user_component import UserComponent
 from ...model.component.vimar_light import ColorMode
-from ...model.enum.sstype_enum import SsType
 from ...model.enum.sfetype_enum import SfeType
+from ...model.enum.sstype_enum import SsType
+from ...model.repository.user_component import UserComponent
+from .ss_light_philips_dynamic_dimmer_mapper import SsLightPhilipsDynamicDimmerMapper
 
 
 class SsLightPhilipsDynamicDimmerRgbMapper(SsLightPhilipsDynamicDimmerMapper):

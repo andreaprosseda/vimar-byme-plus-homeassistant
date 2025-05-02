@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
+
 from ...model.component.vimar_button import VimarButton
-from ...model.enum.sstype_enum import SsType
 from ...model.enum.sfetype_enum import SfeType
+from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
 
 
