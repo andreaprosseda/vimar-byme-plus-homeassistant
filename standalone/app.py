@@ -1,5 +1,4 @@
 from .service import StandAloneService
-from .vimar.utils.thread_monitor import start_monitoring
 from .beautify import beautify
 
 if __name__ == "__main__":

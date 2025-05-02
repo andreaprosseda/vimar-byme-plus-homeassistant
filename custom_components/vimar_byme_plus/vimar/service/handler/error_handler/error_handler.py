@@ -1,10 +1,11 @@
 import errno
-from ....model.web_socket.base_response import BaseResponse
+
+from ....model.enum.error_response_enum import ErrorResponse
 from ....model.gateway.gateway_info import GatewayInfo
 from ....model.web_socket.base_request_response import BaseRequestResponse
-from ....utils.logger import log_info, log_error
-from ....model.enum.error_response_enum import ErrorResponse
-from ....utils.file import remove_file, get_db_name
+from ....model.web_socket.base_response import BaseResponse
+from ....utils.file import get_db_name, remove_file
+from ....utils.logger import log_error, log_info
 
 
 class ErrorHandler:
@@ -79,6 +80,7 @@ class ErrorHandler:
             return True
         if isinstance(exception, OSError) and exception.errno == errno.ECONNRESET:
             log_error(__name__, "Connection reset by peer, sending new message...")
+            return True
         return False
 
     def is_vimar_permanent_error(self, message: BaseRequestResponse) -> bool:

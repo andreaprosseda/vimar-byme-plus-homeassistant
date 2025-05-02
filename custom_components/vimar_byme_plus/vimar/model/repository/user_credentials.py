@@ -1,16 +1,17 @@
-from typing import Optional
-from dataclasses import dataclass, asdict
-from ..web_socket.base_response import BaseResponse
-from ...utils.json import json_dumps
+from dataclasses import asdict, dataclass
+
 from ...config.const import USERNAME
+from ...utils.json import json_dumps
+from ..web_socket.base_response import BaseResponse
 
 
 @dataclass
 class UserCredentials:
-    username: Optional[str]
-    setup_code: Optional[str]
-    useruid: Optional[str]
-    password: Optional[str]
+    username: str | None
+    setup_code: str | None
+    useruid: str | None
+    password: str | None
+    plant_name: str | None
 
     def __init__(
         self,
@@ -18,11 +19,13 @@ class UserCredentials:
         useruid: str = None,
         password: str = None,
         setup_code: str = None,
+        plant_name: str = None,
     ):
         self.username = username
         self.setup_code = setup_code
         self.useruid = useruid
         self.password = password
+        self.plant_name = plant_name
 
     def to_json(self):
         return json_dumps(asdict(self))
@@ -31,5 +34,8 @@ class UserCredentials:
     def obj_from_dict(response: BaseResponse) -> "UserCredentials":
         result = response.result[0]
         return UserCredentials(
-            username=USERNAME, useruid=result["useruid"], password=result["password"]
+            username=USERNAME,
+            useruid=result["useruid"],
+            password=result["password"],
+            plant_name=result["plantname"],
         )

@@ -1,4 +1,5 @@
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
+
 from ...utils.json import json_dumps
 
 
@@ -7,6 +8,7 @@ class OperationalRequest:
     username: str
     userid: str
     password: str
+    plant_name: str
 
     def to_dict(self):
         return asdict(self)

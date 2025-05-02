@@ -1,11 +1,12 @@
 """Provides the Vimar DataUpdateCoordinator."""
 
 import requests
-from ..model.repository.user_credentials import UserCredentials
+
 from ..model.authenticator.association_request import AssociationRequest
-from ..model.authenticator.operational_request import OperationalRequest
 from ..model.authenticator.credential_response import CredentialResponse
+from ..model.authenticator.operational_request import OperationalRequest
 from ..model.exceptions import VimarErrorResponseException
+from ..model.repository.user_credentials import UserCredentials
 from ..utils.logger import log_debug
 
 
@@ -70,6 +71,7 @@ class AuthenticatorClient:
             username=credentials.username,
             userid=credentials.useruid,
             password=credentials.password,
+            plant_name=credentials.plant_name,
         )
 
     def _get_user_credentials(self, response: CredentialResponse) -> UserCredentials:

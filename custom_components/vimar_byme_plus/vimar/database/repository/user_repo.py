@@ -1,12 +1,14 @@
+from sqlite3 import Connection
+
 from ...model.repository.user_credentials import UserCredentials
 from .base_repo import BaseRepo
-from sqlite3 import Connection
 
 
 class UserRepo(BaseRepo):
     def __init__(self, connection: Connection):
         super().__init__(connection)
         self.create_table()
+        self.alter_table()
 
     def create_table(self):
         query = """
@@ -15,15 +17,24 @@ class UserRepo(BaseRepo):
                 username TEXT NOT NULL,
                 setup_code TEXT,
                 useruid TEXT,
-                password TEXT
+                password TEXT,
+                plant_name TEXT
             );
         """
         self.execute(query)
 
+    def alter_table(self):
+        query = "PRAGMA table_info(users);"
+        cursor = self.cursor().execute(query)
+        columns = [column[1] for column in cursor.fetchall()]
+        if "plant_name" not in columns:
+            alter = "ALTER TABLE users ADD COLUMN plant_name TEXT;"
+            cursor.execute(alter)
+
     def get_current_user(self) -> UserCredentials:
         query = """
             SELECT
-                username, setup_code, useruid, password
+                username, setup_code, useruid, password, plant_name
             FROM users
             LIMIT 1
         """
@@ -31,9 +42,13 @@ class UserRepo(BaseRepo):
         record = cursor.fetchone()
         if not record:
             return None
-        username, setup_code, useruid, password = record
+        username, setup_code, useruid, password, plant_name = record
         return UserCredentials(
-            username=username, useruid=useruid, password=password, setup_code=setup_code
+            username=username,
+            useruid=useruid,
+            password=password,
+            setup_code=setup_code,
+            plant_name=plant_name,
         )
 
     def insert(self, credentials: UserCredentials):
@@ -57,13 +72,14 @@ class UserRepo(BaseRepo):
     def update(self, credentials: UserCredentials):
         query = """
             UPDATE users
-            SET useruid = ?, password = ?, setup_code = ?
+            SET useruid = ?, password = ?, setup_code = ?, plant_name = ?
             WHERE username = ?;
         """
         values = (
             credentials.useruid,
             credentials.password,
             None,
+            credentials.plant_name,
             credentials.username,
         )
         self.execute(

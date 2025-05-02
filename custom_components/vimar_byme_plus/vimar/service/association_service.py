@@ -1,14 +1,14 @@
-from .handler.message_handler.message_handler import MessageHandler
 from ..client.authenticator_client import AuthenticatorClient
 from ..client.web_service.sync_attach_phase import SyncAttachPhase
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..database.database import Database
-from ..model.gateway.gateway_info import GatewayInfo
-from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..model.exceptions import VimarErrorResponseException
+from ..model.gateway.gateway_info import GatewayInfo
 from ..model.repository.user_credentials import UserCredentials
 from ..model.web_socket.base_response import BaseResponse
+from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..utils.logger import log_info
+from .handler.message_handler.message_handler import MessageHandler
 
 
 class AssociationService:
@@ -100,4 +100,5 @@ class AssociationService:
         client = self._authenticator_client
         credentials = UserCredentials.obj_from_dict(response)
         signed_credentials = client.get_operational_credentials(credentials)
+        signed_credentials.plant_name = credentials.plant_name
         self._user_repo.update(signed_credentials)

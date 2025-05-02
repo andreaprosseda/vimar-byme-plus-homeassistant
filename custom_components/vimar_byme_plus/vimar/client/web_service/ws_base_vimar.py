@@ -1,12 +1,14 @@
-import traceback
 import json
 import ssl
+import traceback
+
 from websocket import WebSocketApp
-from ...model.web_socket.base_request_response import BaseRequestResponse
-from ...model.web_socket.base_request import BaseRequest
-from ...model.web_socket.base_response import BaseResponse
+
 from ...model.enum.error_response_enum import ErrorResponse
-from ...utils.logger import log_error, log_info, log_debug
+from ...model.web_socket.base_request import BaseRequest
+from ...model.web_socket.base_request_response import BaseRequestResponse
+from ...model.web_socket.base_response import BaseResponse
+from ...utils.logger import log_debug, log_error, log_info
 
 
 class WebSocketBaseVimar:
@@ -51,7 +53,7 @@ class WebSocketBaseVimar:
 
     def _on_error(self, ws: WebSocketApp, error: Exception):
         error_type = type(error).__name__
-        log_error(__name__, f"Error occurred: {error_type}: {str(error)}")
+        log_error(__name__, f"Error occurred: {error_type}: {error!s}")
         log_error(__name__, f"Stack trace:\n{traceback.format_exc()}")
         self.on_error(ws, error)
 
@@ -100,7 +102,6 @@ class WebSocketBaseVimar:
         json_message = json.loads(message)
         if json_message["type"] == "request":
             return BaseRequest(**json_message)
-        elif json_message["type"] == "response":
+        if json_message["type"] == "response":
             return BaseResponse(**json_message)
-        else:
-            raise ValueError(f"Unknown message type: {json_message['type']}")
+        raise ValueError(f"Unknown message type: {json_message['type']}")
