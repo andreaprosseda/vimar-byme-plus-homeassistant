@@ -2,13 +2,11 @@ from ...model.component.vimar_binary_sensor import VimarBinarySensor
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
+from .ss_sensor_generic_mapper import SsSensorGenericMapper
 
 
-class SsSensorInterfaceContactMapper:
+class SsSensorInterfaceContactMapper(SsSensorGenericMapper):
     SSTYPE = SsType.SENSOR_INTERFACE_CONTACT.value
-
-    def from_obj(self, component: UserComponent, *args) -> list[VimarBinarySensor]:
-        return [self._from_obj(component, *args)]
 
     def _from_obj(self, component: UserComponent, *args) -> VimarBinarySensor:
         return VimarBinarySensor(
@@ -20,6 +18,9 @@ class SsSensorInterfaceContactMapper:
             area=component.ambient.name,
             is_on=self.get_is_on(component),
         )
+
+    def _button_real_time(self, component: UserComponent, *args):
+        return None  # Not implemented by Vimar
 
     def get_is_on(self, component: UserComponent) -> bool:
         value = component.get_value(SfeType.STATE_OUTPUT)

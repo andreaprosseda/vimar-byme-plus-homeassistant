@@ -12,6 +12,7 @@ from .light.light_action_handler import LightActionHandler
 from .scene.scene_action_handler import SceneActionHandler
 from .scene_activator.scene_activator_action_handler import SceneActivatorActionHandler
 from .shutter.shutter_action_handler import ShutterActionHandler
+from .sensor.sensor_action_handler import SensorActionHandler
 
 
 class ActionHandler:
@@ -41,6 +42,8 @@ class ActionHandler:
                 return SceneActionHandler()
             case SfType.SCENE_ACTIVATOR:
                 return SceneActivatorActionHandler()
+            case SfType.SENSOR:
+                return SensorActionHandler()
             case SfType.SHUTTER:
                 return ShutterActionHandler()
             case _:

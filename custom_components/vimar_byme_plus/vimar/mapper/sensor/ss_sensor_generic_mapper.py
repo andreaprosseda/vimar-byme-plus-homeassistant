@@ -3,6 +3,7 @@ from decimal import Decimal
 from ...model.component.vimar_sensor import (
     VimarSensor,
 )
+from ...model.component.vimar_button import VimarButton
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
@@ -12,7 +13,16 @@ class SsSensorGenericMapper:
     SSTYPE = SsType.SENSOR_GENERIC.value
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
-        return [self._from_obj(component, *args)]
+        components = []
+        main = self._from_obj(component, *args)
+        if main:
+            components.append(main)
+
+        real_time = self._button_real_time(component, *args)
+        if real_time:
+            components.append(real_time)
+
+        return components
 
     def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
@@ -29,6 +39,18 @@ class SsSensorGenericMapper:
             unit_of_measurement=None,
             state_class=None,
             options=None,
+        )
+
+    def _button_real_time(self, component: UserComponent, *args) -> VimarButton:
+        return VimarButton(
+            id=str(component.idsf) + "_real_time_updates",
+            name=component.name + " - " + "Aggiornamenti RealTime",
+            device_group=component.sftype,
+            device_name=component.sstype,
+            device_class=None,
+            area=component.ambient.name,
+            main_id=component.idsf,
+            executed=False,
         )
 
     def native_value(self, component: UserComponent) -> str | Decimal | None:

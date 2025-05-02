@@ -8,13 +8,11 @@ from ...model.component.vimar_sensor import (
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
+from .ss_sensor_generic_mapper import SsSensorGenericMapper
 
 
-class SsSensorHumidityMapper:
+class SsSensorHumidityMapper(SsSensorGenericMapper):
     SSTYPE = SsType.SENSOR_HUMIDITY.value
-
-    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
-        return [self._from_obj(component, *args)]
 
     def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
@@ -32,6 +30,9 @@ class SsSensorHumidityMapper:
             state_class=None,
             options=None,
         )
+
+    def _button_real_time(self, component: UserComponent, *args):
+        return None  # Optional by Vimar
 
     def native_value(self, component: UserComponent) -> str | Decimal | None:
         value = component.get_value(SfeType.STATE_HUMIDITY)

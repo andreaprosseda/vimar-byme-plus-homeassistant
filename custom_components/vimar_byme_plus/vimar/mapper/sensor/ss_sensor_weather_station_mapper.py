@@ -6,9 +6,10 @@ from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
+from .ss_sensor_generic_mapper import SsSensorGenericMapper
 
 
-class SsSensorWeatherStationMapper:
+class SsSensorWeatherStationMapper(SsSensorGenericMapper):
     SSTYPE = SsType.SENSOR_WEATHER_STATION.value
 
     def from_obj(self, component: UserComponent, *args) -> list[VimarComponent]:

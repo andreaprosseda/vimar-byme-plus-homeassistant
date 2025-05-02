@@ -2,13 +2,11 @@ from ...model.component.vimar_sensor import SensorDeviceClass, VimarSensor
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sstype_enum import SsType
 from ...model.repository.user_component import UserComponent
+from .ss_sensor_generic_mapper import SsSensorGenericMapper
 
 
-class SsSensorAirQualityMapper:
+class SsSensorAirQualityMapper(SsSensorGenericMapper):
     SSTYPE = SsType.SENSOR_AIR_QUALITY.value
-
-    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
-        return [self._from_obj(component, *args)]
 
     def _from_obj(self, component: UserComponent, *args) -> VimarSensor:
         return VimarSensor(
