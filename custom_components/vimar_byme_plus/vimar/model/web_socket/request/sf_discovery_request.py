@@ -16,11 +16,13 @@ class SfDiscoveryRequest(BaseRequest):
         self.params = self.get_params(ambient_ids)
 
     def get_args(self) -> list:
-        argument = self.get_argument()
-        return [argument]
+        return [
+            self.get_category("Plant"),
+            self.get_category("LogicProgram")
+        ]
 
-    def get_argument(self) -> dict:
-        return {"sfcategory": "Plant"}
+    def get_category(self, value: str) -> dict:
+        return {"sfcategory": value}
 
     def get_params(self, ambient_ids: list[int]) -> list:
         parameter = Parameter(ambient_ids=ambient_ids)
