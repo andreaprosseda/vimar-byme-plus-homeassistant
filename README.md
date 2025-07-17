@@ -48,7 +48,7 @@ This integration has been a truly time-consuming project, requiring many hours o
 If my work has been helpful to you, consider making a donation. Every contribution, no matter how small, makes a big difference and allows me to keep dedicating time and resources to maintaining and improving this integration.
 
 <a href="https://paypal.me/AndreaProsseda">
-  <img align="center" src="https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png" alt="paypal image" height="80" />
+  <img align="center" src="https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png" alt="paypal image" height="55" />
 </a>
 
 <a href="https://www.buymeacoffee.com/andreaprosseda">
@@ -67,12 +67,13 @@ If my work has been helpful to you, consider making a donation. Every contributi
     <li>
       <a href="#installation">Installation</a>
       <ul>
-        <li><a href="#step-13-home-assistant---install-component">[Step 1/3] Home Assistant - Install Component</a></li>
-        <li><a href="#step-23-vimar-view-pro---initial-setup">[Step 2/3] Vimar VIEW PRO - Initial Setup</a></li>
-        <li><a href="#step-33-vimar-view-pro---generate-setup-code">[Step 3/3] Vimar VIEW PRO - Generate Setup Code</a></li>
+        <li><a href="#step-15-home-assistant---install-integration">[Step 1/5] Home Assistant - Install Integration</a></li>
+        <li><a href="#step-25-vimar-view-pro---initial-setup">[Step 2/5] Vimar VIEW PRO - Initial Setup</a></li>
+        <li><a href="#step-35-vimar-view-pro---generate-setup-code">[Step 3/5] Vimar VIEW PRO - Generate Setup Code</a></li>
+        <li><a href="#step-45-home-assistant---enable-integration">[Step 4/5] Home Assistant - Enable Integration</a></li>
+        <li><a href="#step-55-vimar-view---grant-right-permissions">[Step 5/5] Vimar VIEW - Grant Right Permissions</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#debugging">Debugging</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -118,14 +119,18 @@ Further information here: [Vimar Official Website][vimar-integration-url]
 <!-- Installation -->
 ## Installation
 
-The installation phase is divided in three steps:
-* [Step 1/3] Home Assistant - Install Component
-* [Step 2/3] Vimar VIEW PRO - Initial Setup
-* [Step 3/3] Vimar VIEW PRO - Generate Setup Code
+The installation phase is divided in five steps:
+* [Step 1/5] Home Assistant - Install Integration
+* [Step 2/5] Vimar VIEW PRO - Initial Setup
+* [Step 3/5] Vimar VIEW PRO - Generate Setup Code
+* [Step 4/5] Home Assistant - Enable Integration
+* [Step 5/5] Vimar VIEW - Grant Right Permissions
 
-N.B. Steps 1 and 2 are needed only the first time, while the third one is required everytime the integration is reinstalled or cleaned
+N.B. Steps 1 and 2 are needed only the first time, while others are required everytime the integration is reinstalled or cleaned
 
-### [Step 1/3] Home Assistant - Install Component
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### [Step 1/5] Home Assistant - Install Integration
 
 > [!NOTE]  
 > 🚀 Great news! The integration has been <strong>officially approved by HACS</strong>, no need to add it manually anymore! 🎉
@@ -165,7 +170,7 @@ N.B. Steps 1 and 2 are needed only the first time, while the third one is requir
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### [Step 2/3] Vimar VIEW PRO - Initial Setup
+### [Step 2/5] Vimar VIEW PRO - Initial Setup
 
 The insertion of the public key in the By-me Gateway is required to enable the communication between this integration and the Gateway.
 
@@ -197,7 +202,7 @@ steps:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### [Step 3/3] Vimar VIEW PRO - Generate Setup Code
+### [Step 3/5] Vimar VIEW PRO - Generate Setup Code
 
 Here the steps to follow to generate a Setup Code, needed for the integration phase on HomeAssistant (see <a href="#usage">Usage</a>):
 1. Open Vimar VIEW PRO app
@@ -230,8 +235,8 @@ N.B. The Backend is invoked only for the Setup Phase and not during the operatio
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE -->
-## Usage
+### [Step 4/5] Home Assistant - Enable Integration
+
 It's almost done! Let's proceed to integrate the custom component on Home Assistant:
 1. Open Home Assistant
 2. Click on `Settings`
@@ -246,6 +251,28 @@ It's almost done! Let's proceed to integrate the custom component on Home Assist
 
 > [!IMPORTANT]
 > Some of the implemented entities can produce custom events. For example, the integration fires events related to scenes activation. You can check these events going to Developer Tools > Events and listening to `vimar_byme_plus_event`
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### [Step 5/5] Vimar VIEW - Grant Right Permissions
+After associating the integration using the Vimar VIEW PRO app, you need to grant the correct access permissions through the Vimar VIEW app
+
+Here the steps to follow:
+1. Open the `Vimar VIEW` app on your device (not `View PRO!`).
+2. Go to `Settings`
+3. Tap on `Users and Permissions`
+4. Scroll down to the `Integrations` section: here you’ll find the new integration created during `Step 3/5`
+5. Tap on the integration name and enable all permissions for:
+   * `Objects` (preferably all, climate mandatory)
+   * `Rooms` (as you prefer)
+   * `Settings` (preferably all, climate mandatory) 
+
+> [!IMPORTANT]
+> Make sure all devices and features you want to control from Home Assistant have the proper permissions enabled. For example, climate devices require these permissions to allow switching between Heat and Cool modes.
+
+<div align="center">
+    <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/vimar_grant_permissions.gif" alt="Gif" width="200">
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
