@@ -4,13 +4,16 @@ from .....model.component.vimar_climate import (
     HVACMode,
     PresetMode,
     VimarClimate,
+    ChangeOverMode,
 )
 from .....model.component.vimar_component import VimarComponent
 from .....model.enum.action_type import ActionType
 from .....model.enum.sfetype_enum import SfeType
 from ..base_action_handler import BaseActionHandler
+from .....utils.logger import log_info
 
 HVAC_MODE = SfeType.CMD_HVAC_MODE
+CHANGE_OVER_MODE = SfeType.CMD_CHANGE_OVER_MODE
 SETPOINT = SfeType.CMD_AMBIENT_SETPOINT
 FAN_MODE = SfeType.CMD_FAN_MODE
 FAN = SfeType.CMD_FAN_SPEED_3V
@@ -33,9 +36,9 @@ class ClimaActionHandler(BaseActionHandler):
         raise NotImplementedError
 
     def set_hvac_mode(self, component: VimarClimate, mode: str) -> list[VimarAction]:
-        if mode == HVACMode.OFF.ha_value:
+        if mode == HVACMode.OFF.value:
             return self._get_previous_hvac_mode_off(component)
-        return self._get_previous_hvac_mode_on(component)
+        return self._get_hvac_mode(component, mode)
 
     def set_preset_mode(self, id: str, mode: str) -> list[VimarAction]:
         preset_mode = PresetMode.get_preset_mode(mode)
@@ -44,7 +47,7 @@ class ClimaActionHandler(BaseActionHandler):
         return [self._action(id, HVAC_MODE, preset_mode.vimar_value)]
 
     def set_temperature(self, component: VimarClimate, temp: str) -> list[VimarAction]:
-        result = self._get_previous_hvac_mode_on_if_needed(component)
+        result = self._get_previous_hvac_mode_on(component)
         result.extend(self._get_timed_manual_if_needed(component))
         result.append(self._action(component.id, SETPOINT, temp))
         return result
@@ -54,9 +57,20 @@ class ClimaActionHandler(BaseActionHandler):
         level = self._get_fan_level(id, fan_mode)
         return [change_mode, level] if level else [change_mode]
 
-    def _get_previous_hvac_mode_on(self, component: VimarClimate) -> list[VimarAction]:
+    def _get_hvac_mode(self, component: VimarClimate, mode: str) -> list[VimarAction]:
         value = component.on_behaviour.vimar_value
-        return [self._action(component.id, HVAC_MODE, value)]
+        hvac_mode = self._action(component.id, HVAC_MODE, value)
+        change_over_mode = self._get_change_over_mode(component, mode)
+        return [hvac_mode, change_over_mode] if change_over_mode else [hvac_mode]
+
+    def _get_change_over_mode(self, component: VimarClimate, mode: str) -> VimarAction:
+        heat = ChangeOverMode.HEAT.value
+        cool = ChangeOverMode.COOL.value
+        if mode == HVACMode.HEAT.value:
+            return self._action(component.id, CHANGE_OVER_MODE, heat)
+        if mode == HVACMode.COOL.value:
+            return self._action(component.id, CHANGE_OVER_MODE, cool)
+        return None
 
     def _get_previous_hvac_mode_off(self, component: VimarClimate) -> list[VimarAction]:
         value = component.off_behaviour.vimar_value
@@ -75,13 +89,6 @@ class ClimaActionHandler(BaseActionHandler):
         if fan_mode == FanMode.FAN_HIGH.ha_value:
             return self._action(id, FAN, FanMode.FAN_HIGH.vimar_value)
         return None
-
-    def _get_previous_hvac_mode_on_if_needed(
-        self, component: VimarClimate
-    ) -> list[VimarAction]:
-        if component.hvac_mode == HVACMode.OFF:
-            return self.set_hvac_mode(component, HVACMode.AUTO.vimar_value)
-        return []
 
     def _get_timed_manual_if_needed(self, component: VimarClimate) -> list[VimarAction]:
         if component.on_behaviour == PresetMode.AUTO:

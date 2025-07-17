@@ -32,6 +32,12 @@ class UserComponent:
             self.sstype,
         )
 
+    def is_enabled(self, sfetype: SfeType) -> bool:
+        for element in self.elements:
+            if element.sfetype == sfetype.value:
+                return element.enable
+        return False
+
     def get_value(self, sfetype: SfeType) -> str:
         for element in self.elements:
             if element.sfetype == sfetype.value:

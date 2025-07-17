@@ -63,21 +63,18 @@ class ClimaMapper:
         return float(value) if value else None
 
     @staticmethod
-    def hvac_mode(component: UserComponent) -> HVACMode | None:
-        value = component.get_value(SfeType.STATE_HVAC_MODE)
-        return HVACMode.get_hvac_mode(value)
+    def hvac_modes(component: UserComponent) -> list[HVACMode]:
+        return [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL]
 
     @staticmethod
-    def hvac_modes(component: UserComponent) -> list[HVACMode]:
-        return [HVACMode.OFF, HVACMode.AUTO]
+    def hvac_mode(component: UserComponent) -> HVACMode | None:
+        hvac = ClimaMapper._get_hvac(component)
+        return hvac[0]
 
     @staticmethod
     def hvac_action(component: UserComponent) -> HVACAction | None:
-        hvac_mode = component.get_value(SfeType.STATE_HVAC_MODE)
-        hvac_action = ClimaMapper._get_hvac_action(component)
-        if hvac_mode != "Off" and hvac_action == HVACAction.OFF:
-            return HVACAction.IDLE
-        return hvac_action
+        hvac = ClimaMapper._get_hvac(component)
+        return hvac[1]
 
     @staticmethod
     def preset_mode(component: UserComponent) -> str | None:
@@ -110,8 +107,8 @@ class ClimaMapper:
             ClimateEntityFeature.TURN_OFF,
             ClimateEntityFeature.PRESET_MODE,
         ]
-        hvac_action = ClimaMapper._get_hvac_action(component)
-        if hvac_action and hvac_action == HVACAction.COOL:
+
+        if ClimaMapper._is_fan_enabled(component):
             features.append(ClimateEntityFeature.FAN_MODE)
         return features
 
@@ -172,6 +169,26 @@ class ClimaMapper:
         return 99.0
 
     @staticmethod
-    def _get_hvac_action(component: UserComponent) -> HVACAction | None:
-        value = component.get_value(SfeType.STATE_OUT_STATUS)
-        return HVACAction.get_hvac_action(value)
+    def _get_hvac(component: UserComponent) -> tuple[HVACMode, HVACAction]:
+        mode = ClimaMapper._get_hvac_mode(component)
+        change_over_mode = ClimaMapper._get_change_over_mode(component)
+        status = ClimaMapper._get_out_status(component)
+        hvac_mode = HVACMode.get_hvac_mode(mode, status, change_over_mode)
+        hvac_action = HVACAction.get_hvac_action(mode, status, change_over_mode)
+        return (hvac_mode, hvac_action)
+
+    @staticmethod
+    def _get_change_over_mode(component: UserComponent) -> str | None:
+        return component.get_value(SfeType.STATE_CHANGE_OVER_MODE)
+
+    @staticmethod
+    def _get_out_status(component: UserComponent) -> str | None:
+        return component.get_value(SfeType.STATE_OUT_STATUS)
+
+    @staticmethod
+    def _get_hvac_mode(component: UserComponent) -> str | None:
+        return component.get_value(SfeType.STATE_HVAC_MODE)
+
+    @staticmethod
+    def _is_fan_enabled(component: UserComponent) -> str | None:
+        return component.is_enabled(SfeType.STATE_FAN_SPEED_3V)

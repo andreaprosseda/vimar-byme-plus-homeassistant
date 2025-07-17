@@ -67,25 +67,19 @@ class Climate(BaseEntity, ClimateEntity):
     def hvac_mode(self) -> HVACMode | None:
         """Return the current operation (e.g. heat, cool, idle). Used to determine state."""
         mode = self._component.hvac_mode
-        if not mode:
-            return None
-        return HVACMode(mode.ha_value)
+        return HVACMode(mode.value) if mode else None
 
     @property
     def hvac_modes(self) -> list[HVACMode]:
         """Return the list of available hvac operation modes."""
         modes = self._component.hvac_modes
-        if not modes:
-            return []
-        return [HVACMode(mode.ha_value) for mode in modes]
+        return [HVACMode(mode.value) for mode in modes] if modes else []
 
     @property
     def hvac_action(self) -> HVACAction | None:
         """Return the current running hvac operation if supported. The current HVAC action (heating, cooling)."""
         action = self._component.hvac_action
-        if not action:
-            return None
-        return HVACAction(action.ha_value)
+        return HVACAction(action.value) if action else None
 
     @property
     def current_temperature(self) -> float | None:
