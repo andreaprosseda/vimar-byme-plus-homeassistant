@@ -2,6 +2,7 @@
 
 import logging
 
+from websocket import WebSocketConnectionClosedException
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
@@ -44,7 +45,10 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
 
     def send(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
-        self.client.send(component, action_type, *args)
+        try:
+            self.client.send(component, action_type, *args)
+        except WebSocketConnectionClosedException as err:
+            self.start()
 
     def update_data(self):
         """Update data when new status is received from the Gateway."""

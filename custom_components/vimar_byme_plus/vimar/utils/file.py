@@ -1,4 +1,5 @@
 import os
+
 from ..config.const import DATA_PATH
 
 
@@ -9,7 +10,7 @@ def file_exists(file_name: str) -> bool:
 
 def read_file(file_name: str) -> str:
     file_path = get_file_path(file_name)
-    with open(file_path, "r") as file:
+    with open(file_path) as file:
         content = file.read()
     return content
 
