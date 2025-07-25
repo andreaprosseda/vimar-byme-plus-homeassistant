@@ -5,6 +5,16 @@ labels: bug
 
 ---
 
+<!-- Please follow these steps before opening a new issue -->
+## Before opening an issue 
+- [ ] I’ve checked existing (open and closed) issues for anything similar to my problem, but I couldn’t find anything relevant.
+- [ ] I've updated to the most recent version of this integration.
+- [ ] I've sent the `home.db` file to the creator via email.
+<!-- 
+Send me your home.db file to the following email address: andreaprosseda [at] gmail [dot] com.
+The home.db is located in the custom_components/vimar_byme_plus/data folder)
+-->
+
 ## Describe the bug
 A clear and concise description of what the bug is.
 
