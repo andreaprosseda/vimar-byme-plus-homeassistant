@@ -1,29 +1,124 @@
-name: "Release"
+name: "Validate & Release"
 
 on:
-  release:
-    types:
-      - "published"
+  workflow_dispatch:
+  schedule:
+    - cron:  "0 0 * * *"
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
 
-permissions: {}
+permissions:
+  contents: write
 
 jobs:
-  release:
-    name: "Release"
+  
+
+  ##################
+  # lint with ruff #
+  ##################
+  
+
+  ruff:
+    name: "Ruff"
     runs-on: "ubuntu-latest"
-    permissions:
-      contents: write
     steps:
-      - name: "Checkout the repository"
+        - name: "Checkout the repository"
+          uses: "actions/checkout@v4.2.2"
+
+        - name: "Set up Python"
+          uses: actions/setup-python@v5.3.0
+          with:
+            python-version: "3.12"
+            cache: "pip"
+
+        - name: "Install requirements"
+          run: python3 -m pip install -r requirements.txt
+
+        - name: "Lint"
+          run: python3 -m ruff check .
+
+        - name: "Format"
+          run: python3 -m ruff format . --check
+
+
+  ################################
+  # validate for hassfest & hacs #
+  ################################
+
+
+  hassfest: # https://github.com/home-assistant/actions#hassfest
+    name: "Hassfest Validation"
+    runs-on: "ubuntu-latest"
+    steps:
+        - name: "Checkout the repository"
+          uses: "actions/checkout@v4.2.2"
+
+        - name: "Run hassfest validation"
+          uses: "home-assistant/actions/hassfest@master"
+
+  hacs: # https://github.com/hacs/action
+    name: "HACS Validation"
+    runs-on: "ubuntu-latest"
+    steps:
+        - name: "Checkout the repository"
+          uses: "actions/checkout@v4.2.2"
+
+        - name: "Run HACS validation"
+          uses: "hacs/action@main"
+          with:
+            category: "integration"
+
+
+  #######################
+  # release new version #
+  #######################
+
+
+  release:
+    needs:
+      - ruff
+      - hassfest
+      - hacs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
         uses: "actions/checkout@v4.2.2"
 
-      - name: "ZIP the integration directory"
-        shell: "bash"
+      - name: Read version from manifest.json
+        id: manifest
         run: |
-          cd "${{ github.workspace }}/custom_components/vimar-byme-plus"
+          RAW_VERSION=$(jq -r '.version' custom_components/vimar_byme_plus/manifest.json)
+          VERSION="v$RAW_VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if release already exists
+        id: check_release
+        run: |
+          if gh release view "$VERSION" > /dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ZIP the integration directory
+        if: steps.check_release.outputs.exists == 'false'
+        run: |
+          cd "${{ github.workspace }}/custom_components/vimar_byme_plus"
           zip vimar-byme-plus.zip -r ./
 
-      - name: "Upload the ZIP file to the release"
+      - name: Create GitHub Release and upload ZIP
+        if: steps.check_release.outputs.exists == 'false'
         uses: "softprops/action-gh-release@v2.0.9"
         with:
-          files: ${{ github.workspace }}/custom_components/vimar-byme-plus/vimar-byme-plus.zip
+          tag_name: ${{ steps.manifest.outputs.version }}
+          name: ${{ steps.manifest.outputs.version }}
+          files: ${{ github.workspace }}/custom_components/vimar_byme_plus/vimar-byme-plus.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
