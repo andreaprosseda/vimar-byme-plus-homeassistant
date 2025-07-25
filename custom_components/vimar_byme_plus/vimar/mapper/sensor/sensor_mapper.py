@@ -19,15 +19,17 @@ from .ss_sensor_tension_mapper import SsSensorTensionMapper
 from .ss_sensor_volume_flow_mapper import SsSensorVolumeFlowMapper
 from .ss_sensor_weather_station_mapper import SsSensorWeatherStationMapper
 from .ss_sensor_wind_speed_mapper import SsSensorWindSpeedMapper
+from ...utils.logger import log_info, log_error
 
 
 class SensorMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarComponent]:
         sftype = SfType.SENSOR.value
-        shutters = [component for component in components if component.sftype == sftype]
-        components = [SensorMapper.from_obj(shutter) for shutter in shutters]
-        return flat(components)
+        sensors = [component for component in components if component.sftype == sftype]
+        components = [SensorMapper.from_obj(sensor) for sensor in sensors]
+        return [flat(components)[0]]
+        # return flat(components)
 
     @staticmethod
     def from_obj(component: UserComponent, *args) -> list[VimarComponent]:

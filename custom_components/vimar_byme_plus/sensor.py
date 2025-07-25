@@ -6,7 +6,7 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
-from homeassistant.components.sensor.const import SensorStateClass
+from homeassistant.components.sensor.const import SensorStateClass, UNIT_CONVERTERS
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
@@ -82,7 +82,8 @@ class Sensor(BaseEntity, SensorEntity):
     @property
     def suggested_unit_of_measurement(self) -> str | None:
         """Return the unit which should be used for the sensor's state."""
-        return self._component.unit_of_measurement
+        has_converter = UNIT_CONVERTERS.get(self.device_class) is None
+        return self._component.unit_of_measurement if has_converter else None
 
     @callback
     def _handle_coordinator_update(self) -> None:
