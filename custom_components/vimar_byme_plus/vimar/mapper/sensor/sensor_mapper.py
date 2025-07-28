@@ -28,8 +28,7 @@ class SensorMapper:
         sftype = SfType.SENSOR.value
         sensors = [component for component in components if component.sftype == sftype]
         components = [SensorMapper.from_obj(sensor) for sensor in sensors]
-        return [flat(components)[0]]
-        # return flat(components)
+        return flat(components)
 
     @staticmethod
     def from_obj(component: UserComponent, *args) -> list[VimarComponent]:

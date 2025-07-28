@@ -15,6 +15,7 @@ class SensorStateClass(StrEnum):
 class SensorDeviceClass(StrEnum):
     AQI = "aqi"
     CURRENT = "current"
+    GAS = "gas"
     ENERGY = "energy"
     ENERGY_STORAGE = "energy_storage"
     ENUM = "enum"
@@ -30,6 +31,7 @@ class SensorDeviceClass(StrEnum):
 
 class SensorMeasurementUnit(StrEnum):
     CELSIUS = "°C"
+    CUBIC_METERS = "m³"
     CUBIC_METERS_PER_HOUR = "m³/h"
     KILO_WATT = "kW"
     KILO_WATT_HOUR = "kWh"
