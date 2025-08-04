@@ -110,3 +110,5 @@ class SfeType(Enum):
     STATE_SENSOR_TEMPERATURE = "SFE_State_SensorTemperature"
     STATE_WIND_SPEED = "SFE_State_WindSpeed"
     STATE_EXECUTED = "SFE_State_Executed"
+
+    STATE_PARTIAL_COUNTER = "SFE_State_PartialCounter"
