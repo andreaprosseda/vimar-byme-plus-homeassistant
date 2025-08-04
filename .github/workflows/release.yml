@@ -92,22 +92,31 @@ jobs:
         run: |
           RAW_VERSION=$(jq -r '.version' custom_components/vimar_byme_plus/manifest.json)
           VERSION="v$RAW_VERSION"
+          echo "Detected version: $VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Check if release already exists
         id: check_release
         run: |
+          echo "Checking if release ${{ steps.manifest.outputs.version }} already exists..."
           if gh release view "$VERSION" > /dev/null 2>&1; then
+            echo "Release already exists"
             echo "exists=true" >> $GITHUB_OUTPUT
           else
+            echo "Release does not exist"
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Release check result
+        run: |
+          echo "Release exists: ${{ steps.check_release.outputs.exists }}"
+
       - name: ZIP the integration directory
         if: steps.check_release.outputs.exists == 'false'
         run: |
+          echo "Zipping the integration..."
           cd "${{ github.workspace }}/custom_components/vimar_byme_plus"
           zip vimar-byme-plus.zip -r ./
 
