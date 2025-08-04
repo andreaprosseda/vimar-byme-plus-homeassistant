@@ -5,12 +5,12 @@
 <div align="center">
 
 [![Releases][release-shield]][release-url]
-[![Builds][build-shield]][build-url]
 [![Commits][commits-shield]][commits-url]
 [![Stars][stars-shield]][stars-url]
 [![License][license-shield]][license-url]
-[![Issues][issues-shield]][issues-url]
-[![Pulls][pulls-shield]][pulls-url]
+[![Builds][build-shield]][build-url]
+[![Bugs][bugs-shield]][bugs-url]
+[![Enhancements][enhancements-shield]][enhancements-url]
 
 </div>
 
@@ -118,13 +118,12 @@ Further information here: [Vimar Official Website][vimar-integration-url]
 
 <!-- Installation -->
 ## Installation
-
 The installation phase is divided in five steps:
-* [Step 1/5] Home Assistant - Install Integration
-* [Step 2/5] Vimar VIEW PRO - Initial Setup
-* [Step 3/5] Vimar VIEW PRO - Generate Setup Code
-* [Step 4/5] Home Assistant - Enable Integration
-* [Step 5/5] Vimar VIEW - Grant Right Permissions
+* [Step 1/5](#step-15-home-assistant---install-integration) Home Assistant - Install Integration
+* [Step 2/5](#step-25-vimar-view-pro---initial-setup) Vimar VIEW PRO - Initial Setup
+* [Step 3/5](#step-35-vimar-view-pro---generate-setup-code) Vimar VIEW PRO - Generate Setup Code
+* [Step 4/5](#step-45-home-assistant---enable-integration) Home Assistant - Enable Integration
+* [Step 5/5](#step-55-vimar-view---grant-right-permissions) Vimar VIEW - Grant Right Permissions
 
 N.B. Steps 1 and 2 are needed only the first time, while others are required everytime the integration is reinstalled or cleaned
 
@@ -385,14 +384,14 @@ Use this space to list resources you find helpful and would like to give credit 
 [commits-shield]: https://img.shields.io/github/commit-activity/t/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
 [commits-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/commits/main/
 
-[build-shield]: https://img.shields.io/github/actions/workflow/status/andreaprosseda/vimar-byme-plus-homeassistant/validate.yml?style=for-the-badge
-[build-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/actions/workflows/validate.yml
+[build-shield]: https://img.shields.io/github/actions/workflow/status/andreaprosseda/vimar-byme-plus-homeassistant/release.yml?style=for-the-badge
+[build-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/actions/workflows/release.yml
 
-[issues-shield]: https://img.shields.io/github/issues/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
-[issues-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues
+[bugs-shield]: https://img.shields.io/github/issues/andreaprosseda/vimar-byme-plus-homeassistant/bug?style=for-the-badge&label=Bugs
+[bugs-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues?q=is%3Aissue%20state%3Aopen%20label%3Abug
 
-[pulls-shield]: https://img.shields.io/github/issues-pr/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
-[pulls-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/pulls
+[enhancements-shield]: https://img.shields.io/github/issues/andreaprosseda/vimar-byme-plus-homeassistant/enhancement?style=for-the-badge&label=Enhancement%20Requests
+[enhancements-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues?q=is%3Aissue%20state%3Aopen%20label%3Aenhancement
 
 [stars-shield]: https://img.shields.io/github/stars/andreaprosseda/vimar-byme-plus-homeassistant?style=for-the-badge
 [stars-url]: https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/stargazers
