@@ -24,7 +24,7 @@ class SsEnergyMeasureCounterMapper(BaseMapper):
             name=component.name,
             device_group=component.sftype,
             device_name=component.sstype,
-            device_class=SensorDeviceClass.GAS,
+            device_class=SensorDeviceClass.ENERGY,
             area=component.ambient.name,
             main_id=component.idsf,
             native_value=self.native_value(component),
