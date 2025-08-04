@@ -82,7 +82,7 @@ class Sensor(BaseEntity, SensorEntity):
     @property
     def suggested_unit_of_measurement(self) -> str | None:
         """Return the unit which should be used for the sensor's state."""
-        has_converter = UNIT_CONVERTERS.get(self.device_class) is None
+        has_converter = UNIT_CONVERTERS.get(self.device_class) is not None
         return self._component.unit_of_measurement if has_converter else None
 
     @callback
