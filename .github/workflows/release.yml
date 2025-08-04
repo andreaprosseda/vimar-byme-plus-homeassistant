@@ -98,7 +98,8 @@ jobs:
       - name: Check if release already exists
         id: check_release
         run: |
-          echo "Checking if release ${{ steps.manifest.outputs.version }} already exists..."
+          VERSION="${{ steps.manifest.outputs.version }}"
+          echo "Checking if release $VERSION already exists..."
           if gh release view "$VERSION" > /dev/null 2>&1; then
             echo "Release already exists"
             echo "exists=true" >> $GITHUB_OUTPUT
