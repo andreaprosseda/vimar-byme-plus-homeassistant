@@ -30,7 +30,7 @@ class SsEnergyMeasureCounterMapper(BaseMapper):
             native_value=self.native_value(component),
             last_update=None,
             decimal_precision=None,
-            unit_of_measurement=None,#SensorMeasurementUnit.CUBIC_METERS,
+            unit_of_measurement=SensorMeasurementUnit.KILO_WATT_HOUR,
             state_class=None,
             options=None,
         )
