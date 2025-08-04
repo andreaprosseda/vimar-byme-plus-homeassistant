@@ -13,7 +13,7 @@ from homeassistant.components.climate import (
     HVACMode,
 )
 from homeassistant.const import UnitOfTemperature
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import CoordinatorConfigEntry
@@ -165,6 +165,9 @@ class Climate(BaseEntity, ClimateEntity):
 
     def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set new target hvac mode."""
+        if not self._component.permission_granted:
+            message = "Insufficient permissions to set HVAC mode. Please refer to the ‘Grant Right Permissions’ section in GitHub README."
+            raise HomeAssistantError(message)
         self.send(ActionType.SET_HVAC_MODE, hvac_mode.value)
 
     def set_temperature(self, **kwargs: Any) -> None:

@@ -200,6 +200,8 @@ class VimarClimate(VimarComponent):
     max_humidity: float
     on_behaviour: PresetMode | None
     off_behaviour: PresetMode | None
+    can_change_mode: bool
+    permission_granted: bool
 
     @staticmethod
     def get_table_header() -> list:

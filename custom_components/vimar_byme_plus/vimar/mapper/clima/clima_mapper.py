@@ -1,4 +1,5 @@
 from ...model.component.vimar_climate import (
+    ChangeOverMode,
     ClimateEntityFeature,
     FanMode,
     HVACAction,
@@ -10,7 +11,6 @@ from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sftype_enum import SfType
 from ...model.repository.user_component import UserComponent
-
 
 class ClimaMapper:
     @staticmethod
@@ -50,6 +50,8 @@ class ClimaMapper:
             max_humidity=ClimaMapper.max_humidity(component),
             on_behaviour=ClimaMapper.on_behaviour(component),
             off_behaviour=ClimaMapper.off_behaviour(component),
+            can_change_mode=ClimaMapper.can_change_mode(component),
+            permission_granted=ClimaMapper.permission_granted(component),
         )
 
     @staticmethod
@@ -64,7 +66,13 @@ class ClimaMapper:
 
     @staticmethod
     def hvac_modes(component: UserComponent) -> list[HVACMode]:
-        return [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL]
+        if ClimaMapper._is_change_mode_enabled(component):
+            return [HVACMode.OFF, HVACMode.HEAT, HVACMode.COOL]
+        if ClimaMapper.get_change_over_mode(component) == ChangeOverMode.HEAT:
+            return [HVACMode.OFF, HVACMode.HEAT]
+        if ClimaMapper.get_change_over_mode(component) == ChangeOverMode.COOL:
+            return [HVACMode.OFF, HVACMode.COOL]
+        return [HVACMode.OFF]
 
     @staticmethod
     def hvac_mode(component: UserComponent) -> HVACMode | None:
@@ -178,6 +186,11 @@ class ClimaMapper:
         return (hvac_mode, hvac_action)
 
     @staticmethod
+    def get_change_over_mode(component: UserComponent) -> ChangeOverMode | None:
+        change_over_mode = ClimaMapper._get_change_over_mode(component)
+        return ChangeOverMode.get_change_over_mode(change_over_mode)
+
+    @staticmethod
     def _get_change_over_mode(component: UserComponent) -> str | None:
         return component.get_value(SfeType.STATE_CHANGE_OVER_MODE)
 
@@ -192,3 +205,16 @@ class ClimaMapper:
     @staticmethod
     def _is_fan_enabled(component: UserComponent) -> str | None:
         return component.is_enabled(SfeType.STATE_FAN_SPEED_3V)
+    
+    @staticmethod
+    def can_change_mode(component: UserComponent) -> bool:
+        return ClimaMapper._is_change_mode_enabled(component)
+    
+    @staticmethod
+    def permission_granted(component: UserComponent) -> bool:
+        mode = SfeType.CMD_CHANGE_OVER_MODE
+        return component.get_value(mode) is not None #empty is ok
+
+    @staticmethod
+    def _is_change_mode_enabled(component: UserComponent) -> bool:
+        return component.is_enabled(SfeType.CMD_CHANGE_OVER_MODE)
