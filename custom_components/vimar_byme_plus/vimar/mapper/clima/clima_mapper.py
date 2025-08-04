@@ -12,6 +12,7 @@ from ...model.enum.sfetype_enum import SfeType
 from ...model.enum.sftype_enum import SfType
 from ...model.repository.user_component import UserComponent
 
+
 class ClimaMapper:
     @staticmethod
     def from_list(components: list[UserComponent]) -> list[VimarComponent]:
@@ -205,15 +206,15 @@ class ClimaMapper:
     @staticmethod
     def _is_fan_enabled(component: UserComponent) -> str | None:
         return component.is_enabled(SfeType.STATE_FAN_SPEED_3V)
-    
+
     @staticmethod
     def can_change_mode(component: UserComponent) -> bool:
         return ClimaMapper._is_change_mode_enabled(component)
-    
+
     @staticmethod
     def permission_granted(component: UserComponent) -> bool:
         mode = SfeType.CMD_CHANGE_OVER_MODE
-        return component.get_value(mode) is not None #empty is ok
+        return component.get_value(mode) is not None  # empty is ok
 
     @staticmethod
     def _is_change_mode_enabled(component: UserComponent) -> bool:

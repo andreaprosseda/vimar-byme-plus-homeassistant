@@ -47,7 +47,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         """Send a request coming from HomeAssistant to Gateway."""
         try:
             self.client.send(component, action_type, *args)
-        except WebSocketConnectionClosedException as err:
+        except WebSocketConnectionClosedException:
             self.start()
 
     def update_data(self):

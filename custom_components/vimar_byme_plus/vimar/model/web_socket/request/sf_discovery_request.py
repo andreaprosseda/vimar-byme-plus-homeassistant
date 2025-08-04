@@ -16,10 +16,7 @@ class SfDiscoveryRequest(BaseRequest):
         self.params = self.get_params(ambient_ids)
 
     def get_args(self) -> list:
-        return [
-            self.get_category("Plant"),
-            self.get_category("LogicProgram")
-        ]
+        return [self.get_category("Plant"), self.get_category("LogicProgram")]
 
     def get_category(self, value: str) -> dict:
         return {"sfcategory": value}

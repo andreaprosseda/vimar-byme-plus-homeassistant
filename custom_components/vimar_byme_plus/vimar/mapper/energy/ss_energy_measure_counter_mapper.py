@@ -3,7 +3,6 @@ from decimal import ROUND_HALF_UP, Decimal
 from ...model.component.vimar_sensor import (
     SensorDeviceClass,
     SensorMeasurementUnit,
-    SensorStateClass,
     VimarSensor,
 )
 from ...model.enum.sstype_enum import SsType
