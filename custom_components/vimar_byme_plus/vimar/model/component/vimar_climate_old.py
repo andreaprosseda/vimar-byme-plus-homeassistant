@@ -50,15 +50,11 @@ class HVACMode(Enum):
         change_mode = ChangeOverMode.get_change_over_mode(change_over_mode)
         status = OutStatus.get_out_status(out_status)
 
-        # PATCH: handle missing/None mode safely
-        if mode is None:
-            return HVACMode.OFF
-
         if mode.is_off():
             return HVACMode.OFF
-        if (status and status.is_heat()) or change_mode == ChangeOverMode.HEAT:
+        if status.is_heat() or change_mode == ChangeOverMode.HEAT:
             return HVACMode.HEAT
-        if (status and status.is_cool()) or change_mode == ChangeOverMode.COOL:
+        if status.is_cool() or change_mode == ChangeOverMode.COOL:
             return HVACMode.COOL
         return None
 
