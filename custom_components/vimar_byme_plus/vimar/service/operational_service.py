@@ -16,7 +16,7 @@ from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..scheduler.keep_alive_handler import KeepAliveHandler
-from ..utils.logger import log_info
+from ..utils.logger import log_info, log_debug
 from .handler.action_handler.action_handler import ActionHandler
 from .handler.error_handler.error_handler import ErrorHandler
 from .handler.message_handler.message_handler import MessageHandler
@@ -78,6 +78,7 @@ class OperationalService:
 
     def send_message(self, message: BaseRequest):
         """Send a request coming from HomeAssistant to Gateway."""
+        log_debug(__name__, message)
         if not self._web_socket:
             raise WebSocketConnectionClosedException
         self._web_socket.send(message)
