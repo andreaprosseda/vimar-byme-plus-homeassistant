@@ -39,6 +39,9 @@ class Button(BaseEntity, ButtonEntity):
 
     def press(self) -> None:
         """Press the button."""
+        self.hass.loop.call_soon_threadsafe(self._press)
+
+    def _press(self) -> None:
         self.send(ActionType.PRESS)
 
     @callback
