@@ -37,7 +37,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     def start(self):
         """Start coordinator processes."""
         self.client.operational_phase()
-        self._update_data()
+        self.update_data()
 
     def stop(self):
         """Stop coordinator processes."""
@@ -52,7 +52,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
 
     def update_data(self):
         """Update data when new status is received from the Gateway."""
-        self.hass.loop.call_soon_threadsafe(self._update_data)
+        self.hass.add_job(self._update_data)
 
     def _update_data(self):
         data = self.client.retrieve_data()
