@@ -11,7 +11,7 @@ SLAT = SfeType.CMD_SLAT_WITHOUT_POSITION
 
 
 class SsShutterSlatWithoutPositionActionHandler(SsShutterWithoutPositionActionHandler):
-    SSTYPE = SsType.SHUTTER_WITHOUT_POSITION.value
+    SSTYPE = SsType.SHUTTER_SLAT_WITHOUT_POSITION.value
 
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
