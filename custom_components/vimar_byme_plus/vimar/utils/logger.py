@@ -41,5 +41,6 @@ def log_error(module_name: str, message: str):
 def not_implemented(module_name: str, component: UserComponent):
     name = component.name
     sstype = component.sstype
-    message = f"[{name}] Component of type {sstype} not yet implemented!"
-    log_error(module_name, message)
+    if sstype != "SS_Synoptic":
+        message = f"[{name}] Component of type {sstype} not yet implemented!"
+        log_error(module_name, message)
