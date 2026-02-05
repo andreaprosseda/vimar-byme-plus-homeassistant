@@ -13,6 +13,7 @@ from homeassistant.config_entries import ConfigFlowResult
 from .const import (
     ADDRESS,
     CODE,
+    DOCUMENTATION_URL,
     DOMAIN,
     GATEWAY_ID,
     GATEWAY_MODEL,
@@ -55,7 +56,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             await self.async_set_unique_id(user_input[GATEWAY_ID])
             self._abort_if_unique_id_configured()
             return await self._initialize(step_id, schema, user_input)
-        return self.async_show_form(step_id=step_id, data_schema=schema)
+        return self.async_show_form(
+            step_id=step_id,
+            data_schema=schema,
+            description_placeholders={"url_documentation": DOCUMENTATION_URL},
+        )
 
     async def async_step_zeroconf(
         self, discovery_info: zeroconf.ZeroconfServiceInfo
@@ -74,7 +79,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         placeholders = {"name": user_input[GATEWAY_NAME]}
         self.context["title_placeholders"] = placeholders
 
-        return self.async_show_form(step_id=step_id, data_schema=schema)
+        return self.async_show_form(
+            step_id=step_id,
+            data_schema=schema,
+            description_placeholders={"url_documentation": DOCUMENTATION_URL},
+        )
 
     async def async_step_discovery_confirm(
         self, user_input: dict[str, Any] | None = None
@@ -85,7 +94,11 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input and CODE in user_input:
             user_input = self._enhance_user_input(user_input)
             return await self._initialize(step_id, schema, user_input)
-        return self.async_show_form(step_id=step_id, data_schema=schema)
+        return self.async_show_form(
+            step_id=step_id,
+            data_schema=schema,
+            description_placeholders={"url_documentation": DOCUMENTATION_URL},
+        )
 
     async def _initialize(
         self, step_id: str, data_schema: Any, user_input: dict[str, Any] | None = None
@@ -104,8 +117,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 log_error("Unexpected exception during the finalization phase")
                 errors["base"] = "unknown"
 
+        description_placeholders = None
+        if step_id in ("user", "discovery_confirm"):
+            description_placeholders = {"url_documentation": DOCUMENTATION_URL}
         return self.async_show_form(
-            step_id=step_id, data_schema=data_schema, errors=errors
+            step_id=step_id,
+            data_schema=data_schema,
+            errors=errors,
+            description_placeholders=description_placeholders,
         )
 
     async def _finalize(self, user_input: dict[str, str]) -> ConfigFlowResult:

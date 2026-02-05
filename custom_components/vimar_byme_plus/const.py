@@ -18,3 +18,8 @@ DATA_COORDINATOR: Final = "coordinator"
 DATA_UNDO_UPDATE_LISTENER: Final = "undo_update_listener"
 
 USERNAME = "xm7r1"
+
+DOCUMENTATION_URL = (
+    "https://github.com/andreaprosseda/vimar-byme-plus-homeassistant"
+    "?tab=readme-ov-file#step-23-vimar-pro---initial-setup"
+)
