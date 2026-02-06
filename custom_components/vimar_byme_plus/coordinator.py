@@ -3,7 +3,8 @@
 import logging
 
 from websocket import WebSocketConnectionClosedException
-from homeassistant.core import HomeAssistant
+
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import ADDRESS, CODE, DOMAIN, GATEWAY_ID, GATEWAY_NAME, HOST, PORT, PROTOCOL
@@ -54,6 +55,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         """Update data when new status is received from the Gateway."""
         self.hass.add_job(self._update_data)
 
+    @callback
     def _update_data(self):
         data = self.client.retrieve_data()
         self.async_set_updated_data(data)
