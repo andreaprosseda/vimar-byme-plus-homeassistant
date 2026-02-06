@@ -8,6 +8,6 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues",
   "requirements": ["websocket-client"],
-  "version": "3.0.4",
+  "version": "3.0.5",
   "zeroconf": ["_vimar-devctrl._tcp.local."]
 }
