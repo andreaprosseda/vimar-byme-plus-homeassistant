@@ -5,6 +5,9 @@ from ..base_action_handler import HandlerInterface
 from .ss_scene_activator_activator_action_handler import (
     SsSceneActivatorActivatorActionHandler,
 )
+from .ss_scene_activator_air_quality_gradient_action_handler import (
+    SsSceneActivatorAirQualityGradientActionHandler,
+)
 from .ss_scene_activator_video_entry_action_handler import (
     SsSceneActivatorVideoEntryActionHandler,
 )
@@ -22,6 +25,8 @@ class SceneActivatorActionHandler:
         sstype = component.device_name
         if sstype == SsSceneActivatorActivatorActionHandler.SSTYPE:
             return SsSceneActivatorActivatorActionHandler()
+        if sstype == SsSceneActivatorAirQualityGradientActionHandler.SSTYPE:
+            return SsSceneActivatorAirQualityGradientActionHandler()
         if sstype == SsSceneActivatorVideoEntryActionHandler.SSTYPE:
             return SsSceneActivatorVideoEntryActionHandler()
         raise NotImplementedError
