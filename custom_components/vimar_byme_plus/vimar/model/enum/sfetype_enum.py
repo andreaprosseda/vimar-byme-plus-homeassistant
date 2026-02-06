@@ -36,6 +36,22 @@ class SfeType(Enum):
     CMD_START_ACTIVE_SCENE = "SFE_Cmd_CallStart_ActiveScene"
     CMD_END_ACTIVE_SCENE = "SFE_Cmd_CallEnd_ActiveScene"
 
+    CMD_AREA_DIS_ACTIVE_SCENE = "SFE_Cmd_AreaDis_ActiveScene"
+    CMD_AREA_ON_ACTIVE_SCENE = "SFE_Cmd_AreaOn_ActiveScene"
+    CMD_AREA_INT_ACTIVE_SCENE = "SFE_Cmd_AreaInt_ActiveScene"
+    CMD_AREA_PAR_ACTIVE_SCENE = "SFE_Cmd_AreaPar_ActiveScene"
+    CMD_AREA_ALARM_ACTIVE_SCENE = "SFE_Cmd_AreaAlarm_ActiveScene"
+    CMD_AREA_ALARM_MEMORY_ACTIVE_SCENE = "SFE_Cmd_AreaAlarmMemory_ActiveScene"
+    CMD_AREA_ALARM_MEMORY_RESET_ACTIVE_SCENE = "SFE_Cmd_AreaAlarmMemoryReset_ActiveScene"
+    CMD_AREA_ALARM_RESET_ACTIVE_SCENE = "SFE_Cmd_AreaAlarmReset_ActiveScene"
+
+    CMD_AIR_QUALITY_GRADIENT_DESCENDING_ACTIVE_SCENE = (
+        "SFE_Cmd_AirQualityGradientDescending_ActiveScene"
+    )
+    CMD_AIR_QUALITY_GRADIENT_STABILIZATION_ACTIVE_SCENE = (
+        "SFE_Cmd_AirQualityGradientStabilization_ActiveScene"
+    )
+
     STATE_AMBIENT_SETPOINT = "SFE_State_AmbientSetpoint"
     STATE_AMBIENT_TEMPERATURE = "SFE_State_AmbientTemperature"
     STATE_CHANGE_OVER_MODE = "SFE_State_ChangeOverMode"
