@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 
+from ..component.vimar_alarm import VimarAlarm
 from ..component.vimar_binary_sensor import VimarBinarySensor
 from ..component.vimar_button import VimarButton
 from ..component.vimar_climate import VimarClimate
@@ -20,6 +21,9 @@ class VimarData:
 
     def get_binary_sensors(self) -> list:
         return [ety for ety in self.get_all() if isinstance(ety, VimarBinarySensor)]
+
+    def get_alarm_control_panels(self) -> list:
+        return [ety for ety in self.get_all() if isinstance(ety, VimarAlarm)]
 
     def get_buttons(self) -> list:
         return [ety for ety in self.get_all() if isinstance(ety, VimarButton)]

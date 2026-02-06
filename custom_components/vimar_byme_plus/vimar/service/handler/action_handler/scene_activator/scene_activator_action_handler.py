@@ -1,10 +1,15 @@
 from .....model.component.vimar_action import VimarAction
+from .....model.component.vimar_alarm import VimarAlarm
 from .....model.component.vimar_component import VimarComponent
 from .....model.enum.action_type import ActionType
 from ..base_action_handler import HandlerInterface
 from .ss_scene_activator_activator_action_handler import (
     SsSceneActivatorActivatorActionHandler,
 )
+from .ss_scene_activator_air_quality_gradient_action_handler import (
+    SsSceneActivatorAirQualityGradientActionHandler,
+)
+from .ss_scene_activator_sai_action_handler import SsSceneActivatorSaiActionHandler
 from .ss_scene_activator_video_entry_action_handler import (
     SsSceneActivatorVideoEntryActionHandler,
 )
@@ -19,9 +24,15 @@ class SceneActivatorActionHandler:
 
     @staticmethod
     def get_handler(component: VimarComponent) -> HandlerInterface:
+        if isinstance(component, VimarAlarm):
+            return SsSceneActivatorSaiActionHandler()
         sstype = component.device_name
         if sstype == SsSceneActivatorActivatorActionHandler.SSTYPE:
             return SsSceneActivatorActivatorActionHandler()
+        if sstype == SsSceneActivatorAirQualityGradientActionHandler.SSTYPE:
+            return SsSceneActivatorAirQualityGradientActionHandler()
+        if sstype == SsSceneActivatorSaiActionHandler.SSTYPE:
+            return SsSceneActivatorSaiActionHandler()
         if sstype == SsSceneActivatorVideoEntryActionHandler.SSTYPE:
             return SsSceneActivatorVideoEntryActionHandler()
         raise NotImplementedError
