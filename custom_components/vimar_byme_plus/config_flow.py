@@ -43,7 +43,7 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     discovery_info: zeroconf.ZeroconfServiceInfo = None
 
-    VERSION = 1
+    VERSION = 2
 
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_PUSH
 
