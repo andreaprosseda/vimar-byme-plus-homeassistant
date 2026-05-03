@@ -43,9 +43,24 @@ class BaseEntity(CoordinatorEntity):
         return self._component.device_class
 
     @property
+    def _gateway_id(self):
+        """Return the gateway deviceuid for scoping unique ids per gateway.
+
+        This is required for multi-gateway setups: Vimar `idsf` is per-plant
+        (per-gateway), not globally unique. Without this scoping, two gateways
+        publishing the same idsf would have their devices merged in HA's
+        device registry, causing the well-known "second gateway breaks the
+        first" issue (see issue #34).
+        """
+        try:
+            return self.coordinator.gateway_info.deviceuid
+        except Exception:
+            return "default"
+
+    @property
     def unique_id(self):
-        """Return unique id of the device."""
-        return DOMAIN + "_app_" + str(self._component.id)
+        """Return unique id of the device, scoped per gateway."""
+        return f"{DOMAIN}_{self._gateway_id}_app_{self._component.id}"
 
     @property
     def is_default_state(self):
@@ -54,9 +69,10 @@ class BaseEntity(CoordinatorEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Return device registry information for this entity."""
+        """Return device registry information for this entity (scoped per gateway)."""
+        scoped_id = f"{self._gateway_id}_{self._component.id}"
         return DeviceInfo(
-            identifiers={(DOMAIN, self._component.id)},
+            identifiers={(DOMAIN, scoped_id)},
             manufacturer=MANIFACTURER,
             name=self._component.name,
             model=self._component.device_name,
@@ -78,16 +94,3 @@ class BaseEntity(CoordinatorEntity):
         except VimarErrorResponseException as err:
             message = f"Error received from Gateway: {err.message}"
             raise HomeAssistantError(message) from err
-
-    @property
-    def should_poll(self) -> bool:
-        """Return True if entity has to be polled for state. False if entity pushes its state to HA."""
-        return False
-
-    @callback
-    def _handle_coordinator_update(self) -> None:
-        """Handle device update."""
-        if self._component:
-            data: VimarData = self.coordinator.data
-            self._component = data.get_by_id(self._component.id)
-            self.async_write_ha_state()
