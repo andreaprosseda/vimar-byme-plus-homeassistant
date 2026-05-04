@@ -239,12 +239,30 @@ class OperationalService:
             self.connect()
 
     def trigger_changes(self, message: BaseRequestResponse):
+        """Fire the coordinator update callback when the DB has fresh data.
+
+        The coordinator only re-reads `home.db` when its `update_callback`
+        is invoked. Without this, every state mutation that touched the DB
+        but didn't go through `changestatus` (sfdiscovery snapshot at
+        connect, getstatus replies during bootstrap) would stay invisible
+        to the entities until the next change-status event — which for
+        idle devices may never come, leaving them `unavailable` after a
+        restart until the user manually reloads the config entry.
+        """
         if not self.update_callback:
             return
 
         phase = IntegrationPhase.get(message.function)
-        change_phase = IntegrationPhase.CHANGE_STATUS
-        if isinstance(message, BaseRequest) and phase == change_phase:
+        # CHANGE_STATUS: gateway-pushed runtime updates.
+        # SF_DISCOVERY: fresh component+element snapshot saved on (re)connect,
+        #               carries current state values inline.
+        # GET_STATUS: response to our bootstrap requests after sfdiscovery,
+        #             also writes element values to the DB.
+        if phase in (
+            IntegrationPhase.CHANGE_STATUS,
+            IntegrationPhase.SF_DISCOVERY,
+            IntegrationPhase.GET_STATUS,
+        ):
             self.update_callback()
 
     def handle_keep_alive(self, message: BaseRequestResponse):
