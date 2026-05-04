@@ -40,6 +40,7 @@ class OperationalService:
     _web_socket: WSAttachPhase = None
     _user_repo = Database.instance().user_repo
     _component_repo = Database.instance().component_repo
+    _ambient_repo = Database.instance().ambient_repo
     _bootstrapped: bool = False
 
     def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
@@ -83,6 +84,7 @@ class OperationalService:
         for repo, table in (
             (self._user_repo, "users"),
             (self._component_repo, "components"),
+            (self._ambient_repo, "ambients"),
         ):
             try:
                 repo.execute(
@@ -147,6 +149,22 @@ class OperationalService:
     ) -> BaseRequestResponse:
         # Re-tag thread (defensive: callbacks may run on a separate thread).
         set_current_gateway_uid(self.gateway_info.deviceuid)
+        # TEMP DIAG: re-enabled to validate Bug #4 bootstrap
+        try:
+            import time as _t
+            with open("/config/vimar_ws_dump.log", "a", encoding="utf-8") as _f:
+                _f.write(
+                    f"--- {_t.strftime('%H:%M:%S')} gw={self.gateway_info.deviceuid} "
+                    f"type={type(message).__name__} "
+                    f"function={getattr(message, 'function', '?')} "
+                    f"msgid={getattr(message, 'msgid', '?')} ---\n"
+                )
+                try:
+                    _f.write(message.to_json() + "\n")
+                except Exception:
+                    _f.write(repr(message) + "\n")
+        except Exception:
+            pass
         response = self._message_handler.message_received(message)
         self.trigger_changes(message)
         self.handle_keep_alive(response)

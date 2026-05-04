@@ -84,6 +84,9 @@ class ComponentRepo(BaseRepo):
         # Join elements/ambients also filtered by gateway_uid where applicable.
         # Same-idsf collisions across gateways are now safe because both
         # components and elements carry the gateway_uid scope.
+        # LEFT JOIN on ambients so a missing/wiped ambient row never drops
+        # the component (defensive: ambient discovery for a different gateway
+        # used to wipe rows globally — see issue #34 BUG#3 ambients-scoping).
         if gateway_uid:
             query = """
                 SELECT
@@ -95,8 +98,9 @@ class ComponentRepo(BaseRepo):
                 JOIN
                     elements e ON c.idsf = e.idcomponent
                     AND (e.gateway_uid = c.gateway_uid OR e.gateway_uid IS NULL)
-                JOIN
+                LEFT JOIN
                     ambients a ON c.idambient = a.idambient
+                    AND (a.gateway_uid = c.gateway_uid OR a.gateway_uid IS NULL)
                 WHERE
                     c.gateway_uid = ? OR c.gateway_uid IS NULL;
             """
@@ -111,7 +115,7 @@ class ComponentRepo(BaseRepo):
                     components c
                 JOIN
                     elements e ON c.idsf = e.idcomponent
-                JOIN
+                LEFT JOIN
                     ambients a ON c.idambient = a.idambient;
             """
             cursor = self.cursor().execute(query)

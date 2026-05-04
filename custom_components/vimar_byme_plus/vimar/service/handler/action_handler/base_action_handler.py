@@ -34,7 +34,7 @@ class BaseActionHandler(HandlerInterface):
     def save_ambients(self, response: dict):
         ambients = UserAmbient.list_from_dict(response)
         log_info(__name__, f"Ambients retrieved: {len(ambients)}")
-        self._ambient_repo.replace_all(ambients)
+        self._ambient_repo.replace_all(ambients, gateway_uid=current_gateway_uid())
 
     def save_components(self, response: dict):
         components = UserComponent.list_from_response(response)
