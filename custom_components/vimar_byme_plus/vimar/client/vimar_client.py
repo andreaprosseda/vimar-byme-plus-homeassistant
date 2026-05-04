@@ -62,7 +62,8 @@ class VimarClient:
 
     def retrieve_data(self) -> VimarData:
         """Get the latest data from DB."""
-        components = self._component_repo.get_all()
+        gateway_uid = self._operational_service.gateway_info.deviceuid
+        components = self._component_repo.get_all(gateway_uid=gateway_uid)
         return VimarDataMapper.from_list(components)
 
     def get_gateway_info(self) -> GatewayInfo:
@@ -72,14 +73,18 @@ class VimarClient:
         return self._operational_service.gateway_info is not None
 
     def has_credentials(self) -> bool:
-        credentials = self._user_repo.get_current_user()
+        gateway_uid = self._operational_service.gateway_info.deviceuid
+        credentials = self._user_repo.get_current_user(gateway_uid=gateway_uid)
         return credentials and credentials.password is not None
 
     def set_setup_code(self, setup_code: str):
         if not setup_code:
             return
         self.validate_code(setup_code)
-        self._user_repo.insert_setup_code(USERNAME, setup_code)
+        gateway_uid = self._operational_service.gateway_info.deviceuid
+        self._user_repo.insert_setup_code(
+            USERNAME, setup_code, gateway_uid=gateway_uid
+        )
 
     def same_code(self, setup_code: str, current_user: UserCredentials) -> bool:
         if not current_user:

@@ -6,7 +6,7 @@ from websocket import WebSocketConnectionClosedException
 
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
-from ..database.database import Database
+from ..database.database import Database, set_current_gateway_uid
 from ..model.component.vimar_component import VimarComponent
 from ..model.enum.action_type import ActionType
 from ..model.enum.integration_phase import IntegrationPhase
@@ -39,6 +39,8 @@ class OperationalService:
 
     _web_socket: WSAttachPhase = None
     _user_repo = Database.instance().user_repo
+    _component_repo = Database.instance().component_repo
+    _bootstrapped: bool = False
 
     def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize Vimar intagration."""
@@ -53,6 +55,14 @@ class OperationalService:
 
     def connect(self):
         """Handle the connection Vimar WebSocket connection."""
+        # Tag this thread with the active gateway so any handler invoked
+        # from the WS callbacks can scope DB queries correctly.
+        set_current_gateway_uid(self.gateway_info.deviceuid)
+        # One-shot migration: rows that pre-date the multi-gateway scoping
+        # have gateway_uid = NULL. Claim them for whichever gateway connects
+        # first. Only safe when the fork was previously single-gateway, but
+        # that's exactly the case we're upgrading from.
+        self._claim_legacy_rows()
         try:
             self.clean()
             self.sync_session_phase()
@@ -64,6 +74,31 @@ class OperationalService:
                 self.connect()
             else:
                 raise VimarErrorResponseException(exc) from exc
+
+    def _claim_legacy_rows(self) -> None:
+        """Migrate pre-multi-gateway rows (gateway_uid IS NULL) to this gateway."""
+        uid = self.gateway_info.deviceuid
+        log_info(__name__, f"Attempting to claim legacy rows for {uid}")
+        # Use repo's own execute to keep transactions consistent
+        for repo, table in (
+            (self._user_repo, "users"),
+            (self._component_repo, "components"),
+        ):
+            try:
+                repo.execute(
+                    f"UPDATE {table} SET gateway_uid = ? WHERE gateway_uid IS NULL",
+                    (uid,),
+                )
+            except Exception as exc:  # noqa: BLE001
+                log_info(__name__, f"Claim {table} failed: {exc}")
+        # element_repo: it's a sub-repo of component_repo, exposed via that one
+        try:
+            self._component_repo.element_repo.execute(
+                "UPDATE elements SET gateway_uid = ? WHERE gateway_uid IS NULL",
+                (uid,),
+            )
+        except Exception as exc:  # noqa: BLE001
+            log_info(__name__, f"Claim elements failed: {exc}")
 
     def send_action(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
@@ -110,10 +145,55 @@ class OperationalService:
     def on_attach_message_received(
         self, message: BaseRequestResponse
     ) -> BaseRequestResponse:
+        # Re-tag thread (defensive: callbacks may run on a separate thread).
+        set_current_gateway_uid(self.gateway_info.deviceuid)
         response = self._message_handler.message_received(message)
         self.trigger_changes(message)
         self.handle_keep_alive(response)
+        self._maybe_bootstrap_states(message)
         return response
+
+    def _maybe_bootstrap_states(self, message: BaseRequestResponse) -> None:
+        """Request initial state of every component once after sfdiscovery.
+
+        Vimar gateways only push `changestatus` events when a value actually
+        changes. Devices that haven't moved since startup (lights left off,
+        thermostats at setpoint, shutters fully open or closed) never reach
+        HA, so their entities remain `unknown`/`off` until the user touches
+        them. Right after `sfdiscovery` the database has the full component
+        list, so we can ask the gateway for the current state of each idsf
+        once and let the normal change-status flow keep them in sync from
+        there.
+        """
+        if self._bootstrapped:
+            return
+        if isinstance(message, BaseRequest):
+            return  # only react to gateway responses
+        phase = IntegrationPhase.get(getattr(message, "function", None))
+        if phase != IntegrationPhase.SF_DISCOVERY:
+            return
+        try:
+            components = self._component_repo.get_all(
+                gateway_uid=self.gateway_info.deviceuid
+            )
+        except Exception as exc:  # noqa: BLE001
+            log_info(__name__, f"Bootstrap states: cannot read components: {exc}")
+            return
+        if not components:
+            return
+        log_info(
+            __name__,
+            f"Bootstrap states: requesting status of {len(components)} components",
+        )
+        for component in components:
+            try:
+                self.send_get_status(component.idsf)
+            except Exception as exc:  # noqa: BLE001
+                log_info(
+                    __name__,
+                    f"Bootstrap states: get_status failed for idsf={component.idsf}: {exc}",
+                )
+        self._bootstrapped = True
 
     def on_attach_error_message_received(
         self,
@@ -163,7 +243,9 @@ class OperationalService:
 
     def _get_config_for_attach_phase(self) -> WebSocketConfig:
         config = self._get_config()
-        config.user_credentials = self._user_repo.get_current_user()
+        config.user_credentials = self._user_repo.get_current_user(
+            gateway_uid=self.gateway_info.deviceuid
+        )
         config.on_open_callback = self.on_attach_connection_opened
         config.on_message_callback = self.on_attach_message_received
         config.on_error_message_callback = self.on_attach_error_message_received
