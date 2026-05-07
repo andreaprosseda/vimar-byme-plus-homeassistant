@@ -44,8 +44,20 @@ class BaseEntity(CoordinatorEntity):
 
     @property
     def unique_id(self):
-        """Return unique id of the device."""
-        return DOMAIN + "_app_" + str(self._component.id)
+        """Return unique id of the device, scoped per gateway.
+
+        Without the gateway_uid in the unique_id, two paired By-me Plus
+        gateways that happen to share an `idsf` (very common: idsf 1003
+        is "Applique ingresso" on Casa Trenno but "luce cucina" on
+        TrennoPT) collide in the HA entity registry and only the first
+        survives. Including the gateway uid makes them distinct.
+        """
+        gw_uid = getattr(self.coordinator, "gateway_info", None)
+        if gw_uid is not None:
+            gw_uid = getattr(gw_uid, "deviceuid", None)
+        if gw_uid:
+            return f"{DOMAIN}_{gw_uid}_app_{self._component.id}"
+        return f"{DOMAIN}_app_{self._component.id}"
 
     @property
     def is_default_state(self):
@@ -54,13 +66,18 @@ class BaseEntity(CoordinatorEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Return device registry information for this entity."""
+        """Return device registry information for this entity.
+
+        `suggested_area` removed: the upstream `component.area` is the raw
+        ambient name from the Vimar DB, which doesn't always match an
+        existing HA area_id. When it doesn't, HA *creates* a brand new
+        area on every (re)start. Areas are managed by the user via the UI.
+        """
         return DeviceInfo(
             identifiers={(DOMAIN, self._component.id)},
             manufacturer=MANIFACTURER,
             name=self._component.name,
             model=self._component.device_name,
-            suggested_area=self._component.area,
         )
 
     def send(self, actionType: ActionType, *args) -> None:
