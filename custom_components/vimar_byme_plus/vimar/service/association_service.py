@@ -1,7 +1,7 @@
 from ..client.authenticator_client import AuthenticatorClient
 from ..client.web_service.sync_attach_phase import SyncAttachPhase
 from ..client.web_service.sync_session_phase import SyncSessionPhase
-from ..database.database import Database
+from ..database.database import Database, set_current_gateway_uid
 from ..model.exceptions import VimarErrorResponseException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.repository.user_credentials import UserCredentials
@@ -89,16 +89,20 @@ class AssociationService:
 
     def get_signed_credentials(self) -> UserCredentials:
         client = self._authenticator_client
-        credentials = self._user_repo.get_current_user()
+        gateway_uid = self.gateway_info.deviceuid
+        set_current_gateway_uid(gateway_uid)
+        credentials = self._user_repo.get_current_user(gateway_uid=gateway_uid)
         if credentials and credentials.password:
             return credentials
         signed_credentials = client.get_association_credentials(credentials)
-        self._user_repo.update(signed_credentials)
+        self._user_repo.update(signed_credentials, gateway_uid=gateway_uid)
         return signed_credentials
 
     def save_attach_credentials(self, response: BaseResponse):
         client = self._authenticator_client
+        gateway_uid = self.gateway_info.deviceuid
+        set_current_gateway_uid(gateway_uid)
         credentials = UserCredentials.obj_from_dict(response)
         signed_credentials = client.get_operational_credentials(credentials)
         signed_credentials.plant_name = credentials.plant_name
-        self._user_repo.update(signed_credentials)
+        self._user_repo.update(signed_credentials, gateway_uid=gateway_uid)

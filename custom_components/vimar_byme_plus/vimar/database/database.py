@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import threading
 from sqlite3 import Connection, Error
 from typing import Optional
 
@@ -11,6 +12,24 @@ from .repository.element_repo import ElementRepo
 from .repository.user_repo import UserRepo
 
 DATABASE_NAME = "home.db"
+
+# Thread-local gateway scope. Each coordinator runs in its own thread; the
+# coordinator sets its gateway uid here on connect so repos and message
+# handlers can filter rows belonging to *this* gateway without every method
+# having to forward an extra argument. Without scoping, the second gateway's
+# pair wipes the first one's users/components/elements rows from the shared
+# singleton DB (issue #34, Bug #3).
+_thread_local = threading.local()
+
+
+def set_current_gateway_uid(gateway_uid: Optional[str]) -> None:
+    """Set the active gateway_uid for this thread (None clears it)."""
+    _thread_local.gateway_uid = gateway_uid
+
+
+def current_gateway_uid() -> Optional[str]:
+    """Return the active gateway_uid for this thread, or None if not set."""
+    return getattr(_thread_local, "gateway_uid", None)
 
 
 class Database:
