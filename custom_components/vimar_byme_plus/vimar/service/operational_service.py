@@ -261,20 +261,35 @@ class OperationalService:
         if isinstance(message, BaseRequest):
             return  # only react to gateway responses
         phase = IntegrationPhase.get(getattr(message, "function", None))
-        if phase != IntegrationPhase.SF_DISCOVERY:
+        # Trigger on REGISTER (the final response of the operational pipeline:
+        # session -> attach -> ambient_discovery -> sf_discovery -> register).
+        # By REGISTER the components table is fully populated *and committed*
+        # for this gateway, the WS attach is fully authenticated, and a
+        # concurrent second-gateway bootstrap cannot starve this one through
+        # a transient empty read on the shared singleton DB connection
+        # (observed: with two paired gateways, the slower one to finish
+        # sf_discovery would see 0 components and skip its bootstrap, leaving
+        # all its idle entities unavailable until the user manually reloaded).
+        if phase != IntegrationPhase.REGISTER:
             return
+        gw_uid = self.gateway_info.deviceuid
         try:
-            components = self._component_repo.get_all(
-                gateway_uid=self.gateway_info.deviceuid
-            )
+            components = self._component_repo.get_all(gateway_uid=gw_uid)
         except Exception as exc:  # noqa: BLE001
-            log_info(__name__, f"Bootstrap states: cannot read components: {exc}")
+            log_info(
+                __name__,
+                f"Bootstrap states[{gw_uid}]: cannot read components: {exc}",
+            )
             return
         if not components:
+            log_info(
+                __name__,
+                f"Bootstrap states[{gw_uid}]: 0 components in DB at REGISTER, skipping",
+            )
             return
         log_info(
             __name__,
-            f"Bootstrap states: requesting status of {len(components)} components",
+            f"Bootstrap states[{gw_uid}]: requesting status of {len(components)} components",
         )
         for component in components:
             try:
@@ -282,7 +297,7 @@ class OperationalService:
             except Exception as exc:  # noqa: BLE001
                 log_info(
                     __name__,
-                    f"Bootstrap states: get_status failed for idsf={component.idsf}: {exc}",
+                    f"Bootstrap states[{gw_uid}]: get_status failed for idsf={component.idsf}: {exc}",
                 )
         self._bootstrapped = True
 
