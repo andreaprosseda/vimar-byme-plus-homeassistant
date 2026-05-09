@@ -45,7 +45,18 @@ class Light(BaseEntity, LightEntity):
     HA_COLOR_TEMP_SCALE = (2700, 6500)
     _attr_min_color_temp_kelvin = 2700
     _attr_max_color_temp_kelvin = 6500
+    # Drop the legacy stringa `device_class="light"` that the upstream mapper
+    # injects via VimarLight: it isn't a valid `LightDeviceClass` value, and
+    # the new HA tile card renders such entities as a blank circle instead of
+    # the default lightbulb icon. Returning None makes HA fall back to the
+    # built-in `mdi:lightbulb` / `mdi:lightbulb-off` based on state.
+    _attr_device_class = None
     _component: VimarLight
+
+    @property
+    def device_class(self) -> None:
+        """Override BaseEntity.device_class for lights — see _attr_device_class above."""
+        return None
 
     def __init__(self, coordinator: Coordinator, component: VimarLight) -> None:
         """Initialize the light."""
