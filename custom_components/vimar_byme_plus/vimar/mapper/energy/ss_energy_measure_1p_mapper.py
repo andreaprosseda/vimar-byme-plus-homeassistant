@@ -1,6 +1,7 @@
 from datetime import datetime
 from decimal import ROUND_HALF_UP, Decimal
 
+from ...model.component.vimar_button import VimarButton
 from ...model.component.vimar_sensor import (
     SensorDeviceClass,
     SensorMeasurementUnit,
@@ -16,10 +17,11 @@ from ..base_mapper import BaseMapper
 class SsEnergyMeasure1pMapper(BaseMapper):
     SSTYPE = SsType.ENERGY_MEASURE_1P.value
 
-    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
+    def from_obj(self, component: UserComponent, *args) -> list:
         return [
             self.power_from_obj(component, *args),
             self.energy_from_obj(component, *args),
+            self.real_time_button(component, *args),
         ]
 
     def power_from_obj(self, component: UserComponent, *args) -> VimarSensor:
@@ -54,6 +56,18 @@ class SsEnergyMeasure1pMapper(BaseMapper):
             unit_of_measurement=SensorMeasurementUnit.KILO_WATT_HOUR,
             state_class=SensorStateClass.TOTAL_INCREASING,
             options=None,
+        )
+
+    def real_time_button(self, component: UserComponent, *args) -> VimarButton:
+        return VimarButton(
+            id=str(component.idsf) + "_real_time_updates",
+            name=component.name + " - " + "Aggiornamenti RealTime",
+            device_group=component.sftype,
+            device_name=component.sstype,
+            device_class=None,
+            area=component.ambient.name,
+            main_id=component.idsf,
+            executed=False,
         )
 
     def native_value(self, component: UserComponent) -> Decimal | None:
