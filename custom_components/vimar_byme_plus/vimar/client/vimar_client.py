@@ -8,6 +8,7 @@ from ..model.enum.action_type import ActionType
 from ..model.exceptions import CodeNotValidException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.gateway.vimar_data import VimarData
+from ..model.integration_options import IntegrationOptions
 from ..model.repository.user_credentials import UserCredentials
 from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService, Update
@@ -60,10 +61,12 @@ class VimarClient:
         """Stop coordinator processes."""
         self._operational_service.disconnect()
 
-    def retrieve_data(self) -> VimarData:
+    def retrieve_data(
+        self, options: IntegrationOptions | None = None
+    ) -> VimarData:
         """Get the latest data from DB."""
         components = self._component_repo.get_all()
-        return VimarDataMapper.from_list(components)
+        return VimarDataMapper.from_list(components, options or IntegrationOptions())
 
     def get_gateway_info(self) -> GatewayInfo:
         return self._operational_service.gateway_info
