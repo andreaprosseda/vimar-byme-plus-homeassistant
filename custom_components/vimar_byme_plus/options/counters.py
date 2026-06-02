@@ -1,6 +1,6 @@
-"""OptionsFlow section: per-device kind for SS_Energy_MeasureCounter (01452).
+"""OptionsFlow section: per-device kind for SS_Energy_MeasureCounter.
 
-Lets the user pick electricity / water / gas for each Vimar 01452 pulse
+Lets the user pick electricity / water / gas for each Vimar pulse
 counter so the integration applies the right device_class / unit /
 value scaling.
 """

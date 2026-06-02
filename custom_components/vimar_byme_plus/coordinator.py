@@ -21,6 +21,7 @@ from .const import (
     PORT,
     PROTOCOL,
     SECTION_COUNTERS,
+    SECTION_REALTIME,
 )
 from .vimar.client.vimar_client import VimarClient
 from .vimar.model.component.vimar_component import VimarComponent
@@ -38,6 +39,10 @@ _LOGGER = logging.getLogger(__name__)
 # minutes (one watchdog tick after crossing the threshold).
 _WATCHDOG_INTERVAL = timedelta(minutes=5)
 _STALE_THRESHOLD_SECONDS = 300
+
+# Substring used by every "Aggiornamenti RealTime" button id, regardless
+# of whether it was produced by a sensor or energy mapper.
+_REALTIME_BUTTON_MARKER = "real_time"
 
 
 class Coordinator(DataUpdateCoordinator[VimarData]):
@@ -58,6 +63,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         self.client = VimarClient(self.gateway_info, self.update_data)
         self.client.set_setup_code(user_input.get(CODE))
         self._unsub_watchdog: Callable[[], None] | None = None
+        self._unsub_realtime: list[Callable[[], None]] = []
 
         super().__init__(hass, _LOGGER, name=DOMAIN)
 
@@ -69,6 +75,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         raw = self._entry.options or {}
         return IntegrationOptions(
             counter_types=raw.get(SECTION_COUNTERS, {}) or {},
+            realtime_intervals=raw.get(SECTION_REALTIME, {}) or {},
         )
 
     def associate(self):
@@ -80,9 +87,11 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         self.client.operational_phase()
         self.update_data()
         self._setup_watchdog()
+        self._setup_realtime()
 
     def stop(self):
         """Stop coordinator processes."""
+        self._teardown_realtime()
         self._teardown_watchdog()
         self.client.stop()
 
@@ -106,12 +115,6 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         return self.client.retrieve_data(self.options)
 
     # --- Watchdog -----------------------------------------------------
-    # The integration relies on a daemon thread (`VimarServiceThread`)
-    # for the gateway WebSocket loop. If that thread dies — or the
-    # broker stops sending messages without closing the TCP — there is
-    # no internal mechanism to detect it: HA keeps reading stale data
-    # from the local DB. The watchdog runs on the HA event loop and
-    # forces a reconnect in either case.
 
     def _setup_watchdog(self) -> None:
         if self._unsub_watchdog is not None:
@@ -136,6 +139,69 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
             stale_seconds,
         )
         await self.hass.async_add_executor_job(self.client.reconnect)
+
+    # --- Realtime auto-press -----------------------------------------
+    # Per-device timers configured via OptionsFlow → SECTION_REALTIME.
+    # Each entry maps a Vimar device idsf (as string) to an interval in
+    # seconds; on every tick the corresponding "Aggiornamenti RealTime"
+    # button is pressed, which routes to the existing action handlers
+    # and emits SFE_Cmd_TimedDynamicMode = "Start" on the gateway.
+
+    def _setup_realtime(self) -> None:
+        self._teardown_realtime()
+        for main_id_str, raw_interval in self.options.realtime_intervals.items():
+            try:
+                seconds = int(raw_interval)
+            except (TypeError, ValueError):
+                continue
+            if seconds <= 0:
+                continue
+            unsub = async_track_time_interval(
+                self.hass,
+                self._make_realtime_callback(str(main_id_str)),
+                timedelta(seconds=seconds),
+            )
+            self._unsub_realtime.append(unsub)
+
+    def _teardown_realtime(self) -> None:
+        for unsub in self._unsub_realtime:
+            unsub()
+        self._unsub_realtime = []
+
+    def _make_realtime_callback(
+        self, main_id_str: str
+    ) -> Callable[[datetime], None]:
+        async def _cb(_now: datetime) -> None:
+            await self._fire_realtime_press(main_id_str)
+        return _cb
+
+    async def _fire_realtime_press(self, main_id_str: str) -> None:
+        if self.data is None:
+            return
+        target = next(
+            (
+                b
+                for b in self.data.get_buttons()
+                if _REALTIME_BUTTON_MARKER in b.id
+                and str(b.main_id) == main_id_str
+            ),
+            None,
+        )
+        if target is None:
+            _LOGGER.debug(
+                "Realtime tick: no button found for main_id=%s (skipping)",
+                main_id_str,
+            )
+            return
+        await self.hass.async_add_executor_job(self._send_realtime_press, target)
+
+    def _send_realtime_press(self, button: VimarComponent) -> None:
+        try:
+            self.client.send(button, ActionType.PRESS)
+        except Exception as exc:  # pylint: disable=broad-except
+            _LOGGER.warning(
+                "Realtime auto-press failed for %s: %r", button.id, exc
+            )
 
     def _get_gateway_info(self, user_input: dict[str, str]) -> GatewayInfo:
         return GatewayInfo(

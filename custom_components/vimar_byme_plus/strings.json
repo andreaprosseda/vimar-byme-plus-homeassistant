@@ -43,12 +43,17 @@
         "title": "Configure VIMAR By-me Plus HUB",
         "description": "Pick the section to configure.",
         "menu_options": {
-          "counters": "Pulse counter type (01452)"
+          "counters": "Pulse counter type",
+          "realtime": "Real-time auto-refresh interval"
         }
       },
       "counters": {
-        "title": "Pulse counter type (01452)",
-        "description": "For every Vimar 01452 pulse counter, pick the meter it is wired to (electricity / water / gas). Detected counters: {counters}"
+        "title": "Pulse counter type",
+        "description": "For every Vimar pulse counter, pick the meter it is wired to (electricity / water / gas). Detected counters: {counters}"
+      },
+      "realtime": {
+        "title": "Real-time auto-refresh interval",
+        "description": "For each device with a real-time update button, set the interval (in seconds) at which the integration should automatically request fast updates from the gateway. 0 disables the auto-refresh for that device. Range: 0–{max_seconds}s. Detected buttons: {count}."
       }
     }
   },

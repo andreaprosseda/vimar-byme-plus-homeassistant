@@ -43,12 +43,17 @@
                 "title": "Configura VIMAR By-me Plus HUB",
                 "description": "Scegli la sezione da configurare.",
                 "menu_options": {
-                    "counters": "Tipo pulse counter (01452)"
+                    "counters": "Tipo pulse counter",
+                    "realtime": "Intervallo aggiornamenti realtime"
                 }
             },
             "counters": {
-                "title": "Tipo pulse counter (01452)",
-                "description": "Per ogni pulse counter Vimar 01452, seleziona il tipo di contatore a cui è cablato (elettricità / acqua / gas). Counter rilevati: {counters}"
+                "title": "Tipo pulse counter",
+                "description": "Per ogni pulse counter Vimar, seleziona il tipo di contatore a cui è cablato (elettricità / acqua / gas). Counter rilevati: {counters}"
+            },
+            "realtime": {
+                "title": "Intervallo aggiornamenti realtime",
+                "description": "Per ogni dispositivo con pulsante \"Aggiornamenti RealTime\", imposta l'intervallo (in secondi) dopo il quale l'integrazione richiede automaticamente aggiornamenti rapidi al gateway. 0 disabilita la richiesta automatica per quel dispositivo. Range: 0–{max_seconds}s. Pulsanti rilevati: {count}."
             }
         }
     },
