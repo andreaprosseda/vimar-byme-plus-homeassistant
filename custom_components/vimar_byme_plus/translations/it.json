@@ -33,5 +33,49 @@
                 "description": "[%key:common::config_flow::description::confirm_setup%]"
             }
         }
+    },
+    "options": {
+        "abort": {
+            "nothing_to_configure": "Al momento non c'è nulla da configurare per questa integrazione."
+        },
+        "step": {
+            "init": {
+                "title": "Configura VIMAR By-me Plus HUB",
+                "description": "Scegli la sezione da configurare.",
+                "menu_options": {
+                    "counters": "Tipo pulse counter",
+                    "realtime": "Intervallo aggiornamenti realtime"
+                }
+            },
+            "counters": {
+                "title": "Tipo pulse counter",
+                "description": "Per ogni pulse counter Vimar, seleziona il tipo di contatore a cui è cablato (elettricità / acqua / gas). Counter rilevati: {counters}"
+            },
+            "realtime": {
+                "title": "Intervallo aggiornamenti realtime",
+                "description": "Per ogni dispositivo con pulsante \"Aggiornamenti RealTime\", imposta l'intervallo (in secondi) dopo il quale l'integrazione richiede automaticamente aggiornamenti rapidi al gateway. 0 disabilita la richiesta automatica per quel dispositivo. Range: 0–{max_seconds}s. Pulsanti rilevati: {count}."
+            }
+        }
+    },
+    "selector": {
+        "counter_type": {
+            "options": {
+                "electricity": "Elettricità",
+                "water": "Acqua",
+                "gas": "Gas"
+            }
+        }
+    },
+    "services": {
+        "restart": {
+            "name": "Riavvia integrazione",
+            "description": "Ricarica l'integrazione VIMAR By-me Plus HUB. Utile da automation per recuperare da una connessione bloccata.",
+            "fields": {
+                "entry_id": {
+                    "name": "Gateway",
+                    "description": "Config entry da ricaricare (opzionale). Lasciare vuoto per ricaricare tutti i gateway Vimar configurati."
+                }
+            }
+        }
     }
 }

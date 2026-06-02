@@ -26,7 +26,7 @@ CONSUMPTION = SfeType.STATE_GLOBAL_ACTIVE_POWER_CONSUMPTION
 class SsEnergyLoadControl1pProductionMapper(SsEnergyLoadControl1pMapper):
     SSTYPE = SsType.ENERGY_LOAD_CONTROL_1P_PRODUCTION.value
 
-    def from_obj(self, component: UserComponent, *args) -> list[VimarSensor]:
+    def from_obj(self, component: UserComponent, *args) -> list:
         return [
             self.power_from_obj(component, "Exchange"),
             self.energy_from_obj(component, "Exchange"),
@@ -34,6 +34,7 @@ class SsEnergyLoadControl1pProductionMapper(SsEnergyLoadControl1pMapper):
             self.energy_from_obj(component, "Production"),
             self.power_from_obj(component, "Consumption"),
             self.energy_from_obj(component, "Consumption"),
+            self.real_time_button(component, *args),
         ]
 
     def power_from_obj(self, component: UserComponent, mode: str) -> VimarSensor:

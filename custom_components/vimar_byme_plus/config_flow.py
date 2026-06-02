@@ -8,7 +8,8 @@ import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.components import zeroconf
-from homeassistant.config_entries import ConfigFlowResult
+from homeassistant.config_entries import ConfigEntry, ConfigFlowResult
+from homeassistant.core import callback
 
 from .const import (
     ADDRESS,
@@ -23,6 +24,7 @@ from .const import (
     PROTOCOL,
 )
 from .coordinator import Coordinator
+from .options import SECTIONS, OptionsSection
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 from .vimar.utils.logger import log_debug, log_error
 
@@ -46,6 +48,14 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_PUSH
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(
+        config_entry: ConfigEntry,
+    ) -> "OptionsFlowHandler":
+        """Return the options flow handler."""
+        return OptionsFlowHandler(config_entry)
 
     async def async_step_user(self, user_input=None) -> ConfigFlowResult:
         """Handle the user manual setup."""
@@ -169,3 +179,73 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             GATEWAY_NAME: user_input[GATEWAY_NAME],
             PROTOCOL: "2.7",
         }
+
+
+class OptionsFlowHandler(config_entries.OptionsFlow):
+    """Generic, section-driven options flow.
+
+    Composed of independent `OptionsSection`s declared in the `options/`
+    package. The flow:
+      - filters sections by `is_applicable(hass)`,
+      - aborts with `nothing_to_configure` if none are applicable,
+      - shortcuts directly to the only applicable section,
+      - shows a menu (`async_show_menu`) when more than one is applicable.
+
+    Each section persists its data under `entry.options[section.id]`.
+    Adding a new section: see `options/base.py` docstring.
+    """
+
+    def __init__(self, config_entry: ConfigEntry) -> None:
+        self._entry = config_entry
+        self._sections: dict[str, OptionsSection] = {
+            cls.id: cls() for cls in SECTIONS
+        }
+
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        applicable = [
+            sid
+            for sid, section in self._sections.items()
+            if await section.is_applicable(self.hass)
+        ]
+        if not applicable:
+            return self.async_abort(reason="nothing_to_configure")
+        if len(applicable) == 1:
+            return await self._render_section(applicable[0], user_input=None)
+        return self.async_show_menu(step_id="init", menu_options=applicable)
+
+    # --- per-section step methods -------------------------------------
+    # Each section needs its own async_step_<id> for HA's flow manager.
+    # Adding a new section: copy the pattern below.
+
+    async def async_step_counters(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        return await self._render_section("counters", user_input)
+
+    async def async_step_realtime(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        return await self._render_section("realtime", user_input)
+
+    # ------------------------------------------------------------------
+
+    async def _render_section(
+        self,
+        section_id: str,
+        user_input: dict[str, Any] | None,
+    ) -> ConfigFlowResult:
+        section = self._sections[section_id]
+        if user_input is not None:
+            data = await section.transform_user_input(self.hass, user_input)
+            options = {**self._entry.options, section_id: data}
+            return self.async_create_entry(title="", data=options)
+        current = self._entry.options.get(section_id, {})
+        schema = await section.build_schema(self.hass, current)
+        placeholders = await section.description_placeholders(self.hass)
+        return self.async_show_form(
+            step_id=section_id,
+            data_schema=schema,
+            description_placeholders=placeholders,
+        )
