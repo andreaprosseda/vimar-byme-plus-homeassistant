@@ -60,5 +60,17 @@
         "gas": "Gas"
       }
     }
+  },
+  "services": {
+    "restart": {
+      "name": "Restart integration",
+      "description": "Reload the VIMAR By-me Plus HUB integration. Useful from automations to recover from a stuck connection.",
+      "fields": {
+        "entry_id": {
+          "name": "Gateway",
+          "description": "Optional config entry to reload. Leave empty to reload every configured Vimar gateway."
+        }
+      }
+    }
   }
 }

@@ -60,5 +60,17 @@
                 "gas": "Gas"
             }
         }
+    },
+    "services": {
+        "restart": {
+            "name": "Riavvia integrazione",
+            "description": "Ricarica l'integrazione VIMAR By-me Plus HUB. Utile da automation per recuperare da una connessione bloccata.",
+            "fields": {
+                "entry_id": {
+                    "name": "Gateway",
+                    "description": "Config entry da ricaricare (opzionale). Lasciare vuoto per ricaricare tutti i gateway Vimar configurati."
+                }
+            }
+        }
     }
 }

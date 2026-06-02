@@ -14,6 +14,7 @@ from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService, Update
 from ..utils.logger import log_info
 from ..utils.thread import Thread
+from ..utils.thread_monitor import thread_exists
 
 
 class VimarClient:
@@ -48,6 +49,28 @@ class VimarClient:
             daemon=True,
         )
         thread.start()
+
+    def reconnect(self):
+        """Force a tear-down and a fresh connect.
+
+        Used by the HA watchdog when the daemon thread has died or the
+        gateway has gone silent. Disconnect best-effort, then re-enter
+        operational_phase to spawn a new VimarServiceThread.
+        """
+        try:
+            self._operational_service.disconnect()
+        except Exception:  # pylint: disable=broad-except
+            log_info(__name__, "Disconnect raised; ignoring and re-attaching.")
+        self.operational_phase()
+
+    def is_thread_alive(self) -> bool:
+        """Return True if the Vimar service daemon thread is running."""
+        return thread_exists(self._thread_name)
+
+    @property
+    def seconds_since_last_message(self) -> float:
+        """Seconds since the gateway last sent any message."""
+        return self._operational_service.seconds_since_last_message
 
     def send(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
