@@ -65,7 +65,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         self._unsub_watchdog: Callable[[], None] | None = None
         self._unsub_realtime: list[Callable[[], None]] = []
 
-        super().__init__(hass, _LOGGER, name=DOMAIN)
+        super().__init__(hass, _LOGGER, name=DOMAIN, config_entry=entry)
 
     @property
     def options(self) -> IntegrationOptions:
