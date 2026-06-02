@@ -47,7 +47,10 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
     client: VimarClient
 
     def __init__(
-        self, hass: HomeAssistant, user_input: dict[str, str], entry: ConfigEntry | None = None
+        self,
+        hass: HomeAssistant,
+        user_input: dict[str, str],
+        entry: ConfigEntry | None = None,
     ) -> None:
         """Initialize the coordinator."""
         self._entry = entry

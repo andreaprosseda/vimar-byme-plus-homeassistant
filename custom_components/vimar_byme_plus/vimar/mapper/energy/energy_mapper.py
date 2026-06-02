@@ -1,5 +1,6 @@
 from ...model.component.vimar_component import VimarComponent
 from ...model.enum.sftype_enum import SfType
+from ...model.integration_options import IntegrationOptions
 from ...model.repository.user_component import UserComponent
 from ...utils.filtering import flat
 from ...utils.logger import not_implemented
@@ -20,17 +21,27 @@ from .ss_energy_measure_counter_mapper import SsEnergyMeasureCounterMapper
 
 class EnergyMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
+    def from_list(
+        components: list[UserComponent],
+        options: IntegrationOptions | None = None,
+    ) -> list[VimarComponent]:
+        opts = options or IntegrationOptions()
         sftype = SfType.ENERGY.value
         energies = [component for component in components if component.sftype == sftype]
-        components = [EnergyMapper.from_obj(energy) for energy in energies]
-        return flat(components)
+        components_out = [EnergyMapper.from_obj(energy, opts) for energy in energies]
+        return flat(components_out)
 
     @staticmethod
-    def from_obj(component: UserComponent, *args) -> list[VimarComponent]:
+    def from_obj(
+        component: UserComponent, options: IntegrationOptions | None = None
+    ) -> list[VimarComponent]:
+        opts = options or IntegrationOptions()
         try:
             mapper = EnergyMapper.get_mapper(component)
-            return mapper.from_obj(component, *args)
+            if isinstance(mapper, SsEnergyMeasureCounterMapper):
+                counter_type = opts.counter_types.get(str(component.idsf))
+                return mapper.from_obj(component, counter_type)
+            return mapper.from_obj(component)
         except NotImplementedError:
             not_implemented(__name__, component)
             return []
