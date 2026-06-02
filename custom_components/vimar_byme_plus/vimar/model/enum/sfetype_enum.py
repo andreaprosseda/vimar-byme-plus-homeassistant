@@ -44,6 +44,11 @@ class SfeType(Enum):
     CMD_AREA_ALARM_MEMORY_ACTIVE_SCENE = "SFE_Cmd_AreaAlarmMemory_ActiveScene"
     CMD_AREA_ALARM_MEMORY_RESET_ACTIVE_SCENE = "SFE_Cmd_AreaAlarmMemoryReset_ActiveScene"
     CMD_AREA_ALARM_RESET_ACTIVE_SCENE = "SFE_Cmd_AreaAlarmReset_ActiveScene"
+    CMD_AREA_PAR_A_ACTIVE_SCENE = "SFE_Cmd_AreaParA_ActiveScene"
+    CMD_AREA_PAR_B_ACTIVE_SCENE = "SFE_Cmd_AreaParB_ActiveScene"
+    CMD_AREA_PAR_C_ACTIVE_SCENE = "SFE_Cmd_AreaParC_ActiveScene"
+    CMD_AREA_PAR_D_ACTIVE_SCENE = "SFE_Cmd_AreaParD_ActiveScene"
+    CMD_AREA_TOTAL_ACTIVE_SCENE = "SFE_Cmd_AreaTotal_ActiveScene"
 
     CMD_AIR_QUALITY_GRADIENT_DESCENDING_ACTIVE_SCENE = (
         "SFE_Cmd_AirQualityGradientDescending_ActiveScene"
