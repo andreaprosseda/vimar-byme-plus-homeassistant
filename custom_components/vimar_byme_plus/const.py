@@ -26,6 +26,7 @@ DOCUMENTATION_URL = (
 
 # OptionsFlow section ids (each is a sub-key under entry.options)
 SECTION_COUNTERS: Final = "counters"
+SECTION_REALTIME: Final = "realtime"
 
 # Counter kinds (values stored under entry.options[SECTION_COUNTERS])
 COUNTER_ELECTRICITY: Final = "electricity"
