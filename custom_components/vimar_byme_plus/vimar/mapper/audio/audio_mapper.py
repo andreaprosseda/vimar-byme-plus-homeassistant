@@ -52,14 +52,11 @@ class AudioMapper:
 
     @staticmethod
     def remove_sources(components: list[UserComponent]) -> list[UserComponent]:
-        sources = [
+        source_types = {
             SsAudioRcaMapper.SSTYPE,
             SsAudioRadioFmMapper.SSTYPE,
             SsAudioBluetoothMapper.SSTYPE,
-        ]
-        result = []
-        for component in components:
-            if component.sstype in sources:
-                result.append(component)
-                components.remove(component)
-        return result
+        }
+        sources = [c for c in components if c.sstype in source_types]
+        components[:] = [c for c in components if c.sstype not in source_types]
+        return sources
