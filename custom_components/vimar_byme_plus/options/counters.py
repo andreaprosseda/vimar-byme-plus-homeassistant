@@ -34,6 +34,12 @@ class CountersSection(OptionsSection):
 
     id = SECTION_COUNTERS
 
+    def __init__(self) -> None:
+        # Cached on build_schema, consumed in transform_user_input to
+        # convert from human-readable form labels back to idsf-keyed
+        # storage.
+        self._counters: list[tuple[int, str]] = []
+
     async def is_applicable(self, hass: HomeAssistant) -> bool:
         counters = await hass.async_add_executor_job(self._get_counters)
         return bool(counters)
@@ -42,6 +48,7 @@ class CountersSection(OptionsSection):
         self, hass: HomeAssistant, current: dict[str, Any]
     ) -> vol.Schema:
         counters = await hass.async_add_executor_job(self._get_counters)
+        self._counters = counters
         select = SelectSelector(
             SelectSelectorConfig(
                 options=[COUNTER_ELECTRICITY, COUNTER_WATER, COUNTER_GAS],
@@ -52,7 +59,7 @@ class CountersSection(OptionsSection):
         return vol.Schema(
             {
                 vol.Required(
-                    str(idsf),
+                    self._label(idsf, name),
                     description={
                         "suggested_value": current.get(
                             str(idsf), COUNTER_ELECTRICITY
@@ -60,7 +67,7 @@ class CountersSection(OptionsSection):
                     },
                     default=COUNTER_ELECTRICITY,
                 ): select
-                for idsf, _name in counters
+                for idsf, name in counters
             }
         )
 
@@ -68,11 +75,28 @@ class CountersSection(OptionsSection):
         self, hass: HomeAssistant
     ) -> dict[str, str]:
         counters = await hass.async_add_executor_job(self._get_counters)
-        return {
-            "counters": ", ".join(
-                f"{name} (#{idsf})" for idsf, name in counters
-            )
-        }
+        return {"count": str(len(counters))}
+
+    async def transform_user_input(
+        self, hass: HomeAssistant, user_input: dict[str, Any]
+    ) -> dict[str, str]:
+        counters = self._counters or await hass.async_add_executor_job(
+            self._get_counters
+        )
+        label_to_idsf = {self._label(idsf, name): str(idsf) for idsf, name in counters}
+        out: dict[str, str] = {}
+        for label, value in user_input.items():
+            idsf_key = label_to_idsf.get(label)
+            if idsf_key is None:
+                continue
+            out[idsf_key] = value
+        return out
+
+    @staticmethod
+    def _label(idsf: int, name: str) -> str:
+        # Disambiguate by appending the device idsf, in case two Vimar
+        # devices share the same friendly name.
+        return f"{name} (#{idsf})"
 
     @staticmethod
     def _get_counters() -> list[tuple[int, str]]:

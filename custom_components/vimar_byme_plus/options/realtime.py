@@ -125,6 +125,6 @@ class RealtimeSection(OptionsSection):
             except Exception:  # pylint: disable=broad-except
                 continue
             return [
-                b for b in buttons if _REALTIME_BUTTON_MARKER in b.id
+                b for b in buttons if _REALTIME_BUTTON_MARKER in str(b.id)
             ]
         return []

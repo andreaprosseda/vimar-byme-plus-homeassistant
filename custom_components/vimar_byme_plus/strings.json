@@ -49,7 +49,7 @@
       },
       "counters": {
         "title": "Pulse counter type",
-        "description": "For every Vimar pulse counter, pick the meter it is wired to (electricity / water / gas). Detected counters: {counters}"
+        "description": "For every Vimar pulse counter, pick the meter it is wired to (electricity / water / gas). Detected counters: {count}"
       },
       "realtime": {
         "title": "Real-time auto-refresh interval",

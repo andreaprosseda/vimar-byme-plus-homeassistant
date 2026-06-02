@@ -182,7 +182,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
             (
                 b
                 for b in self.data.get_buttons()
-                if _REALTIME_BUTTON_MARKER in b.id
+                if _REALTIME_BUTTON_MARKER in str(b.id)
                 and str(b.main_id) == main_id_str
             ),
             None,

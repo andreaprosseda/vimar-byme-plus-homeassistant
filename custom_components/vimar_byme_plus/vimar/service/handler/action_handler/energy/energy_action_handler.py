@@ -16,7 +16,7 @@ class EnergyActionHandler:
         raise NotImplementedError
 
     def get_press_actions(self, component: VimarButton) -> list[VimarAction]:
-        if "real_time" in component.id:
+        if "real_time" in str(component.id):
             return [
                 VimarAction(
                     idsf=component.main_id, sfetype=REAL_TIME.value, value="Start"
