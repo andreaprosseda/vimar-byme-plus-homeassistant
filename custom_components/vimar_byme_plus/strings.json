@@ -34,6 +34,33 @@
       }
     }
   },
+  "options": {
+    "abort": {
+      "nothing_to_configure": "There is currently nothing to configure for this integration."
+    },
+    "step": {
+      "init": {
+        "title": "Configure VIMAR By-me Plus HUB",
+        "description": "Pick the section to configure.",
+        "menu_options": {
+          "counters": "Pulse counter type (01452)"
+        }
+      },
+      "counters": {
+        "title": "Pulse counter type (01452)",
+        "description": "For every Vimar 01452 pulse counter, pick the meter it is wired to (electricity / water / gas). Detected counters: {counters}"
+      }
+    }
+  },
+  "selector": {
+    "counter_type": {
+      "options": {
+        "electricity": "Electricity",
+        "water": "Water",
+        "gas": "Gas"
+      }
+    }
+  },
   "services": {
     "restart": {
       "name": "Restart integration",
