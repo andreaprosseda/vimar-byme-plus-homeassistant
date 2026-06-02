@@ -23,3 +23,11 @@ DOCUMENTATION_URL = (
     "https://github.com/andreaprosseda/vimar-byme-plus-homeassistant"
     "?tab=readme-ov-file#step-23-vimar-pro---initial-setup"
 )
+
+# OptionsFlow section ids (each is a sub-key under entry.options)
+SECTION_COUNTERS: Final = "counters"
+
+# Counter kinds (values stored under entry.options[SECTION_COUNTERS])
+COUNTER_ELECTRICITY: Final = "electricity"
+COUNTER_WATER: Final = "water"
+COUNTER_GAS: Final = "gas"

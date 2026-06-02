@@ -26,6 +26,7 @@ class SensorDeviceClass(StrEnum):
     TEMPERATURE = "temperature"
     VOLTAGE = "voltage"
     VOLUME_FLOW_RATE = "volume_flow_rate"
+    WATER = "water"
     WIND_SPEED = "wind_speed"
 
 
@@ -35,6 +36,7 @@ class SensorMeasurementUnit(StrEnum):
     CUBIC_METERS_PER_HOUR = "m³/h"
     KILO_WATT = "kW"
     KILO_WATT_HOUR = "kWh"
+    LITRE = "L"
     LITRE_PER_SQUARE_METER = "l/m²"
     LUX = "lx"
     METERS_PER_SECOND = "m/s"
