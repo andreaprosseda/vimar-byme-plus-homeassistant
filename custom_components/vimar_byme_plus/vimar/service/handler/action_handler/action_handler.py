@@ -7,6 +7,7 @@ from .audio.audio_action_handler import AudioActionHandler
 from .automation.automation_action_handler import AutomationActionHandler
 from .base_action_handler import BaseActionHandler
 from .clima.clima_action_handler import ClimaActionHandler
+from .energy.energy_action_handler import EnergyActionHandler
 from .irrigation.irrigation_action_handler import IrrigationActionHandler
 from .light.light_action_handler import LightActionHandler
 from .scene.scene_action_handler import SceneActionHandler
@@ -34,6 +35,8 @@ class ActionHandler:
                 return AutomationActionHandler()
             case SfType.CLIMA:
                 return ClimaActionHandler()
+            case SfType.ENERGY:
+                return EnergyActionHandler()
             case SfType.IRRIGATION:
                 return IrrigationActionHandler()
             case SfType.LIGHT:
