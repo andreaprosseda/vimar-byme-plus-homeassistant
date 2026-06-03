@@ -17,25 +17,29 @@ from .ss_shutter_without_position_action_handler import (
 
 
 class ShutterActionHandler:
+    
+    def __init__(self, gateway_id: str) -> None:
+        self._gateway_id = gateway_id
+
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
         handler = self.get_handler(component)
         return handler.get_actions(component, action_type, *args)
 
-    @staticmethod
-    def get_handler(component: VimarComponent) -> HandlerInterface:
+    def get_handler(self, component: VimarComponent) -> HandlerInterface:
+        gw = self._gateway_id
         sstype = component.device_name
         if sstype == SsShutterPositionActionHandler.SSTYPE:
-            return SsShutterPositionActionHandler()
+            return SsShutterPositionActionHandler(gw)
         if sstype == SsShutterWithoutPositionActionHandler.SSTYPE:
-            return SsShutterWithoutPositionActionHandler()
+            return SsShutterWithoutPositionActionHandler(gw)
         if sstype == SsShutterSlatPositionActionHandler.SSTYPE:
-            return SsShutterSlatPositionActionHandler()
+            return SsShutterSlatPositionActionHandler(gw)
         if sstype == SsShutterSlatWithoutPositionActionHandler.SSTYPE:
-            return SsShutterSlatWithoutPositionActionHandler()
+            return SsShutterSlatWithoutPositionActionHandler(gw)
         if sstype == SsCurtainPositionActionHandler.SSTYPE:
-            return SsCurtainPositionActionHandler()
+            return SsCurtainPositionActionHandler(gw)
         if sstype == SsCurtainWithoutPositionActionHandler.SSTYPE:
-            return SsCurtainWithoutPositionActionHandler()
+            return SsCurtainWithoutPositionActionHandler(gw)
         raise NotImplementedError

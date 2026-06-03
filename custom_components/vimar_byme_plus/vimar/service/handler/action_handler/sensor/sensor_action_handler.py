@@ -8,18 +8,9 @@ REAL_TIME = SfeType.CMD_TIMED_DYNAMIC_MODE
 
 
 class SensorActionHandler:
-    # def get_actions(
-    #     self, component: VimarComponent, action_type: ActionType, *args
-    # ) -> list[VimarAction]:
-    #     handler = self.get_handler(component)
-    #     return handler.get_actions(component, action_type, *args)
 
-    # @staticmethod
-    # def get_handler(component: VimarComponent) -> HandlerInterface:
-    #     sstype = component.device_name
-    #     if sstype == SsSensorPowerActionHandler.SSTYPE:
-    #         return SsSensorPowerActionHandler()
-    #     raise NotImplementedError
+    def __init__(self, gateway_id: str) -> None:
+        self._gateway_id = gateway_id
 
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
