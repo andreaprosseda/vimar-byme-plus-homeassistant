@@ -198,7 +198,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     def __init__(self, config_entry: ConfigEntry) -> None:
         self._entry = config_entry
         self._sections: dict[str, OptionsSection] = {
-            cls.id: cls() for cls in SECTIONS
+            cls.id: cls(config_entry) for cls in SECTIONS
         }
 
     async def async_step_init(

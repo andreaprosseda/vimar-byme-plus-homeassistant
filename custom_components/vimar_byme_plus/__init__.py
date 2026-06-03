@@ -9,8 +9,9 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
 
-from .const import DOMAIN
+from .const import DOMAIN, GATEWAY_ID
 from .coordinator import Coordinator
+from .vimar.database.database import Database
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 
 PLATFORMS = [
@@ -61,6 +62,14 @@ async def _async_options_updated(
 ) -> None:
     """Reload integration when options change."""
     await hass.config_entries.async_reload(entry.entry_id)
+
+
+async def async_remove_entry(
+    hass: HomeAssistant, entry: CoordinatorConfigEntry
+) -> None:
+    """Cleanup when an entry is fully removed by the user."""
+    gateway_id = entry.data.get(GATEWAY_ID)
+    Database.remove(gateway_id, delete_file=True)
 
 
 async def start(coordinator: Coordinator):

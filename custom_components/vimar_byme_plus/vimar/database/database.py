@@ -54,7 +54,9 @@ class Database:
 
 
     @classmethod
-    def remove(cls, gateway_id: str, *, delete_file: bool = False) -> None:
+    def remove(cls, gateway_id: str | None, *, delete_file: bool = False) -> None:
+        if not gateway_id:
+            return
         key = cls._sanitize(gateway_id)
         with cls._instances_lock:
             inst = cls._instances.pop(key, None)
