@@ -12,6 +12,9 @@ from ..model.integration_options import IntegrationOptions
 from ..model.repository.user_credentials import UserCredentials
 from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService, Update
+from ..database.repository.component_repo import ComponentRepo
+from ..database.repository.user_repo import UserRepo
+
 from ..utils.logger import log_info
 from ..utils.thread import Thread
 from ..utils.thread_monitor import thread_exists
@@ -22,12 +25,15 @@ class VimarClient:
 
     _association_service: AssociationService
     _operational_service: OperationalService
-    _component_repo = Database.instance().component_repo
-    _user_repo = Database.instance().user_repo
+    _component_repo: ComponentRepo
+    _user_repo: UserRepo
     _thread_name = "VimarServiceThread"
 
     def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize the coordinator."""
+        db = Database.instance(gateway_info.deviceuid)
+        self._component_repo = db.component_repo
+        self._user_repo = db.user_repo
         self._association_service = AssociationService(gateway_info)
         self._operational_service = OperationalService(gateway_info, callback)
 

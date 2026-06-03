@@ -2,6 +2,7 @@ from ..client.authenticator_client import AuthenticatorClient
 from ..client.web_service.sync_attach_phase import SyncAttachPhase
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..database.database import Database
+from ..database.repository.user_repo import UserRepo
 from ..model.exceptions import VimarErrorResponseException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.repository.user_credentials import UserCredentials
@@ -19,7 +20,7 @@ class AssociationService:
     attach_port: int | None = None
 
     _message_handler: MessageHandler
-    _user_repo = Database.instance().user_repo
+    _user_repo: UserRepo
     _authenticator_client = AuthenticatorClient()
 
     def __init__(self, gateway_info: GatewayInfo) -> None:
@@ -27,6 +28,7 @@ class AssociationService:
         self.gateway_address = gateway_info.address
         self.session_port = gateway_info.port
         self.gateway_info = gateway_info
+        self._user_repo = Database.instance(gateway_info.deviceuid).user_repo
         self._message_handler = MessageHandler(gateway_info)
 
     def associate(self):
