@@ -78,6 +78,16 @@ class Database:
                 log_info(__name__, f"Removed database file {path}")
         except OSError as err:
             log_error(__name__, f"Could not remove {path}: {err}")
+        for suffix in ("-wal", "-shm"):
+            # WAL leaves `<file>-wal` and `<file>-shm` siblings; crashes leave them orphan. 
+            sibling = path + suffix
+            if not os.path.exists(sibling):
+                continue
+            try:
+                os.remove(sibling)
+                log_info(__name__, f"Removed orphan sibling {sibling}")
+            except OSError as err:
+                log_error(__name__, f"Could not remove {sibling}: {err}")
 
 
     @staticmethod
@@ -141,7 +151,7 @@ class Database:
             try:
                 if os.path.exists(path) and os.path.getsize(path) == 0:
                     os.remove(path)
-                    log_info(__name__, f"Removed empty {os.path.basename(path)} left by a previous failed init",)
+                    log_info(__name__, f"Removed empty {os.path.basename(path)} left by a previous failed init")
             except OSError as err:
                 log_error(__name__, f"Could not heal empty db {path}: {err}")
 
@@ -149,7 +159,10 @@ class Database:
     def _create_connection(self, file_path: str) -> Connection:
         try:
             self._connection = sqlite3.connect(file_path, check_same_thread=False)
-            log_info(__name__, f"Connection to SQLite DB successful ({file_path})")
+            # Enable WAL: writers don't block readers and vice versa. Fail silently if not supported
+            row = self._connection.execute("PRAGMA journal_mode=WAL").fetchone()
+            journal_mode = (row[0] if row else "").lower()
+            log_info(__name__, f"Connection to SQLite DB successful ({file_path}, journal_mode={journal_mode})")
             return self._connection
         except Error as err:
             log_error(__name__, f"Error opening {file_path}: {err}")
