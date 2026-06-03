@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from functools import partial
+
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigEntry
@@ -35,7 +37,10 @@ RESTART_SERVICE_SCHEMA = vol.Schema(
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: CoordinatorConfigEntry) -> bool:
-    """Set up Hello World from a config entry."""
+    """Set up the integration from a config entry."""
+    gateway_id = entry.data.get(GATEWAY_ID)
+    if gateway_id:
+        await hass.async_add_executor_job(Database.instance, gateway_id)
     coordinator = Coordinator(hass, entry.data, entry)
     await coordinator.async_config_entry_first_refresh()
     await start(coordinator)
@@ -67,9 +72,10 @@ async def _async_options_updated(
 async def async_remove_entry(
     hass: HomeAssistant, entry: CoordinatorConfigEntry
 ) -> None:
-    """Cleanup when an entry is fully removed by the user."""
     gateway_id = entry.data.get(GATEWAY_ID)
-    Database.remove(gateway_id, delete_file=True)
+    if not gateway_id:
+        return
+    await hass.async_add_executor_job(partial(Database.remove, gateway_id, delete_file=True))
 
 
 async def start(coordinator: Coordinator):
