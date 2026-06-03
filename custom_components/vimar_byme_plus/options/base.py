@@ -12,6 +12,10 @@ Adding a new section requires:
      delegating to `_handle_section_step`,
   4. translation entries under `options.step.<section_id>` and a label
      under `options.step.init.menu_options.<section_id>`.
+
+Sections receive the `ConfigEntry` they're configuring at construction
+time (so they can scope their lookups to a specific gateway in
+multi-gateway installs).
 """
 
 from __future__ import annotations
@@ -21,6 +25,7 @@ from typing import Any
 
 import voluptuous as vol
 
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
 
@@ -28,6 +33,9 @@ class OptionsSection(ABC):
     """A configurable section in the OptionsFlow."""
 
     id: str  # unique id, also key under entry.options
+
+    def __init__(self, entry: ConfigEntry) -> None:
+        self._entry = entry
 
     @abstractmethod
     async def is_applicable(self, hass: HomeAssistant) -> bool:

@@ -4,7 +4,7 @@ from .....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
 from .....utils.logger import log_info
-from ..base_handler_message import BaseMessageHandler
+from ..base_message_handler import BaseMessageHandler
 
 
 class ExpireMessageHandler(BaseMessageHandler):

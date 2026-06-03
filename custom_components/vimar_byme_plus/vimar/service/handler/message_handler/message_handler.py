@@ -8,7 +8,7 @@ from ....model.web_socket.supporting_models.message_supporting_values import (
     MessageSupportingValues,
 )
 from ....utils.session_token import get_session_token
-from .base_handler_message import HandlerInterface
+from .base_message_handler import HandlerInterface
 from .phase.ambient_discovery_message_handler import AmbientDiscoveryMessageHandler
 from .phase.attach_message_handler import AttachMessageHandler
 from .phase.change_status_message_handler import ChangeStatusMessageHandler
@@ -26,11 +26,13 @@ from .phase.unknown_message_handler import UnknownMessageHandler
 
 class MessageHandler:
     _gateway_info: GatewayInfo
+    _gateway_id: str
     _last_msgid: int
     _token: str
 
     def __init__(self, gateway_info: GatewayInfo) -> None:
         self._gateway_info = gateway_info
+        self._gateway_id = gateway_info.deviceuid
         self._last_msgid = -1
         self._token = get_session_token()
 
@@ -60,7 +62,7 @@ class MessageHandler:
 
     def message_from_phase(self, phase: IntegrationPhase, *args) -> BaseRequestResponse:
         config = self._get_supporting_config(*args)
-        handler = MessageHandler._get_handler(phase)
+        handler = self._get_handler(phase)
         return handler.handle_message(None, config)
 
     def message_received(self, message: BaseRequestResponse) -> BaseRequestResponse:
@@ -68,7 +70,7 @@ class MessageHandler:
         self._save_msgid_if_needed(message)
         self._save_token_if_needed(phase, message)
         config = self._get_supporting_config()
-        handler = MessageHandler._get_handler(phase)
+        handler = self._get_handler(phase)
         return handler.handle_message(message, config)
 
     def clean(self):
@@ -99,32 +101,32 @@ class MessageHandler:
             idsf=args[0] if args else [],
         )
 
-    @staticmethod
-    def _get_handler(phase: IntegrationPhase) -> HandlerInterface:
+    def _get_handler(self, phase: IntegrationPhase) -> HandlerInterface:
+        gw = self._gateway_id
         match phase:
             case IntegrationPhase.INIT:
-                return InitMessageHandler()
+                return InitMessageHandler(gw)
             case IntegrationPhase.SESSION:
-                return SessionMessageHandler()
+                return SessionMessageHandler(gw)
             case IntegrationPhase.ATTACH:
-                return AttachMessageHandler()
+                return AttachMessageHandler(gw)
             case IntegrationPhase.AMBIENT_DISCOVERY:
-                return AmbientDiscoveryMessageHandler()
+                return AmbientDiscoveryMessageHandler(gw)
             case IntegrationPhase.SF_DISCOVERY:
-                return SfDiscoveryMessageHandler()
+                return SfDiscoveryMessageHandler(gw)
             case IntegrationPhase.DO_ACTION:
-                return DoActionMessageHandler()
+                return DoActionMessageHandler(gw)
             case IntegrationPhase.CHANGE_STATUS:
-                return ChangeStatusMessageHandler()
+                return ChangeStatusMessageHandler(gw)
             case IntegrationPhase.EXPIRE:
-                return ExpireMessageHandler()
+                return ExpireMessageHandler(gw)
             case IntegrationPhase.REGISTER:
-                return RegisterMessageHandler()
+                return RegisterMessageHandler(gw)
             case IntegrationPhase.GET_STATUS:
-                return GetStatusMessageHandler()
+                return GetStatusMessageHandler(gw)
             case IntegrationPhase.KEEP_ALIVE:
-                return KeepAliveMessageHandler()
+                return KeepAliveMessageHandler(gw)
             case IntegrationPhase.DETACH:
-                return DetachMessageHandler()
+                return DetachMessageHandler(gw)
             case _:
-                return UnknownMessageHandler()
+                return UnknownMessageHandler(gw)

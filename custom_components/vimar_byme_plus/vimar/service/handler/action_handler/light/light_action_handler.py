@@ -20,31 +20,35 @@ from .ss_light_switch_action_handler import SsLightSwitchActionHandler
 
 
 class LightActionHandler:
+    
+    def __init__(self, gateway_id: str) -> None:
+        self._gateway_id = gateway_id
+
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
         handler = self.get_handler(component)
         return handler.get_actions(component, action_type, *args)
 
-    @staticmethod
-    def get_handler(component: VimarComponent) -> HandlerInterface:
+    def get_handler(self, component: VimarComponent) -> HandlerInterface:
+        gw = self._gateway_id
         sstype = component.device_name
         if sstype == SsLightSwitchActionHandler.SSTYPE:
-            return SsLightSwitchActionHandler()
+            return SsLightSwitchActionHandler(gw)
         if sstype == SsLightDimmerActionHandler.SSTYPE:
-            return SsLightDimmerActionHandler()
+            return SsLightDimmerActionHandler(gw)
         if sstype == SsLightDimmerRgbActionHandler.SSTYPE:
-            return SsLightDimmerRgbActionHandler()
+            return SsLightDimmerRgbActionHandler(gw)
         if sstype == SsLightDynamicDimmerActionHandler.SSTYPE:
-            return SsLightDynamicDimmerActionHandler()
+            return SsLightDynamicDimmerActionHandler(gw)
         if sstype == SsLightPhilipsDimmerActionHandler.SSTYPE:
-            return SsLightPhilipsDimmerActionHandler()
+            return SsLightPhilipsDimmerActionHandler(gw)
         if sstype == SsLightPhilipsDimmerRgbActionHandler.SSTYPE:
-            return SsLightPhilipsDimmerRgbActionHandler()
+            return SsLightPhilipsDimmerRgbActionHandler(gw)
         if sstype == SsLightPhilipsSwitchActionHandler.SSTYPE:
-            return SsLightPhilipsSwitchActionHandler()
+            return SsLightPhilipsSwitchActionHandler(gw)
         if sstype == SsLightPhilipsDynamicDimmerActionHandler.SSTYPE:
-            return SsLightPhilipsDynamicDimmerActionHandler()
+            return SsLightPhilipsDynamicDimmerActionHandler(gw)
         if sstype == SsLightPhilipsDynamicDimmerRgbActionHandler.SSTYPE:
-            return SsLightPhilipsDynamicDimmerRgbActionHandler()
+            return SsLightPhilipsDynamicDimmerRgbActionHandler(gw)
         raise NotImplementedError

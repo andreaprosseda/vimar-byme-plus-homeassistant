@@ -1,9 +1,4 @@
-"""OptionsFlow section: per-device kind for SS_Energy_MeasureCounter.
-
-Lets the user pick electricity / water / gas for each Vimar pulse
-counter so the integration applies the right device_class / unit /
-value scaling.
-"""
+"""OptionsFlow section: per-device kind for SS_Energy_MeasureCounter."""
 
 from __future__ import annotations
 
@@ -11,6 +6,7 @@ from typing import Any
 
 import voluptuous as vol
 
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.selector import (
     SelectSelector,
@@ -22,6 +18,7 @@ from ..const import (
     COUNTER_ELECTRICITY,
     COUNTER_GAS,
     COUNTER_WATER,
+    GATEWAY_ID,
     SECTION_COUNTERS,
 )
 from ..vimar.database.database import Database
@@ -34,7 +31,8 @@ class CountersSection(OptionsSection):
 
     id = SECTION_COUNTERS
 
-    def __init__(self) -> None:
+    def __init__(self, entry: ConfigEntry) -> None:
+        super().__init__(entry)
         # Cached on build_schema, consumed in transform_user_input to
         # convert from human-readable form labels back to idsf-keyed
         # storage.
@@ -94,15 +92,13 @@ class CountersSection(OptionsSection):
 
     @staticmethod
     def _label(idsf: int, name: str) -> str:
-        # Disambiguate by appending the device idsf, in case two Vimar
-        # devices share the same friendly name.
         return f"{name} (#{idsf})"
 
-    @staticmethod
-    def _get_counters() -> list[tuple[int, str]]:
+    def _get_counters(self) -> list[tuple[int, str]]:
         try:
-            components = Database.instance().component_repo.get_all()
+            gateway_id = self._entry.data.get(GATEWAY_ID)
+            components = Database.instance(gateway_id).component_repo.get_all()
+            sstype = SsType.ENERGY_MEASURE_COUNTER.value
+            return [(c.idsf, c.name) for c in components if c.sstype == sstype]
         except Exception:  # pylint: disable=broad-except
             return []
-        sstype = SsType.ENERGY_MEASURE_COUNTER.value
-        return [(c.idsf, c.name) for c in components if c.sstype == sstype]

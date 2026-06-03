@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from functools import partial
+
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigEntry
@@ -9,8 +11,9 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
 
-from .const import DOMAIN
+from .const import DOMAIN, GATEWAY_ID
 from .coordinator import Coordinator
+from .vimar.database.database import Database
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
 
 PLATFORMS = [
@@ -34,7 +37,10 @@ RESTART_SERVICE_SCHEMA = vol.Schema(
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: CoordinatorConfigEntry) -> bool:
-    """Set up Hello World from a config entry."""
+    """Set up the integration from a config entry."""
+    gateway_id = entry.data.get(GATEWAY_ID)
+    if gateway_id:
+        await hass.async_add_executor_job(Database.instance, gateway_id)
     coordinator = Coordinator(hass, entry.data, entry)
     await coordinator.async_config_entry_first_refresh()
     await start(coordinator)
@@ -61,6 +67,15 @@ async def _async_options_updated(
 ) -> None:
     """Reload integration when options change."""
     await hass.config_entries.async_reload(entry.entry_id)
+
+
+async def async_remove_entry(
+    hass: HomeAssistant, entry: CoordinatorConfigEntry
+) -> None:
+    gateway_id = entry.data.get(GATEWAY_ID)
+    if not gateway_id:
+        return
+    await hass.async_add_executor_job(partial(Database.remove, gateway_id, delete_file=True))
 
 
 async def start(coordinator: Coordinator):

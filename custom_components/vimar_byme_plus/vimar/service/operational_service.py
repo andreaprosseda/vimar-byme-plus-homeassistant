@@ -7,6 +7,7 @@ from websocket import WebSocketConnectionClosedException
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
 from ..database.database import Database
+from ..database.repository.user_repo import UserRepo
 from ..model.component.vimar_component import VimarComponent
 from ..model.enum.action_type import ActionType
 from ..model.enum.integration_phase import IntegrationPhase
@@ -49,7 +50,7 @@ class OperationalService:
     _keep_alive_handler: KeepAliveHandler
 
     _web_socket: WSAttachPhase = None
-    _user_repo = Database.instance().user_repo
+    _user_repo: UserRepo
 
     def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize Vimar intagration."""
@@ -57,10 +58,12 @@ class OperationalService:
         self.session_port = gateway_info.port
         self.gateway_info = gateway_info
         self.update_callback = callback
-        self._action_handler = ActionHandler()
+        self._user_repo = Database.instance(gateway_info.deviceuid).user_repo
+        self._action_handler = ActionHandler(gateway_info.deviceuid)
         self._error_handler = ErrorHandler(gateway_info)
         self._message_handler = MessageHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
+        
         # Watchdog timestamp: monotonic seconds of the last activity from
         # the gateway. The HA-side Coordinator polls this to detect
         # silent-stale state (TCP up but no messages flowing).

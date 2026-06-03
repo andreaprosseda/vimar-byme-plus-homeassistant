@@ -1,10 +1,10 @@
 import errno
 
+from ....database.database import Database
 from ....model.enum.error_response_enum import ErrorResponse
 from ....model.gateway.gateway_info import GatewayInfo
 from ....model.web_socket.base_request_response import BaseRequestResponse
 from ....model.web_socket.base_response import BaseResponse
-from ....utils.file import get_db_name, remove_file
 from ....utils.logger import log_error, log_info
 
 
@@ -52,9 +52,9 @@ class ErrorHandler:
         self.remove_database()
 
     def remove_database(self):
-        db_name = get_db_name()
-        log_info(__name__, f"Removing database {db_name} ...")
-        remove_file(db_name)
+        gw_id = self._gateway_info.deviceuid
+        log_info(__name__, f"Removing database for gateway {gw_id} ...")
+        Database.remove(gw_id, delete_file=True)
 
     def is_ssl_error(self, exception: Exception) -> bool:
         if not exception:
