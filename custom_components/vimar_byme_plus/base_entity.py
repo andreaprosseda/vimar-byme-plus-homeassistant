@@ -71,9 +71,23 @@ class BaseEntity(CoordinatorEntity):
 
     @property
     def device_info(self) -> DeviceInfo:
-        """Return device registry information for this entity."""
+        """Return device registry information for this entity.
+
+        The device identifier is scoped per gateway for the same reason as
+        unique_id: with per-gateway databases two gateways can share an
+        `idsf`, and an unscoped `(DOMAIN, idsf)` would merge two distinct
+        physical devices (one per gateway) into a single registry device.
+        Existing devices are migrated by `async_migrate_entry` so device
+        customisations are preserved.
+        """
+        gw_uid = getattr(self.coordinator, "gateway_info", None)
+        if gw_uid is not None:
+            gw_uid = getattr(gw_uid, "deviceuid", None)
+        device_id = (
+            f"{gw_uid}_{self._component.id}" if gw_uid else str(self._component.id)
+        )
         return DeviceInfo(
-            identifiers={(DOMAIN, self._component.id)},
+            identifiers={(DOMAIN, device_id)},
             manufacturer=MANIFACTURER,
             name=self._component.name,
             model=self._component.device_name,

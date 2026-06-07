@@ -11,7 +11,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
-from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 
 from .const import DOMAIN, GATEWAY_ID
 
@@ -67,33 +67,44 @@ async def async_unload_entry(
 
 
 async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Migrate to v2: scope every entity's unique_id by gateway deviceuid.
+    """Migrate identifiers to the per-gateway scoped format.
 
-    `base_entity.unique_id` now embeds the gateway uid
-    (`vimar_byme_plus_<gw_uid>_app_<idsf>`) to avoid cross-gateway idsf
-    collisions. Existing installs created before this change hold the legacy
-    `vimar_byme_plus_app_<idsf>` ids; without this migration those entities
-    would be orphaned (unavailable) and brand-new ones created at boot,
-    losing every user customisation.
+    Both entity unique_ids (v2) and device identifiers (v3) embed the
+    gateway deviceuid to avoid cross-gateway `idsf` collisions (see
+    base_entity.py). Without migration, pre-existing entities/devices would
+    be orphaned and re-created at boot, losing every user customisation.
 
-    Design is deliberately minimal: only `unique_id` is rewritten.
-    entity_id, friendly name, area, device, icon — everything else is left
-    untouched. The migration is idempotent (already-scoped ids are skipped)
-    and defensive (a registry ValueError on one entity is logged and the
-    loop continues; that entity simply keeps its legacy id).
+    Each step is deliberately minimal (only the identifier is rewritten —
+    entity_id, friendly name, area, icon are left untouched), idempotent
+    (already-scoped ids are skipped) and defensive (a registry error on one
+    item is logged and the loop continues).
     """
-    if entry.version >= 2:
-        return True
-
     gateway_uid = entry.data.get(GATEWAY_ID)
     if not gateway_uid:
         _LOGGER.warning(
-            "Migration: entry %s has no gateway id, skipping unique_id rescoping",
+            "Migration: entry %s has no gateway id, skipping rescoping",
             entry.entry_id,
         )
-        hass.config_entries.async_update_entry(entry, version=2)
+        if entry.version < 3:
+            hass.config_entries.async_update_entry(entry, version=3)
         return True
 
+    if entry.version < 2:
+        _rescope_entity_unique_ids(hass, entry, gateway_uid)
+        hass.config_entries.async_update_entry(entry, version=2)
+
+    if entry.version < 3:
+        _rescope_device_identifiers(hass, entry, gateway_uid)
+        hass.config_entries.async_update_entry(entry, version=3)
+
+    return True
+
+
+def _rescope_entity_unique_ids(
+    hass: HomeAssistant, entry: ConfigEntry, gateway_uid: str
+) -> None:
+    """v1 -> v2: rewrite `vimar_byme_plus_app_<idsf>` unique_ids to the
+    gateway-scoped `vimar_byme_plus_<deviceuid>_app_<idsf>` form."""
     legacy_prefix = f"{DOMAIN}_app_"
     new_prefix = f"{DOMAIN}_{gateway_uid}_app_"
 
@@ -112,18 +123,58 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             migrated += 1
         except ValueError as err:
             _LOGGER.warning(
-                "Migration: cannot rescope %s (%s -> %s): %s",
+                "Migration: cannot rescope entity %s (%s -> %s): %s",
                 ent.entity_id, uid, new_uid, err,
             )
             failed += 1
 
     _LOGGER.info(
-        "Migration entry %s (gateway %s): rescoped %d, already-ok %d, failed %d",
+        "Migration entry %s (gateway %s): entities rescoped %d, already-ok %d, failed %d",
         entry.entry_id, gateway_uid, migrated, skipped, failed,
     )
 
-    hass.config_entries.async_update_entry(entry, version=2)
-    return True
+
+def _rescope_device_identifiers(
+    hass: HomeAssistant, entry: ConfigEntry, gateway_uid: str
+) -> None:
+    """v2 -> v3: rewrite the bare `(DOMAIN, idsf)` device identifier to the
+    gateway-scoped `(DOMAIN, "<deviceuid>_<idsf>")` form.
+
+    Legacy identifiers are the raw numeric idsf (no underscore); an already
+    scoped identifier contains "<deviceuid>_..." and is left untouched, which
+    also makes the step safe for a device that two gateways previously merged
+    (the second gateway's entities get a fresh, correctly-scoped device on
+    the next boot)."""
+    registry = dr.async_get(hass)
+    devices = dr.async_entries_for_config_entry(registry, entry.entry_id)
+
+    migrated = skipped = failed = 0
+    for device in devices:
+        new_identifiers = set()
+        changed = False
+        for domain, ident in device.identifiers:
+            ident_str = str(ident)
+            if domain == DOMAIN and "_" not in ident_str:
+                new_identifiers.add((domain, f"{gateway_uid}_{ident_str}"))
+                changed = True
+            else:
+                new_identifiers.add((domain, ident))
+        if not changed:
+            skipped += 1
+            continue
+        try:
+            registry.async_update_device(device.id, new_identifiers=new_identifiers)
+            migrated += 1
+        except (ValueError, KeyError) as err:
+            _LOGGER.warning(
+                "Migration: cannot rescope device %s: %s", device.id, err
+            )
+            failed += 1
+
+    _LOGGER.info(
+        "Migration entry %s (gateway %s): devices rescoped %d, already-ok %d, failed %d",
+        entry.entry_id, gateway_uid, migrated, skipped, failed,
+    )
 
 
 async def _async_options_updated(
