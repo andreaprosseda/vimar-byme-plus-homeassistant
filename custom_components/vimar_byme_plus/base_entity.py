@@ -44,8 +44,25 @@ class BaseEntity(CoordinatorEntity):
 
     @property
     def unique_id(self):
-        """Return unique id of the device."""
-        return DOMAIN + "_app_" + str(self._component.id)
+        """Return unique id of the device, scoped per gateway.
+
+        With per-gateway databases (PR #72) each gateway's `idsf` space is
+        independent, so `idsf` is NOT globally unique across gateways: e.g.
+        idsf 1003 is "Applique ingresso" on one gateway and "luce cucina"
+        on another. The previous `vimar_byme_plus_app_<idsf>` therefore
+        produced identical unique_ids for two different entities on two
+        gateways; Home Assistant keeps only the first and silently drops the
+        second ("Platform vimar_byme_plus does not generate unique IDs").
+        Including the gateway deviceuid makes them distinct. Single-gateway
+        installs are migrated by `async_migrate_entry` so existing entity
+        customisations are preserved (see __init__.py).
+        """
+        gw_uid = getattr(self.coordinator, "gateway_info", None)
+        if gw_uid is not None:
+            gw_uid = getattr(gw_uid, "deviceuid", None)
+        if gw_uid:
+            return f"{DOMAIN}_{gw_uid}_app_{self._component.id}"
+        return f"{DOMAIN}_app_{self._component.id}"
 
     @property
     def is_default_state(self):

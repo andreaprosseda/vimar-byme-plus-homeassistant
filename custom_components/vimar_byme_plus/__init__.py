@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 from functools import partial
 
 import voluptuous as vol
@@ -10,8 +11,11 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ConfigEntryAuthFailed, HomeAssistantError
+from homeassistant.helpers import entity_registry as er
 
 from .const import DOMAIN, GATEWAY_ID
+
+_LOGGER = logging.getLogger(__name__)
 from .coordinator import Coordinator
 from .vimar.database.database import Database
 from .vimar.model.exceptions import CodeNotValidException, VimarErrorResponseException
@@ -60,6 +64,66 @@ async def async_unload_entry(
         entry.runtime_data.stop()
     entry.runtime_data = None
     return unload_ok
+
+
+async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Migrate to v2: scope every entity's unique_id by gateway deviceuid.
+
+    `base_entity.unique_id` now embeds the gateway uid
+    (`vimar_byme_plus_<gw_uid>_app_<idsf>`) to avoid cross-gateway idsf
+    collisions. Existing installs created before this change hold the legacy
+    `vimar_byme_plus_app_<idsf>` ids; without this migration those entities
+    would be orphaned (unavailable) and brand-new ones created at boot,
+    losing every user customisation.
+
+    Design is deliberately minimal: only `unique_id` is rewritten.
+    entity_id, friendly name, area, device, icon — everything else is left
+    untouched. The migration is idempotent (already-scoped ids are skipped)
+    and defensive (a registry ValueError on one entity is logged and the
+    loop continues; that entity simply keeps its legacy id).
+    """
+    if entry.version >= 2:
+        return True
+
+    gateway_uid = entry.data.get(GATEWAY_ID)
+    if not gateway_uid:
+        _LOGGER.warning(
+            "Migration: entry %s has no gateway id, skipping unique_id rescoping",
+            entry.entry_id,
+        )
+        hass.config_entries.async_update_entry(entry, version=2)
+        return True
+
+    legacy_prefix = f"{DOMAIN}_app_"
+    new_prefix = f"{DOMAIN}_{gateway_uid}_app_"
+
+    registry = er.async_get(hass)
+    entities = er.async_entries_for_config_entry(registry, entry.entry_id)
+
+    migrated = skipped = failed = 0
+    for ent in entities:
+        uid = ent.unique_id
+        if not uid.startswith(legacy_prefix):
+            skipped += 1
+            continue
+        new_uid = new_prefix + uid[len(legacy_prefix):]
+        try:
+            registry.async_update_entity(ent.entity_id, new_unique_id=new_uid)
+            migrated += 1
+        except ValueError as err:
+            _LOGGER.warning(
+                "Migration: cannot rescope %s (%s -> %s): %s",
+                ent.entity_id, uid, new_uid, err,
+            )
+            failed += 1
+
+    _LOGGER.info(
+        "Migration entry %s (gateway %s): rescoped %d, already-ok %d, failed %d",
+        entry.entry_id, gateway_uid, migrated, skipped, failed,
+    )
+
+    hass.config_entries.async_update_entry(entry, version=2)
+    return True
 
 
 async def _async_options_updated(
