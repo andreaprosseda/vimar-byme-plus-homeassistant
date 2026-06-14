@@ -9,7 +9,6 @@ from .ss_automation_output_control_action_handler import (
 
 
 class AutomationActionHandler:
-    
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

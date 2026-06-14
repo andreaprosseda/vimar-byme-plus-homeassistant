@@ -17,7 +17,6 @@ from .ss_shutter_without_position_action_handler import (
 
 
 class ShutterActionHandler:
-    
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

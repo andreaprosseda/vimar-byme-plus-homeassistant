@@ -63,7 +63,7 @@ class OperationalService:
         self._error_handler = ErrorHandler(gateway_info)
         self._message_handler = MessageHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
-        
+
         # Watchdog timestamp: monotonic seconds of the last activity from
         # the gateway. The HA-side Coordinator polls this to detect
         # silent-stale state (TCP up but no messages flowing).
@@ -100,7 +100,7 @@ class OperationalService:
                 if not self._error_handler.is_temporary_error(exception=exc):
                     raise VimarErrorResponseException(exc) from exc
                 wait = min(
-                    _BACKOFF_BASE_SECONDS * (2 ** attempt),
+                    _BACKOFF_BASE_SECONDS * (2**attempt),
                     _BACKOFF_CAP_SECONDS,
                 )
                 log_info(

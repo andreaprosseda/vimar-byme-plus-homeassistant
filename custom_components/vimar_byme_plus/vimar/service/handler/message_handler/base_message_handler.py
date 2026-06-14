@@ -29,7 +29,6 @@ class HandlerInterface(ABC):
 
 
 class BaseMessageHandler(HandlerInterface):
-
     def __init__(self, gateway_id: str) -> None:
         db = Database.instance(gateway_id)
         self._gateway_id = gateway_id

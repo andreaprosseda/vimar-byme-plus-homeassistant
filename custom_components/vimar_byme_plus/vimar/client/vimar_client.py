@@ -90,9 +90,7 @@ class VimarClient:
         """Stop coordinator processes."""
         self._operational_service.disconnect()
 
-    def retrieve_data(
-        self, options: IntegrationOptions | None = None
-    ) -> VimarData:
+    def retrieve_data(self, options: IntegrationOptions | None = None) -> VimarData:
         """Get the latest data from DB."""
         components = self._component_repo.get_all()
         return VimarDataMapper.from_list(components, options or IntegrationOptions())

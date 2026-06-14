@@ -20,7 +20,6 @@ from .ss_light_switch_action_handler import SsLightSwitchActionHandler
 
 
 class LightActionHandler:
-    
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

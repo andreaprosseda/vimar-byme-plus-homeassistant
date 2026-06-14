@@ -57,9 +57,7 @@ class RealtimeSection(OptionsSection):
         schema_dict: dict[Any, Any] = {}
         for button in buttons:
             label = self._label(button)
-            current_value = self._coerce_int(
-                current.get(str(button.main_id), 0)
-            )
+            current_value = self._coerce_int(current.get(str(button.main_id), 0))
             schema_dict[
                 vol.Required(
                     label,
@@ -69,9 +67,7 @@ class RealtimeSection(OptionsSection):
             ] = number
         return vol.Schema(schema_dict)
 
-    async def description_placeholders(
-        self, hass: HomeAssistant
-    ) -> dict[str, str]:
+    async def description_placeholders(self, hass: HomeAssistant) -> dict[str, str]:
         buttons = self._collect_buttons()
         return {
             "count": str(len(buttons)),

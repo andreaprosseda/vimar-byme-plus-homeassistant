@@ -75,9 +75,7 @@ class SsEnergyMeasureCounterMapper(BaseMapper):
             options=None,
         )
 
-    def native_value(
-        self, component: UserComponent, divisor: int
-    ) -> Decimal | None:
+    def native_value(self, component: UserComponent, divisor: int) -> Decimal | None:
         value = component.get_value(SfeType.STATE_PARTIAL_COUNTER)
         if not value:
             return None

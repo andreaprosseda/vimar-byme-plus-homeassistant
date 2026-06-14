@@ -59,9 +59,7 @@ class CountersSection(OptionsSection):
                 vol.Required(
                     self._label(idsf, name),
                     description={
-                        "suggested_value": current.get(
-                            str(idsf), COUNTER_ELECTRICITY
-                        )
+                        "suggested_value": current.get(str(idsf), COUNTER_ELECTRICITY)
                     },
                     default=COUNTER_ELECTRICITY,
                 ): select
@@ -69,9 +67,7 @@ class CountersSection(OptionsSection):
             }
         )
 
-    async def description_placeholders(
-        self, hass: HomeAssistant
-    ) -> dict[str, str]:
+    async def description_placeholders(self, hass: HomeAssistant) -> dict[str, str]:
         counters = await hass.async_add_executor_job(self._get_counters)
         return {"count": str(len(counters))}
 

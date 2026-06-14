@@ -168,11 +168,10 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
             unsub()
         self._unsub_realtime = []
 
-    def _make_realtime_callback(
-        self, main_id_str: str
-    ) -> Callable[[datetime], None]:
+    def _make_realtime_callback(self, main_id_str: str) -> Callable[[datetime], None]:
         async def _cb(_now: datetime) -> None:
             await self._fire_realtime_press(main_id_str)
+
         return _cb
 
     async def _fire_realtime_press(self, main_id_str: str) -> None:
@@ -199,9 +198,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         try:
             self.client.send(button, ActionType.PRESS)
         except Exception as exc:  # pylint: disable=broad-except
-            _LOGGER.warning(
-                "Realtime auto-press failed for %s: %r", button.id, exc
-            )
+            _LOGGER.warning("Realtime auto-press failed for %s: %r", button.id, exc)
 
     def _get_gateway_info(self, user_input: dict[str, str]) -> GatewayInfo:
         return GatewayInfo(

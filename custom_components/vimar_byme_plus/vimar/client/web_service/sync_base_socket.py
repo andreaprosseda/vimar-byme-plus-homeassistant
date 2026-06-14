@@ -45,9 +45,7 @@ class SyncBaseSocket:
         """Create WebSocket connection."""
         log_info(__name__, f"Connecting to {url}...")
         ssl_opt = self._get_ssl_options()
-        ws = create_connection(
-            url, sslopt=ssl_opt, timeout=_CONNECT_TIMEOUT_SECONDS
-        )
+        ws = create_connection(url, sslopt=ssl_opt, timeout=_CONNECT_TIMEOUT_SECONDS)
         ws.settimeout(_RECV_TIMEOUT_SECONDS)
         return ws
 

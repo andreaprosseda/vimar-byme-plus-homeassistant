@@ -9,7 +9,6 @@ from .ss_audio_zone_action_handler import SsAudioZoneActionHandler
 
 
 class AudioActionHandler:
-    
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

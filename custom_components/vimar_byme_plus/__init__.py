@@ -33,9 +33,7 @@ type CoordinatorConfigEntry = ConfigEntry[Coordinator]
 
 SERVICE_RESTART = "restart"
 ATTR_ENTRY_ID = "entry_id"
-RESTART_SERVICE_SCHEMA = vol.Schema(
-    {vol.Optional(ATTR_ENTRY_ID): str}
-)
+RESTART_SERVICE_SCHEMA = vol.Schema({vol.Optional(ATTR_ENTRY_ID): str})
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: CoordinatorConfigEntry) -> bool:
@@ -68,7 +66,9 @@ async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Migrate identifiers to the per-gateway scoped format."""
     gateway_uid = entry.data.get(GATEWAY_ID)
     if not gateway_uid:
-        log_warning(__name__, f"Entry {entry.entry_id} has no gateway id, skipping rescoping")
+        log_warning(
+            __name__, f"Entry {entry.entry_id} has no gateway id, skipping rescoping"
+        )
         if entry.version < 3:
             hass.config_entries.async_update_entry(entry, version=3)
         return True
@@ -101,15 +101,21 @@ def _rescope_entity_unique_ids(
         if not uid.startswith(legacy_prefix):
             skipped += 1
             continue
-        new_uid = new_prefix + uid[len(legacy_prefix):]
+        new_uid = new_prefix + uid[len(legacy_prefix) :]
         try:
             registry.async_update_entity(ent.entity_id, new_unique_id=new_uid)
             migrated += 1
         except ValueError as err:
-            log_warning(__name__, f"Migration: cannot rescope entity {ent.entity_id} ({uid} -> {new_uid}): {err}")
+            log_warning(
+                __name__,
+                f"Migration: cannot rescope entity {ent.entity_id} ({uid} -> {new_uid}): {err}",
+            )
             failed += 1
 
-    log_info(__name__, f"Migration entry {entry.entry_id} (gateway {gateway_uid}): entities rescoped {migrated}, already-ok {skipped}, failed {failed}")
+    log_info(
+        __name__,
+        f"Migration entry {entry.entry_id} (gateway {gateway_uid}): entities rescoped {migrated}, already-ok {skipped}, failed {failed}",
+    )
 
 
 def _rescope_device_identifiers(
@@ -138,9 +144,15 @@ def _rescope_device_identifiers(
             registry.async_update_device(device.id, new_identifiers=new_identifiers)
             migrated += 1
         except (ValueError, KeyError) as err:
-            log_warning(__name__, f"Migration: cannot rescope device {device.id}: {err}")
+            log_warning(
+                __name__, f"Migration: cannot rescope device {device.id}: {err}"
+            )
             failed += 1
-    log_info(__name__, f"Migration entry {entry.entry_id} (gateway {gateway_uid}): devices rescoped {migrated}, already-ok {skipped}, failed {failed}")
+    log_info(
+        __name__,
+        f"Migration entry {entry.entry_id} (gateway {gateway_uid}): devices rescoped {migrated}, already-ok {skipped}, failed {failed}",
+    )
+
 
 async def _async_options_updated(
     hass: HomeAssistant, entry: CoordinatorConfigEntry
@@ -155,7 +167,9 @@ async def async_remove_entry(
     gateway_id = entry.data.get(GATEWAY_ID)
     if not gateway_id:
         return
-    await hass.async_add_executor_job(partial(Database.remove, gateway_id, delete_file=True))
+    await hass.async_add_executor_job(
+        partial(Database.remove, gateway_id, delete_file=True)
+    )
 
 
 async def start(coordinator: Coordinator):

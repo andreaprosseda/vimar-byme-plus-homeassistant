@@ -9,7 +9,10 @@ from .ss_scene_activator_activator_action_handler import (
 EXECUTE_DESCENDING = SfeType.CMD_AIR_QUALITY_GRADIENT_DESCENDING_ACTIVE_SCENE
 EXECUTE_STABILIZATION = SfeType.CMD_AIR_QUALITY_GRADIENT_STABILIZATION_ACTIVE_SCENE
 
-class SsSceneActivatorAirQualityGradientActionHandler(SsSceneActivatorActivatorActionHandler):
+
+class SsSceneActivatorAirQualityGradientActionHandler(
+    SsSceneActivatorActivatorActionHandler
+):
     SSTYPE = SsType.SCENE_ACTIVATOR_AIR_QUALITY_GRADIENT.value
 
     def get_press_actions(self, component: VimarButton) -> list[VimarAction]:
@@ -21,6 +24,6 @@ class SsSceneActivatorAirQualityGradientActionHandler(SsSceneActivatorActivatorA
 
     def get_press_descending_actions(self, id: str) -> list[VimarAction]:
         return [self._action(id, EXECUTE_DESCENDING, "Execute")]
-    
+
     def get_press_stabilization_actions(self, id: str) -> list[VimarAction]:
         return [self._action(id, EXECUTE_STABILIZATION, "Execute")]

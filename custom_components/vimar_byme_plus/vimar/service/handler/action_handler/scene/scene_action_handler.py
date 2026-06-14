@@ -6,7 +6,6 @@ from .ss_scene_executor_action_handler import SsSceneExecutorActionHandler
 
 
 class SceneActionHandler:
-    
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

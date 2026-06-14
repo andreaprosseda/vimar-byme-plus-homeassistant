@@ -18,7 +18,6 @@ from .ss_scene_activator_video_entry_action_handler import (
 
 
 class SceneActivatorActionHandler:
-    
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

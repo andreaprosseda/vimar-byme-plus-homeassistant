@@ -28,6 +28,7 @@ _LEGACY_DATABASE_NAME = "home.db"
 _DATABASE_PREFIX = "home_"
 _DATABASE_SUFFIX = ".db"
 
+
 class Database:
     ambient_repo: AmbientRepo
     component_repo: ComponentRepo
@@ -41,7 +42,6 @@ class Database:
     def __new__(cls, *args, **kwargs):
         raise NotImplementedError("Use Database.instance(gateway_id) instead")
 
-
     @classmethod
     def instance(cls, gateway_id: str) -> "Database":
         key = cls._sanitize(gateway_id)
@@ -51,7 +51,6 @@ class Database:
                 inst._initialize(key)
                 cls._instances[key] = inst
             return cls._instances[key]
-
 
     @classmethod
     def remove(cls, gateway_id: str | None, *, delete_file: bool = False) -> None:
@@ -68,7 +67,6 @@ class Database:
         if delete_file:
             cls._delete_file(key)
 
-
     @staticmethod
     def _delete_file(key: str) -> None:
         path = get_file_path(_DATABASE_PREFIX + key + _DATABASE_SUFFIX)
@@ -79,7 +77,7 @@ class Database:
         except OSError as err:
             log_error(__name__, f"Could not remove {path}: {err}")
         for suffix in ("-wal", "-shm"):
-            # WAL leaves `<file>-wal` and `<file>-shm` siblings; crashes leave them orphan. 
+            # WAL leaves `<file>-wal` and `<file>-shm` siblings; crashes leave them orphan.
             sibling = path + suffix
             if not os.path.exists(sibling):
                 continue
@@ -89,12 +87,10 @@ class Database:
             except OSError as err:
                 log_error(__name__, f"Could not remove {sibling}: {err}")
 
-
     @staticmethod
     def _sanitize(gateway_id: str) -> str:
         # Keep filenames safe by replacing unexpected characters in deviceuid
         return re.sub(r"[^A-Za-z0-9_-]", "_", str(gateway_id))
-
 
     def _initialize(self, key: str) -> None:
         target = get_file_path(_DATABASE_PREFIX + key + _DATABASE_SUFFIX)
@@ -107,7 +103,6 @@ class Database:
         self.component_repo = ComponentRepo(conn, self.element_repo)
         conn.commit()
 
-
     @staticmethod
     def _migrate_legacy_if_needed(target: str) -> None:
         """Rename `home.db` > `home_<key>.db` for legacy single-gateway installs."""
@@ -117,19 +112,23 @@ class Database:
         if not os.path.exists(legacy):
             return
         if Database._get_siblings():
-            log_info(__name__, f"Legacy {_LEGACY_DATABASE_NAME} found but other gateway database files exist; leaving it untouched (manual cleanup may be needed).")
+            log_info(
+                __name__,
+                f"Legacy {_LEGACY_DATABASE_NAME} found but other gateway database files exist; leaving it untouched (manual cleanup may be needed).",
+            )
             return
         Database._migrate(legacy, target)
-    
-    
+
     @staticmethod
     def _migrate(legacy: str, target: str) -> None:
         try:
             os.rename(legacy, target)
-            log_info(__name__, f"Migrated legacy {_LEGACY_DATABASE_NAME} -> {os.path.basename(target)}")
+            log_info(
+                __name__,
+                f"Migrated legacy {_LEGACY_DATABASE_NAME} -> {os.path.basename(target)}",
+            )
         except OSError as err:
             log_error(__name__, f"Failed to migrate legacy db: {err}")
-
 
     @staticmethod
     def _get_siblings() -> list[str]:
@@ -143,7 +142,6 @@ class Database:
         except OSError:
             return []
 
-
     @staticmethod
     def _heal_empty_files(target: str) -> None:
         """Delete 0-byte database files so SQLite can re-create the schema. Such files are produced by previous failed inits where DDL was never committed before the connection was closed."""
@@ -151,10 +149,12 @@ class Database:
             try:
                 if os.path.exists(path) and os.path.getsize(path) == 0:
                     os.remove(path)
-                    log_info(__name__, f"Removed empty {os.path.basename(path)} left by a previous failed init")
+                    log_info(
+                        __name__,
+                        f"Removed empty {os.path.basename(path)} left by a previous failed init",
+                    )
             except OSError as err:
                 log_error(__name__, f"Could not heal empty db {path}: {err}")
-
 
     def _create_connection(self, file_path: str) -> Connection:
         try:
@@ -162,7 +162,10 @@ class Database:
             # Enable WAL: writers don't block readers and vice versa. Fail silently if not supported
             row = self._connection.execute("PRAGMA journal_mode=WAL").fetchone()
             journal_mode = (row[0] if row else "").lower()
-            log_info(__name__, f"Connection to SQLite DB successful ({file_path}, journal_mode={journal_mode})")
+            log_info(
+                __name__,
+                f"Connection to SQLite DB successful ({file_path}, journal_mode={journal_mode})",
+            )
             return self._connection
         except Error as err:
             log_error(__name__, f"Error opening {file_path}: {err}")
