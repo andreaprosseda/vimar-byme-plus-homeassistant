@@ -37,6 +37,9 @@ def log_error(module_name: str, message: str):
     result = f"[{module_name}] {message}"
     logger.error(result)
 
+def log_warning(module_name: str, message: str):
+    result = f"[{module_name}] {message}"
+    logger.warning(result)
 
 def not_implemented(module_name: str, component: UserComponent):
     name = component.name
