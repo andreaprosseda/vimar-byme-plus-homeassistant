@@ -45,7 +45,10 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     discovery_info: zeroconf.ZeroconfServiceInfo = None
 
-    VERSION = 1
+    # v2: entity unique_ids scoped per gateway deviceuid.
+    # v3: device identifiers scoped per gateway deviceuid.
+    # See base_entity.py and async_migrate_entry in __init__.py.
+    VERSION = 3
 
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_PUSH
 
