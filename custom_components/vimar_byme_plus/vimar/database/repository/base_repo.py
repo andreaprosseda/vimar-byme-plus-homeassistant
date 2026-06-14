@@ -1,6 +1,6 @@
 from sqlite3 import Connection, Cursor, Error
 
-from ...utils.logger import log_debug, log_error
+from ...utils.logger import log_error
 
 
 class BaseRepo:

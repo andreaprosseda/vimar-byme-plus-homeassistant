@@ -8,7 +8,6 @@ from decimal import Decimal
 from homeassistant.components.sensor import (
     RestoreSensor,
     SensorDeviceClass,
-    SensorEntity,
 )
 from homeassistant.components.sensor.const import SensorStateClass, UNIT_CONVERTERS
 from homeassistant.core import HomeAssistant, callback
