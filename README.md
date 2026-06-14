@@ -18,44 +18,54 @@
 <br />
 <div align="center">
   <picture>
-    <source srcset="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/logo-on-dark.png" media="(prefers-color-scheme: dark)" width="auto" height="80"/>
-    <img src="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/blob/main/images/logo-on-light.png" alt="Home Assistant Logo" width="auto" height="80"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/andreaprosseda/vimar-byme-plus-homeassistant/main/images/logo-on-dark.png" />
+    <img src="https://raw.githubusercontent.com/andreaprosseda/vimar-byme-plus-homeassistant/main/images/logo-on-light.png" alt="Vimar By-me Plus Logo" height="80" />
   </picture>
 
   <h3 align="center">Vimar By-me Plus for HomeAssistant</h3>
 
-  <p align="center">
-    <p>An unofficial Home Assistant Custom Integration for Vimar Gateway 01410/01411<p/>
-    <p>If you like this repo, give me a ⭐ clicking on the `Star` button in upper right corner<p/>
-    <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues/new?labels=bug&template=bug-report.md">Report Bug</a>
-    ·
-    <a href="https://github.com/andreaprosseda/vimar-byme-plus-homeassistant/issues/new?labels=enhancement&template=feature-request.md">Request Feature</a>
-  </p>
-    <br />
+  <p align="center">An unofficial Home Assistant Custom Integration for Vimar Gateway 01410/01411</p>
+
+<a href="https://paypal.me/AndreaProsseda"><img src="https://img.shields.io/badge/PayPal-Donate-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="Donate with PayPal" height="48" /></a>
+&nbsp;&nbsp;
+<a href="https://www.buymeacoffee.com/andreaprosseda"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee" height="45" /></a>
+
+If this project has been helpful to you, leave a ⭐ or consider making a small donation.<br/>
+Every contribution, no matter how small, makes a big difference.
+
 </div>
 
+<br/>
+
+<table>
+<tr>
+<td width="50%" valign="top" align="center">
+
+### 🔊 Un Messaggio Importante
+<sub>Ciao a tutti! 👋</sub></br>
+<sub>Quello che era nato come un progetto di puro divertimento è diventato qualcosa di molto più grande di quanto immaginassi. In tanti avete supportato questa integrazione, e sono sinceramente grato a **ognuno di voi**. Grazie. ❤️</sub></br></br>
+<sub>Negli ultimi tempi, il sopraggiungere di nuovi impegni personali e di lieti impegni familiari (unito al fatto che il supporto a questa integrazione richiede molto più tempo del previsto) fa sì che il tempo che posso dedicarle sia ormai **davvero limitato**. Trattandosi di un progetto interamente **open-source e gratuito**, è tutto tempo personale, prezioso.</sub></br></br>
+<sub>Continuerò a **mantenere e supportare** l'integrazione, ma vi chiedo di comprendere che **i tempi di risposta e risoluzione saranno più lunghi** di quanto vorrei.</sub></br>
+<sub>E inoltre...a chi mi ha scritto e ha atteso a lungo una risposta (o sta ancora aspettando), chiedo scusa, forse ho perso il messaggio, oppure è semplicemente una questione di tempo. Grazie per la pazienza e per il continuo supporto. 🙏</sub></br></br>
+
+</td>
+<td width="50%" valign="top" align="center">
+
+### 🔊 An Important Message
+<sub>Hey there! 👋</sub></br>
+<sub>What started as a fun project has turned into something much bigger than I ever expected. So many of you have supported this integration along the way, and I'm genuinely grateful to **every single one of you**. Thank you. ❤️</sub></br></br>
+<sub>Lately, the arrival of new personal and happy family commitments (together with the fact that supporting this integration takes far more time than expected) means the time I can dedicate to it is now **very limited**. Since everything here is **open-source and free**, it's all precious personal time.</sub></br></br>
+<sub>I will **keep maintaining and supporting** this integration, but please understand that **response and resolution times will be longer than I'd like**.</sub></br>
+<sub>And also… to those who wrote to me and have been waiting a long time for a reply (or are still waiting), I apologize. I may have missed your message, or it may simply be a matter of time. Thank you for your patience and continued support. 🙏</sub></br></br>
+
+</td>
+</tr>
+</table>
 
 
-> [!IMPORTANT]
+> [!NOTE]
 > This is a personal project developed by me and is not affiliated with, maintained, authorized, or endorsed by Vimar S.p.A. in any way. Use at your own risk.
 
-## Built by Your Support
-
-Hey there! 👋 What started as a fun project has turned into something much bigger! 
-
-This integration has been a truly time-consuming project, requiring many hours of development and a lot of hard work. Every line of code, every test, every bug fix has been carefully crafted to provide the best possible experience.
-
-If my work has been helpful to you, consider making a donation. Every contribution, no matter how small, makes a big difference and allows me to keep dedicating time and resources to maintaining and improving this integration.
-
-<a href="https://paypal.me/AndreaProsseda">
-  <img align="center" src="https://villageatithaca.org/wp-content/uploads/2020/03/paypal-donate-button.png" alt="paypal image" height="55" />
-</a>
-
-<a href="https://www.buymeacoffee.com/andreaprosseda">
-  <img align="center" src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="coffee image" height="55" />
-</a>
-
-<br/>
 <br/>
 
 <!-- TABLE OF CONTENTS -->
@@ -82,6 +92,7 @@ If my work has been helpful to you, consider making a donation. Every contributi
 </details>
 
 
+<br/>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
