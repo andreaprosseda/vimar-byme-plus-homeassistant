@@ -6,15 +6,18 @@ from .ss_scene_executor_action_handler import SsSceneExecutorActionHandler
 
 
 class SceneActionHandler:
+    def __init__(self, gateway_id: str) -> None:
+        self._gateway_id = gateway_id
+
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
         handler = self.get_handler(component)
         return handler.get_actions(component, action_type, *args)
 
-    @staticmethod
-    def get_handler(component: VimarComponent) -> HandlerInterface:
+    def get_handler(self, component: VimarComponent) -> HandlerInterface:
+        gw = self._gateway_id
         sstype = component.device_name
         if sstype == SsSceneExecutorActionHandler.SSTYPE:
-            return SsSceneExecutorActionHandler()
+            return SsSceneExecutorActionHandler(gw)
         raise NotImplementedError

@@ -1,0 +1,8 @@
+restart:
+  fields:
+    entry_id:
+      required: false
+      example: "01H3X7Q8E5W..."
+      selector:
+        config_entry:
+          integration: vimar_byme_plus

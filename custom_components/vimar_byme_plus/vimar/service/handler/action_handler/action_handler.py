@@ -7,6 +7,7 @@ from .audio.audio_action_handler import AudioActionHandler
 from .automation.automation_action_handler import AutomationActionHandler
 from .base_action_handler import BaseActionHandler
 from .clima.clima_action_handler import ClimaActionHandler
+from .energy.energy_action_handler import EnergyActionHandler
 from .irrigation.irrigation_action_handler import IrrigationActionHandler
 from .light.light_action_handler import LightActionHandler
 from .scene.scene_action_handler import SceneActionHandler
@@ -16,35 +17,40 @@ from .shutter.shutter_action_handler import ShutterActionHandler
 
 
 class ActionHandler:
+    def __init__(self, gateway_id: str) -> None:
+        self._gateway_id = gateway_id
+
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
-        handler = ActionHandler._get_handler(component.device_group)
+        handler = self._get_handler(component.device_group)
         return handler.get_actions(component, action_type, *args)
 
-    @staticmethod
-    def _get_handler(device_group: str) -> BaseActionHandler:
+    def _get_handler(self, device_group: str) -> BaseActionHandler:
+        gw = self._gateway_id
         group = SfType(device_group)
         match group:
             case SfType.ACCESS:
-                return AccessActionHandler()
+                return AccessActionHandler(gw)
             case SfType.AUDIO:
-                return AudioActionHandler()
+                return AudioActionHandler(gw)
             case SfType.AUTOMATION:
-                return AutomationActionHandler()
+                return AutomationActionHandler(gw)
             case SfType.CLIMA:
-                return ClimaActionHandler()
+                return ClimaActionHandler(gw)
+            case SfType.ENERGY:
+                return EnergyActionHandler(gw)
             case SfType.IRRIGATION:
-                return IrrigationActionHandler()
+                return IrrigationActionHandler(gw)
             case SfType.LIGHT:
-                return LightActionHandler()
+                return LightActionHandler(gw)
             case SfType.SCENE:
-                return SceneActionHandler()
+                return SceneActionHandler(gw)
             case SfType.SCENE_ACTIVATOR:
-                return SceneActivatorActionHandler()
+                return SceneActivatorActionHandler(gw)
             case SfType.SENSOR:
-                return SensorActionHandler()
+                return SensorActionHandler(gw)
             case SfType.SHUTTER:
-                return ShutterActionHandler()
+                return ShutterActionHandler(gw)
             case _:
                 raise NotImplementedError

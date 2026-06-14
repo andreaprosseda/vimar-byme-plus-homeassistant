@@ -9,21 +9,24 @@ from .ss_audio_zone_action_handler import SsAudioZoneActionHandler
 
 
 class AudioActionHandler:
+    def __init__(self, gateway_id: str) -> None:
+        self._gateway_id = gateway_id
+
     def get_actions(
         self, component: VimarComponent, action_type: ActionType, *args
     ) -> list[VimarAction]:
         handler = self.get_handler(component)
         return handler.get_actions(component, action_type, *args)
 
-    @staticmethod
-    def get_handler(component: VimarComponent) -> HandlerInterface:
+    def get_handler(self, component: VimarComponent) -> HandlerInterface:
+        gw = self._gateway_id
         sstype = component.device_name
         if sstype == SsAudioBluetoothActionHandler.SSTYPE:
-            return SsAudioBluetoothActionHandler()
+            return SsAudioBluetoothActionHandler(gw)
         if sstype == SsAudioRadioFmActionHandler.SSTYPE:
-            return SsAudioRadioFmActionHandler()
+            return SsAudioRadioFmActionHandler(gw)
         if sstype == SsAudioRcaActionHandler.SSTYPE:
-            return SsAudioRcaActionHandler()
+            return SsAudioRcaActionHandler(gw)
         if sstype == SsAudioZoneActionHandler.SSTYPE:
-            return SsAudioZoneActionHandler()
+            return SsAudioZoneActionHandler(gw)
         raise NotImplementedError

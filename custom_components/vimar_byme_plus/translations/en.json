@@ -33,5 +33,49 @@
                 "description": "Use the Discovery for a easier setup or fill the following values.\nRefer to the official documentation for additional info [here]({url_documentation})"
             }
         }
+    },
+    "options": {
+        "abort": {
+            "nothing_to_configure": "There is currently nothing to configure for this integration."
+        },
+        "step": {
+            "init": {
+                "title": "Configure VIMAR By-me Plus HUB",
+                "description": "Pick the section to configure.",
+                "menu_options": {
+                    "counters": "Pulse counter type",
+                    "realtime": "Real-time auto-refresh interval"
+                }
+            },
+            "counters": {
+                "title": "Pulse counter type",
+                "description": "For every Vimar pulse counter, pick the meter it is wired to (electricity / water / gas). Detected counters: {count}"
+            },
+            "realtime": {
+                "title": "Real-time auto-refresh interval",
+                "description": "For each device with a real-time update button, set the interval (in seconds) at which the integration should automatically request fast updates from the gateway. 0 disables the auto-refresh for that device. Range: 0–{max_seconds}s. Detected buttons: {count}."
+            }
+        }
+    },
+    "selector": {
+        "counter_type": {
+            "options": {
+                "electricity": "Electricity",
+                "water": "Water",
+                "gas": "Gas"
+            }
+        }
+    },
+    "services": {
+        "restart": {
+            "name": "Restart integration",
+            "description": "Reload the VIMAR By-me Plus HUB integration. Useful from automations to recover from a stuck connection.",
+            "fields": {
+                "entry_id": {
+                    "name": "Gateway",
+                    "description": "Optional config entry to reload. Leave empty to reload every configured Vimar gateway."
+                }
+            }
+        }
     }
 }

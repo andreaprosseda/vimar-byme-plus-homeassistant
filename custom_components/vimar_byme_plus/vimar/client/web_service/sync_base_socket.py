@@ -15,6 +15,13 @@ from ...service.handler.message_handler.message_handler import MessageHandler
 from ...utils.logger import log_debug, log_info
 from ...utils.session_token import get_session_token
 
+# Generous network timeouts: connect() and recv() must not block the
+# daemon thread forever if the gateway becomes unresponsive mid-handshake
+# or mid-transaction. Errors raised here are caught upstream by the
+# bounded retry loop in OperationalService.connect().
+_CONNECT_TIMEOUT_SECONDS = 30
+_RECV_TIMEOUT_SECONDS = 60
+
 
 class SyncBaseSocket:
     """Web Socket Session Phase Class."""
@@ -38,7 +45,9 @@ class SyncBaseSocket:
         """Create WebSocket connection."""
         log_info(__name__, f"Connecting to {url}...")
         ssl_opt = self._get_ssl_options()
-        return create_connection(url, sslopt=ssl_opt)
+        ws = create_connection(url, sslopt=ssl_opt, timeout=_CONNECT_TIMEOUT_SECONDS)
+        ws.settimeout(_RECV_TIMEOUT_SECONDS)
+        return ws
 
     def send(self, message: BaseRequestResponse):
         """Send BaseRequestResponse object."""

@@ -8,11 +8,16 @@ from ..model.enum.action_type import ActionType
 from ..model.exceptions import CodeNotValidException
 from ..model.gateway.gateway_info import GatewayInfo
 from ..model.gateway.vimar_data import VimarData
+from ..model.integration_options import IntegrationOptions
 from ..model.repository.user_credentials import UserCredentials
 from ..service.association_service import AssociationService
 from ..service.operational_service import OperationalService, Update
+from ..database.repository.component_repo import ComponentRepo
+from ..database.repository.user_repo import UserRepo
+
 from ..utils.logger import log_info
 from ..utils.thread import Thread
+from ..utils.thread_monitor import thread_exists
 
 
 class VimarClient:
@@ -20,12 +25,15 @@ class VimarClient:
 
     _association_service: AssociationService
     _operational_service: OperationalService
-    _component_repo = Database.instance().component_repo
-    _user_repo = Database.instance().user_repo
+    _component_repo: ComponentRepo
+    _user_repo: UserRepo
     _thread_name = "VimarServiceThread"
 
     def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize the coordinator."""
+        db = Database.instance(gateway_info.deviceuid)
+        self._component_repo = db.component_repo
+        self._user_repo = db.user_repo
         self._association_service = AssociationService(gateway_info)
         self._operational_service = OperationalService(gateway_info, callback)
 
@@ -48,6 +56,28 @@ class VimarClient:
         )
         thread.start()
 
+    def reconnect(self):
+        """Force a tear-down and a fresh connect.
+
+        Used by the HA watchdog when the daemon thread has died or the
+        gateway has gone silent. Disconnect best-effort, then re-enter
+        operational_phase to spawn a new VimarServiceThread.
+        """
+        try:
+            self._operational_service.disconnect()
+        except Exception:  # pylint: disable=broad-except
+            log_info(__name__, "Disconnect raised; ignoring and re-attaching.")
+        self.operational_phase()
+
+    def is_thread_alive(self) -> bool:
+        """Return True if the Vimar service daemon thread is running."""
+        return thread_exists(self._thread_name)
+
+    @property
+    def seconds_since_last_message(self) -> float:
+        """Seconds since the gateway last sent any message."""
+        return self._operational_service.seconds_since_last_message
+
     def send(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
         self._operational_service.send_action(component, action_type, *args)
@@ -60,10 +90,10 @@ class VimarClient:
         """Stop coordinator processes."""
         self._operational_service.disconnect()
 
-    def retrieve_data(self) -> VimarData:
+    def retrieve_data(self, options: IntegrationOptions | None = None) -> VimarData:
         """Get the latest data from DB."""
         components = self._component_repo.get_all()
-        return VimarDataMapper.from_list(components)
+        return VimarDataMapper.from_list(components, options or IntegrationOptions())
 
     def get_gateway_info(self) -> GatewayInfo:
         return self._operational_service.gateway_info

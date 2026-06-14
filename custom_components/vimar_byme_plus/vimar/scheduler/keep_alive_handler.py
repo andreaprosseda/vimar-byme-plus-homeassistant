@@ -1,6 +1,7 @@
 from collections.abc import Callable
 import threading
 
+from ..utils.logger import log_error
 from ..utils.thread import Timer
 
 
@@ -22,8 +23,14 @@ class KeepAliveHandler:
             self._timer.start()
 
     def _execute(self):
-        if self._callback:
-            self._callback()
+        # Never let a callback exception kill the keep-alive timer: the
+        # next tick must still be scheduled, otherwise the WS goes silent
+        # without anyone noticing.
+        try:
+            if self._callback:
+                self._callback()
+        except Exception as exc:  # pylint: disable=broad-except
+            log_error(__name__, f"Keep-alive callback raised: {exc!r}")
         self._start_timer()
 
     def reset(self):

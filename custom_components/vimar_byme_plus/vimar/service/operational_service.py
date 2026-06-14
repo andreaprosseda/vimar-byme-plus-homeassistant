@@ -7,6 +7,7 @@ from websocket import WebSocketConnectionClosedException
 from ..client.web_service.sync_session_phase import SyncSessionPhase
 from ..client.web_service.ws_attach_phase import WSAttachPhase
 from ..database.database import Database
+from ..database.repository.user_repo import UserRepo
 from ..model.component.vimar_component import VimarComponent
 from ..model.enum.action_type import ActionType
 from ..model.enum.integration_phase import IntegrationPhase
@@ -16,12 +17,23 @@ from ..model.web_socket.base_request import BaseRequest
 from ..model.web_socket.base_request_response import BaseRequestResponse
 from ..model.web_socket.web_socket_config import WebSocketConfig
 from ..scheduler.keep_alive_handler import KeepAliveHandler
-from ..utils.logger import log_info, log_debug
+from ..utils.logger import log_debug, log_error, log_info
 from .handler.action_handler.action_handler import ActionHandler
 from .handler.error_handler.error_handler import ErrorHandler
 from .handler.message_handler.message_handler import MessageHandler
 
 type Update = Coroutine[Any, Any, None]
+
+# Bounded reconnect loop. Cap backoff at 600s to avoid stack growth and
+# unbounded re-tries when the gateway is unreachable for hours; after
+# `_MAX_CONNECT_ATTEMPTS` consecutive failures we let the exception
+# propagate — the HA-side watchdog (Coordinator) will resume from there
+# at its next tick.
+_MAX_CONNECT_ATTEMPTS = 5
+_BACKOFF_BASE_SECONDS = 60
+_BACKOFF_CAP_SECONDS = 600
+
+_DEFAULT_RECONNECT_WAIT_SECONDS = 60
 
 
 class OperationalService:
@@ -38,7 +50,7 @@ class OperationalService:
     _keep_alive_handler: KeepAliveHandler
 
     _web_socket: WSAttachPhase = None
-    _user_repo = Database.instance().user_repo
+    _user_repo: UserRepo
 
     def __init__(self, gateway_info: GatewayInfo, callback: Update) -> None:
         """Initialize Vimar intagration."""
@@ -46,24 +58,63 @@ class OperationalService:
         self.session_port = gateway_info.port
         self.gateway_info = gateway_info
         self.update_callback = callback
-        self._action_handler = ActionHandler()
+        self._user_repo = Database.instance(gateway_info.deviceuid).user_repo
+        self._action_handler = ActionHandler(gateway_info.deviceuid)
         self._error_handler = ErrorHandler(gateway_info)
         self._message_handler = MessageHandler(gateway_info)
         self._keep_alive_handler = KeepAliveHandler()
 
+        # Watchdog timestamp: monotonic seconds of the last activity from
+        # the gateway. The HA-side Coordinator polls this to detect
+        # silent-stale state (TCP up but no messages flowing).
+        self._last_message_at: float = time.monotonic()
+
+    @property
+    def last_message_at(self) -> float:
+        """Monotonic timestamp (seconds) of the last gateway activity."""
+        return self._last_message_at
+
+    @property
+    def seconds_since_last_message(self) -> float:
+        return time.monotonic() - self._last_message_at
+
+    def _touch_last_message(self) -> None:
+        self._last_message_at = time.monotonic()
+
     def connect(self):
-        """Handle the connection Vimar WebSocket connection."""
-        try:
-            self.clean()
-            self.sync_session_phase()
-            self.async_attach_phase()
-        except Exception as exc:
-            if self._error_handler.is_temporary_error(exception=exc):
-                log_info(__name__, "Waiting 60 seconds before reconnecting...")
-                time.sleep(60)
-                self.connect()
-            else:
-                raise VimarErrorResponseException(exc) from exc
+        """Connect to the gateway with bounded retry and exponential backoff.
+
+        Replaces the previous unbounded recursive retry. After
+        `_MAX_CONNECT_ATTEMPTS` consecutive failures the last exception is
+        raised so the daemon thread exits cleanly; the watchdog will
+        re-enter from the next tick.
+        """
+        for attempt in range(_MAX_CONNECT_ATTEMPTS):
+            try:
+                self.clean()
+                self.sync_session_phase()
+                self.async_attach_phase()
+                self._touch_last_message()
+                return
+            except Exception as exc:
+                if not self._error_handler.is_temporary_error(exception=exc):
+                    raise VimarErrorResponseException(exc) from exc
+                wait = min(
+                    _BACKOFF_BASE_SECONDS * (2**attempt),
+                    _BACKOFF_CAP_SECONDS,
+                )
+                log_info(
+                    __name__,
+                    f"Temporary connection error (attempt {attempt + 1}"
+                    f"/{_MAX_CONNECT_ATTEMPTS}); retrying in {wait}s...",
+                )
+                time.sleep(wait)
+        log_error(
+            __name__,
+            f"Connection failed after {_MAX_CONNECT_ATTEMPTS} attempts; "
+            "yielding to watchdog.",
+        )
+        raise VimarErrorResponseException("Connection retry budget exhausted")
 
     def send_action(self, component: VimarComponent, action_type: ActionType, *args):
         """Send a request coming from HomeAssistant to Gateway."""
@@ -106,10 +157,12 @@ class OperationalService:
     def on_attach_connection_opened(self):
         self._keep_alive_handler = KeepAliveHandler()
         self._keep_alive_handler.set_handler(self.send_keep_alive)
+        self._touch_last_message()
 
     def on_attach_message_received(
         self, message: BaseRequestResponse
     ) -> BaseRequestResponse:
+        self._touch_last_message()
         response = self._message_handler.message_received(message)
         self.trigger_changes(message)
         self.handle_keep_alive(response)
@@ -132,10 +185,13 @@ class OperationalService:
         self.attach_port = None
         if isinstance(message, BaseRequest):
             seconds_to_wait = self._get_seconds_to_wait(message)
-            message = f"Waiting {seconds_to_wait!s} seconds before reconnecting..."
-            log_info(__name__, message)
+            log_info(
+                __name__,
+                f"Waiting {seconds_to_wait}s before reconnecting...",
+            )
             time.sleep(seconds_to_wait)
             self.connect()
+            return
         if self._error_handler.is_temporary_error(None, message):
             log_info(__name__, "Temporary Error detected, reconnecting...")
             self.connect()
@@ -178,9 +234,19 @@ class OperationalService:
         return config
 
     def _get_seconds_to_wait(self, request: BaseRequest) -> int:
+        """Extract the gateway-suggested reconnect delay.
+
+        Falls back to a sensible default when the gateway sends an empty
+        args payload — the previous behaviour silently disconnected the
+        socket and returned None, causing `time.sleep(None)` to crash the
+        thread.
+        """
         if request and request.args:
-            return int(request.args[0].get("value", 0))
-        self.disconnect()
+            try:
+                return int(request.args[0].get("value", 0))
+            except (TypeError, ValueError):
+                return _DEFAULT_RECONNECT_WAIT_SECONDS
+        return _DEFAULT_RECONNECT_WAIT_SECONDS
 
     def disconnect(self):
         log_info(__name__, "Terminating the execution...")

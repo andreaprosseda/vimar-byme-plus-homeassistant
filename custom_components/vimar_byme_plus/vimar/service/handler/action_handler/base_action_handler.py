@@ -22,10 +22,13 @@ class HandlerInterface(ABC):
 
 
 class BaseActionHandler(HandlerInterface):
-    _user_repo = Database.instance().user_repo
-    _ambient_repo = Database.instance().ambient_repo
-    _component_repo = Database.instance().component_repo
-    _element_repo = Database.instance().element_repo
+    def __init__(self, gateway_id: str) -> None:
+        db = Database.instance(gateway_id)
+        self._gateway_id = gateway_id
+        self._user_repo = db.user_repo
+        self._ambient_repo = db.ambient_repo
+        self._component_repo = db.component_repo
+        self._element_repo = db.element_repo
 
     def save_user_credentials(self, response: dict):
         credentials = UserCredentials.obj_from_dict(response)

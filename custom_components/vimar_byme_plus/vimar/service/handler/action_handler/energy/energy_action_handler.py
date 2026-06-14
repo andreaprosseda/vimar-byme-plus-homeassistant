@@ -7,7 +7,7 @@ from .....model.enum.sfetype_enum import SfeType
 REAL_TIME = SfeType.CMD_TIMED_DYNAMIC_MODE
 
 
-class SensorActionHandler:
+class EnergyActionHandler:
     def __init__(self, gateway_id: str) -> None:
         self._gateway_id = gateway_id
 

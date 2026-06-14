@@ -5,7 +5,10 @@ from __future__ import annotations
 from datetime import date, datetime
 from decimal import Decimal
 
-from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
+from homeassistant.components.sensor import (
+    RestoreSensor,
+    SensorDeviceClass,
+)
 from homeassistant.components.sensor.const import SensorStateClass, UNIT_CONVERTERS
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -31,13 +34,22 @@ async def async_setup_entry(
     async_add_entities(entities, True)
 
 
-class Sensor(BaseEntity, SensorEntity):
-    """Provides a Vimar Sensor."""
+class Sensor(BaseEntity, RestoreSensor):
+    """Provides a Vimar Sensor.
+
+    For sensors with `device_class=ENERGY` the integration receives raw
+    instantaneous power readings from the gateway and integrates them
+    over time (trapezoidal rule) into a cumulative kWh counter.
+    The cumulative is persisted via `RestoreSensor` so it survives HA
+    restarts and avoids the spurious counter resets that previously
+    triggered HA's `total_increasing` warnings (issue #25).
+    """
 
     _component: VimarSensor
     temp_measure: dict
     previous_measure: dict
     current_measure: dict
+    _running_total: Decimal | None
 
     def __init__(self, coordinator: Coordinator, component: VimarSensor) -> None:
         """Initialize the sensor."""
@@ -45,7 +57,21 @@ class Sensor(BaseEntity, SensorEntity):
         self.temp_measure = self._create_measure()
         self.previous_measure = self._create_measure()
         self.current_measure = self._create_measure(component)
+        self._running_total = None
         BaseEntity.__init__(self, coordinator, component)
+
+    async def async_added_to_hass(self) -> None:
+        """Restore the running total for ENERGY sensors across restarts."""
+        await super().async_added_to_hass()
+        if self.device_class != SensorDeviceClass.ENERGY:
+            return
+        last = await self.async_get_last_sensor_data()
+        if last is None or last.native_value is None:
+            return
+        try:
+            self._running_total = Decimal(str(last.native_value))
+        except (TypeError, ValueError, ArithmeticError):
+            self._running_total = None
 
     @property
     def device_class(self) -> SensorDeviceClass | None:
@@ -66,7 +92,7 @@ class Sensor(BaseEntity, SensorEntity):
     def native_value(self) -> StateType | date | datetime | Decimal:
         """Return the value reported by the sensor."""
         if self.device_class == SensorDeviceClass.ENERGY:
-            return self._compute_energy()
+            return self._running_total
         return self._component.native_value
 
     @property
@@ -90,18 +116,45 @@ class Sensor(BaseEntity, SensorEntity):
         self.temp_measure = self.current_measure.copy()
         super()._handle_coordinator_update()
         self._update_measures()
+        self._accumulate_energy()
 
-    def _compute_energy(self) -> str | Decimal | None:
+    def _accumulate_energy(self) -> None:
+        """Add the latest interval increment to the running cumulative total.
+
+        Skips negative or zero increments (e.g. duplicate timestamps,
+        clock skew). Initialises the running total on the first valid
+        increment when no restored value is available.
+        """
+        if self.device_class != SensorDeviceClass.ENERGY:
+            return
+        increment = self._compute_energy_increment()
+        if increment is None or increment <= 0:
+            return
+        base = self._running_total if self._running_total is not None else Decimal(0)
+        self._running_total = base + increment
+
+    def _compute_energy_increment(self) -> Decimal | None:
+        """Energy delivered in the latest interval (trapezoidal rule).
+
+        Returns None when either side of the interval is missing or the
+        interval itself is non-positive — the caller will simply not
+        update the cumulative total.
+        """
         current_date = self.current_measure.get("date")
         previous_date = self.previous_measure.get("date")
         current_power = self.current_measure.get("value")
         previous_power = self.previous_measure.get("value")
-        interval = self._delta_time_in_hours(current_date, previous_date)
-        if not previous_power and not current_power:
+        if current_power is None or previous_power is None:
             return None
-        if not previous_power or not interval:
-            return current_power
-        return ((current_power + previous_power) / 2) * interval
+        interval = self._delta_time_in_hours(current_date, previous_date)
+        if interval is None or interval <= 0:
+            return None
+        try:
+            current_d = Decimal(str(current_power))
+            previous_d = Decimal(str(previous_power))
+        except (TypeError, ValueError, ArithmeticError):
+            return None
+        return ((current_d + previous_d) / 2) * interval
 
     def _delta_time_in_hours(self, t1: datetime, t2: datetime) -> Decimal | None:
         if not t1 or not t2:
