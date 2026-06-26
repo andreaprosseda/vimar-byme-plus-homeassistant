@@ -32,5 +32,5 @@ class VimarDataMapper:
         vimar_components.extend(SceneMapper.from_list(components))
         vimar_components.extend(SceneActivatorMapper.from_list(components))
         vimar_components.extend(SensorMapper.from_list(components))
-        vimar_components.extend(ShutterMapper.from_list(components))
+        vimar_components.extend(ShutterMapper.from_list(components, opts))
         return VimarData(vimar_components)

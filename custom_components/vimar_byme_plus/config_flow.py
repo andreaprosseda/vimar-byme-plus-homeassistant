@@ -232,6 +232,11 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     ) -> ConfigFlowResult:
         return await self._render_section("realtime", user_input)
 
+    async def async_step_tilt_tolerance(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        return await self._render_section("tilt_tolerance", user_input)
+
     # ------------------------------------------------------------------
 
     async def _render_section(

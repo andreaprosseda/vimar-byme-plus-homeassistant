@@ -22,6 +22,7 @@ from .const import (
     PROTOCOL,
     SECTION_COUNTERS,
     SECTION_REALTIME,
+    SECTION_TILT_TOLERANCE,
 )
 from .vimar.client.vimar_client import VimarClient
 from .vimar.model.component.vimar_component import VimarComponent
@@ -76,6 +77,7 @@ class Coordinator(DataUpdateCoordinator[VimarData]):
         return IntegrationOptions(
             counter_types=raw.get(SECTION_COUNTERS, {}) or {},
             realtime_intervals=raw.get(SECTION_REALTIME, {}) or {},
+            tilt_tolerance=int(raw.get(SECTION_TILT_TOLERANCE, 0) or 0),
         )
 
     def associate(self):

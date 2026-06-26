@@ -14,10 +14,10 @@ from .ss_shutter_without_position_mapper import SsShutterWithoutPositionMapper
 
 class ShutterMapper:
     @staticmethod
-    def from_list(components: list[UserComponent]) -> list[VimarComponent]:
+    def from_list(components: list[UserComponent], *args) -> list[VimarComponent]:
         sftype = SfType.SHUTTER.value
         shutters = [component for component in components if component.sftype == sftype]
-        components = [ShutterMapper.from_obj(shutter) for shutter in shutters]
+        components = [ShutterMapper.from_obj(shutter, *args) for shutter in shutters]
         return flat(components)
 
     @staticmethod

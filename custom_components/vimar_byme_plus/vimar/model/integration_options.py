@@ -19,3 +19,7 @@ class IntegrationOptions:
     # SFE_Cmd_TimedDynamicMode trigger. Keyed by device idsf as str.
     # 0 (or absent) = disabled — preserves zero-regression on upgrade.
     realtime_intervals: dict[str, int] = field(default_factory=dict)
+    # Tolerance (percent) used to treat near-fully-closed positions as fully
+    # closed when slat/tilt updates are present. Configurable via OptionsFlow.
+    # Default 0 preserves existing behaviour.
+    tilt_tolerance: int = 0
