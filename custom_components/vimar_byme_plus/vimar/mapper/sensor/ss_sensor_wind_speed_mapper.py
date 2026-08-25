@@ -33,7 +33,9 @@ class SsSensorWindSpeedMapper(SsSensorGenericMapper):
 
     def get_kmh(self, component: UserComponent) -> Decimal | None:
         value = self.native_value(component)
-        if not value:
+        # Explicit None check: Decimal("0.0") is falsy, so a truthiness test
+        # turns calm weather (0 m/s) into an unavailable sensor.
+        if value is None:
             return None
         return value * Decimal("3.6")
 
