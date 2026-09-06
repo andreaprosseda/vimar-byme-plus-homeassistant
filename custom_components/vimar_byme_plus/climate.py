@@ -165,10 +165,21 @@ class Climate(BaseEntity, ClimateEntity):
 
     def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set new target hvac mode."""
-        if not self._component.permission_granted:
-            message = "Insufficient permissions to set HVAC mode. Please refer to the ‘Grant Right Permissions’ section in GitHub README."
+        if self._is_change_over(hvac_mode) and not self._component.permission_granted:
+            message = "Insufficient permissions to switch between heating and cooling. Please refer to the ‘Grant Right Permissions’ section in GitHub README."
             raise HomeAssistantError(message)
         self.send(ActionType.SET_HVAC_MODE, hvac_mode.value)
+
+    def _is_change_over(self, hvac_mode: HVACMode) -> bool:
+        """Can switch between heating and cooling."""
+        if hvac_mode == HVACMode.OFF:
+            return False
+        change_over = self._component.change_over_mode
+        if change_over == ChangeOverMode.HEAT:
+            return hvac_mode != HVACMode.HEAT
+        if change_over == ChangeOverMode.COOL:
+            return hvac_mode != HVACMode.COOL
+        return True
 
     def turn_on(self) -> None:
         """Turn the climate on, restoring the real heat/cool selection."""
