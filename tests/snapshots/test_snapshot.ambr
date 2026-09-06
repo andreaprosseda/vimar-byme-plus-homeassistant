@@ -31,7 +31,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1077',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1079',
     'unit_of_measurement': None,
   })
 # ---
@@ -80,7 +80,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1047',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1049',
     'unit_of_measurement': None,
   })
 # ---
@@ -130,7 +130,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1045',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1047',
     'unit_of_measurement': None,
   })
 # ---
@@ -180,7 +180,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1046',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1048',
     'unit_of_measurement': None,
   })
 # ---
@@ -230,7 +230,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1049',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051',
     'unit_of_measurement': None,
   })
 # ---
@@ -280,7 +280,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_day_night',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_day_night',
     'unit_of_measurement': None,
   })
 # ---
@@ -330,7 +330,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_raining',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_raining',
     'unit_of_measurement': None,
   })
 # ---
@@ -380,7 +380,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_descending',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1074_descending',
     'unit_of_measurement': None,
   })
 # ---
@@ -429,7 +429,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_stabilization',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1074_stabilization',
     'unit_of_measurement': None,
   })
 # ---
@@ -478,7 +478,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_alarm',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_alarm',
     'unit_of_measurement': None,
   })
 # ---
@@ -527,7 +527,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_dis',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_dis',
     'unit_of_measurement': None,
   })
 # ---
@@ -576,7 +576,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_alarm',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_alarm',
     'unit_of_measurement': None,
   })
 # ---
@@ -625,7 +625,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_dis',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_dis',
     'unit_of_measurement': None,
   })
 # ---
@@ -674,7 +674,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_alarm_memory',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_alarm_memory',
     'unit_of_measurement': None,
   })
 # ---
@@ -723,7 +723,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_par_a',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_par_a',
     'unit_of_measurement': None,
   })
 # ---
@@ -772,7 +772,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_par_b',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_par_b',
     'unit_of_measurement': None,
   })
 # ---
@@ -821,7 +821,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_par_c',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_par_c',
     'unit_of_measurement': None,
   })
 # ---
@@ -870,7 +870,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_par_d',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_par_d',
     'unit_of_measurement': None,
   })
 # ---
@@ -919,7 +919,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_alarm_reset',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_alarm_reset',
     'unit_of_measurement': None,
   })
 # ---
@@ -968,7 +968,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_alarm_memory_reset',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_alarm_memory_reset',
     'unit_of_measurement': None,
   })
 # ---
@@ -1017,7 +1017,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_total',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075_total',
     'unit_of_measurement': None,
   })
 # ---
@@ -1066,7 +1066,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_int',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_int',
     'unit_of_measurement': None,
   })
 # ---
@@ -1115,7 +1115,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_par',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_par',
     'unit_of_measurement': None,
   })
 # ---
@@ -1164,7 +1164,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_on',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_on',
     'unit_of_measurement': None,
   })
 # ---
@@ -1213,7 +1213,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_alarm_memory',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_alarm_memory',
     'unit_of_measurement': None,
   })
 # ---
@@ -1262,7 +1262,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_alarm_reset',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_alarm_reset',
     'unit_of_measurement': None,
   })
 # ---
@@ -1311,7 +1311,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070_alarm_memory_reset',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1072_alarm_memory_reset',
     'unit_of_measurement': None,
   })
 # ---
@@ -1360,7 +1360,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1069',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1071',
     'unit_of_measurement': None,
   })
 # ---
@@ -1409,7 +1409,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1071_start_call',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_start_call',
     'unit_of_measurement': None,
   })
 # ---
@@ -1458,7 +1458,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1071_end_call',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1073_end_call',
     'unit_of_measurement': None,
   })
 # ---
@@ -1507,7 +1507,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1037_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1556,7 +1556,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1038_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1605,7 +1605,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1055_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1057_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1654,7 +1654,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1032_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1034_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1703,7 +1703,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1033_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1035_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1752,7 +1752,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1034_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1036_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1801,7 +1801,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1082_start_stop',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1084_start_stop',
     'unit_of_measurement': None,
   })
 # ---
@@ -1850,7 +1850,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1082_skip',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1084_skip',
     'unit_of_measurement': None,
   })
 # ---
@@ -1899,7 +1899,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1059_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1061_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1948,7 +1948,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1061_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1063_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -1997,7 +1997,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1054_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1056_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2046,7 +2046,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1057_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1059_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2095,7 +2095,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2144,7 +2144,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2193,7 +2193,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1058_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1060_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2242,7 +2242,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1067',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1069',
     'unit_of_measurement': None,
   })
 # ---
@@ -2291,7 +2291,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1068',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1070',
     'unit_of_measurement': None,
   })
 # ---
@@ -2340,7 +2340,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1062_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1064_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2389,7 +2389,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2438,7 +2438,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1056_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1058_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2487,7 +2487,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1060_real_time_updates',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1062_real_time_updates',
     'unit_of_measurement': None,
   })
 # ---
@@ -2557,7 +2557,7 @@
     'suggested_object_id': None,
     'supported_features': <ClimateEntityFeature: 409>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1029',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1031',
     'unit_of_measurement': None,
   })
 # ---
@@ -2648,7 +2648,7 @@
     'suggested_object_id': None,
     'supported_features': <ClimateEntityFeature: 401>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1030',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1032',
     'unit_of_measurement': None,
   })
 # ---
@@ -2731,7 +2731,7 @@
     'suggested_object_id': None,
     'supported_features': <ClimateEntityFeature: 401>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1031',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1033',
     'unit_of_measurement': None,
   })
 # ---
@@ -2813,7 +2813,7 @@
     'suggested_object_id': None,
     'supported_features': <ClimateEntityFeature: 401>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1028',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1030',
     'unit_of_measurement': None,
   })
 # ---
@@ -2881,7 +2881,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 7>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1044',
     'unit_of_measurement': None,
   })
 # ---
@@ -2933,7 +2933,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 7>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1043',
     'unit_of_measurement': None,
   })
 # ---
@@ -3197,7 +3197,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 7>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1044',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1046',
     'unit_of_measurement': None,
   })
 # ---
@@ -3249,7 +3249,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 7>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1043',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1045',
     'unit_of_measurement': None,
   })
 # ---
@@ -3405,7 +3405,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 15>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1026',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1028',
     'unit_of_measurement': None,
   })
 # ---
@@ -3458,7 +3458,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 15>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1025',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1027',
     'unit_of_measurement': None,
   })
 # ---
@@ -3511,7 +3511,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 11>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1027',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1029',
     'unit_of_measurement': None,
   })
 # ---
@@ -3563,7 +3563,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 191>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1023',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1024',
     'unit_of_measurement': None,
   })
 # ---
@@ -3639,6 +3639,60 @@
     'state': 'closed',
   })
 # ---
+# name: test_ogni_entita_del_master_db[cover.veneziana_giu_lamelle_aperte-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'cover',
+    'entity_category': None,
+    'entity_id': 'cover.veneziana_giu_lamelle_aperte',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'veneziana_giu_lamelle_aperte',
+    'options': dict({
+    }),
+    'original_device_class': 'shutter',
+    'original_icon': None,
+    'original_name': 'veneziana_giu_lamelle_aperte',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': <CoverEntityFeature: 191>,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1023',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[cover.veneziana_giu_lamelle_aperte-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_position': 3,
+      'current_tilt_position': 77,
+      'device_class': 'shutter',
+      'friendly_name': 'veneziana_giu_lamelle_aperte',
+      'moving': False,
+      'supported_features': <CoverEntityFeature: 191>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'cover.veneziana_giu_lamelle_aperte',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'open',
+  })
+# ---
 # name: test_ogni_entita_del_master_db[cover.veneziana_senza_posizione-registry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -3671,7 +3725,7 @@
     'suggested_object_id': None,
     'supported_features': <CoverEntityFeature: 59>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1024',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1026',
     'unit_of_measurement': None,
   })
 # ---
@@ -3689,6 +3743,60 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unknown',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[cover.veneziana_su_lamelle_chiuse-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'cover',
+    'entity_category': None,
+    'entity_id': 'cover.veneziana_su_lamelle_chiuse',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'veneziana_su_lamelle_chiuse',
+    'options': dict({
+    }),
+    'original_device_class': 'shutter',
+    'original_icon': None,
+    'original_name': 'veneziana_su_lamelle_chiuse',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': <CoverEntityFeature: 191>,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1025',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[cover.veneziana_su_lamelle_chiuse-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_position': 97,
+      'current_tilt_position': 0,
+      'device_class': 'shutter',
+      'friendly_name': 'veneziana_su_lamelle_chiuse',
+      'moving': False,
+      'supported_features': <CoverEntityFeature: 191>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'cover.veneziana_su_lamelle_chiuse',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'open',
   })
 # ---
 # name: test_ogni_entita_del_master_db[light.dimmer_acceso_100_percento-registry]
@@ -4661,7 +4769,7 @@
     'suggested_object_id': None,
     'supported_features': <MediaPlayerEntityFeature: 16433>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1065',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1067',
     'unit_of_measurement': None,
   })
 # ---
@@ -4714,7 +4822,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1066',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1068',
     'unit_of_measurement': None,
   })
 # ---
@@ -4778,7 +4886,7 @@
     'suggested_object_id': None,
     'supported_features': <MediaPlayerEntityFeature: 2096>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1064',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1066',
     'unit_of_measurement': None,
   })
 # ---
@@ -4849,7 +4957,7 @@
     'suggested_object_id': None,
     'supported_features': <MediaPlayerEntityFeature: 135052>,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1063',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1065',
     'unit_of_measurement': None,
   })
 # ---
@@ -4913,7 +5021,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1036',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1038',
     'unit_of_measurement': None,
   })
 # ---
@@ -4976,7 +5084,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1035',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1037',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -5035,7 +5143,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1037_power',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_power',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -5095,7 +5203,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1037_energy',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_energy',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -5155,7 +5263,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1038_power',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_power',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -5215,7 +5323,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1038_energy',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_energy',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -5273,7 +5381,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1055',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1057',
     'unit_of_measurement': <SensorMeasurementUnit.MILLIAMPERE: 'mA'>,
   })
 # ---
@@ -5332,7 +5440,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1032_power',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1034_power',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -5392,7 +5500,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1032_energy',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1034_energy',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -5452,7 +5560,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1033_power',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1035_power',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -5512,7 +5620,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1033_energy',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1035_energy',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -5572,7 +5680,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1034_power',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1036_power',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -5632,7 +5740,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1034_energy',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1036_energy',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -5692,7 +5800,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1050',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1052',
     'unit_of_measurement': None,
   })
 # ---
@@ -5758,7 +5866,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1082_sensor',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1084_sensor',
     'unit_of_measurement': None,
   })
 # ---
@@ -5819,7 +5927,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1055',
     'unit_of_measurement': <SensorMeasurementUnit.LUX: 'lx'>,
   })
 # ---
@@ -5873,7 +5981,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1059',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1061',
     'unit_of_measurement': <SensorMeasurementUnit.LITRE_PER_SQUARE_METER: 'l/m²'>,
   })
 # ---
@@ -5929,7 +6037,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1061',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1063',
     'unit_of_measurement': <SensorMeasurementUnit.CUBIC_METERS_PER_HOUR: 'm³/h'>,
   })
 # ---
@@ -5986,7 +6094,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1054',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1056',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6043,7 +6151,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1057',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1059',
     'unit_of_measurement': <SensorMeasurementUnit.PASCAL: 'Pa'>,
   })
 # ---
@@ -6102,7 +6210,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_power_consumption',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_power_consumption',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6162,7 +6270,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_energy_consumption',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_energy_consumption',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -6222,7 +6330,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_power_exchange',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_power_exchange',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6282,7 +6390,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_energy_exchange',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_energy_exchange',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -6342,7 +6450,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_power_production',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_power_production',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6402,7 +6510,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1039_energy_production',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1041_energy_production',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -6462,7 +6570,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_power_consumption',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_power_consumption',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6522,7 +6630,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_energy_consumption',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_energy_consumption',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -6582,7 +6690,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_power_exchange',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_power_exchange',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6642,7 +6750,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_energy_exchange',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_energy_exchange',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -6702,7 +6810,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_power_production',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_power_production',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT: 'kW'>,
   })
 # ---
@@ -6762,7 +6870,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1040_energy_production',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1042_energy_production',
     'unit_of_measurement': <SensorMeasurementUnit.KILO_WATT_HOUR: 'kWh'>,
   })
 # ---
@@ -6817,7 +6925,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1058',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1060',
     'unit_of_measurement': None,
   })
 # ---
@@ -6870,7 +6978,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1062',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1064',
     'unit_of_measurement': None,
   })
 # ---
@@ -6922,7 +7030,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_luminosity',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_luminosity',
     'unit_of_measurement': <SensorMeasurementUnit.LUX: 'lx'>,
   })
 # ---
@@ -6979,7 +7087,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_temperature',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_temperature',
     'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
   })
 # ---
@@ -7036,7 +7144,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_wind_speed',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_wind_speed',
     'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
   })
 # ---
@@ -7093,7 +7201,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1052',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1054',
     'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
   })
 # ---
@@ -7150,7 +7258,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1056',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1058',
     'unit_of_measurement': <SensorMeasurementUnit.MILLIVOLTS: 'mV'>,
   })
 # ---
@@ -7204,7 +7312,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1048',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1050',
     'unit_of_measurement': <SensorMeasurementUnit.PERCENTAGE: '%'>,
   })
 # ---
@@ -7261,7 +7369,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1060',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1062',
     'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
   })
 # ---
@@ -7312,7 +7420,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1075',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1077',
     'unit_of_measurement': None,
   })
 # ---
@@ -7362,7 +7470,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1074',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1076',
     'unit_of_measurement': None,
   })
 # ---
@@ -7412,7 +7520,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1076',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1078',
     'unit_of_measurement': None,
   })
 # ---
@@ -7462,7 +7570,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1082_auto',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1084_auto',
     'unit_of_measurement': None,
   })
 # ---

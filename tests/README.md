@@ -109,6 +109,13 @@ a pytest.
    in `test_mapping.py` — guarda `_unica()` per il pattern.
 4. `tests/run.sh`
 
+Attenzione a una cosa nel diff dello snapshot: gli `idsf` sono assegnati in
+ordine di generazione, quindi un caso inserito in mezzo rinumera tutti quelli
+che vengono dopo e fa cambiare il loro `unique_id`. Sono righe di rumore, non
+un cambiamento di comportamento — controlla che nel diff non ci sia altro
+oltre a `unique_id`, e in caso aggiungi i casi nuovi in fondo al blocco del
+loro `SsType`.
+
 ## Un mapper nuovo per un `SsType` che oggi non e' implementato
 
 `SsType` gia' ha una voce nel `master.db` (sezione "Non mappati" del

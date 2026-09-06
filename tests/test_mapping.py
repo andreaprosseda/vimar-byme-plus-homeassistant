@@ -189,3 +189,31 @@ def _unica(per_caso, caso: str, tipo):
         f"ha prodotto {[type(e).__name__ for e in per_caso[caso]]}"
     )
     return trovate[0]
+
+
+# ── Frangisole: la posizione comprende l'inclinazione (issue #90) ────────────
+#
+# Stati reali, presi dal database dell'impianto che ha aperto la issue e dal
+# corpus. Sul frangisole gli ultimi punti percentuali della corsa sono la
+# rotazione delle lamelle: una veneziana giu' con le lamelle chiuse legge 100,
+# la stessa veneziana giu' con le lamelle aperte legge 97 — ed e' il "3% di
+# apertura" che Home Assistant mostra e che il segnalatore descrive.
+
+
+@pytest.mark.parametrize(
+    ("caso", "posizione_ha", "inclinazione_ha", "chiusa"),
+    [
+        ("veneziana_chiusa", 0, 0, True),
+        ("veneziana_giu_lamelle_aperte", 3, 77, False),
+        ("veneziana_aperta_lamelle_meta", 100, 50, False),
+        ("veneziana_su_lamelle_chiuse", 97, 0, False),
+    ],
+)
+def test_frangisole_posizione_e_inclinazione(
+    per_caso, caso, posizione_ha, inclinazione_ha, chiusa
+):
+    cover = _unica(per_caso, caso, VimarCover)
+    # Il modello resta nella scala Vimar; l'inversione la fa `cover.py`.
+    assert 100 - cover.current_cover_position == posizione_ha
+    assert 100 - cover.current_tilt_position == inclinazione_ha
+    assert cover.is_closed is chiusa
