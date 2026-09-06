@@ -348,6 +348,56 @@
     'state': 'off',
   })
 # ---
+# name: test_ogni_entita_del_master_db[binary_sensor.stazione_meteo_brightness_threshold-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.stazione_meteo_brightness_threshold',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Brightness Threshold',
+    'options': dict({
+    }),
+    'original_device_class': 'light',
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Brightness Threshold',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_brightness_output_1',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[binary_sensor.stazione_meteo_brightness_threshold-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'light',
+      'friendly_name': 'stazione_meteo - Brightness Threshold',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.stazione_meteo_brightness_threshold',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_ogni_entita_del_master_db[button.attivatore_qualita_aria_gradiente_discendente-registry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -7053,6 +7103,357 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '10.44',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_max-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.stazione_meteo_temperature_max',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Temperature Max',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
+      'sensor.private': dict({
+        'suggested_unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.TEMPERATURE: 'temperature'>,
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Temperature Max',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_temperature_max',
+    'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_max-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'temperature',
+      'friendly_name': 'stazione_meteo - Temperature Max',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.stazione_meteo_temperature_max',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '32.3',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_max_all_time-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.stazione_meteo_temperature_max_all_time',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Temperature Max All Time',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
+      'sensor.private': dict({
+        'suggested_unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.TEMPERATURE: 'temperature'>,
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Temperature Max All Time',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_absolute_temperature_max',
+    'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_max_all_time-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'temperature',
+      'friendly_name': 'stazione_meteo - Temperature Max All Time',
+      'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.stazione_meteo_temperature_max_all_time',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '40.9',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_min-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.stazione_meteo_temperature_min',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Temperature Min',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
+      'sensor.private': dict({
+        'suggested_unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.TEMPERATURE: 'temperature'>,
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Temperature Min',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_temperature_min',
+    'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_min-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'temperature',
+      'friendly_name': 'stazione_meteo - Temperature Min',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.stazione_meteo_temperature_min',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '18.1',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_min_all_time-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.stazione_meteo_temperature_min_all_time',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Temperature Min All Time',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
+      'sensor.private': dict({
+        'suggested_unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.TEMPERATURE: 'temperature'>,
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Temperature Min All Time',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_absolute_temperature_min',
+    'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_temperature_min_all_time-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'temperature',
+      'friendly_name': 'stazione_meteo - Temperature Min All Time',
+      'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.stazione_meteo_temperature_min_all_time',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-1.0',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_wind_gust-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.stazione_meteo_wind_gust',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Wind Gust',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
+      'sensor.private': dict({
+        'suggested_unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WIND_SPEED: 'wind_speed'>,
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Wind Gust',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_wind_speed_max',
+    'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_wind_gust-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'wind_speed',
+      'friendly_name': 'stazione_meteo - Wind Gust',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.stazione_meteo_wind_gust',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '29.16',
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_wind_gust_all_time-registry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.stazione_meteo_wind_gust_all_time',
+    'has_entity_name': False,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'stazione_meteo - Wind Gust All Time',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
+      'sensor.private': dict({
+        'suggested_unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WIND_SPEED: 'wind_speed'>,
+    'original_icon': None,
+    'original_name': 'stazione_meteo - Wind Gust All Time',
+    'platform': 'vimar_byme_plus',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_absolute_wind_speed_max',
+    'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
+  })
+# ---
+# name: test_ogni_entita_del_master_db[sensor.stazione_meteo_wind_gust_all_time-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'wind_speed',
+      'friendly_name': 'stazione_meteo - Wind Gust All Time',
+      'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.stazione_meteo_wind_gust_all_time',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '106.92',
   })
 # ---
 # name: test_ogni_entita_del_master_db[sensor.temperatura-registry]
