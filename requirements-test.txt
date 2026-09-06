@@ -1,0 +1,32 @@
+# Dipendenze per lanciare `pytest tests/` in locale o in CI.
+#
+# NIENTE `-r requirements.txt`, e di proposito: quel file pinna
+# `homeassistant==2026.6.0`, che ora richiede Python >=3.14.2, mentre
+# `pytest-homeassistant-custom-component` (che serve a test_setup.py per
+# avviare un'istanza vera di HA) porta con se' la piu' recente versione di
+# `homeassistant` CHE CONOSCE — al momento in cui questo file e' stato
+# scritto, 2026.2.3, uscita mesi prima. Farle convivere forzando il pin di
+# runtime sopra quello del plugin di test avrebbe richiesto Python 3.14.2+
+# E un accoppiamento (plugin 0.13.316 + HA 2026.6.0) mai stato verificato da
+# nessuno — un rischio peggiore dello scarto di versione.
+#
+# Lo scarto e' innocuo per QUESTA suite: gli oggetti che uso da homeassistant
+# (ConfigEntryState, MockConfigEntry, il ciclo di vita di una config entry)
+# sono API stabili da anni. Se in futuro il plugin rilascia una versione
+# allineata a una release piu' recente di HA, aggiornalo e verifica che tutto
+# resti verde prima di alzare anche la Python richiesta in CI.
+#
+# Le tre dipendenze sotto NON arrivano dal plugin: sono quelle che l'AVVIO
+# vero di `custom_components/vimar_byme_plus/__init__.py` richiede a runtime
+# (test_setup.py lo importa per davvero) — stesso elenco di requirements.txt,
+# ma senza il pin di `homeassistant` che ci porta gia' il plugin.
+pytest>=8.0
+pytest-homeassistant-custom-component
+# syrupy arriva gia' transitivamente da pytest-homeassistant-custom-component
+# (che lo usa per i propri test); dichiarato qui comunque, perche' test_snapshot.py
+# lo chiede per nome (fixture `snapshot`) e non deve dipendere da un pin
+# indiretto che potrebbe sparire in un aggiornamento del plugin.
+syrupy
+websocket-client
+zeroconf
+prettytable
