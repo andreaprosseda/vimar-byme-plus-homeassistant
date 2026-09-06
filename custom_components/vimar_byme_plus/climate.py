@@ -165,10 +165,32 @@ class Climate(BaseEntity, ClimateEntity):
 
     def set_hvac_mode(self, hvac_mode: HVACMode) -> None:
         """Set new target hvac mode."""
-        if not self._component.permission_granted:
-            message = "Insufficient permissions to set HVAC mode. Please refer to the ‘Grant Right Permissions’ section in GitHub README."
+        if self._is_change_over(hvac_mode) and not self._component.permission_granted:
+            message = "Insufficient permissions to switch between heating and cooling. Please refer to the ‘Grant Right Permissions’ section in GitHub README."
             raise HomeAssistantError(message)
         self.send(ActionType.SET_HVAC_MODE, hvac_mode.value)
+
+    def _is_change_over(self, hvac_mode: HVACMode) -> bool:
+        """Whether reaching `hvac_mode` means switching heating <-> cooling.
+
+        The grant only covers the change-over (`SFE_Cmd_ChangeOverMode`), which
+        is what a heat <-> cool switch writes. Turning the zone off, or turning
+        it back on in the season the plant is already set to, never touches it.
+
+        Gating those two on the grant as well is issue #85: a zone whose
+        component carries no `SFE_Cmd_ChangeOverMode` at all could not even be
+        switched off from Home Assistant, while `hvac_modes` kept offering
+        `off` and the current mode as if they worked.
+        """
+        if hvac_mode == HVACMode.OFF:
+            return False
+        change_over = self._component.change_over_mode
+        if change_over == ChangeOverMode.HEAT:
+            return hvac_mode != HVACMode.HEAT
+        if change_over == ChangeOverMode.COOL:
+            return hvac_mode != HVACMode.COOL
+        # Season unknown: no way to tell it apart from a real change-over.
+        return True
 
     def turn_on(self) -> None:
         """Turn the climate on, restoring the real heat/cool selection."""
