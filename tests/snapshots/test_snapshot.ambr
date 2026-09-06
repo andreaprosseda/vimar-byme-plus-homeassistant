@@ -380,7 +380,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_brightness_output_1',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_brightness_output_1',
     'unit_of_measurement': None,
   })
 # ---
@@ -7253,7 +7253,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_temperature_max',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_temperature_max',
     'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
   })
 # ---
@@ -7311,7 +7311,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_absolute_temperature_max',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_absolute_temperature_max',
     'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
   })
 # ---
@@ -7370,7 +7370,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_temperature_min',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_temperature_min',
     'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
   })
 # ---
@@ -7428,7 +7428,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_absolute_temperature_min',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_absolute_temperature_min',
     'unit_of_measurement': <SensorMeasurementUnit.CELSIUS: '°C'>,
   })
 # ---
@@ -7487,7 +7487,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_wind_speed_max',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_wind_speed_max',
     'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
   })
 # ---
@@ -7545,7 +7545,7 @@
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': None,
-    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1051_absolute_wind_speed_max',
+    'unique_id': 'vimar_byme_plus_TESTBENCH0000_app_1053_absolute_wind_speed_max',
     'unit_of_measurement': <SensorMeasurementUnit.KILOMETERS_PER_HOUR: 'km/h'>,
   })
 # ---
