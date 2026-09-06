@@ -22,6 +22,24 @@ class SsShutterSlatPositionActionHandler(SsShutterPositionActionHandler):
             return self.get_set_slat_position_actions(component.id, args[0])
         return super().get_actions(component, action_type, *args)
 
+    def get_open_cover_actions(self, id: str) -> list[VimarAction]:
+        """Raise the blind AND tilt the slats open, in one message.
+
+        Issue #90: on a venetian blind the two are one gesture. Vimar opens
+        the slats while the blind rises and closes them while it comes down;
+        sending only the travel command left the slats wherever they were, so
+        a blind lowered from Home Assistant ended up shut but with the light
+        still coming through — something the Vimar app never does.
+
+        One `doaction` carries both, the same way the dimmer already sends
+        on + brightness together.
+        """
+        return [*super().get_open_cover_actions(id), *self.get_open_slat_actions(id)]
+
+    def get_close_cover_actions(self, id: str) -> list[VimarAction]:
+        """Lower the blind AND tilt the slats closed. See get_open_cover_actions."""
+        return [*super().get_close_cover_actions(id), *self.get_close_slat_actions(id)]
+
     def get_open_slat_actions(self, id: str) -> list[VimarAction]:
         """Open the cover slat."""
         return [self._action(id, SLAT, "0")]

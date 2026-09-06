@@ -22,6 +22,19 @@ class SsShutterSlatWithoutPositionActionHandler(SsShutterWithoutPositionActionHa
             return self.get_close_slat_actions(component.id)
         return super().get_actions(component, action_type, *args)
 
+    def get_open_cover_actions(self, id: str) -> list[VimarAction]:
+        """Raise the blind AND tilt the slats open, in one message (issue #90).
+
+        Same reasoning as the positioned variant: travel and tilt are one
+        gesture on a venetian blind, and sending only the travel command left
+        the slats where they were.
+        """
+        return [*super().get_open_cover_actions(id), *self.get_open_slat_actions(id)]
+
+    def get_close_cover_actions(self, id: str) -> list[VimarAction]:
+        """Lower the blind AND tilt the slats closed. See get_open_cover_actions."""
+        return [*super().get_close_cover_actions(id), *self.get_close_slat_actions(id)]
+
     def get_open_slat_actions(self, id: str) -> list[VimarAction]:
         """Open the cover slat."""
         return [self._action(id, SLAT, "Open")]
