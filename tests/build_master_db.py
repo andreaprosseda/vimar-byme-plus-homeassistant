@@ -192,10 +192,27 @@ CASI: list[tuple[str, str, list[tuple[str, dict]]]] = [
         "SS_Shutter_SlatPosition",
         "Coperture",
         [
+            # Su un frangisole il registro di POSIZIONE comprende anche la
+            # rotazione delle lamelle agli estremi della corsa: gli ultimi
+            # punti percentuali sono l'inclinazione, non il movimento. I
+            # quattro casi sotto sono stati reali, presi dai database di
+            # installazioni con le veneziane (issue #90) e dal corpus:
+            #   100/100  giu', lamelle chiuse   <- dove deve arrivare un CLOSE
+            #    97/23   giu', lamelle aperte   <- il sintomo della issue
+            #     0/0    su,   lamelle aperte
+            #     3/100  su,   lamelle chiuse
             ("veneziana_chiusa", {"SFE_State_Shutter": "100", "SFE_State_Slat": "100"}),
+            (
+                "veneziana_giu_lamelle_aperte",
+                {"SFE_State_Shutter": "97", "SFE_State_Slat": "23"},
+            ),
             (
                 "veneziana_aperta_lamelle_meta",
                 {"SFE_State_Shutter": "0", "SFE_State_Slat": "50"},
+            ),
+            (
+                "veneziana_su_lamelle_chiuse",
+                {"SFE_State_Shutter": "3", "SFE_State_Slat": "100"},
             ),
         ],
     ),
