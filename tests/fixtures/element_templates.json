@@ -1,0 +1,1128 @@
+{
+ "SS_Irrigation_MultiZones": {
+  "SFE_Cmd_ImmediateStartStop": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_ProgramSettings": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_SkipZone": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_ActiveZone": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_OutputsNames": {
+   "v": "[\"\",\"\",\"\",\"\",\"\"]",
+   "e": 1
+  },
+  "SFE_State_ProgramId": {
+   "v": "569",
+   "e": 1
+  },
+  "SFE_State_ProgramSettings": {
+   "v": "{\"ChronoProgram\":[{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"mon\"},{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"tue\"},{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"wed\"},{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"thu\"},{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"fri\"},{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"sat\"},{\"Start1\":{\"Enable\":\"true\",\"Time\":\"06:00\"},\"Start2\":{\"Enable\":\"false\",\"Time\":\"19:00\"},\"day\":\"sun\"}],\"OutputsActivationPeriod\":[10,10,10,10,10]}",
+   "e": 1
+  }
+ },
+ "SS_Shutter_Position": {
+  "SFE_Cmd_Shutter": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_Shutter": {
+   "v": "0",
+   "e": 1
+  }
+ },
+ "SS_Light_Switch": {
+  "SFE_Cmd_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_AbsoluteActiveTime": {
+   "v": "42",
+   "e": 1
+  },
+  "SFE_State_SwitchOnCounter": {
+   "v": "3",
+   "e": 1
+  }
+ },
+ "SS_Clima_Zone": {
+  "SFE_Cmd_AmbientSetpoint": {
+   "v": "20.1",
+   "e": 1
+  },
+  "SFE_Cmd_ChangeOverMode": {
+   "v": "",
+   "e": 0
+  },
+  "SFE_Cmd_CoolAbsenceSetpoint": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_CoolProgramSetpoints": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_CoolProgramWeekly": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_CoolProtectionSetpoint": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_CoolReductionSetpoint": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_FanMode": {
+   "v": "Automatic",
+   "e": 0
+  },
+  "SFE_Cmd_FanSpeed": {
+   "v": "83",
+   "e": 0
+  },
+  "SFE_Cmd_FanSpeed3V": {
+   "v": "",
+   "e": 0
+  },
+  "SFE_Cmd_HVACMode": {
+   "v": "Auto",
+   "e": 1
+  },
+  "SFE_Cmd_HeatAbsenceSetpoint": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HeatProgramSetpoints": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HeatProgramWeekly": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HeatProtectionSetpoint": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HeatReductionSetpoint": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_LimitedSetpointRange": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OffBehaviour": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OnBehaviour": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_StartStopOptimization": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_TimedManual": {
+   "v": "240",
+   "e": 1
+  },
+  "SFE_State_AmbientSetpoint": {
+   "v": "23.0",
+   "e": 1
+  },
+  "SFE_State_AmbientTemperature": {
+   "v": "22.5",
+   "e": 1
+  },
+  "SFE_State_ChangeOverMode": {
+   "v": "Heating",
+   "e": 1
+  },
+  "SFE_State_CoolAbsenceSetpoint": {
+   "v": "30.0",
+   "e": 1
+  },
+  "SFE_State_CoolProgramSetpoints": {
+   "v": "[24.500000, 27.000000, 30.000000]",
+   "e": 1
+  },
+  "SFE_State_CoolProgramWeekly": {
+   "v": "[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]",
+   "e": 1
+  },
+  "SFE_State_CoolProtectionSetpoint": {
+   "v": "35.0",
+   "e": 1
+  },
+  "SFE_State_CoolReductionSetpoint": {
+   "v": "28.0",
+   "e": 1
+  },
+  "SFE_State_FanMode": {
+   "v": "Automatic",
+   "e": 0
+  },
+  "SFE_State_FanSpeed": {
+   "v": "0",
+   "e": 0
+  },
+  "SFE_State_FanSpeed3V": {
+   "v": "Off",
+   "e": 0
+  },
+  "SFE_State_HVACMode": {
+   "v": "Auto",
+   "e": 1
+  },
+  "SFE_State_HeatAbsenceSetpoint": {
+   "v": "15.0",
+   "e": 1
+  },
+  "SFE_State_HeatProgramSetpoints": {
+   "v": "[15.0, 18.0, 20.0]",
+   "e": 1
+  },
+  "SFE_State_HeatProgramWeekly": {
+   "v": "[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]",
+   "e": 1
+  },
+  "SFE_State_HeatProtectionSetpoint": {
+   "v": "4.0",
+   "e": 1
+  },
+  "SFE_State_HeatReductionSetpoint": {
+   "v": "18.0",
+   "e": 1
+  },
+  "SFE_State_LimitedSetpointRange": {
+   "v": "None",
+   "e": 1
+  },
+  "SFE_State_OffBehaviour": {
+   "v": "Protection",
+   "e": 1
+  },
+  "SFE_State_OnBehaviour": {
+   "v": "Auto",
+   "e": 1
+  },
+  "SFE_State_OutStatus": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_StartStopOptimization": {
+   "v": "False",
+   "e": 1
+  },
+  "SFE_State_TimedManual": {
+   "v": "60",
+   "e": 1
+  },
+  "SFE_State_MidSeason": {
+   "v": "Disabled",
+   "e": 1
+  },
+  "SFE_State_DeviceUILock": {
+   "v": "False",
+   "e": 1
+  },
+  "SFE_Cmd_CoolLimitedSetpointRange": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_DeviceDisplayMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HeatLimitedSetpointRange": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_MidSeason": {
+   "v": "",
+   "e": 0
+  },
+  "SFE_State_CoolLimitedSetpointRange": {
+   "v": "None",
+   "e": 1
+  },
+  "SFE_State_DeviceDisplayMode": {
+   "v": "Ambient Temperature",
+   "e": 1
+  },
+  "SFE_State_HeatLimitedSetpointRange": {
+   "v": "None",
+   "e": 1
+  }
+ },
+ "SS_Access_DoorWindow": {
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  }
+ },
+ "SS_Access_Gate": {
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  }
+ },
+ "SS_Energy_LoadControl3P": {
+  "SFE_Cmd_GlobalThreshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Line1Threshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Line2Threshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Line3Threshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_LoadsPriority": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerConsumption": {
+   "v": "1927",
+   "e": 1
+  },
+  "SFE_State_GlobalThreshold": {
+   "v": "[6500,8200]",
+   "e": 1
+  },
+  "SFE_State_Line1Threshold": {
+   "v": "[3000,4000]",
+   "e": 1
+  },
+  "SFE_State_Line2Threshold": {
+   "v": "[3000,4000]",
+   "e": 1
+  },
+  "SFE_State_Line3Threshold": {
+   "v": "[3000,4000]",
+   "e": 1
+  },
+  "SFE_State_LoadsPriority": {
+   "v": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]",
+   "e": 1
+  }
+ },
+ "SS_Energy_Load": {
+  "SFE_Cmd_ForcedOnTime": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Load": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_LoadTimed": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_ForcedOnTime": {
+   "v": "480",
+   "e": 1
+  },
+  "SFE_State_Load": {
+   "v": "Auto on",
+   "e": 1
+  },
+  "SFE_State_LoadId": {
+   "v": "1",
+   "e": 1
+  }
+ },
+ "SS_Energy_Measure1P": {
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerConsumption": {
+   "v": "0.0",
+   "e": 1
+  }
+ },
+ "SS_Energy_MeasureCounter": {
+  "SFE_Cmd_PartialCounterReset": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_PartialCounter": {
+   "v": "184792",
+   "e": 1
+  },
+  "SFE_State_MeasureCounter": {
+   "v": "1316978.0",
+   "e": 1
+  },
+  "SFE_State_MeasureType": {
+   "v": "WaterCold",
+   "e": 1
+  },
+  "SFE_State_UnitOfMeasure": {
+   "v": "L",
+   "e": 1
+  }
+ },
+ "SS_Scene_Executor": {
+  "SFE_Cmd_Execute": {
+   "v": "Execute",
+   "e": 1
+  },
+  "SFE_State_Executed": {
+   "v": "Executed",
+   "e": 1
+  },
+  "SFE_State_SFList": {
+   "v": "[]",
+   "e": 1
+  },
+  "SFE_State_ActivatorList": {
+   "v": "[]",
+   "e": 1
+  },
+  "SFE_State_Locked": {
+   "v": "False",
+   "e": 1
+  }
+ },
+ "SS_Automation_TechnicalAlarm": {
+  "SFE_State_Alarm": {
+   "v": "No Alarm",
+   "e": 1
+  }
+ },
+ "SS_Automation_TimerAstronomic": {
+  "SFE_State_ProgramId": {
+   "v": "386",
+   "e": 1
+  }
+ },
+ "SS_Automation_OnOff": {
+  "SFE_Cmd_OnOff": {
+   "v": "On",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_AbsoluteActiveTime": {
+   "v": "3078",
+   "e": 1
+  }
+ },
+ "SS_Energy_LoadControl3PProduction": {
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerConsumption": {
+   "v": "3241.0",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerExchange": {
+   "v": "2662.0",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerProduct": {
+   "v": "579.0",
+   "e": 1
+  },
+  "SFE_State_GlobalThreshold": {
+   "v": "[6400,8200]",
+   "e": 1
+  },
+  "SFE_State_Line1Threshold": {
+   "v": "[3200,4500]",
+   "e": 1
+  },
+  "SFE_State_Line2Threshold": {
+   "v": "[3200,4500]",
+   "e": 1
+  },
+  "SFE_State_Line3Threshold": {
+   "v": "[3200,4500]",
+   "e": 1
+  },
+  "SFE_State_LoadsPriority": {
+   "v": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]",
+   "e": 1
+  },
+  "SFE_Cmd_GlobalThreshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Line1Threshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Line2Threshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Line3Threshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_LoadsPriority": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_Sensor_WeatherStation": {
+  "SFE_State_AbsoluteSensorTemperatureMax": {
+   "v": "40.9",
+   "e": 1
+  },
+  "SFE_State_AbsoluteSensorTemperatureMin": {
+   "v": "-1.0",
+   "e": 1
+  },
+  "SFE_State_AbsoluteWindSpeedMax": {
+   "v": "29.7",
+   "e": 1
+  },
+  "SFE_State_BrightnessOutput1": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_ItsNight": {
+   "v": "Night",
+   "e": 1
+  },
+  "SFE_State_ItsRaining": {
+   "v": "No Raining",
+   "e": 1
+  },
+  "SFE_State_Luminosity": {
+   "v": "0.0",
+   "e": 1
+  },
+  "SFE_State_SensorTemperature": {
+   "v": "19.7",
+   "e": 1
+  },
+  "SFE_State_SensorTemperatureMax": {
+   "v": "32.3",
+   "e": 1
+  },
+  "SFE_State_SensorTemperatureMin": {
+   "v": "18.1",
+   "e": 1
+  },
+  "SFE_State_WindSpeed": {
+   "v": "2.9",
+   "e": 1
+  },
+  "SFE_State_WindSpeedMax": {
+   "v": "8.1",
+   "e": 1
+  },
+  "SFE_Cmd_AbsoluteReset": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_Light_Dimmer": {
+  "SFE_Cmd_Brightness": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_Cmd_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_Brightness": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_MinimumDimmingValue": {
+   "v": "15",
+   "e": 1
+  },
+  "SFE_State_AbsoluteActiveTime": {
+   "v": "125",
+   "e": 1
+  },
+  "SFE_State_SwitchOnCounter": {
+   "v": "142",
+   "e": 1
+  }
+ },
+ "SS_Curtain_Position": {
+  "SFE_Cmd_Shutter": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_Shutter": {
+   "v": "0",
+   "e": 1
+  }
+ },
+ "SS_Light_PhilipsDynamicDimmerRGB": {
+  "SFE_Cmd_Brightness": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_FadingShow": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HSV": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_MixingWhiteValue": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_RGB": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_Brightness": {
+   "v": "100",
+   "e": 1
+  },
+  "SFE_State_FadingShow": {
+   "v": "Disabled",
+   "e": 1
+  },
+  "SFE_State_HSV": {
+   "v": "46,56,100",
+   "e": 1
+  },
+  "SFE_State_MixingWhiteValue": {
+   "v": "38",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_RGB": {
+   "v": "255,222,112",
+   "e": 1
+  }
+ },
+ "SS_Light_PhilipsDimmer": {
+  "SFE_Cmd_Brightness": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_Brightness": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  }
+ },
+ "SS_Light_PhilipsDynamicDimmer": {
+  "SFE_Cmd_Brightness": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_MixingWhiteValue": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_Brightness": {
+   "v": "100",
+   "e": 1
+  },
+  "SFE_State_MixingWhiteValue": {
+   "v": "38",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  }
+ },
+ "SS_Shutter_SlatPosition": {
+  "SFE_Cmd_Shutter": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_Cmd_Slat": {
+   "v": "17",
+   "e": 1
+  },
+  "SFE_State_Shutter": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_Slat": {
+   "v": "0",
+   "e": 1
+  }
+ },
+ "SS_Audio_RadioFM": {
+  "SFE_Cmd_FMFrequency": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_MemFrequencyControl": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_MemFrequencyNames": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_SkipStation": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_FMFrequency": {
+   "v": "90.90",
+   "e": 1
+  },
+  "SFE_State_MemFrequencyId": {
+   "v": "{\"found\":true,\"position\":6}",
+   "e": 1
+  },
+  "SFE_State_MemFrequencyNames": {
+   "v": "{\"freq1_name\":\"Latte Miele\",\"freq2_name\":\"Radio Bruno\",\"freq3_name\":\"Radio 105\",\"freq4_name\":\"RMC\",\"freq5_name\":\"Pane Burro Mar\",\"freq6_name\":\"Radio Italia\",\"freq7_name\":\"VIRGIN\",\"freq8_name\":\"* RDS *\"}",
+   "e": 1
+  },
+  "SFE_State_RDS": {
+   "v": "*Radio1 ",
+   "e": 1
+  },
+  "SFE_State_RSSI": {
+   "v": "65",
+   "e": 1
+  },
+  "SFE_State_SourceId": {
+   "v": "0",
+   "e": 1
+  }
+ },
+ "SS_Energy_LoadControl1PProduction": {
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerConsumption": {
+   "v": "627.0",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerExchange": {
+   "v": "627.0",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerProduct": {
+   "v": "0.0",
+   "e": 1
+  },
+  "SFE_State_GlobalThreshold": {
+   "v": "[6500,8100]",
+   "e": 1
+  },
+  "SFE_State_LoadsPriority": {
+   "v": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]",
+   "e": 1
+  },
+  "SFE_Cmd_GlobalThreshold": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_LoadsPriority": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_Shutter_WithoutPosition": {
+  "SFE_Cmd_ShutterWithoutPosition": {
+   "v": "Up",
+   "e": 1
+  },
+  "SFE_State_ShutterWithoutPosition": {
+   "v": "Idle",
+   "e": 1
+  }
+ },
+ "SS_Audio_Zone": {
+  "SFE_Cmd_CurrentSource": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Sleep": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_SleepSetting": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_Volume": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_CurrentSource": {
+   "v": "0",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_Sleep": {
+   "v": "Awake",
+   "e": 1
+  },
+  "SFE_State_SleepSetting": {
+   "v": "60",
+   "e": 1
+  },
+  "SFE_State_Volume": {
+   "v": "0",
+   "e": 1
+  }
+ },
+ "SS_Audio_RCA": {
+  "SFE_State_SourceId": {
+   "v": "3",
+   "e": 1
+  }
+ },
+ "SS_Sensor_Humidity": {
+  "SFE_State_Humidity": {
+   "v": "61.2",
+   "e": 1
+  },
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "Start",
+   "e": 1
+  }
+ },
+ "SS_Sensor_AirQualityGradient": {
+  "SFE_State_AirQualityGradient": {
+   "v": "0",
+   "e": 1
+  }
+ },
+ "SS_Energy_LoadControl1P": {
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerConsumption": {
+   "v": "251.0",
+   "e": 1
+  },
+  "SFE_State_GlobalThreshold": {
+   "v": "[4900,5900]",
+   "e": 1
+  },
+  "SFE_State_LoadsPriority": {
+   "v": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]",
+   "e": 1
+  }
+ },
+ "SS_Light_DimmerRGB": {
+  "SFE_Cmd_FadingShow": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_HSV": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_OnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_RGB": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_FadingShow": {
+   "v": "Disabled",
+   "e": 1
+  },
+  "SFE_State_HSV": {
+   "v": "0,0,0",
+   "e": 1
+  },
+  "SFE_State_MinimumDimmingValue": {
+   "v": "10",
+   "e": 1
+  },
+  "SFE_State_OnOff": {
+   "v": "Off",
+   "e": 1
+  },
+  "SFE_State_RGB": {
+   "v": "0,0,0",
+   "e": 1
+  },
+  "SFE_State_AbsoluteActiveTime": {
+   "v": "15",
+   "e": 1
+  },
+  "SFE_State_SwitchOnCounter": {
+   "v": "13",
+   "e": 1
+  }
+ },
+ "SS_Automation_TimerPeriodic": {
+  "SFE_Cmd_TimerPeriodicActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_TimerPeriodicProgram": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_ProgramId": {
+   "v": "341",
+   "e": 1
+  },
+  "SFE_State_TimerPeriodicProgram": {
+   "v": "{\"days\":[{\"day\":\"monday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]},{\"day\":\"tuesday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]},{\"day\":\"wednesday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]},{\"day\":\"thursday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]},{\"day\":\"friday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]},{\"day\":\"saturday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]},{\"day\":\"sunday\",\"intervals\":[{\"end\":\"21:50\",\"start\":\"20:40\"}]}]}",
+   "e": 1
+  }
+ },
+ "SS_SceneActivator_Activator": {
+  "SFE_Cmd_DownKey_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_UpKey_ActiveScene": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_Shutter_SlatWithoutPosition": {
+  "SFE_Cmd_ShutterWithoutPosition": {
+   "v": "Down",
+   "e": 1
+  },
+  "SFE_Cmd_SlatWithoutPosition": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_ShutterWithoutPosition": {
+   "v": "Idle",
+   "e": 1
+  }
+ },
+ "SS_SceneActivator_Videoentry": {
+  "SFE_Cmd_CallEnd_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_CallStart_ActiveScene": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_Access_InterfaceContact": {
+  "SFE_State_Access": {
+   "v": "Closed",
+   "e": 1
+  }
+ },
+ "SS_Audio_Bluetooth": {
+  "SFE_Cmd_PlayPause": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_RadioModuleOnOff": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_SkipTrack": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_CurrentAlbum": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_CurrentArtist": {
+   "v": "\u0003",
+   "e": 1
+  },
+  "SFE_State_CurrentTrack": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_DeviceConnected": {
+   "v": "Disconnected",
+   "e": 1
+  },
+  "SFE_State_PlayPause": {
+   "v": "Play",
+   "e": 1
+  },
+  "SFE_State_SourceId": {
+   "v": "3",
+   "e": 1
+  }
+ },
+ "SS_Sensor_InterfaceContact": {
+  "SFE_State_Output": {
+   "v": "Off",
+   "e": 1
+  }
+ },
+ "SS_Energy_Measure3P": {
+  "SFE_Cmd_TimedDynamicMode": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_State_GlobalActivePowerConsumption": {
+   "v": "38.0",
+   "e": 1
+  }
+ },
+ "SS_Synoptic": {
+  "SFE_Synoptic_ValueVolumeFlow_01": {
+   "v": "{\n   \"name\" : \"Soglia allarme acqua\",\n   \"range_max\" : \"1000\",\n   \"range_min\" : \"0\",\n   \"readonly\" : false,\n   \"type\" : \"9025\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_Power_01": {
+   "v": "{\n   \"name\" : \"\",\n   \"range_max\" : \"670760\",\n   \"range_min\" : \"-670760\",\n   \"readonly\" : false,\n   \"type\" : \"9024\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_Power_02": {
+   "v": "{\n   \"name\" : \"\",\n   \"range_max\" : \"670760\",\n   \"range_min\" : \"-670760\",\n   \"readonly\" : false,\n   \"type\" : \"9024\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_Scaling_01": {
+   "v": "{\n   \"name\" : \"fanspeed fancoil sogg.\",\n   \"range_max\" : \"100\",\n   \"range_min\" : \"0\",\n   \"readonly\" : true,\n   \"type\" : \"5001\",\n   \"value\" : \"0\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_Switch_01": {
+   "v": "{\n   \"name\" : \"\",\n   \"range_max\" : \"\",\n   \"range_min\" : \"\",\n   \"readonly\" : false,\n   \"type\" : \"1001\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_ValueTemp_01": {
+   "v": "{\n   \"name\" : \"temperatura esterna\",\n   \"range_max\" : \"670760\",\n   \"range_min\" : \"-273\",\n   \"readonly\" : true,\n   \"type\" : \"9001\",\n   \"value\" : \"19.70\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_ValueTemp_02": {
+   "v": "{\n   \"name\" : \"\",\n   \"range_max\" : \"670760\",\n   \"range_min\" : \"-273\",\n   \"readonly\" : false,\n   \"type\" : \"9001\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_Switch_03": {
+   "v": "{\n   \"name\" : \"\",\n   \"range_max\" : \"\",\n   \"range_min\" : \"\",\n   \"readonly\" : false,\n   \"type\" : \"1001\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  },
+  "SFE_Synoptic_Alarm_04": {
+   "v": "{\n   \"name\" : \"\",\n   \"range_max\" : \"\",\n   \"range_min\" : \"\",\n   \"readonly\" : false,\n   \"type\" : \"1005\",\n   \"value\" : \"\"\n}\n",
+   "e": 1
+  }
+ },
+ "SS_SceneActivator_Sai": {
+  "SFE_Cmd_AreaAlarmMemoryReset_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaAlarmMemory_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaAlarmReset_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaAlarm_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaDis_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaInt_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaOn_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AreaPar_ActiveScene": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_SceneActivator_AirQualityGradient": {
+  "SFE_Cmd_AirQualityGradientDescending_ActiveScene": {
+   "v": "",
+   "e": 1
+  },
+  "SFE_Cmd_AirQualityGradientStabilization_ActiveScene": {
+   "v": "",
+   "e": 1
+  }
+ },
+ "SS_Automation_TimerWeekly": {
+  "SFE_State_ProgramId": {
+   "v": "656",
+   "e": 1
+  }
+ }
+}
