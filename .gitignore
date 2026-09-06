@@ -19,3 +19,6 @@ __pycache__/
 data
 README.pdf
 README_tmp.html
+# ambiente di test locale
+.venv/
+.pytest_cache/

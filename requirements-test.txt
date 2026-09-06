@@ -1,0 +1,26 @@
+# Dipendenze per lanciare `pytest tests/` in locale o in CI. Serve Python 3.14.
+#
+# `pytest-homeassistant-custom-component` e' lasciato flottare: prende con se'
+# la `homeassistant` con cui e' stato verificato (2026.9.1 al momento in cui
+# questo file e' stato scritto), che e' la stessa release che gira in
+# produzione. Quella homeassistant richiede Python >=3.14.2, da cui il vincolo
+# sull'interprete. La suite e' stata verificata su questa combinazione
+# (Python 3.14.2 + homeassistant 2026.9.1 + plugin 0.13.364).
+#
+# NIENTE `-r requirements.txt`: quello e' l'ambiente di sviluppo/runtime e
+# pinna una homeassistant precisa; qui vogliamo invece la versione che il
+# plugin di test conosce, per non accoppiare due pin a mano. Se un giorno le
+# due divergono molto, allinea il pin in requirements.txt e ri-verifica.
+#
+# Le tre dipendenze in coda NON arrivano dal plugin: sono quelle che l'AVVIO
+# vero di `custom_components/vimar_byme_plus/__init__.py` richiede a runtime
+# (test_setup.py lo importa per davvero).
+pytest>=8.0
+pytest-homeassistant-custom-component
+# syrupy arriva gia' transitivamente dal plugin (che lo usa per i propri test);
+# dichiarato lo stesso, perche' test_snapshot.py lo usa per nome e non deve
+# dipendere da un pin indiretto che potrebbe sparire in un aggiornamento.
+syrupy
+websocket-client
+zeroconf
+prettytable
