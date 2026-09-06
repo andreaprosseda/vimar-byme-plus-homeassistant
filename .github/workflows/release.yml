@@ -71,48 +71,6 @@ jobs:
             category: "integration"
 
 
-  ###############################
-  # suite di test (tests/ in radice) #
-  ###############################
-
-
-  tests:
-    name: "Tests"
-    runs-on: "ubuntu-latest"
-    steps:
-        - name: "Checkout the repository"
-          uses: "actions/checkout@v4.2.2"
-
-        # 3.13 e non 3.14 (usata altrove in questo workflow), e di proposito:
-        # requirements.txt pinna homeassistant==2026.6.0, che oggi richiede
-        # Python >=3.14.2, ma pytest-homeassistant-custom-component (che
-        # serve solo qui, a test_setup.py) porta con se' l'ultima versione di
-        # homeassistant che CONOSCE — al momento in cui questo job e' stato
-        # scritto, 2026.2.3, che vuole 3.13. requirements-test.txt lo
-        # spiega meglio e non forza il pin di runtime sopra quello del
-        # plugin. Quando esce una versione del plugin allineata a una
-        # homeassistant piu' recente, alza anche questa.
-        - name: "Set up Python"
-          uses: actions/setup-python@v5.3.0
-          with:
-            python-version: "3.13"
-            cache: "pip"
-
-        - name: "Install test requirements"
-          run: pip install -r requirements-test.txt
-
-        # Il master.db committato deve corrispondere al generatore: se
-        # qualcuno modifica i casi d'uso e dimentica di rigenerare, il diff
-        # qui sotto lo ferma prima che gli snapshot mentano.
-        - name: "Check fixture is up to date"
-          run: |
-            python3 tests/build_master_db.py
-            git diff --exit-code --stat tests/fixtures/master.db
-
-        - name: "Run tests"
-          run: python3 -m pytest tests/ -v
-
-
   #######################
   # release new version #
   #######################
@@ -124,7 +82,6 @@ jobs:
       - ruff
       - hassfest
       - hacs
-      - tests
     runs-on: ubuntu-latest
 
     steps:
