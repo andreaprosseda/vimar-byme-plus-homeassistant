@@ -16,6 +16,7 @@ class AmbientDiscoveryMessageHandler(BaseMessageHandler):
             "Ambient Discovery Phase completed, sending SF Discovery Request...",
         )
         self.save_ambients(message)
+        self.clear_components()
         return self.get_sf_discovery_request(config)
 
     def get_sf_discovery_request(
@@ -25,4 +26,5 @@ class AmbientDiscoveryMessageHandler(BaseMessageHandler):
             target=config.target,
             token=config.token,
             ambient_ids=self.get_all_ambient_ids(),
+            sfcategory=config.sfcategory,
         )
