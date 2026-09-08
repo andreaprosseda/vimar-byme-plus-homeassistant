@@ -12,3 +12,4 @@ class MessageSupportingValues:
     protocol_version: str
     actions: list[VimarAction]
     idsf: int
+    sfcategory: str | None = None

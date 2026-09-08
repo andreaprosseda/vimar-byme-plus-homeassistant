@@ -46,10 +46,13 @@ class BaseMessageHandler(HandlerInterface):
         log_info(__name__, f"Ambients retrieved: {len(ambients)}")
         self._ambient_repo.replace_all(ambients)
 
-    def save_components(self, response: dict):
+    def clear_components(self):
+        self._component_repo.delete_all()
+
+    def add_components(self, response: dict):
         components = UserComponent.list_from_response(response)
         log_info(__name__, f"Components retrieved: {len(components)}")
-        self._component_repo.replace_all(components)
+        self._component_repo.insert_all(components)
 
     def save_component_changes(self, request: dict):
         components = UserComponent.list_from_request(request)
