@@ -217,3 +217,51 @@ def test_frangisole_posizione_e_inclinazione(
     assert 100 - cover.current_cover_position == posizione_ha
     assert 100 - cover.current_tilt_position == inclinazione_ha
     assert cover.is_closed is chiusa
+
+
+# ── Chi integra e chi no: la sentinella ──────────────────────────────────────
+#
+# Un sensore che INTEGRA trasforma una potenza in energia; tutti gli altri
+# pubblicano la lettura del gateway. Confonderli e' costato la regressione del
+# contaimpulsi: era `device_class == ENERGY` a decidere, e un contatore gia'
+# cumulativo e' energia tanto quanto un sensore derivato da una potenza.
+#
+# Ora la scelta la dichiara il mapper. Questo test fissa l'elenco: aggiungere
+# un mapper che integra e' una decisione consapevole, non un effetto
+# collaterale di un device_class copiato da un altro file.
+
+INTEGRANO = {
+    SsType.ENERGY_MEASURE_1P.value,
+    SsType.ENERGY_MEASURE_3P.value,
+    SsType.ENERGY_LOAD_CONTROL_1P.value,
+    SsType.ENERGY_LOAD_CONTROL_3P.value,
+    SsType.ENERGY_LOAD_CONTROL_1P_PRODUCTION.value,
+    SsType.ENERGY_LOAD_CONTROL_3P_PRODUCTION.value,
+}
+
+
+def test_solo_i_derivati_da_potenza_vengono_integrati(entita):
+    """Solo gli SsType che ricavano energia da una potenza possono integrare."""
+    trovati = {
+        e.device_name
+        for e in entita
+        if isinstance(e, VimarSensor) and getattr(e, "integrate_power", False)
+    }
+    assert trovati == INTEGRANO, (
+        f"l'elenco di chi integra e' cambiato: {trovati ^ INTEGRANO}"
+    )
+
+
+def test_il_contaimpulsi_non_e_fra_quelli_che_integrano(entita):
+    """Il caso concreto, scritto a parte perche' e' quello che si e' rotto."""
+    contatori = [
+        e
+        for e in entita
+        if isinstance(e, VimarSensor)
+        and e.device_name == SsType.ENERGY_MEASURE_COUNTER.value
+    ]
+    assert contatori, "il fixture non ha contaimpulsi: il test non proverebbe nulla"
+    for c in contatori:
+        assert not getattr(c, "integrate_power", False), (
+            f"{c.name}: un contatore conta gia' da solo, non va integrato"
+        )
