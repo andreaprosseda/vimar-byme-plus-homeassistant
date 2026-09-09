@@ -317,7 +317,31 @@ CASI: list[tuple[str, str, list[tuple[str, dict]]]] = [
         "SS_Energy_MeasureCounter",
         "Energia",
         [
-            ("contatore_impulsi", {"SFE_State_PartialCounter": "1234"}),
+            # Firmware vecchio: il gateway non dice cosa sta contando, quindi
+            # resta il comportamento storico (electricity) finche' l'utente non
+            # sceglie il tipo nelle opzioni.
+            (
+                "contatore_impulsi",
+                {
+                    "SFE_State_PartialCounter": "1234",
+                    # Il template viene dai DB reali, che includono ormai un
+                    # firmware nuovo: qui li si toglie per rappresentare
+                    # davvero un gateway che non dichiara nulla.
+                    "SFE_State_MeasureType": None,
+                    "SFE_State_UnitOfMeasure": None,
+                    "SFE_State_MeasureCounter": None,
+                },
+            ),
+            # Firmware nuovo: il gateway DICHIARA il tipo e l'unita'. Valori
+            # presi da un contatore acqua reale (issue del contaimpulsi).
+            (
+                "contatore_acqua_dichiarato",
+                {
+                    "SFE_State_PartialCounter": "1316978",
+                    "SFE_State_MeasureType": "WaterCold",
+                    "SFE_State_UnitOfMeasure": "L",
+                },
+            ),
         ],
     ),
     ("SS_Energy_Load", "Energia", [("carico_elettrico", {})]),
