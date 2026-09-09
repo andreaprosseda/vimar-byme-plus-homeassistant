@@ -69,6 +69,8 @@ class SsEnergyLoadControl1pProductionMapper(SsEnergyLoadControl1pMapper):
             unit_of_measurement=SensorMeasurementUnit.KILO_WATT_HOUR,
             state_class=SensorStateClass.TOTAL_INCREASING,
             options=None,
+            # native_value here is the POWER reading: the entity integrates it.
+            integrate_power=True,
         )
 
     def native_value(

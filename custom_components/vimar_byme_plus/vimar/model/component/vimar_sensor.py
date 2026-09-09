@@ -56,6 +56,12 @@ class VimarSensor(VimarComponent):
     unit_of_measurement: SensorMeasurementUnit | None
     state_class: SensorStateClass | None
     options: list[str] | None
+    # True only when `native_value` carries an instantaneous POWER that the
+    # entity is expected to integrate into energy. It is NOT the same thing as
+    # `device_class == ENERGY`: a pulse counter is energy too, but it already
+    # counts on its own and must be published untouched. Defaults to False so
+    # anything that does not opt in is passed through.
+    integrate_power: bool = False
 
     @staticmethod
     def get_table_header() -> list:
