@@ -8,6 +8,8 @@ TypeError sollevato durante il mapping, che mandava l'INTERA integrazione in
 
 from __future__ import annotations
 
+from decimal import Decimal
+
 import pytest
 from vimar.mapper.vimar_data_mapper import VimarDataMapper
 from vimar.model.component.vimar_climate import VimarClimate
@@ -265,3 +267,33 @@ def test_il_contaimpulsi_non_e_fra_quelli_che_integrano(entita):
         assert not getattr(c, "integrate_power", False), (
             f"{c.name}: un contatore conta gia' da solo, non va integrato"
         )
+
+
+# ── Soglia di umidita' (issue #95) ───────────────────────────────────────────
+#
+# Un componente umidita' Vimar e' un umidostato, non solo una sonda: oltre a
+# SFE_State_Humidity porta SFE_State_HumiditySetpoint, la soglia impostata
+# nell'app. Il gateway la trasmetteva e l'integrazione la salvava, ma nessuna
+# entita' la esponeva: cambiarla nell'app era invisibile da Home Assistant.
+
+
+def test_umidita_espone_la_soglia_quando_c_e(per_caso):
+    """Il componente che dichiara la soglia produce due entita'."""
+    sensori = [e for e in per_caso["umidita_con_soglia"] if isinstance(e, VimarSensor)]
+    soglie = [e for e in sensori if str(e.id).endswith("_humidity_setpoint")]
+    assert len(soglie) == 1, f"attesa una soglia, trovate {len(soglie)}"
+    assert soglie[0].native_value == Decimal("50.0")
+    assert str(soglie[0].unit_of_measurement) == "%"
+    assert str(soglie[0].device_class) == "humidity"
+
+
+def test_umidita_senza_soglia_resta_una_sola_entita(per_caso):
+    """Chi non la espone non guadagna un'entita' ferma su `unknown`.
+
+    Nei 20 database reali nessuna delle 13 umidita' porta il setpoint: senza
+    questa guardia tutti quegli impianti si ritroverebbero un sensore in piu'
+    e sempre vuoto.
+    """
+    sensori = [e for e in per_caso["umidita"] if isinstance(e, VimarSensor)]
+    assert not [e for e in sensori if str(e.id).endswith("_humidity_setpoint")]
+    assert len(sensori) == 1

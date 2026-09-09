@@ -377,7 +377,23 @@ CASI: list[tuple[str, str, list[tuple[str, dict]]]] = [
         ],
     ),
     # ── Sensori ─────────────────────────────────────────────────────────────
-    ("SS_Sensor_Humidity", "Sensori", [("umidita", {"SFE_State_Humidity": "55"})]),
+    (
+        "SS_Sensor_Humidity",
+        "Sensori",
+        [
+            # Firmware che pubblica la sola lettura: e' cosi' in tutte e 13 le
+            # umidita' dei database reali.
+            (
+                "umidita",
+                {"SFE_State_Humidity": "55", "SFE_State_HumiditySetpoint": None},
+            ),
+            # Firmware che espone anche la soglia configurata (issue #95).
+            (
+                "umidita_con_soglia",
+                {"SFE_State_Humidity": "48", "SFE_State_HumiditySetpoint": "50.0"},
+            ),
+        ],
+    ),
     ("SS_Sensor_InterfaceContact", "Sensori", [("contatto_sensore", {})]),
     ("SS_Sensor_AirQualityGradient", "Sensori", [("gradiente_qualita_aria", {})]),
     ("SS_Sensor_WeatherStation", "Sensori", [("stazione_meteo", {})]),
