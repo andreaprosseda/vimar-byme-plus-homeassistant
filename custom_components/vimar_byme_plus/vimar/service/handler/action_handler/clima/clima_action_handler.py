@@ -48,10 +48,24 @@ class ClimaActionHandler(BaseActionHandler):
         return [self._action(id, HVAC_MODE, preset_mode.vimar_value)]
 
     def set_temperature(self, component: VimarClimate, temp: str) -> list[VimarAction]:
-        result = self._set_previous_hvac_mode_on(component)
-        result.extend(self._get_timed_manual_if_needed(component))
-        result.append(self._action(component.id, SETPOINT, temp))
+        result = self._get_hvac_mode(component)
+        result.append(self._action(component.id, SETPOINT, self._format_setpoint(temp)))
         return result
+
+    def _get_hvac_mode(self, component: VimarClimate) -> list[VimarAction]:
+        """AUTO doesn't support setpoint. Like Vimar VIEW, mode TIMED_MANUAL is needed before setting the temperature"""
+        if component.on_behaviour == PresetMode.AUTO:
+            timed_manual = PresetMode.TIMED_MANUAL.vimar_value
+            return self.set_preset_mode(component.id, timed_manual)
+        return self._set_previous_hvac_mode_on(component)
+
+    @staticmethod
+    def _format_setpoint(temp) -> str:
+        """Avoiding IP_CONNECTOR_ERR_ELEMENT_VALUE for values like 25.000000001"""
+        try:
+            return f"{float(temp):.1f}"
+        except (TypeError, ValueError):
+            return str(temp)
 
     def set_fan_level(self, id: str, fan_mode: str) -> list[VimarAction]:
         change_mode = self._get_fan_mode(id, fan_mode)
@@ -94,10 +108,3 @@ class ClimaActionHandler(BaseActionHandler):
         if fan_mode == FanMode.FAN_HIGH.ha_value:
             return self._action(id, FAN, FanMode.FAN_HIGH.vimar_value)
         return None
-
-    def _get_timed_manual_if_needed(self, component: VimarClimate) -> list[VimarAction]:
-        if component.on_behaviour == PresetMode.AUTO:
-            return self.set_preset_mode(
-                component.id, PresetMode.TIMED_MANUAL.vimar_value
-            )
-        return []

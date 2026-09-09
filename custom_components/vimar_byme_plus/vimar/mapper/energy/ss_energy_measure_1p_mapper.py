@@ -56,6 +56,8 @@ class SsEnergyMeasure1pMapper(BaseMapper):
             unit_of_measurement=SensorMeasurementUnit.KILO_WATT_HOUR,
             state_class=SensorStateClass.TOTAL_INCREASING,
             options=None,
+            # native_value here is the POWER reading: the entity integrates it.
+            integrate_power=True,
         )
 
     def real_time_button(self, component: UserComponent, *args) -> VimarButton:

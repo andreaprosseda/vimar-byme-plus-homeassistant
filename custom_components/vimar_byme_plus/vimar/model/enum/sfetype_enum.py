@@ -142,3 +142,10 @@ class SfeType(Enum):
     STATE_EXECUTED = "SFE_State_Executed"
 
     STATE_PARTIAL_COUNTER = "SFE_State_PartialCounter"
+    # Newer gateways describe what a pulse counter is actually metering.
+    # Not in the published spec yet (it documents SS_Energy_MeasureCounter with
+    # PartialCounter alone) but present on real installations: a water meter
+    # reports MeasureType='WaterCold', UnitOfMeasure='L'.
+    STATE_MEASURE_TYPE = "SFE_State_MeasureType"
+    STATE_UNIT_OF_MEASURE = "SFE_State_UnitOfMeasure"
+    STATE_MEASURE_COUNTER = "SFE_State_MeasureCounter"
